@@ -1,0 +1,30 @@
+{
+  "status": "draft",
+  "description": "Seed inicial de proyectos de Raíces Desarrollos",
+  "projects": [
+    {
+      "id": "ceibo-vidal-001",
+      "slug": "ceibo-vidal",
+      "name": "Ceibo Vidal",
+      "status": "design",
+      "location": {
+        "neighborhood": "Placeholder — completar con barrio real",
+        "city": "Buenos Aires",
+        "province": "CABA"
+      },
+      "program": {
+        "floors": 5,
+        "floorsDescription": "PB + 4 pisos + terraza",
+        "units": null,
+        "balconiesPerFloor": 1,
+        "rooftopUnit": true
+      },
+      "keyDecisions": [
+        "Garage integrado en planta baja contra medianera",
+        "PB + 4 pisos + terraza exclusiva",
+        "4 niveles de balcones visibles al frente"
+      ],
+      "createdAt": "2026-06-27T00:00:00.000Z"
+    }
+  ]
+}

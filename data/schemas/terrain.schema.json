@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Terrain",
+  "description": "Representa un terreno en el pipeline de evaluación de Raíces Desarrollos.",
+  "type": "object",
+  "required": ["id", "address", "status", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID único del terreno"
+    },
+    "address": {
+      "type": "string",
+      "description": "Dirección completa del terreno"
+    },
+    "neighborhood": {
+      "type": "string",
+      "description": "Barrio"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pipeline", "evaluated", "offer-made", "under-contract", "acquired", "rejected"],
+      "description": "Estado en el pipeline"
+    },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "totalM2": { "type": "number" },
+        "frontM": { "type": "number" },
+        "depthM": { "type": "number" }
+      }
+    },
+    "zoning": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "description": "Código de zonificación (ej: R2b)" },
+        "fot": { "type": "number", "description": "Factor de Ocupación Total" },
+        "fos": { "type": "number", "description": "Factor de Ocupación del Suelo" },
+        "maxHeightM": { "type": "number" }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "askingPriceUsd": { "type": "number" },
+        "pricePerM2Usd": { "type": "number" },
+        "negotiatedPriceUsd": { "type": "number" }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 100 },
+        "recommendation": {
+          "type": "string",
+          "enum": ["advance", "hold", "reject"]
+        },
+        "evaluationDate": { "type": "string", "format": "date" },
+        "notes": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "string",
+      "description": "Cómo llegó el lead (ej: inmobiliaria, contacto directo, portal)"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

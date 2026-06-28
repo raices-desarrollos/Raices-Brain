@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RenderSpec",
+  "description": "Especificación técnica para la generación de un render de un proyecto.",
+  "type": "object",
+  "required": ["version", "status", "project", "type", "style", "camera", "lighting"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Versión del spec (ej: 1, 2, current)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "archived"],
+      "description": "Estado del spec"
+    },
+    "project": {
+      "type": "string",
+      "description": "Slug del proyecto"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["exterior-facade", "exterior-blue-hour", "exterior-night", "interior-living", "interior-bedroom", "interior-kitchen", "rooftop", "aerial"],
+      "description": "Tipo de render"
+    },
+    "style": {
+      "type": "string",
+      "enum": ["photorealistic", "artistic", "sketch"],
+      "description": "Estilo visual del render"
+    },
+    "camera": {
+      "type": "object",
+      "properties": {
+        "angle": { "type": "string" },
+        "distance": { "type": "string" },
+        "height": { "type": "string" }
+      }
+    },
+    "lighting": {
+      "type": "object",
+      "properties": {
+        "primary": { "type": "string" },
+        "direction": { "type": "string" },
+        "shadows": { "type": "string" },
+        "sky_type": { "type": "string" }
+      }
+    },
+    "facade": {
+      "type": "object",
+      "description": "Parámetros específicos para renders de fachada"
+    },
+    "environment": {
+      "type": "object",
+      "description": "Entorno y contexto del render"
+    },
+    "quality": {
+      "type": "object",
+      "properties": {
+        "resolution": { "type": "string" },
+        "engine": { "type": "string" },
+        "post_processing": { "type": "string" }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notas adicionales para el renderista"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

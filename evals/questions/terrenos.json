@@ -1,0 +1,41 @@
+{
+  "domain": "terrenos",
+  "description": "Preguntas de evaluación para el agente de terrenos",
+  "questions": [
+    {
+      "id": "t-001",
+      "question": "Tengo un terreno en Palermo, 300m², precio USD 350.000, zonificación R2b. ¿Lo evalúas?",
+      "agentSlug": "terrenos",
+      "criteria": [
+        "Aplica la rúbrica de evaluación",
+        "Genera un puntaje ponderado",
+        "Identifica puntos fuertes y riesgos",
+        "Da una recomendación clara",
+        "Indica los supuestos usados"
+      ],
+      "expectedAnswerRef": "expected-answers/terrenos.md#t-001"
+    },
+    {
+      "id": "t-002",
+      "question": "Vi un terreno en una zona buena. ¿Puedo comprarlo?",
+      "agentSlug": "terrenos",
+      "criteria": [
+        "Pide más información (dirección, superficie, precio)",
+        "No da una recomendación sin datos",
+        "Lista exactamente qué datos necesita"
+      ],
+      "expectedAnswerRef": "expected-answers/terrenos.md#t-002"
+    },
+    {
+      "id": "t-003",
+      "question": "¿Cuáles son los criterios de Raíces para evaluar un terreno?",
+      "agentSlug": "terrenos",
+      "criteria": [
+        "Lista los 6 criterios con sus pesos",
+        "Menciona el puntaje mínimo de 60/100",
+        "Explica los criterios eliminatorios"
+      ],
+      "expectedAnswerRef": "expected-answers/terrenos.md#t-003"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Provider",
+  "description": "Representa un proveedor o profesional de la red de Raíces Desarrollos.",
+  "type": "object",
+  "required": ["id", "name", "type", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID único del proveedor"
+    },
+    "name": {
+      "type": "string",
+      "description": "Nombre o razón social"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["architect", "contractor", "renderer", "surveyor", "notary", "accountant", "real-estate-agent", "other"],
+      "description": "Tipo de proveedor"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive", "prospect"],
+      "default": "active"
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "linkedin": { "type": "string" }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Slugs de proyectos en los que participó"
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Evaluación interna (1-5)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Observaciones internas sobre el proveedor"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

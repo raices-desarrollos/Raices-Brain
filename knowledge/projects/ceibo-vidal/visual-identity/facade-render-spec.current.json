@@ -1,0 +1,41 @@
+{
+  "version": "current",
+  "status": "active",
+  "project": "ceibo-vidal",
+  "description": "Versión activa del spec de render de fachada. Actualizar con cada cambio aprobado.",
+  "style": "photorealistic",
+  "time_of_day": "golden_hour",
+  "camera": {
+    "angle": "street_level",
+    "distance": "medium_wide",
+    "height": "eye_level_1m60"
+  },
+  "lighting": {
+    "primary": "warm_golden_sunlight",
+    "direction": "45_degrees_front_side",
+    "shadows": "soft_naturalistic",
+    "sky_type": "clear_blue_partial_clouds"
+  },
+  "facade": {
+    "balconies_visible": 4,
+    "balcony_style": "placeholder",
+    "railing_material": "placeholder",
+    "main_material": "placeholder",
+    "ground_floor_treatment": "glazed_hall_with_vegetation",
+    "garage": "integrated_side_against_party_wall"
+  },
+  "environment": {
+    "street": true,
+    "sidewalk": true,
+    "vegetation": "mature_trees_natural_jardineras",
+    "pedestrians": "2_to_3_at_human_scale",
+    "parked_cars": false,
+    "sky": "clear_blue_warm_clouds"
+  },
+  "quality": {
+    "resolution": "4K",
+    "engine": "placeholder",
+    "post_processing": "light_color_grade_warm"
+  },
+  "notes": "Spec activo. Actualizar cuando se definan materiales reales con el arquitecto."
+}

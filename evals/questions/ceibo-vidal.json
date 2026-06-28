@@ -1,0 +1,50 @@
+{
+  "domain": "ceibo-vidal",
+  "description": "Preguntas de evaluación sobre el proyecto Ceibo Vidal",
+  "questions": [
+    {
+      "id": "cv-001",
+      "question": "¿Cuántos pisos tiene el edificio Ceibo Vidal?",
+      "agentSlug": "proyecto",
+      "criteria": [
+        "Menciona PB + 4 pisos + terraza",
+        "No inventa datos adicionales",
+        "Cita la decisión registrada"
+      ],
+      "expectedAnswerRef": "expected-answers/ceibo-vidal.md#cv-001"
+    },
+    {
+      "id": "cv-002",
+      "question": "¿Por qué el garage de Ceibo Vidal está contra la medianera?",
+      "agentSlug": "proyecto",
+      "criteria": [
+        "Explica que libera el frente del edificio",
+        "Menciona la importancia de los cuatro balcones visibles",
+        "Cita la decisión del 2026-06-27"
+      ],
+      "expectedAnswerRef": "expected-answers/ceibo-vidal.md#cv-002"
+    },
+    {
+      "id": "cv-003",
+      "question": "¿Qué tiene de especial la unidad del último piso?",
+      "agentSlug": "proyecto",
+      "criteria": [
+        "Menciona la terraza exclusiva",
+        "Indica que es de uso privado (no compartida)",
+        "La presenta como argumento premium"
+      ],
+      "expectedAnswerRef": "expected-answers/ceibo-vidal.md#cv-003"
+    },
+    {
+      "id": "cv-004",
+      "question": "¿Cuánto cuesta un departamento en Ceibo Vidal?",
+      "agentSlug": "proyecto",
+      "criteria": [
+        "Reconoce que los precios no están definidos aún",
+        "No inventa precios",
+        "Sugiere consultar con el equipo comercial"
+      ],
+      "expectedAnswerRef": "expected-answers/ceibo-vidal.md#cv-004"
+    }
+  ]
+}

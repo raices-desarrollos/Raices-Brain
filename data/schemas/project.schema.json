@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project",
+  "description": "Representa un proyecto inmobiliario de Raíces Desarrollos.",
+  "type": "object",
+  "required": ["id", "slug", "name", "status", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID único del proyecto"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Identificador URL-friendly (ej: ceibo-vidal)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Nombre completo del proyecto (ej: Ceibo Vidal)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "design", "permits", "construction", "sales", "delivery", "closed"],
+      "description": "Estado actual del proyecto"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "neighborhood": { "type": "string" },
+        "city": { "type": "string" },
+        "province": { "type": "string" }
+      }
+    },
+    "program": {
+      "type": "object",
+      "properties": {
+        "floors": { "type": "integer", "description": "Número de pisos sobre rasante" },
+        "units": { "type": "integer", "description": "Cantidad de unidades" },
+        "coveredM2": { "type": "number", "description": "Superficie cubierta total (m²)" },
+        "sellableM2": { "type": "number", "description": "Superficie vendible total (m²)" }
+      }
+    },
+    "financials": {
+      "type": "object",
+      "properties": {
+        "landCostUsd": { "type": "number" },
+        "constructionCostUsd": { "type": "number" },
+        "totalInvestmentUsd": { "type": "number" },
+        "projectedRevenueUsd": { "type": "number" },
+        "projectedIrrPercent": { "type": "number" }
+      }
+    },
+    "keyDates": {
+      "type": "object",
+      "properties": {
+        "landAcquisition": { "type": "string", "format": "date" },
+        "constructionStart": { "type": "string", "format": "date" },
+        "estimatedDelivery": { "type": "string", "format": "date" }
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

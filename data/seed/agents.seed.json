@@ -1,0 +1,77 @@
+{
+  "status": "draft",
+  "description": "Seed inicial de agentes de Raíces Brain",
+  "agents": [
+    {
+      "id": "agent-general",
+      "slug": "general",
+      "name": "Agente General",
+      "description": "Consultas generales sobre Raíces Desarrollos",
+      "systemPromptPath": "agents/general/system-prompt.md",
+      "knowledgeSources": [
+        "knowledge/company/identity/",
+        "knowledge/company/strategy/",
+        "docs/"
+      ],
+      "active": true
+    },
+    {
+      "id": "agent-terrenos",
+      "slug": "terrenos",
+      "name": "Agente Terrenos",
+      "description": "Evaluación y análisis de terrenos candidatos",
+      "systemPromptPath": "agents/terrenos/system-prompt.md",
+      "knowledgeSources": [
+        "knowledge/terrains/",
+        "agents/terrenos/"
+      ],
+      "active": true
+    },
+    {
+      "id": "agent-proyecto",
+      "slug": "proyecto",
+      "name": "Agente Proyecto",
+      "description": "Gestión y consultas sobre proyectos activos",
+      "systemPromptPath": "agents/proyecto/system-prompt.md",
+      "knowledgeSources": [
+        "knowledge/projects/"
+      ],
+      "active": true
+    },
+    {
+      "id": "agent-finanzas",
+      "slug": "finanzas",
+      "name": "Agente Finanzas",
+      "description": "Análisis financiero de proyectos",
+      "systemPromptPath": "agents/finanzas/system-prompt.md",
+      "knowledgeSources": [
+        "knowledge/projects/*/financials/",
+        "knowledge/company/strategy/investment-thesis.md"
+      ],
+      "active": true
+    },
+    {
+      "id": "agent-comercial",
+      "slug": "comercial",
+      "name": "Agente Comercial",
+      "description": "Copywriting y materiales comerciales",
+      "systemPromptPath": "agents/comercial/system-prompt.md",
+      "knowledgeSources": [
+        "knowledge/company/identity/",
+        "knowledge/projects/*/commercial/"
+      ],
+      "active": true
+    },
+    {
+      "id": "agent-legal",
+      "slug": "legal",
+      "name": "Agente Legal",
+      "description": "Resúmenes y alertas legales",
+      "systemPromptPath": "agents/legal/system-prompt.md",
+      "knowledgeSources": [
+        "knowledge/projects/*/legal/"
+      ],
+      "active": true
+    }
+  ]
+}

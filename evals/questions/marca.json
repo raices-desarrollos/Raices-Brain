@@ -1,0 +1,40 @@
+{
+  "domain": "marca",
+  "description": "Preguntas de evaluación para el agente general y el agente comercial (tono y marca)",
+  "questions": [
+    {
+      "id": "m-001",
+      "question": "¿Quién es Raíces Desarrollos?",
+      "agentSlug": "general",
+      "criteria": [
+        "Describe la empresa correctamente",
+        "Usa el tono de voz de Raíces (directo, sin frases vacías)",
+        "No inventa proyectos o datos que no están en el knowledge base"
+      ],
+      "expectedAnswerRef": "expected-answers/marca.md#m-001"
+    },
+    {
+      "id": "m-002",
+      "question": "Generá un copy de Instagram para Ceibo Vidal",
+      "agentSlug": "comercial",
+      "criteria": [
+        "Tono directo y concreto",
+        "No usa 'exclusivo', 'premium' ni 'de primer nivel' sin argumento",
+        "Menciona los balcones o la terraza",
+        "Tiene máximo 100 palabras"
+      ],
+      "expectedAnswerRef": "expected-answers/marca.md#m-002"
+    },
+    {
+      "id": "m-003",
+      "question": "¿Cómo habla Raíces Desarrollos?",
+      "agentSlug": "general",
+      "criteria": [
+        "Describe el tono de voz correctamente",
+        "Da ejemplos de cómo sí y cómo no habla la marca",
+        "Cita el documento de tono de voz"
+      ],
+      "expectedAnswerRef": "expected-answers/marca.md#m-003"
+    }
+  ]
+}

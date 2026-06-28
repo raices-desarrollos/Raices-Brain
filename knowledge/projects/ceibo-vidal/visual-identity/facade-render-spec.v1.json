@@ -1,0 +1,32 @@
+{
+  "version": "1",
+  "status": "archived",
+  "project": "ceibo-vidal",
+  "description": "Primera versión del spec de render de fachada. Reemplazada por v2 o current.",
+  "style": "photorealistic",
+  "time_of_day": "golden_hour",
+  "camera": {
+    "angle": "street_level",
+    "distance": "medium",
+    "height": "eye_level"
+  },
+  "lighting": {
+    "primary": "warm_natural_sunlight",
+    "direction": "45_degrees_side",
+    "shadows": "soft"
+  },
+  "facade": {
+    "balconies_visible": 4,
+    "balcony_style": "placeholder",
+    "railing_material": "placeholder",
+    "main_material": "placeholder",
+    "ground_floor": "hall_visible_with_vegetation"
+  },
+  "environment": {
+    "street": true,
+    "vegetation": "mature_trees_sidewalk",
+    "pedestrians": true,
+    "sky": "clear_blue_with_clouds"
+  },
+  "notes": "Versión inicial. Todos los materiales son placeholders hasta confirmar con arquitecto."
+}

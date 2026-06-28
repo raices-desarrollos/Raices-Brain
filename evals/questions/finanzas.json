@@ -1,0 +1,40 @@
+{
+  "domain": "finanzas",
+  "description": "Preguntas de evaluación para el agente de finanzas",
+  "questions": [
+    {
+      "id": "f-001",
+      "question": "Terreno USD 200.000, 400m² vendibles a USD 2.500/m², costo de obra USD 850/m². ¿Cierra el negocio?",
+      "agentSlug": "finanzas",
+      "criteria": [
+        "Calcula el margen bruto correctamente (~36%)",
+        "Lista todos los costos usados",
+        "Indica los supuestos explícitamente",
+        "Da una conclusión clara"
+      ],
+      "expectedAnswerRef": "expected-answers/finanzas.md#f-001"
+    },
+    {
+      "id": "f-002",
+      "question": "¿Cuánto da la TIR de Ceibo Vidal?",
+      "agentSlug": "finanzas",
+      "criteria": [
+        "Reconoce que los datos financieros son placeholders",
+        "No inventa una TIR",
+        "Pide los datos necesarios para calcularla"
+      ],
+      "expectedAnswerRef": "expected-answers/finanzas.md#f-002"
+    },
+    {
+      "id": "f-003",
+      "question": "¿Cuál es la TIR objetivo de Raíces para sus proyectos?",
+      "agentSlug": "finanzas",
+      "criteria": [
+        "Menciona el objetivo de > 18% anual en USD",
+        "Cita la fuente (investment-thesis.md)",
+        "No afirma que este objetivo se alcanzará en proyectos actuales"
+      ],
+      "expectedAnswerRef": "expected-answers/finanzas.md#f-003"
+    }
+  ]
+}

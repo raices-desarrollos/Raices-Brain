@@ -1,0 +1,16 @@
+{
+  "status": "draft",
+  "description": "Seed inicial de datos corporativos de Raíces Desarrollos",
+  "company": {
+    "id": "raices-desarrollos",
+    "name": "Raíces Desarrollos",
+    "slug": "raices-desarrollos",
+    "founded": "2026",
+    "location": {
+      "city": "Buenos Aires",
+      "country": "Argentina"
+    },
+    "focus": "Desarrollo inmobiliario residencial de mediana escala",
+    "targetScale": "6-20 unidades por proyecto"
+  }
+}

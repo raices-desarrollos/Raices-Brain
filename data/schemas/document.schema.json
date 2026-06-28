@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Document",
+  "description": "Representa un documento indexado en el sistema RAG de Raíces Brain.",
+  "type": "object",
+  "required": ["id", "title", "content", "source", "project", "category", "createdAt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID único del documento"
+    },
+    "title": {
+      "type": "string",
+      "description": "Título del documento"
+    },
+    "content": {
+      "type": "string",
+      "description": "Contenido en texto plano del documento"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["github", "google-drive", "manual-upload"],
+      "description": "Origen del documento"
+    },
+    "sourceUrl": {
+      "type": "string",
+      "description": "URL o path original del documento"
+    },
+    "project": {
+      "type": "string",
+      "description": "Slug del proyecto al que pertenece (ej: ceibo-vidal) o 'company' para documentos corporativos"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["identity", "strategy", "operations", "legal", "finance", "commercial", "architecture", "renders", "decisions", "providers", "terrains"],
+      "description": "Categoría del documento"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags para búsqueda y filtrado"
+    },
+    "isConfidential": {
+      "type": "boolean",
+      "default": false,
+      "description": "Si true, requiere autorización especial para acceder"
+    },
+    "embedding": {
+      "type": "array",
+      "items": { "type": "number" },
+      "description": "Vector de embedding (se almacena en la base vectorial, no en este JSON)"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

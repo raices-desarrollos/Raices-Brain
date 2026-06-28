@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Decision",
+  "description": "Representa una decisión registrada en el log de decisiones de un proyecto.",
+  "type": "object",
+  "required": ["id", "title", "decision", "project", "area", "date", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "UUID único de la decisión"
+    },
+    "title": {
+      "type": "string",
+      "description": "Título corto de la decisión"
+    },
+    "decision": {
+      "type": "string",
+      "description": "La decisión en una oración clara"
+    },
+    "project": {
+      "type": "string",
+      "description": "Slug del proyecto (ej: ceibo-vidal) o 'company'"
+    },
+    "area": {
+      "type": "string",
+      "enum": ["architecture", "finance", "legal", "commercial", "operations", "technology"],
+      "description": "Área de la empresa a la que pertenece la decisión"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha en que se tomó la decisión"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["approved", "under-review", "reversed"],
+      "description": "Estado actual de la decisión"
+    },
+    "context": {
+      "type": "string",
+      "description": "Contexto y razón que originó la decisión"
+    },
+    "alternatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "option": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      },
+      "description": "Alternativas consideradas y por qué se descartaron"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Justificación principal de la decisión tomada"
+    },
+    "impact": {
+      "type": "string",
+      "description": "Impacto de la decisión en el proyecto"
+    },
+    "madeBy": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Nombres o roles de quienes tomaron la decisión"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sourceFile": {
+      "type": "string",
+      "description": "Path al archivo Markdown original de la decisión"
+    }
+  }
+}
