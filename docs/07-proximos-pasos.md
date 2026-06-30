@@ -1,7 +1,7 @@
 # Próximos pasos — Raíces Brain
 
 Estado al: 2026-06-30
-Etapa actual: app web funcional, chat con OpenAI activo, knowledge base en archivos. Sin base de datos ni RAG implementados.
+Etapa actual: app web funcional, chat con OpenAI activo. **Sin base de datos por decisión del equipo.** La fuente de verdad es Google Drive.
 
 ---
 
@@ -12,7 +12,121 @@ Etapa actual: app web funcional, chat con OpenAI activo, knowledge base en archi
 - [x] Páginas: Dashboard, Brain (chat), Decisiones, Terrenos, Admin
 - [x] Chat funcional con GPT-4o-mini (OpenAI API key configurada)
 - [x] Decisiones de Ceibo Vidal cargadas y visibles en `/decisiones`
-- [x] Diseño con paleta de Raíces (ink, lino, liquen, musgo, ceibo)
+- [x] Script `sync-drive.ts` implementado (descarga Drive → `knowledge/sync-drive/`)
+- [x] Script `get-google-token.ts` implementado (autorización OAuth)
+- [x] Librería `googleapis` instalada
+
+---
+
+## 1. Conectar Google Drive ← **hacer ahora**
+
+Los archivos de Drive (escrituras, presupuestos, excels, briefs) se descargan a `knowledge/sync-drive/` y el Brain los lee desde ahí.
+
+**Qué hacer:**
+
+- [ ] Crear proyecto en [console.cloud.google.com](https://console.cloud.google.com), habilitar Google Drive API
+- [ ] Crear credenciales OAuth 2.0 (tipo "Aplicación de escritorio")
+- [ ] Agregar a `.env.local`:
+  ```env
+  GOOGLE_CLIENT_ID=...
+  GOOGLE_CLIENT_SECRET=...
+  GOOGLE_DRIVE_FOLDER_ID=...   # ID de la carpeta raíz en Drive
+  ```
+- [ ] Obtener el refresh token (una sola vez):
+  ```bash
+  npx tsx scripts/get-google-token.ts
+  ```
+- [ ] Sincronizar:
+  ```bash
+  npx tsx scripts/sync-drive.ts
+  ```
+- [ ] Verificar que los archivos aparecen en `knowledge/sync-drive/`
+
+> Ver instrucciones detalladas en la **Guía de conexión** del README.
+
+---
+
+## 2. Hacer que el Brain lea los archivos de Drive
+
+Hoy el chat responde con conocimiento general de GPT. Hay que pasarle el contenido de los archivos sincronizados como contexto.
+
+**Estrategia sin base de datos:** cuando el usuario pregunta algo, el sistema busca en los archivos `.md` y `.txt` de `knowledge/` los más relevantes por palabras clave y los incluye en el prompt.
+
+**Qué hacer:**
+
+- [ ] Implementar `src/lib/ai/context.ts` — dado un query, leer archivos de `knowledge/` y filtrar los relevantes
+- [ ] Actualizar `/api/chat/route.ts` para incluir ese contexto en el mensaje al LLM
+- [ ] Probar: preguntar "¿cuál es el precio del terreno de Ceibo Vidal?" y verificar que responde con el dato real del archivo
+
+> **Nota sobre PDFs y Excel:** estos archivos se sincronizan pero el Brain no puede leerlos directamente todavía. Para incluirlos hay que agregar `pdf-parse` (PDFs) y `xlsx` (planillas). Lo hacemos en el paso 3.
+
+---
+
+## 3. Soporte para PDF y Excel de Drive
+
+Permite que el Brain responda con información de presupuestos, escrituras y planillas financieras.
+
+**Qué hacer:**
+
+- [ ] Instalar librerías:
+  ```bash
+  npm install pdf-parse xlsx
+  npm install -D @types/pdf-parse
+  ```
+- [ ] Implementar extractor de texto para PDF en `src/lib/ingestion/pdf.ts`
+- [ ] Implementar extractor para Excel en `src/lib/ingestion/excel.ts`
+- [ ] Al sincronizar Drive, extraer texto de cada PDF/XLSX y guardar un `.txt` paralelo
+- [ ] El contexto del chat incluye esos `.txt` junto con los `.md`
+
+---
+
+## 4. Flujo de trabajo para los socios
+
+**El día a día sin conocimientos técnicos:**
+
+- Subir un documento importante a Drive → correr `npx tsx scripts/sync-drive.ts` → el Brain lo ve
+- Tomar una decisión → crear un `.md` en `knowledge/projects/ceibo-vidal/decisions/` (o usar el formulario de la app cuando esté listo)
+- Evaluar un terreno → conversar con el agente `terrenos` en `/brain`
+
+**Qué hacer:**
+
+- [ ] Definir la estructura de carpetas en Drive que mapea a `knowledge/` (ej: `Ceibo Vidal/Legal/` → `knowledge/projects/ceibo-vidal/legal/`)
+- [ ] Agregar el script de sync al README con instrucciones simples para los socios
+- [ ] Considerar un cron job o un botón en la app para sincronizar sin usar la terminal
+
+---
+
+## 5. Autenticación
+
+Sin login, cualquiera con acceso a `localhost:3000` ve todo. Cuando compartan la app con los otros socios, hay que protegerla.
+
+**Qué hacer:**
+
+- [ ] Configurar NextAuth con Google OAuth (los tres socios se loguean con su cuenta de Google)
+- [ ] Solo los emails de los socios tienen acceso
+- [ ] Agregar botón de login/logout en el sidebar
+
+---
+
+## 6. Servidor MCP (Claude Desktop / Cursor)
+
+Permite consultar el Brain desde Claude Desktop sin abrir la app web.
+
+- [ ] Implementar `mcp/server.ts` (los tools ya están definidos)
+- [ ] Registrar en `~/Library/Application Support/Claude/claude_desktop_config.json`
+- [ ] Ver `mcp/README.md`
+
+---
+
+## Orden recomendado
+
+```
+1 (Drive)  →  2 (Brain lee archivos)  →  3 (PDF/Excel)
+                        ↓
+              4 (flujo de trabajo)  →  5 (auth)  →  6 (MCP)
+```
+
+La base de datos queda descartada por ahora. Si en el futuro el volumen de documentos crece mucho y la búsqueda por palabras clave no alcanza, se puede agregar pgvector sin cambiar el resto del sistema.
 
 ---
 
