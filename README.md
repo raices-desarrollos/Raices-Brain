@@ -17,43 +17,56 @@ En la práctica significa que cualquier pregunta relevante para el negocio —"�
 
 ## Cómo usarlo
 
-### 1. Consultar el conocimiento (vía chat)
+### Chat con el Brain
 
-Corré la app y usá la interfaz `/brain` para hacerle preguntas al sistema:
+Abrí [http://localhost:3000/brain](http://localhost:3000/brain) y preguntá lo que necesitás. Podés elegir el agente según el tema:
 
-```bash
-cp .env.example .env.local   # configurar claves de OpenAI, DB, etc.
-npm install
-npm run dev
-# → abrir http://localhost:3000/brain
-```
+| Agente      | Para qué sirve                                        |
+| ----------- | ----------------------------------------------------- |
+| `General`   | Preguntas generales sobre la empresa                  |
+| `Terrenos`  | Evaluación de terrenos y análisis del pipeline        |
+| `Proyecto`  | Estado, decisiones y avance de proyectos activos      |
+| `Finanzas`  | Costos, proyecciones y estructura financiera          |
+| `Comercial` | Copy de venta, posicionamiento y estrategia comercial |
+| `Legal`     | Contratos, normativa y procesos notariales            |
 
-### 2. Usar un agente especializado
+### Agregar conocimiento nuevo
 
-Cada agente tiene su carpeta en `agents/` con instrucciones y ejemplos. Podés invocarlos desde la UI o directamente vía API:
-
-```bash
-POST /api/agents
-{ "agent": "terrenos", "query": "Evaluá este terreno en Palermo..." }
-```
-
-Agentes disponibles: `general`, `terrenos`, `proyecto`, `finanzas`, `comercial`, `legal`.
-
-### 3. Agregar conocimiento nuevo
-
-**Opción A — Editar directamente:** Agregá o modificá archivos en `knowledge/`. La estructura es autoexplicativa.
+**Opción A — Editar directamente:** Agregá o modificá archivos en `knowledge/`. Cada carpeta tiene un `README.md` que explica la estructura.
 
 **Opción B — Ingesta desde fuentes externas:**
 
 ```bash
-npx tsx scripts/sync-github.ts      # sincronizar desde GitHub
-npx tsx scripts/sync-drive.ts       # sincronizar desde Google Drive
-npx tsx scripts/ingest-folder.ts    # ingestar una carpeta local
+npx tsx scripts/sync-github.ts       # sincronizar desde GitHub
+npx tsx scripts/sync-drive.ts        # sincronizar desde Google Drive
+npx tsx scripts/ingest-folder.ts     # ingestar una carpeta local
 ```
 
 **Opción C — Upload manual:** Usá el panel `/admin/sources` en la app.
 
-### 4. Verificar salud de la base de conocimiento
+### Registrar una decisión
+
+Creá un archivo `.md` en `knowledge/projects/[proyecto]/decisions/` con el formato:
+
+```
+# Decisión: [título]
+
+**Fecha:** YYYY-MM-DD
+**Proyecto:** [nombre]
+**Área:** [arquitectura / finanzas / comercial / legal]
+**Estado:** Aprobada y vigente
+
+## La decisión
+[Una o dos oraciones que resuman la decisión tomada.]
+
+## Contexto
+[Por qué se debatió y qué alternativas se consideraron.]
+
+## Razón de la decisión
+[Por qué se eligió esta opción.]
+```
+
+### Verificar salud del knowledge base
 
 ```bash
 npx tsx scripts/check-knowledge-health.ts
@@ -61,9 +74,193 @@ npx tsx scripts/check-knowledge-health.ts
 
 Reporta archivos vacíos, placeholders sin completar y documentos faltantes.
 
-### 5. Conectar con un LLM externo (MCP)
+---
 
-El servidor MCP en `mcp/server.ts` expone tools para que Claude, Cursor u otros LLMs consulten la base de conocimiento directamente. Ver `mcp/README.md` para instrucciones de configuración.
+## Instalación
+
+Instrucciones para clonar y poner en marcha el proyecto desde cero en una máquina nueva.
+
+### Requisitos previos
+
+| Herramienta | Versión mínima | Cómo verificar   |
+| ----------- | -------------- | ---------------- |
+| Node.js     | 18+            | `node --version` |
+| npm         | 9+             | `npm --version`  |
+| Git         | cualquiera     | `git --version`  |
+| PostgreSQL  | 14+            | `psql --version` |
+
+> **Recomendado:** [VS Code](https://code.visualstudio.com/) con las extensiones de GitHub Copilot.
+
+---
+
+### Paso 1 — Clonar el repositorio
+
+```bash
+git clone https://github.com/raices-desarrollos/raices-brain.git
+cd raices-brain
+```
+
+> Si el repositorio es privado y no tenés acceso, pedíselo a Darío.
+
+---
+
+### Paso 2 — Instalar dependencias
+
+```bash
+npm install
+```
+
+Instala Next.js, Drizzle ORM, OpenAI SDK, el SDK de MCP y todas las dependencias de TypeScript.
+
+---
+
+### Paso 3 — Configurar variables de entorno
+
+```bash
+cp .env.example .env.local
+```
+
+Abrí `.env.local` y completá los valores. Las credenciales reales (API keys, tokens) **nunca están en el repo** — pedíselas a Darío.
+
+```env
+# ─── Mínimo para arrancar ─────────────────────────────────────────────────────
+OPENAI_API_KEY=sk-...
+DATABASE_URL=postgresql://user:password@localhost:5432/raices_brain
+NEXTAUTH_SECRET=          # generá uno con: openssl rand -base64 32
+NEXTAUTH_URL=http://localhost:3000
+```
+
+La app levanta sin `OPENAI_API_KEY`, pero el chat no va a funcionar hasta que la configures.
+
+---
+
+### Paso 4 — Crear la base de datos
+
+```bash
+# Crear la base de datos
+psql -U postgres -c "CREATE DATABASE raices_brain;"
+
+# Habilitar pgvector (búsqueda semántica)
+psql -U postgres -d raices_brain -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+# Cargar datos iniciales
+npx tsx scripts/seed-db.ts
+```
+
+> Si `pgvector` no está instalado: `brew install pgvector` (macOS) o ver las [instrucciones oficiales](https://github.com/pgvector/pgvector).
+
+---
+
+### Paso 5 — Levantar la app
+
+```bash
+npm run dev
+```
+
+Abrí [http://localhost:3000](http://localhost:3000). Vas a ver el dashboard de Raíces Brain.
+
+---
+
+### Problemas frecuentes
+
+| Error                         | Causa probable                         | Solución                                 |
+| ----------------------------- | -------------------------------------- | ---------------------------------------- |
+| `ECONNREFUSED` al arrancar    | PostgreSQL no está corriendo           | `brew services start postgresql` (macOS) |
+| `relation "X" does not exist` | Migraciones no aplicadas               | `npx tsx scripts/seed-db.ts`             |
+| `Invalid API Key` de OpenAI   | Falta `OPENAI_API_KEY` en `.env.local` | Completar con la clave real              |
+| Puerto 3000 en uso            | Otro proceso ocupa el puerto           | `npm run dev -- -p 3001`                 |
+
+---
+
+## Guía de conexión
+
+Instrucciones para conectar Raíces Brain con servicios externos.
+
+### OpenAI (chat y embeddings)
+
+1. Ingresá a [platform.openai.com](https://platform.openai.com) y creá una API key.
+2. Pegá la clave en `.env.local`:
+   ```env
+   OPENAI_API_KEY=sk-proj-...
+   OPENAI_MODEL=gpt-4o
+   OPENAI_EMBEDDING_MODEL=text-embedding-3-large
+   ```
+3. Reiniciá el servidor (`npm run dev`). El chat en `/brain` queda habilitado.
+
+---
+
+### Google Drive (ingesta de documentos)
+
+Permite sincronizar automáticamente documentos de una carpeta de Drive al knowledge base.
+
+1. Creá un proyecto en [Google Cloud Console](https://console.cloud.google.com).
+2. Habilitá la **Google Drive API**.
+3. Creá credenciales OAuth 2.0 de tipo "Aplicación de escritorio".
+4. Descargá el archivo `credentials.json` y guardalo en la raíz del repo (está en `.gitignore`).
+5. Obtenés el refresh token corriendo:
+   ```bash
+   npx tsx scripts/get-google-token.ts
+   ```
+   Esto abre el navegador, autorizás la app con tu cuenta de Google y el script guarda el token.
+6. Completá en `.env.local`:
+   ```env
+   GOOGLE_CLIENT_ID=...
+   GOOGLE_CLIENT_SECRET=...
+   GOOGLE_REFRESH_TOKEN=...
+   GOOGLE_DRIVE_FOLDER_ID=...   # ID de la carpeta a sincronizar (de la URL de Drive)
+   ```
+7. Para sincronizar:
+   ```bash
+   npx tsx scripts/sync-drive.ts
+   ```
+
+---
+
+### GitHub (ingesta desde repos)
+
+Permite importar documentación y archivos de conocimiento desde repositorios de GitHub.
+
+1. Creá un [Personal Access Token](https://github.com/settings/tokens) con scope `repo` (o `read:org` si el repo es de una organización).
+2. Completá en `.env.local`:
+   ```env
+   GITHUB_TOKEN=ghp_...
+   GITHUB_REPO=raices-desarrollos/raices-brain
+   ```
+3. Para sincronizar:
+   ```bash
+   npx tsx scripts/sync-github.ts
+   ```
+
+---
+
+### MCP (Claude Desktop / Cursor)
+
+El servidor MCP permite que Claude Desktop, Cursor u otros clientes de IA accedan al knowledge base directamente.
+
+1. Levantá el servidor:
+   ```bash
+   npx tsx mcp/server.ts
+   ```
+2. O configuralo permanentemente en `claude_desktop_config.json`:
+
+   ```json
+   {
+     "mcpServers": {
+       "raices-brain": {
+         "command": "npx",
+         "args": ["tsx", "/ruta/absoluta/al/repo/mcp/server.ts"]
+       }
+     }
+   }
+   ```
+
+   En macOS el archivo está en `~/Library/Application Support/Claude/claude_desktop_config.json`.
+
+3. Reiniciá Claude Desktop. El Brain aparece como herramienta disponible.
+
+Ver [mcp/README.md](mcp/README.md) para más detalles sobre los tools disponibles.
+
+---
 
 ## Estructura
 
@@ -81,23 +278,15 @@ El servidor MCP en `mcp/server.ts` expone tools para que Claude, Cursor u otros 
 | `tests/`     | Tests de RAG y agentes                                                        |
 | `evals/`     | Evaluaciones de calidad de respuestas                                         |
 
-## Stack previsto
+## Stack
 
-- **Framework:** Next.js 14+ (App Router)
+- **Framework:** Next.js 15 (App Router)
 - **IA:** OpenAI GPT-4o + embeddings text-embedding-3-large
-- **Vector DB:** pgvector / Pinecone
+- **Vector DB:** pgvector (PostgreSQL) / Pinecone
 - **DB:** PostgreSQL con Drizzle ORM
 - **MCP:** Servidor Model Context Protocol propio
 - **Ingesta:** GitHub, Google Drive, upload manual
 
-## Inicio rápido
-
-```bash
-cp .env.example .env.local
-npm install
-npm run dev
-```
-
-## Principio rector
+---
 
 > El conocimiento de Raíces debe ser tan estructurado que una IA pueda razonarlo, y tan claro que cualquier persona pueda entenderlo.
