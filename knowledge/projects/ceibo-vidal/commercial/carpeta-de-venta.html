@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;1,200;1,300&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&display=swap"
     rel="stylesheet" />
   <style>
     /* ─── DESIGN TOKENS ─── */
@@ -1507,7 +1507,6 @@
       overflow: hidden;
     }
 
-    /* ─── PRINT ─── */
     @media print {
       body {
         background: white;
@@ -1515,10 +1514,44 @@
 
       .page {
         width: 210mm;
-        min-height: 297mm;
+        height: 297mm;
+        min-height: unset !important;
         margin: 0;
         box-shadow: none;
         page-break-after: always;
+        break-after: page;
+        overflow: hidden;
+        contain: size layout;
+      }
+
+      /* Página 2: left column - fix justify-content y padding para impresión */
+      .p2-left {
+        justify-content: flex-start !important;
+        padding-top: 28px !important;
+        padding-bottom: 45px !important;
+        gap: 14px !important;
+      }
+
+      /* Compactar página 2 para que entre en 297mm */
+      .dev-body-text {
+        font-size: 12.5px !important;
+        line-height: 1.55 !important;
+        margin-top: 16px !important;
+      }
+
+      .proyecto-desc {
+        font-size: 12.5px !important;
+        line-height: 1.55 !important;
+        margin-bottom: 16px !important;
+      }
+
+      .dev-value-item {
+        padding: 10px 0 !important;
+      }
+
+      .proyecto-title {
+        font-size: 28px !important;
+        margin-bottom: 14px !important;
       }
 
       /* ─── CORRECCIÓN: sombra de ficha-card se imprime como mancha; eliminar en print ─── */
@@ -1686,7 +1719,7 @@
         </div>
         <div style="font-size:8px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
                     color:rgba(248,247,244,0.28); margin:36px 0 -4px;">Desarrollado por</div>
-        <img src="assets/raices_logo_completo.png" alt="Raíces Developers" style="height:220px; width:auto; display:block; margin:0 auto 0px;
+        <img src="assets/raices_logo_completo.png" alt="Raíces Developers" style="height:160px; width:auto; display:block; margin:0 auto 0px;
                   filter: brightness(0) invert(1) sepia(1) saturate(1.3) hue-rotate(5deg) brightness(0.88);
                   opacity:0.90;" />
         <div class="cover-codevelopers" style="justify-content:center; margin-top:-16px;">
@@ -1703,7 +1736,7 @@
       <div class="cover-meta" style="border-top:none; padding-top:18px;">
         <div class="cover-meta-item">
           <div class="lbl">Tipologías</div>
-          <div class="val" style="font-size:12px; white-space:nowrap;">Estudio · 2 amb · 3 amb</div>
+          <div class="val" style="font-size:12px; white-space:nowrap;">3 amb · 2 amb · Estudio</div>
         </div>
         <div class="cover-meta-item">
           <div class="lbl">Precios desde</div>
@@ -1740,7 +1773,7 @@
     <div style="flex:1; display:grid; grid-template-columns:1fr 1fr;">
 
       <!-- Columna izquierda: texto -->
-      <div style="padding:44px var(--margin) 80px; border-right:0.5px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; gap:28px; overflow:hidden;">
+      <div class="p2-left" style="padding:44px var(--margin) 80px; border-right:0.5px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; gap:28px; overflow:hidden;">
 
         <div>
           <div class="kicker" style="margin-bottom:16px; color:var(--tierra); font-weight:700;">La desarrolladora</div>
@@ -1837,193 +1870,176 @@
   <!-- ══════════════════════════════════════════
      PÁGINA 4 — RESUMEN DEL PROYECTO
 ══════════════════════════════════════════ -->
-  <div class="page ficha-page page--suelo">
-    <div class="page-header" style="border-bottom-color: rgba(132,96,64,0.18);">
-      <div class="logo"><img src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div>
-      <span class="project-id">Ceibo Vidal · Vidal 3849</span>
+  <div class="page ficha-page page--dark">
+    <div class="page-header page-header--dark">
+      <div class="logo" style="display:flex; align-items:center; gap:0;">
+        <img height="28" src="assets/raices_logo_icono.png" alt="Raíces" style="width:auto; margin-right:-10px; filter:brightness(0) invert(1);" />
+        <img src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" />
+      </div>
+      <span class="project-id" style="color:rgba(248,247,244,0.35);">Ceibo Vidal · Vidal 3849</span>
     </div>
-    <div class="divider"></div>
+    <div class="divider divider--light"></div>
 
     <div class="ficha-body" style="gap:20px; padding-top:34px;">
       <div>
-        <div class="kicker" style="margin-bottom:10px;">Ficha técnica</div>
-        <div class="ficha-title">Resumen<br />del proyecto</div>
-        <p class="ficha-note" style="margin-top:6px;">Superficies según planos SGA · Schraifer
-          Goldin Arquitectos. Precios en USD, en pozo.</p>
+        <div class="kicker kicker--arena" style="margin-bottom:10px;">Ficha técnica</div>
+        <div class="ficha-title" style="color:var(--blanco);">El proyecto</div>
       </div>
 
-      <div class="ficha-general">
-        <div class="ficha-general-item">
-          <div class="g-lbl">Dirección</div>
-          <div class="g-val">Vidal 3849</div>
+      
+      <div class="ficha-general" style="background:rgba(248,247,244,0.06); border-color:rgba(248,247,244,0.1);">
+        <div class="ficha-general-item" style="border-right-color:rgba(248,247,244,0.1);">
+          <div class="g-lbl" style="color:rgba(248,247,244,0.38);">Dirección</div>
+          <div class="g-val" style="color:var(--blanco);">Vidal 3849</div>
         </div>
-        <div class="ficha-general-item">
-          <div class="g-lbl">Barrio</div>
-          <div class="g-val">Saavedra, CABA</div>
+        <div class="ficha-general-item" style="border-right-color:rgba(248,247,244,0.1);">
+          <div class="g-lbl" style="color:rgba(248,247,244,0.38);">Barrio</div>
+          <div class="g-val" style="color:var(--blanco);">Saavedra, CABA</div>
         </div>
-        <div class="ficha-general-item">
-          <div class="g-lbl">Total unidades</div>
-          <div class="g-val">12 + 3 PH</div>
+        <div class="ficha-general-item" style="border-right-color:rgba(248,247,244,0.1);">
+          <div class="g-lbl" style="color:rgba(248,247,244,0.38);">Total unidades</div>
+          <div class="g-val" style="color:var(--blanco);">12</div>
         </div>
         <div class="ficha-general-item" style="border-right:none;">
-          <div class="g-lbl">Precio en pozo</div>
-          <div class="g-val" style="color:var(--musgo);">USD 2.900 / m²</div>
+          <div class="g-lbl" style="color:rgba(248,247,244,0.38);">Precio en pozo</div>
+          <div class="g-val" style="color:var(--arena);">USD 2.900 / m²</div>
         </div>
       </div>
 
       <div class="ficha-grid">
-        <div class="ficha-card">
-          <div class="fc-type">Departamento A</div>
-          <div class="fc-name">3 Ambientes</div>
+        <div class="ficha-card" style="background:rgba(248,247,244,0.06); border-color:rgba(248,247,244,0.1); box-shadow:none;">
+          <div class="fc-type" style="color:rgba(248,247,244,0.38);">Departamento A</div>
+          <div class="fc-name" style="color:var(--blanco);">3 Ambientes</div>
           <div class="fc-surfaces">
-            <span>Cubierto: <span class="val">72,53 m²</span></span>
-            <span>Balcón: <span class="val">9,95 m²</span></span>
-            <span>Total: <span class="val">82,48 m²</span></span>
-            <span style="font-size:10.5px;color:var(--niebla);margin-top:4px;">Al frente · 4
-              unidades tipo + 1 PH</span>
+            <span style="color:rgba(248,247,244,0.55);">Cubierto: <span class="val" style="color:var(--blanco);">72,53 m²</span></span>
+            <span style="color:rgba(248,247,244,0.55);">Balcón: <span class="val" style="color:var(--blanco);">9,95 m²</span></span>
+            <span style="color:rgba(248,247,244,0.55);">Total: <span class="val" style="color:var(--blanco);">82,48 m²</span></span>
+            <span style="font-size:10.5px;color:rgba(248,247,244,0.28);margin-top:4px;">Al frente · 4
+              unidades tipo</span>
           </div>
           <div>
-            <div class="fc-price">USD 243.670</div>
-            <div class="fc-price-note">desde P1 · en pozo</div>
+            <div class="fc-price" style="color:var(--arena); border-top-color:rgba(248,247,244,0.12);">USD 243.670</div>
+            <div class="fc-price-note" style="color:rgba(248,247,244,0.35);">desde P1 · en pozo</div>
           </div>
         </div>
-        <div class="ficha-card">
-          <div class="fc-type">Departamento B</div>
-          <div class="fc-name">Monoambiente</div>
+        <div class="ficha-card" style="background:rgba(248,247,244,0.06); border-color:rgba(248,247,244,0.1); box-shadow:none;">
+          <div class="fc-type" style="color:rgba(248,247,244,0.38);">Departamento B</div>
+          <div class="fc-name" style="color:var(--blanco);">Monoambiente</div>
           <div class="fc-surfaces">
-            <span>Cubierto: <span class="val">33,25 m²</span></span>
-            <span>Balcón: <span class="val">4,15 m²</span></span>
-            <span>Total: <span class="val">37,40 m²</span></span>
-            <span style="font-size:10.5px;color:var(--niebla);margin-top:4px;">Contrafrente · 4
-              unidades tipo + 1 PH</span>
+            <span style="color:rgba(248,247,244,0.55);">Cubierto: <span class="val" style="color:var(--blanco);">33,25 m²</span></span>
+            <span style="color:rgba(248,247,244,0.55);">Balcón: <span class="val" style="color:var(--blanco);">4,15 m²</span></span>
+            <span style="color:rgba(248,247,244,0.55);">Total: <span class="val" style="color:var(--blanco);">37,40 m²</span></span>
+            <span style="font-size:10.5px;color:rgba(248,247,244,0.28);margin-top:4px;">Contrafrente · 4
+              unidades tipo</span>
           </div>
           <div>
-            <div class="fc-price">USD 104.433</div>
-            <div class="fc-price-note">desde P1 · en pozo</div>
+            <div class="fc-price" style="color:var(--arena); border-top-color:rgba(248,247,244,0.12);">USD 104.433</div>
+            <div class="fc-price-note" style="color:rgba(248,247,244,0.35);">desde P1 · en pozo</div>
           </div>
         </div>
-        <div class="ficha-card">
-          <div class="fc-type">Departamento C</div>
-          <div class="fc-name">2 Ambientes</div>
+        <div class="ficha-card" style="background:rgba(248,247,244,0.06); border-color:rgba(248,247,244,0.1); box-shadow:none;">
+          <div class="fc-type" style="color:rgba(248,247,244,0.38);">Departamento C</div>
+          <div class="fc-name" style="color:var(--blanco);">2 Ambientes</div>
           <div class="fc-surfaces">
-            <span>Cubierto: <span class="val">46,54 m²</span></span>
-            <span>Balcón: <span class="val">9,29 m²</span></span>
-            <span>Total: <span class="val">55,83 m²</span></span>
-            <span style="font-size:10.5px;color:var(--niebla);margin-top:4px;">Contrafrente · 4
-              unidades tipo + 1 PH</span>
+            <span style="color:rgba(248,247,244,0.55);">Cubierto: <span class="val" style="color:var(--blanco);">46,54 m²</span></span>
+            <span style="color:rgba(248,247,244,0.55);">Balcón: <span class="val" style="color:var(--blanco);">9,29 m²</span></span>
+            <span style="color:rgba(248,247,244,0.55);">Total: <span class="val" style="color:var(--blanco);">55,83 m²</span></span>
+            <span style="font-size:10.5px;color:rgba(248,247,244,0.28);margin-top:4px;">Contrafrente · 4
+              unidades tipo</span>
           </div>
           <div>
-            <div class="fc-price">USD 155.396</div>
-            <div class="fc-price-note">desde P1 · en pozo</div>
+            <div class="fc-price" style="color:var(--arena); border-top-color:rgba(248,247,244,0.12);">USD 155.396</div>
+            <div class="fc-price-note" style="color:rgba(248,247,244,0.35);">desde P1 · en pozo</div>
           </div>
         </div>
       </div>
-
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-        <div class="kicker" style="margin-right:4px;">Espacios comunes</div>
-        <span class="tag">SUM + expansión</span>
-        <span class="tag">Ascensor</span>
-        <span class="tag">Bicicletero</span>
-        <span class="tag">Bauleras</span>
-        <span class="tag">Verde de planta baja</span>
-        <span class="tag">Terraza nivel 5</span>
-      </div>
-
-      <div style="height:0.5px; background:rgba(196,169,125,0.35);"></div>
 
       <div>
-        <div class="kicker" style="margin-bottom:12px;">Equipamiento</div>
-        <div class="equip-grid">
-          <div class="equip-item" style="padding:14px 14px;">
+        <div class="kicker kicker--arena" style="margin-bottom:12px;">Espacios comunes · Equipamiento</div>
+        <div class="equip-grid" style="border-color:rgba(248,247,244,0.1);">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05); border-right-color:rgba(248,247,244,0.1); border-bottom-color:rgba(248,247,244,0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
               <path d="M4 21V13a4 4 0 014-4h8a4 4 0 014 4v8M2 21h20" />
               <path d="M9 9V7M15 9V7M12 9V5" />
               <path d="M7 21v-3h10v3" />
             </svg>
-            <div class="equip-name">SUM con parrilla</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">SUM con parrilla y espacio exterior</div>
           </div>
-          <div class="equip-item" style="padding:14px 14px;">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05); border-right-color:rgba(248,247,244,0.1); border-bottom-color:rgba(248,247,244,0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
               <rect x="3" y="11" width="18" height="10" rx="3" />
               <path d="M7 11V8a2 2 0 014 0M13 11V8a2 2 0 014 0" />
               <path d="M5 7c1-2 3-2 4 0M10 5c1-2 3-2 4 0M15 7c1-2 3-2 4 0" />
             </svg>
-            <div class="equip-name">Terraza + jacuzzi</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">Terraza común + jacuzzi</div>
           </div>
-          <div class="equip-item" style="padding:14px 14px;">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05); border-right-color:rgba(248,247,244,0.1); border-bottom-color:rgba(248,247,244,0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
-              <path d="M5 17H3a2 2 0 01-2-2V9a2 2 0 012-2h14l4 4v4a2 2 0 01-2 2h-2" />
-              <circle cx="7" cy="17" r="2" />
-              <circle cx="17" cy="17" r="2" />
-            </svg>
-            <div class="equip-name">Cocheras</div>
-          </div>
-          <div class="equip-item" style="padding:14px 14px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
-            <div class="equip-name">Carga eléctrica</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">Carga eléctrica</div>
           </div>
-          <div class="equip-item" style="padding:14px 14px;">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05); border-right-color:rgba(248,247,244,0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
               <path d="M12 22V10" />
               <path d="M12 10c2-4 7-5 7-5s0 6-7 6" />
               <path d="M12 10c-2-4-7-5-7-5s0 6 7 6" />
               <path d="M12 16c2-3 6-4 6-4s0 5-6 5" />
               <path d="M12 16c-2-3-6-4-6-4s0 5 6 5" />
             </svg>
-            <div class="equip-name">Plantas integradas</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">Vegetación integrada</div>
           </div>
-          <div class="equip-item" style="padding:14px 14px;">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05); border-right-color:rgba(248,247,244,0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <path d="M9 12l2 2 4-4" />
             </svg>
-            <div class="equip-name">Seguridad electrónica</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">Seguridad electrónica</div>
           </div>
-          <div class="equip-item" style="padding:14px 14px;">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
-              <rect x="3" y="11" width="18" height="11" rx="2" />
-              <path d="M7 11V7a5 5 0 0110 0v4" />
-              <circle cx="12" cy="16" r="1" fill="var(--musgo)" stroke="none" />
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
-            <div class="equip-name">Cerraduras electrónicas</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">Terrazas privadas</div>
           </div>
-          <div class="equip-item" style="padding:14px 14px;">
+          <div class="equip-item" style="padding:14px 14px; background:rgba(248,247,244,0.05);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.4"
-              stroke-linecap="round" stroke-linejoin="round" stroke="var(--musgo)">
-              <circle cx="5.5" cy="17.5" r="3.5" />
-              <circle cx="18.5" cy="17.5" r="3.5" />
-              <path d="M15 6h-3l-2 5.5M5.5 17.5l3-6h5.5l3 6" />
-              <path d="M10 6l2 5.5" />
+              stroke-linecap="round" stroke-linejoin="round" stroke="var(--arena)">
+              <path d="M21 8V21H3V8" />
+              <path d="M23 3H1v5h22V3z" />
+              <path d="M10 12h4M12 12v5" />
             </svg>
-            <div class="equip-name">Bicicletero</div>
+            <div class="equip-name" style="color:rgba(248,247,244,0.8);">Bauleras en todos los pisos</div>
           </div>
         </div>
       </div>
 
-      <div class="equip-extras">
-        <div class="equip-extra-item">
-          <div class="ee-lbl">Cocheras disponibles</div>
-          <div class="ee-val">6 unidades</div>
-          <div class="ee-sub">Venta independiente</div>
+      <div class="equip-extras" style="background:rgba(248,247,244,0.06); border-color:rgba(248,247,244,0.1);">
+        <div class="equip-extra-item" style="border-right-color:rgba(248,247,244,0.1);">
+          <div class="ee-lbl" style="color:rgba(248,247,244,0.38);">Cocheras disponibles</div>
+          <div class="ee-val" style="color:var(--arena);">6 unidades</div>
+          <div class="ee-sub" style="color:rgba(248,247,244,0.35);">Venta independiente</div>
         </div>
         <div class="equip-extra-item">
-          <div class="ee-lbl">Terrazas privadas PHs</div>
-          <div class="ee-val">3 PHs</div>
-          <div class="ee-sub">Piso 5 con terraza exclusiva</div>
+          <div class="ee-lbl" style="color:rgba(248,247,244,0.38);">Terrazas privadas</div>
+          <div class="ee-val" style="color:var(--arena);">3 unidades</div>
+          <div class="ee-sub" style="color:rgba(248,247,244,0.35);">Piso 5 · nivel superior</div>
         </div>
       </div>
+
+      
+        <p style="font-size:9px; color:rgba(248,247,244,0.3); line-height:1.65;">* Superficies según planos SGA · Schraifer Goldin Arquitectos (fecha). Precios en USD, en pozo. Los valores son de referencia y pueden modificarse sin previo aviso.</p>
+      
     </div>
 
-    <div class="page-footer">
+    <div class="page-footer page-footer--dark">
       <span>Resumen del proyecto</span>
       <span>Ceibo Vidal · 2026</span>
     </div>
@@ -2581,6 +2597,40 @@
       </div>
     </div>
   </div>
+
+  <!-- ══ FONT SWITCHER (solo pantalla, no imprime) ══ -->
+  <div id="font-switcher" style="
+    position:fixed; bottom:24px; right:24px; z-index:9999;
+    background:#1A1A18; border:0.5px solid rgba(196,169,125,0.35);
+    padding:14px 16px; display:flex; flex-direction:column; gap:8px;
+    font-family:'Inter',sans-serif; box-shadow:0 4px 24px rgba(0,0,0,0.4);
+    print-color-adjust: exact;">
+    <div style="font-size:8px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:rgba(196,169,125,0.7);margin-bottom:2px;">Tipografía serif</div>
+    <button onclick="setFont('Noto Serif JP')" id="btn-noto" style="text-align:left;background:rgba(196,169,125,0.15);border:0.5px solid rgba(196,169,125,0.4);color:#F8F7F4;padding:6px 10px;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:13px;font-weight:300;">Noto Serif JP</button>
+    <button onclick="setFont('Cormorant Garamond')" id="btn-cormorant" style="text-align:left;background:transparent;border:0.5px solid rgba(248,247,244,0.15);color:rgba(248,247,244,0.6);padding:6px 10px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;">Cormorant Garamond</button>
+    <button onclick="setFont('DM Serif Display')" id="btn-dm" style="text-align:left;background:transparent;border:0.5px solid rgba(248,247,244,0.15);color:rgba(248,247,244,0.6);padding:6px 10px;cursor:pointer;font-family:'DM Serif Display',serif;font-size:13px;">DM Serif Display</button>
+    <button onclick="setFont('Playfair Display')" id="btn-playfair" style="text-align:left;background:transparent;border:0.5px solid rgba(248,247,244,0.15);color:rgba(248,247,244,0.6);padding:6px 10px;cursor:pointer;font-family:'Playfair Display',serif;font-size:13px;font-weight:400;">Playfair Display</button>
+  </div>
+
+  <script>
+    function setFont(name) {
+      document.documentElement.style.setProperty('--serif', `"${name}", serif`);
+      const ids = ['btn-noto','btn-cormorant','btn-dm','btn-playfair'];
+      const names = ['Noto Serif JP','Cormorant Garamond','DM Serif Display','Playfair Display'];
+      ids.forEach((id, i) => {
+        const btn = document.getElementById(id);
+        if (names[i] === name) {
+          btn.style.background = 'rgba(196,169,125,0.15)';
+          btn.style.borderColor = 'rgba(196,169,125,0.4)';
+          btn.style.color = '#F8F7F4';
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.borderColor = 'rgba(248,247,244,0.15)';
+          btn.style.color = 'rgba(248,247,244,0.6)';
+        }
+      });
+    }
+  </script>
 
 </body>
 
