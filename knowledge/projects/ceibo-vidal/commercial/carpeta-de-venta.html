@@ -711,18 +711,16 @@
 
     .dev-value-item {
       padding: 16px 0;
-      border-bottom: 0.5px solid var(--line);
     }
 
     .dev-value-item:last-child {
-      border-bottom: none;
     }
 
     .dev-value-item .v-title {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.06em;
-      color: var(--ink);
+      color: var(--musgo);
       margin-bottom: 5px;
     }
 
@@ -1742,9 +1740,9 @@
       <div style="padding:44px var(--margin) 80px; border-right:0.5px solid var(--line); display:flex; flex-direction:column; justify-content:space-between; gap:28px; overflow:hidden;">
 
         <div>
-          <div class="kicker" style="margin-bottom:16px;">La desarrolladora</div>
+          <div class="kicker" style="margin-bottom:16px; color:var(--tierra); font-weight:700;">La desarrolladora</div>
           <p class="dev-body-text" style="margin-top:0;">
-            Raíces Desarrollos es una desarrolladora inmobiliaria argentina que construye edificios
+            <strong>Raíces Desarrollos</strong> es una desarrolladora inmobiliaria argentina que construye edificios
             con identidad propia. Cada proyecto nace de una lectura cuidadosa del barrio, una
             apuesta por la arquitectura con criterio y un compromiso real con las personas que
             invierten y habitan.
@@ -1770,11 +1768,13 @@
           </div>
         </div>
 
+        <div style="height:0.5px; background:var(--tierra); opacity:0.35;"></div>
+
         <div>
-          <div class="kicker" style="margin-bottom:16px;">El proyecto</div>
-          <div class="proyecto-title" style="font-size:36px;">Un edificio con identidad propia</div>
+          <div class="kicker" style="margin-bottom:16px; color:var(--tierra); font-weight:700;">El proyecto</div>
+          <div class="proyecto-title" style="font-size:36px; color:var(--tierra)">Un edificio con identidad propia</div>
           <p class="proyecto-desc">
-            Ceibo Vidal es un edificio residencial de PB + 4 pisos y terraza verde en el último
+            <strong>Ceibo Vidal</strong> es un edificio residencial de PB + 4 pisos y terraza verde en el último
             nivel. Diseñado por Schraifer Goldin Arquitectos: fachada con carácter, cuatro balcones
             visibles al frente y una unidad de terraza exclusiva en el piso más alto.
           </p>
@@ -1782,40 +1782,44 @@
             Cada piso tipo suma tres unidades con balcón propio. La planta baja integra acceso,
             SUM con expansión exterior y vegetación en el hall de ingreso.
           </p>
-          <div class="proyecto-data-grid">
-            <div class="proyecto-data-item">
-              <div class="d-lbl">Dirección</div>
-              <div class="d-val">Vidal 3849</div>
-            </div>
-            <div class="proyecto-data-item">
-              <div class="d-lbl">Pisos</div>
-              <div class="d-val">PB + 4 + terraza</div>
-            </div>
-            <div class="proyecto-data-item">
-              <div class="d-lbl">Unidades</div>
-              <div class="d-val">12 + 1 PH</div>
-            </div>
-            <div class="proyecto-data-item">
-              <div class="d-lbl">Arquitectos</div>
-              <div class="d-val">SGA</div>
-            </div>
-            <div class="proyecto-data-item">
-              <div class="d-lbl">Tipologías</div>
-              <div class="d-val">3 tipos</div>
-            </div>
-            <div class="proyecto-data-item">
-              <div class="d-lbl">Verde</div>
-              <div class="d-val">Balcones + terraza</div>
-            </div>
-          </div>
         </div>
 
       </div>
 
-      <!-- Columna derecha: terraza verde -->
-      <div style="overflow:hidden;">
+      <!-- Columna derecha: imagen + datos superpuestos -->
+      <div style="position:relative; overflow:hidden;">
         <img class="render-img" src="assets/terraza%20verde.png"
           alt="Terraza verde — nivel 5 — Ceibo Vidal" style="object-position: center 40%;" />
+        <div style="position:absolute; bottom:0; left:0; right:0; height:260px;
+             background:linear-gradient(to top, rgba(26,26,24,0.94) 22%, rgba(26,26,24,0.55) 58%, transparent 100%);"></div>
+        <div style="position:absolute; bottom:40px; left:32px; right:32px;
+             display:grid; grid-template-columns:1fr 1fr; gap:0;
+             border-top:0.5px solid rgba(248,247,244,0.2);">
+          <div style="padding:12px 0 12px; border-right:0.5px solid rgba(248,247,244,0.15);">
+            <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,247,244,0.45);margin-bottom:5px;">Dirección</div>
+            <div style="font-size:14px;font-weight:300;font-family:var(--serif);color:var(--blanco);">Vidal 3849</div>
+          </div>
+          <div style="padding:12px 0 12px 14px;">
+            <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,247,244,0.45);margin-bottom:5px;">Pisos</div>
+            <div style="font-size:14px;font-weight:300;font-family:var(--serif);color:var(--blanco);">PB + 4 + terraza</div>
+          </div>
+          <div style="padding:12px 0 12px; border-right:0.5px solid rgba(248,247,244,0.15);border-top:0.5px solid rgba(248,247,244,0.12);">
+            <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,247,244,0.45);margin-bottom:5px;">Unidades</div>
+            <div style="font-size:14px;font-weight:300;font-family:var(--serif);color:var(--blanco);">12 + 6 cocheras + 3 terrazas privadas</div>
+          </div>
+          <div style="padding:12px 0 12px 14px;border-top:0.5px solid rgba(248,247,244,0.12);">
+            <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,247,244,0.45);margin-bottom:5px;">Arquitectos</div>
+            <div style="font-size:14px;font-weight:300;font-family:var(--serif);color:var(--blanco);">SGA</div>
+          </div>
+          <div style="padding:12px 0 12px; border-right:0.5px solid rgba(248,247,244,0.15);border-top:0.5px solid rgba(248,247,244,0.12);">
+            <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,247,244,0.45);margin-bottom:5px;">Tipologías</div>
+            <div style="font-size:14px;font-weight:300;font-family:var(--serif);color:var(--blanco);"> Estudio, 2 amb, 3 amb</div>
+          </div>
+          <div style="padding:12px 0 12px 14px;border-top:0.5px solid rgba(248,247,244,0.12);">
+            <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(248,247,244,0.45);margin-bottom:5px;">Verde</div>
+            <div style="font-size:14px;font-weight:300;font-family:var(--serif);color:var(--blanco);">Balcones + terraza</div>
+          </div>
+        </div>
       </div>
 
     </div>
