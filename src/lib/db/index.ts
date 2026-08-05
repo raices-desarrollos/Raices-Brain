@@ -1,17 +1,18 @@
-// Conexión a la base de datos con Drizzle ORM
-// TODO: Configurar con PostgreSQL + pgvector
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { Pool } from 'pg';
+import * as schema from './schema';
 
-// import { drizzle } from 'drizzle-orm/postgres-js'
-// import postgres from 'postgres'
-// import * as schema from './schema'
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL env var is required');
+}
 
-// const client = postgres(process.env.DATABASE_URL!)
-// export const db = drizzle(client, { schema })
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  max: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 5000,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+});
 
-// Placeholder: descomentar cuando se instalen las dependencias
-// npm install drizzle-orm postgres
-// npm install -D drizzle-kit @types/pg
-
-export const db = null; // TODO: Implementar conexión real
-
-export type Database = typeof db;
+export const db = drizzle(pool, { schema });
+export type DB = typeof db;

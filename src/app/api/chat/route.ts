@@ -1,4 +1,5 @@
 // API route — Chat con el agente seleccionado usando RAG
+import { formatContext, searchKnowledge } from '@/lib/ai/search';
 import { NextRequest, NextResponse } from 'next/server';
 
 const AGENT_SYSTEM_PROMPTS: Record<string, string> = {
@@ -29,7 +30,24 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const systemPrompt = AGENT_SYSTEM_PROMPTS[agent] ?? AGENT_SYSTEM_PROMPTS.general;
+    const basePrompt = AGENT_SYSTEM_PROMPTS[agent] ?? AGENT_SYSTEM_PROMPTS.general;
+
+    // Recuperar contexto relevante del knowledge base
+    let contextBlock = '';
+    let sources: string[] = [];
+    try {
+      const chunks = await searchKnowledge(message, 5);
+      // Filtrar chunks con similaridad mínima para evitar ruido
+      const relevant = chunks.filter((c) => c.similarity > 0.3);
+      contextBlock = formatContext(relevant);
+      sources = [...new Set(relevant.map((c) => c.filePath))];
+    } catch {
+      // Si la búsqueda falla (tabla vacía, sin key, etc.) seguir sin contexto
+    }
+
+    const systemPrompt = contextBlock
+      ? `${basePrompt}\n\nUsá el siguiente contexto interno para responder. Si la respuesta está en el contexto, basate en él. Si no, respondé con tu conocimiento general.\n\n${contextBlock}`
+      : basePrompt;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -60,7 +78,7 @@ export async function POST(req: NextRequest) {
     const data = await response.json();
     const answer = data.choices?.[0]?.message?.content ?? 'Sin respuesta.';
 
-    return NextResponse.json({ answer, sources: [] });
+    return NextResponse.json({ answer, sources });
   } catch (err) {
     console.error('Chat route error:', err);
     return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
