@@ -44,3 +44,6 @@ data/exports/*
 # ─── Archivos temporales de ingesta ──────────────────────────────────────────
 tmp/
 uploads/
+
+# ─── Notas privadas ───────────────────────────────────────────────────────────
+data.md

@@ -1,31 +1,79 @@
 'use client';
 
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const nav = [
   {
     href: '/',
     label: 'Dashboard',
-    tooltip:
-      'Vista general: proyectos activos, decisiones recientes y acceso rápido a todas las secciones.',
     icon: (
-      <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
       </svg>
     ),
   },
   {
     href: '/brain',
     label: 'Brain',
-    tooltip:
-      'Chat con IA. Preguntá sobre proyectos, decisiones, terrenos, finanzas o copy comercial. Elegí el agente según el tema.',
     icon: (
-      <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
         <path
-          fillRule="evenodd"
-          d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
-          clipRule="evenodd"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+        />
+      </svg>
+    ),
+  },
+  {
+    href: '/tareas',
+    label: 'Tareas',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+        />
+      </svg>
+    ),
+  },
+  {
+    href: '/factibilidad',
+    label: 'Factibilidad',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
         />
       </svg>
     ),
@@ -33,15 +81,17 @@ const nav = [
   {
     href: '/decisiones',
     label: 'Decisiones',
-    tooltip:
-      'Registro de todas las decisiones tomadas por proyecto y área. Cada decisión incluye contexto, razón y estado.',
     icon: (
-      <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
         <path
-          fillRule="evenodd"
-          d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-          clipRule="evenodd"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
         />
       </svg>
     ),
@@ -49,30 +99,56 @@ const nav = [
   {
     href: '/terrenos',
     label: 'Terrenos',
-    tooltip:
-      'Pipeline de terrenos: los que están en análisis, los que pasaron evaluación y los descartados.',
     icon: (
-      <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
         <path
-          fillRule="evenodd"
-          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-          clipRule="evenodd"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+  },
+  {
+    href: '/administracion',
+    label: 'Administración',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
         />
       </svg>
     ),
   },
   {
     href: '/admin',
-    label: 'Admin',
-    tooltip:
-      'Estado de la configuración: variables de entorno, conexiones activas y scripts del sistema.',
+    label: 'Config',
     icon: (
-      <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        className="w-5 h-5 flex-shrink-0">
         <path
-          fillRule="evenodd"
-          d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-          clipRule="evenodd"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
         />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
   },
@@ -80,66 +156,177 @@ const nav = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('sidebar-collapsed') === 'true') setCollapsed(true);
+  }, []);
+
+  function toggle() {
+    setCollapsed((prev) => {
+      const next = !prev;
+      localStorage.setItem('sidebar-collapsed', String(next));
+      return next;
+    });
+  }
+
+  const initials = (session?.user?.name ?? session?.user?.email ?? '?')
+    .split(' ')
+    .map((w: string) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
 
   return (
-    <aside className="w-56 flex-shrink-0 bg-ink flex flex-col h-full">
-      {/* Logo */}
-      <div className="px-5 py-6 border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-liquen flex items-center justify-center flex-shrink-0">
-            <svg viewBox="0 0 20 20" fill="currentColor" className="w-3 h-3 text-blanco">
-              <path
-                fillRule="evenodd"
-                d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 14a6 6 0 110-12 6 6 0 010 12z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-          <div>
-            <p className="text-lino text-xs font-semibold tracking-widest uppercase leading-none">
-              Raíces
-            </p>
-            <p className="text-niebla text-2xs tracking-widest uppercase">Brain</p>
-          </div>
-        </div>
+    <aside
+      className={`flex-shrink-0 bg-gray-900 flex flex-col h-full transition-all duration-200 ease-in-out ${collapsed ? 'w-16' : 'w-56'}`}>
+      {/* Logo + toggle */}
+      <div
+        className={`flex items-center h-16 border-b border-white/10 ${collapsed ? 'justify-center' : 'px-4 justify-between'}`}>
+        {collapsed ? (
+          <button
+            onClick={toggle}
+            title="Expandir menú"
+            className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center hover:bg-blue-500 transition">
+            <span className="text-white text-sm font-bold">R</span>
+          </button>
+        ) : (
+          <>
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+                <span className="text-white text-base font-bold">R</span>
+              </div>
+              <div>
+                <p className="text-white text-sm font-semibold leading-none">Raíces</p>
+                <p className="text-gray-400 text-xs mt-0.5">Brain</p>
+              </div>
+            </div>
+            <button
+              onClick={toggle}
+              title="Colapsar menú"
+              className="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                className="w-4 h-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          </>
+        )}
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+      <nav className={`flex-1 py-3 space-y-0.5 overflow-y-auto ${collapsed ? 'px-2' : 'px-3'}`}>
+        {collapsed && (
+          <button
+            onClick={toggle}
+            className="w-full flex justify-center p-2.5 mb-1 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition"
+            title="Expandir">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        )}
+
         {nav.map((item) => {
-          const active = pathname === item.href;
+          const active =
+            item.href === '/'
+              ? pathname === '/'
+              : pathname === item.href || pathname.startsWith(item.href + '/');
           return (
             <div key={item.href} className="relative group">
               <Link
                 href={item.href}
-                className={`
-                  flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors
-                  ${active ? 'bg-white/10 text-lino' : 'text-niebla hover:text-lino hover:bg-white/5'}
-                `}>
-                <span className={active ? 'text-liquen' : ''}>{item.icon}</span>
-                {item.label}
+                className={`flex items-center rounded-lg transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'} ${
+                  active
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
+                }`}>
+                {item.icon}
+                {!collapsed && <span className="text-sm font-medium">{item.label}</span>}
               </Link>
-              {/* Tooltip */}
-              <div
-                className="
-                pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-50
-                w-52 rounded-lg bg-white border border-suelo shadow-md px-3 py-2.5
-                opacity-0 group-hover:opacity-100 transition-opacity duration-150
-              ">
-                <p className="text-xs font-medium text-ink mb-0.5">{item.label}</p>
-                <p className="text-2xs text-niebla leading-relaxed">{item.tooltip}</p>
-                {/* Arrow */}
-                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-white" />
-              </div>
+              {/* Tooltip only when collapsed */}
+              {collapsed && (
+                <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="bg-gray-800 text-white text-xs font-medium px-2.5 py-1.5 rounded-lg whitespace-nowrap shadow-lg border border-white/10">
+                    {item.label}
+                    <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-800" />
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
       </nav>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t border-white/10">
-        <p className="text-niebla text-2xs">Raíces Desarrollos</p>
-        <p className="text-white/20 text-2xs mt-0.5">Uso interno · {new Date().getFullYear()}</p>
+      <div className={`border-t border-white/10 py-3 ${collapsed ? 'px-2' : 'px-3'}`}>
+        {collapsed ? (
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
+              <span className="text-white text-xs font-semibold">{initials}</span>
+            </div>
+            <button
+              onClick={() => signOut({ callbackUrl: '/login' })}
+              title="Cerrar sesión"
+              className="flex justify-center p-2.5 w-full rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/10 transition">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.8}
+                className="w-4 h-4">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+            </button>
+          </div>
+        ) : (
+          <>
+            {session?.user && (
+              <div className="flex items-center gap-3 mb-3 px-1">
+                <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-xs font-semibold">{initials}</span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-white text-xs font-semibold truncate">
+                    {session.user.name ?? session.user.email?.split('@')[0]}
+                  </p>
+                  <p className="text-gray-400 text-2xs truncate">{session.user.email}</p>
+                </div>
+              </div>
+            )}
+            <button
+              onClick={() => signOut({ callbackUrl: '/login' })}
+              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/10 transition text-sm">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.8}
+                className="w-4 h-4">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+              Cerrar sesión
+            </button>
+          </>
+        )}
       </div>
     </aside>
   );

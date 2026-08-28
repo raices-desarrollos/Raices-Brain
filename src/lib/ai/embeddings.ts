@@ -1,6 +1,7 @@
 // Generación de embeddings para documentos y queries
-// TODO: Implementar con el SDK de OpenAI
+// 1536 dimensions via text-embedding-3-large (reduced) — matches vector(1536) in schema
 
+const EMBEDDING_MODEL = process.env.OPENAI_EMBEDDING_MODEL ?? 'text-embedding-3-large';
 
 export interface EmbeddingResult {
   embedding: number[];
@@ -8,24 +9,27 @@ export interface EmbeddingResult {
   tokens: number;
 }
 
-/**
- * Genera el embedding de un texto usando el modelo configurado.
- * @param text Texto a vectorizar
- * @returns Vector de embedding
- */
 export async function generateEmbedding(text: string): Promise<EmbeddingResult> {
-  // TODO: Implementar usando OpenAI embeddings API
-  // const response = await openai.embeddings.create({
-  //   model: EMBEDDING_MODEL,
-  //   input: text,
-  // })
-  // return {
-  //   embedding: response.data[0].embedding,
-  //   model: EMBEDDING_MODEL,
-  //   tokens: response.usage.total_tokens,
-  // }
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) throw new Error('OPENAI_API_KEY no configurado');
 
-  throw new Error('generateEmbedding: pendiente de implementación');
+  const response = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({ model: EMBEDDING_MODEL, input: text, dimensions: 1536 }),
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    throw new Error(`OpenAI embeddings error: ${err?.error?.message}`);
+  }
+
+  const data = await response.json();
+  return {
+    embedding: data.data[0].embedding as number[],
+    model: data.model as string,
+    tokens: data.usage.total_tokens as number,
+  };
 }
 
 /**

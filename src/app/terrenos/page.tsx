@@ -43,9 +43,9 @@ const statusLabel: Record<Terrain['status'], string> = {
   rejected: 'Descartado',
 };
 const statusColor: Record<Terrain['status'], string> = {
-  pipeline: 'bg-arena/10 text-tierra border-arena/20',
-  evaluated: 'bg-liquen/10 text-musgo border-liquen/20',
-  rejected: 'bg-ceibo/10 text-ceibo border-ceibo/20',
+  pipeline: 'bg-gray-100 text-amber-700 border-amber-200',
+  evaluated: 'bg-blue-50 text-blue-600 border-blue-200',
+  rejected: 'bg-red-50 text-red-600 border-red-200',
 };
 
 export default function TerrenosPage() {
@@ -58,12 +58,12 @@ export default function TerrenosPage() {
     <div className="max-w-4xl mx-auto px-8 py-10">
       {/* Header */}
       <div className="mb-8">
-        <p className="text-niebla text-xs tracking-widest uppercase mb-1">Adquisiciones</p>
-        <h1 className="text-2xl font-light text-ink">Terrenos</h1>
-        <p className="text-niebla text-sm mt-1">
+        <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Adquisiciones</p>
+        <h1 className="text-2xl font-light text-gray-900">Terrenos</h1>
+        <p className="text-gray-500 text-sm mt-1">
           {terrains.length} terreno{terrains.length !== 1 ? 's' : ''} en el sistema
         </p>
-        <p className="text-xs text-niebla mt-3 max-w-lg border-l-2 border-suelo pl-3">
+        <p className="text-xs text-gray-500 mt-3 max-w-lg border-l-2 border-gray-200 pl-3">
           Pipeline de terrenos analizados por Raíces. Cada terreno pasa por tres etapas: en
           análisis, evaluado formalmente con la rúbrica interna, o descartado con justificación.
         </p>
@@ -72,28 +72,28 @@ export default function TerrenosPage() {
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {[
-          { label: 'En análisis', value: pipeline.length, color: 'text-tierra' },
-          { label: 'Evaluados', value: evaluated.length, color: 'text-musgo' },
-          { label: 'Descartados', value: rejected.length, color: 'text-ceibo' },
+          { label: 'En análisis', value: pipeline.length, color: 'text-amber-700' },
+          { label: 'Evaluados', value: evaluated.length, color: 'text-blue-600' },
+          { label: 'Descartados', value: rejected.length, color: 'text-red-600' },
         ].map((s) => (
-          <div key={s.label} className="bg-lino rounded-lg p-4 border border-suelo">
+          <div key={s.label} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
             <p className={`text-2xl font-light ${s.color}`}>{s.value}</p>
-            <p className="text-xs text-niebla mt-1">{s.label}</p>
+            <p className="text-xs text-gray-500 mt-1">{s.label}</p>
           </div>
         ))}
       </div>
 
       {/* Empty state */}
       {terrains.length === 0 && (
-        <div className="text-center py-20 border border-dashed border-suelo rounded-xl">
-          <p className="text-sm text-niebla">No hay terrenos en el sistema todavía.</p>
-          <p className="text-xs text-niebla mt-2">
+        <div className="text-center py-20 border border-dashed border-gray-200 rounded-xl">
+          <p className="text-sm text-gray-500">No hay terrenos en el sistema todavía.</p>
+          <p className="text-xs text-gray-500 mt-2">
             Agregá archivos `.md` en{' '}
-            <code className="bg-suelo px-1 rounded">knowledge/terrains/pipeline/</code>
+            <code className="bg-gray-100 px-1 rounded">knowledge/terrains/pipeline/</code>
           </p>
           <Link
             href="/brain?agent=terrenos"
-            className="inline-block mt-4 text-xs text-musgo border border-musgo/30 rounded-lg px-4 py-2 hover:bg-liquen/5 transition-colors">
+            className="inline-block mt-4 text-xs text-blue-600 border border-blue-200 rounded-lg px-4 py-2 hover:bg-blue-50/50 transition-colors">
             Evaluar un terreno con el Brain →
           </Link>
         </div>
@@ -108,23 +108,23 @@ export default function TerrenosPage() {
         .filter((g) => g.items.length > 0)
         .map((group) => (
           <div key={group.label} className="mb-8">
-            <h2 className="text-xs font-medium text-niebla tracking-widest uppercase mb-3">
+            <h2 className="text-xs font-medium text-gray-500 tracking-widest uppercase mb-3">
               {group.label}
             </h2>
             <div className="space-y-3">
               {group.items.map((t) => (
-                <div key={t.slug} className="border border-suelo rounded-xl overflow-hidden">
-                  <div className="px-5 py-4 bg-lino flex items-center justify-between gap-4">
-                    <p className="font-medium text-sm text-ink">{t.name}</p>
+                <div key={t.slug} className="border border-gray-200 rounded-xl overflow-hidden">
+                  <div className="px-5 py-4 bg-gray-50 flex items-center justify-between gap-4">
+                    <p className="font-medium text-sm text-gray-900">{t.name}</p>
                     <span
                       className={`text-2xs font-medium tracking-wider px-2.5 py-1 rounded-full border ${statusColor[t.status]}`}>
                       {statusLabel[t.status]}
                     </span>
                   </div>
-                  <div className="px-5 py-3 border-t border-suelo flex justify-end">
+                  <div className="px-5 py-3 border-t border-gray-200 flex justify-end">
                     <Link
                       href={`/brain?agent=terrenos&q=${encodeURIComponent(t.name)}`}
-                      className="text-xs text-musgo hover:text-liquen transition-colors">
+                      className="text-xs text-blue-600 hover:text-blue-500 transition-colors">
                       Analizar con Brain →
                     </Link>
                   </div>
@@ -135,11 +135,11 @@ export default function TerrenosPage() {
         ))}
 
       {/* CTA */}
-      <div className="mt-6 border border-dashed border-suelo rounded-xl p-6 text-center">
-        <p className="text-sm text-niebla mb-3">¿Tenés un terreno para evaluar?</p>
+      <div className="mt-6 border border-dashed border-gray-200 rounded-xl p-6 text-center">
+        <p className="text-sm text-gray-500 mb-3">¿Tenés un terreno para evaluar?</p>
         <Link
           href="/brain?agent=terrenos"
-          className="inline-block text-sm font-medium text-blanco bg-ink rounded-lg px-5 py-2.5 hover:bg-musgo transition-colors">
+          className="inline-block text-sm font-medium text-blanco bg-gray-900 rounded-lg px-5 py-2.5 hover:bg-blue-600 transition-colors">
           Evaluar con el agente de terrenos →
         </Link>
       </div>
