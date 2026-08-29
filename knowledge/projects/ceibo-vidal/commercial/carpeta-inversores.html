@@ -3,2675 +3,964 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vidal 3849 — Por Qué Entrar Ahora</title>
+  <title>Ceibo Vidal — Carpeta para inversores · Preventa 1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-
-    /* ═══════════════════════════════════════════
-       DESIGN TOKENS
-    ═══════════════════════════════════════════ */
     :root {
-      --ink:     #1A1A18;
-      --lino:    #F0EDE6;
-      --blanco:  #F8F7F4;
-      --suelo:   #E8E3DA;
-      --tierra:  #856040;
-      --arena:   #C4A97D;
-      --liquen:  #7E8E5F;
-      --musgo:   #536245;
-      --niebla:  #8F9089;
-      --ceibo:   #B85C42;
-      --line:    rgba(132,96,64,0.18);
-
+      --ink: #1A1A18;
+      --lino: #F0EDE6;
+      --blanco: #F8F7F4;
+      --suelo: #E8E3DA;
+      --tierra: #856040;
+      --arena: #C4A97D;
+      --liquen: #7E8E5F;
+      --musgo: #536245;
+      --ceibo: #B85C42;
+      --niebla: #8F9089;
+      --line: rgba(132, 96, 64, 0.18);
       --serif: "Noto Serif JP", serif;
-      --sans:  "Inter", sans-serif;
-
-      --page-w:  794px;
-      --page-h:  1123px;
-      --mg:      56px;
+      --sans: "Inter", sans-serif;
+      --page-w: 794px;
+      --page-h: 1123px;
+      --mg: 52px;
     }
-
-    /* ═══════════════════════════════════════════
-       RESET
-    ═══════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: var(--sans);
-      background: #CAC5BC;
+      background: #C9C4BB;
       color: var(--ink);
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
-
-    img { display: block; max-width: 100%; }
-
-    /* ═══════════════════════════════════════════
-       PAGE SHELL
-    ═══════════════════════════════════════════ */
+    img { display: block; max-width: 100%; height: auto; }
+    .logo { display: flex; align-items: center; }
+    .logo-mark {
+      display: block;
+      height: 22px;
+      width: auto !important;
+      max-width: none !important;
+      object-fit: contain;
+      object-position: left center;
+      align-self: flex-start;
+      flex: 0 0 auto;
+    }
     .page {
       width: var(--page-w);
+      height: var(--page-h);
       min-height: var(--page-h);
       margin: 28px auto;
       background: var(--lino);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 48px rgba(26,26,24,0.24);
+      box-shadow: 0 10px 40px rgba(26, 26, 24, 0.22);
     }
-
-    .page--dark   { background: var(--ink);   color: var(--blanco); }
+    .page:not(.cover) { padding-bottom: 52px; }
+    .page--dark { background: var(--ink); color: var(--blanco); }
     .page--blanco { background: var(--blanco); }
-    .page--suelo  { background: var(--suelo);  }
-    .page--musgo  { background: var(--musgo);  color: var(--blanco); }
-
-    /* ═══════════════════════════════════════════
-       SHARED ATOMS
-    ═══════════════════════════════════════════ */
+    .page--suelo { background: var(--suelo); }
     .kicker {
-      font-family: var(--sans);
-      font-size: 8.5px;
-      font-weight: 600;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--liquen);
+      font-size: 8.5px; font-weight: 600; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--liquen);
     }
-    .kicker--light  { color: rgba(248,247,244,0.45); }
-    .kicker--arena  { color: var(--arena); }
-    .kicker--niebla { color: var(--niebla); }
-
-    .divider        { width: 100%; height: 0.5px; background: var(--line); }
-    .divider--light { background: rgba(248,247,244,0.12); }
-
-    /* ─── Header strip ─── */
-    .ph {
+    .kicker--light { color: rgba(248,247,244,0.42); }
+    .ph, .pf {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px var(--mg);
-      border-bottom: 0.5px solid var(--line);
+      padding: 16px var(--mg);
     }
-    .ph--dark { border-bottom-color: rgba(248,247,244,0.10); }
-    .ph .logo img { height: 26px; width: auto; }
+    .ph { border-bottom: 0.5px solid var(--line); }
+    .ph--dark { border-bottom-color: rgba(248,247,244,0.1); }
     .ph .pid {
-      font-size: 8px; font-weight: 600; letter-spacing: 0.22em;
+      font-size: 8px; font-weight: 600; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--niebla);
     }
     .ph--dark .pid { color: rgba(248,247,244,0.35); }
-
-    /* ─── Footer strip ─── */
     .pf {
       position: absolute; bottom: 0; left: 0; right: 0;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px var(--mg);
       border-top: 0.5px solid var(--line);
     }
-    .pf--dark { border-top-color: rgba(248,247,244,0.10); }
-    .pf span  {
-      font-size: 7.5px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .pf--dark span { color: rgba(248,247,244,0.28); }
-
-    /* ─── Render ─── */
-    .render-img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center center;
-      display: block;
-    }
-
-    /* ─── Source tag ─── */
-    .source {
-      font-size: 8px; font-weight: 400;
-      color: var(--niebla); letter-spacing: 0.04em;
-      margin-top: 6px; line-height: 1.5;
-    }
-    .source--light { color: rgba(248,247,244,0.38); }
-    .source strong { font-weight: 600; }
-
-    /* ─── Data type badge ─── */
-    .data-badge {
-      display: inline-block;
-      font-size: 7px; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 1px;
-    }
-    .data-badge--mercado   { background: rgba(143,144,137,0.18); color: var(--niebla); }
-    .data-badge--proyecto  { background: rgba(83,98,69,0.14);   color: var(--musgo);  }
-    .data-badge--proyeccion{ background: rgba(196,169,125,0.18); color: var(--tierra); }
-
-    /* ═══════════════════════════════════════════
-       PAGE 1 — PORTADA
-    ═══════════════════════════════════════════ */
-    .cover {
-      background: var(--ink);
-      color: var(--blanco);
-      min-height: var(--page-h);
-      display: flex; flex-direction: column;
-    }
-    .cover-render {
-      flex: 1; min-height: 640px; position: relative; overflow: hidden;
-    }
-    .cover-overlay-top {
-      position: absolute; top: 0; left: 0; right: 0; height: 160px;
-      background: linear-gradient(to bottom, rgba(26,26,24,0.75), transparent);
-      z-index: 1;
-    }
-    .cover-overlay-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 300px;
-      background: linear-gradient(to top, var(--ink) 0%, rgba(26,26,24,0.55) 55%, transparent 100%);
-      z-index: 1;
-    }
-    .cover-header-bar {
-      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 22px var(--mg);
-    }
-    .cover-content {
-      padding: 8px var(--mg) 40px;
-      position: relative; z-index: 2;
-    }
-    .cover-tagline {
-      font-size: 9px; font-weight: 600; letter-spacing: 0.28em;
-      text-transform: uppercase; color: var(--arena);
-      margin-bottom: 18px;
-    }
-    .cover-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 72px; line-height: 0.9; letter-spacing: -0.025em;
-      color: var(--blanco); margin-bottom: 12px;
-    }
-    .cover-subtitle {
-      font-size: 15px; font-weight: 300; letter-spacing: 0.04em;
-      color: rgba(248,247,244,0.5);
-    }
-    .cover-meta {
-      display: grid; grid-template-columns: repeat(4,1fr);
-      margin-top: 28px; padding-top: 20px;
-      border-top: 0.5px solid rgba(248,247,244,0.12);
-    }
-    .cover-meta-item .cm-lbl {
-      font-size: 7.5px; font-weight: 600; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(248,247,244,0.32);
-      margin-bottom: 5px;
-    }
-    .cover-meta-item .cm-val {
-      font-size: 12.5px; font-weight: 300; color: rgba(248,247,244,0.78);
-    }
-
-    /* ═══════════════════════════════════════════
-       PAGE 2 — LA OPORTUNIDAD
-    ═══════════════════════════════════════════ */
-    .oportunidad-hero {
-      padding: 60px var(--mg) 0;
-    }
-    .hero-price-label {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 96px; line-height: 1; letter-spacing: -0.03em;
-      color: var(--musgo);
-    }
-    .hero-price-sub {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.24em;
-      text-transform: uppercase; color: var(--niebla);
-      margin-top: 10px;
-    }
-    .hero-desc {
-      font-size: 15px; font-weight: 300; line-height: 1.75;
-      color: #5F4632; margin-top: 28px; max-width: 500px;
-    }
-    .flow-diagram {
-      display: flex; align-items: center; gap: 0;
-      margin: 48px 0 0;
-      border-top: 0.5px solid var(--line);
-      padding-top: 36px;
-    }
-    .flow-node {
-      flex: 1; display: flex; flex-direction: column; gap: 10px;
-      padding: 0 24px;
-    }
-    .flow-node:first-child { padding-left: 0; }
-    .flow-node:last-child  { padding-right: 0; }
-    .flow-node .fn-badge {
-      font-size: 8px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--musgo);
-      border: 0.5px solid rgba(83,98,69,0.4);
-      display: inline-block; padding: 3px 8px; align-self: flex-start;
-    }
-    .flow-node .fn-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 26px; line-height: 1.1; color: var(--ink);
-    }
-    .flow-node .fn-body {
-      font-size: 11.5px; line-height: 1.65; color: #6B5242;
-    }
-    .flow-arrow {
-      flex-shrink: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 0 4px;
-    }
-    .flow-arrow svg { opacity: 0.35; }
-    .flow-divider { width: 0.5px; height: 80px; background: var(--line); }
-
-    /* ═══════════════════════════════════════════
-       PAGE 3 — PRECIO VS MERCADO
-    ═══════════════════════════════════════════ */
-    .barchart-page {
-      display: flex; flex-direction: column;
-    }
-    .barchart-body {
-      flex: 1; padding: 44px var(--mg) 90px;
-      display: flex; flex-direction: column; gap: 0;
-    }
-    .barchart-intro {
-      font-size: 13.5px; font-weight: 300; line-height: 1.75;
-      color: rgba(248,247,244,0.65); max-width: 480px; margin-top: 18px;
-      margin-bottom: 52px;
-    }
-    .barchart-rows {
-      display: flex; flex-direction: column; gap: 28px;
-    }
-    .barchart-row {
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .barchart-row-header {
-      display: flex; align-items: baseline; justify-content: space-between;
-    }
-    .barchart-row-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-      color: rgba(248,247,244,0.75);
-    }
-    .barchart-row-sub {
-      font-size: 8px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(248,247,244,0.38);
-      margin-left: 10px;
-    }
-    .barchart-row-value {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 22px; color: rgba(248,247,244,0.9);
-    }
-    .barchart-track {
-      height: 7px; background: rgba(248,247,244,0.08); position: relative;
-      border-radius: 1px;
-    }
-    .barchart-fill {
-      position: absolute; top: 0; left: 0; height: 100%; border-radius: 1px;
-    }
-    .barchart-fill--proyecto { background: var(--musgo); }
-    .barchart-fill--mercado  { background: rgba(143,144,137,0.55); }
-
-    /* ═══════════════════════════════════════════
-       PAGE 4 — POR QUÉ EXISTE LA DIFERENCIA
-    ═══════════════════════════════════════════ */
-    .diferencia-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 0.5px 1fr 0.5px 1fr;
-      margin: 0 var(--mg); margin-bottom: 90px;
-      padding-top: 44px;
-    }
-    .diferencia-col {
-      padding: 0 32px 40px 0;
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    .diferencia-col:last-child { padding-right: 0; }
-    .diferencia-divider { background: var(--line); }
-    .diferencia-col .dc-icon {
-      width: 36px; height: 36px;
-      border: 0.5px solid rgba(83,98,69,0.35);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .diferencia-col .dc-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 24px; line-height: 1.1; color: var(--ink);
-    }
-    .diferencia-col .dc-body {
-      font-size: 12.5px; line-height: 1.72; color: #6B5242;
-    }
-    .diferencia-col .dc-items {
-      list-style: none; display: flex; flex-direction: column; gap: 8px;
-    }
-    .diferencia-col .dc-items li {
-      font-size: 12px; color: #6B5242; line-height: 1.5;
-      display: flex; align-items: flex-start; gap: 10px;
-    }
-    .diferencia-col .dc-items li::before {
-      content: ''; flex-shrink: 0; margin-top: 8px;
-      width: 12px; height: 0.5px; background: var(--arena);
-    }
-    .col-pad-left { padding-left: 32px; }
-
-    /* ═══════════════════════════════════════════
-       PAGE 5 — EL TIEMPO
-    ═══════════════════════════════════════════ */
-    .timeline-page { display: flex; flex-direction: column; }
-    .timeline-body {
-      flex: 1; padding: 52px var(--mg) 90px;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .timeline-header { max-width: 540px; }
-    .timeline-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 48px; line-height: 1.05; letter-spacing: -0.02em;
-      color: var(--ink); margin-top: 14px;
-    }
-    .timeline-desc {
-      font-size: 13.5px; line-height: 1.75; color: #6B5242;
-      margin-top: 20px; max-width: 460px;
-    }
-    .timeline-flow {
-      display: flex; align-items: stretch; gap: 0;
-      border: 0.5px solid var(--line); background: var(--blanco);
-    }
-    .tl-stage {
-      flex: 1; padding: 28px 28px 24px;
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .tl-stage:last-child { border-right: none; }
-    .tl-year {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 44px; line-height: 1; letter-spacing: -0.02em;
-      color: var(--ink);
-    }
-    .tl-stage-label {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--musgo);
-    }
-    .tl-stage-price {
-      font-size: 17px; font-weight: 300; font-family: var(--serif);
-      color: var(--musgo); line-height: 1;
-    }
-    .tl-stage-desc {
-      font-size: 11.5px; color: #6B5242; line-height: 1.6;
-    }
-    .tl-stage-note {
-      font-size: 9px; color: var(--niebla); line-height: 1.5;
-      border-top: 0.5px solid var(--line); padding-top: 10px; margin-top: 4px;
-    }
-    .tl-middle {
-      flex: 0.8; background: rgba(83,98,69,0.06);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; padding: 28px 20px;
-      border-right: 0.5px solid var(--line);
-      gap: 8px;
-    }
-    .tl-middle-num {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 52px; color: var(--musgo); line-height: 1; letter-spacing: -0.02em;
-    }
-    .tl-middle-lbl {
-      font-size: 8.5px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--liquen);
-    }
-    .tl-middle-desc {
-      font-size: 10.5px; color: #6B5242; text-align: center; line-height: 1.55;
-    }
-
-    /* ═══════════════════════════════════════════
-       PAGE 6 — EL DIFERENCIAL POTENCIAL
-    ═══════════════════════════════════════════ */
-    .diferencial-page { display: flex; flex-direction: column; }
-    .diferencial-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .diferencial-left {
-      padding: 52px var(--mg) 90px;
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 28px;
-    }
-    .diferencial-right {
-      padding: 52px var(--mg) 90px;
-      display: flex; flex-direction: column; gap: 24px;
-    }
-    .dif-price-block {
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .dif-price-label {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--niebla); margin-bottom: 4px;
-    }
-    .dif-price-num {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 64px; line-height: 1; letter-spacing: -0.025em; color: var(--ink);
-    }
-    .dif-price-unit {
-      font-size: 11px; font-weight: 500; color: var(--niebla); margin-top: 4px;
-    }
-    .dif-arrow {
-      display: flex; align-items: center; gap: 16px;
-      padding: 16px 0; border-top: 0.5px solid var(--line);
-      border-bottom: 0.5px solid var(--line);
-    }
-    .dif-arrow-pct {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 56px; line-height: 1; letter-spacing: -0.025em; color: var(--musgo);
-    }
-    .dif-arrow-lbl {
-      font-size: 10px; color: #6B5242; line-height: 1.5;
-    }
-    .dif-disclaimer {
-      font-size: 10px; color: var(--niebla); line-height: 1.65;
-      padding: 14px; background: var(--suelo);
-      border: 0.5px solid var(--line);
-    }
-    .dif-table {
-      width: 100%; border-collapse: collapse;
-    }
-    .dif-table th {
-      font-size: 7.5px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--niebla);
-      padding: 8px 10px; text-align: left;
-      background: var(--suelo); border-bottom: 0.5px solid var(--line);
-    }
-    .dif-table td {
-      font-size: 12px; color: #5A4530;
-      padding: 11px 10px; border-bottom: 0.5px solid rgba(196,169,125,0.2);
-    }
-    .dif-table td.td-bold {
-      font-weight: 600; color: var(--musgo); font-family: var(--serif);
-      font-size: 14px; font-weight: 300;
-    }
-    .dif-table td.td-tipo {
-      font-weight: 600; color: var(--ink);
-    }
-
-    /* ═══════════════════════════════════════════
-       PAGE 7 — NO PAGÁS TODO HOY
-    ═══════════════════════════════════════════ */
-    .pago-page { display: flex; flex-direction: column; }
-    .pago-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .pago-left {
-      padding: 52px var(--mg) 90px;
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .pago-right {
-      padding: 52px 40px 90px var(--mg);
-      display: flex; flex-direction: column; gap: 28px;
-    }
-    .pago-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 46px; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink);
-    }
-    .pago-desc {
-      font-size: 13.5px; line-height: 1.75; color: #6B5242;
-    }
-    .pago-visual {
-      display: flex; height: 56px; border: 0.5px solid var(--line);
-      overflow: hidden; margin-top: 8px;
-    }
-    .pago-visual-anticipo {
-      width: 30%; background: var(--musgo);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pago-visual-saldo {
-      flex: 1; background: rgba(83,98,69,0.12);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pago-visual-text {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-    .pago-legend {
-      display: flex; gap: 24px; margin-top: 4px;
-    }
-    .pago-legend-item { display: flex; align-items: center; gap: 8px; }
-    .pago-legend-dot  {
-      width: 10px; height: 10px; flex-shrink: 0;
-    }
-    .pago-legend-text { font-size: 10px; color: #6B5242; }
-    .pago-cac-note {
-      font-size: 11px; color: var(--niebla); line-height: 1.6;
-      padding: 14px; background: var(--suelo); border: 0.5px solid var(--line);
-    }
-    .pago-amounts { display: flex; flex-direction: column; gap: 14px; }
-    .pago-amount-row {
-      padding: 16px 0; border-bottom: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .pago-amount-row:last-child { border-bottom: none; }
-    .pago-amount-tipo {
-      font-size: 8.5px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .pago-amount-total {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 22px; color: var(--ink); line-height: 1;
-    }
-    .pago-amount-split {
-      display: flex; gap: 16px;
-    }
-    .pago-amount-split .s-item {
-      display: flex; flex-direction: column; gap: 2px;
-    }
-    .pago-amount-split .s-lbl {
+    .pf--dark { border-top-color: rgba(248,247,244,0.1); }
+    .pf span {
       font-size: 7.5px; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--niebla);
     }
-    .pago-amount-split .s-val {
-      font-size: 13px; font-weight: 500; color: var(--musgo);
+    .pf--dark span { color: rgba(248,247,244,0.28); }
+    .render-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .serif-title {
+      font-family: var(--serif); font-weight: 200;
+      letter-spacing: -0.025em; line-height: 1.05;
     }
+    .body { font-size: 13.5px; line-height: 1.72; color: #5A4530; }
+    .muted { font-size: 11px; line-height: 1.6; color: var(--niebla); }
+    .accent { width: 28px; height: 1.5px; background: var(--arena); margin-top: 14px; }
+    .accent--musgo { background: var(--musgo); }
 
-    /* ═══════════════════════════════════════════
-       PAGE 8 — EJEMPLO MONOAMBIENTE
-    ═══════════════════════════════════════════ */
-    .ejemplo-page { display: flex; flex-direction: column; }
-    .ejemplo-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
+    .cover { background: var(--ink); min-height: var(--page-h); display: flex; flex-direction: column; }
+    .cover-hero { flex: 1; min-height: 720px; position: relative; overflow: hidden; }
+    .cover-grad-top {
+      position: absolute; inset: 0 0 auto; height: 140px; z-index: 1;
+      background: linear-gradient(to bottom, rgba(26,26,24,0.7), transparent);
     }
-    .ejemplo-left {
-      display: flex; flex-direction: column;
-      border-right: 0.5px solid var(--line);
+    .cover-grad-bot {
+      position: absolute; inset: auto 0 0; height: 280px; z-index: 1;
+      background: linear-gradient(to top, var(--ink) 8%, rgba(26,26,24,0.55) 55%, transparent);
     }
-    .ejemplo-plan {
-      flex: 1; background: var(--blanco);
-      display: flex; align-items: center; justify-content: center;
-      padding: 24px; min-height: 340px;
+    .cover-bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px var(--mg);
     }
-    .ejemplo-plan img { max-height: 320px; width: auto; object-fit: contain; }
-    .ejemplo-surfaces {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      border-top: 0.5px solid var(--line);
+    .cover-bar span {
+      font-size: 8px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(248,247,244,0.5);
     }
-    .ejemplo-surface-item {
-      padding: 16px 18px; border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 4px;
+    .cover-copy { padding: 8px var(--mg) 36px; position: relative; z-index: 2; }
+    .cover-copy h1 {
+      font-family: var(--serif); font-weight: 200; font-size: 64px;
+      line-height: 0.92; letter-spacing: -0.03em; color: var(--blanco);
     }
-    .ejemplo-surface-item:last-child { border-right: none; }
-    .ejemplo-surface-item .es-lbl {
-      font-size: 7.5px; font-weight: 600; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--niebla);
+    .cover-copy .sub {
+      margin-top: 10px; font-size: 14px; font-weight: 300;
+      color: rgba(248,247,244,0.55); letter-spacing: 0.04em;
     }
-    .ejemplo-surface-item .es-val {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 20px; color: var(--ink); line-height: 1;
+    .cover-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      margin-top: 26px; padding-top: 18px;
+      border-top: 0.5px solid rgba(248,247,244,0.12);
     }
-    .ejemplo-right {
-      padding: 40px 40px 90px var(--mg);
-      display: flex; flex-direction: column; gap: 22px;
-    }
-    .ejemplo-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink);
-    }
-    .ejemplo-block {
-      padding: 18px; background: var(--blanco); border: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .ejemplo-block .eb-label {
-      font-size: 7.5px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .ejemplo-block .eb-value {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 28px; color: var(--musgo); line-height: 1;
-    }
-    .ejemplo-block .eb-note {
-      font-size: 10px; color: var(--niebla);
-    }
-    .ejemplo-payment {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-    }
-    .ejemplo-payment-item {
-      padding: 14px; display: flex; flex-direction: column; gap: 4px;
-    }
-    .ejemplo-payment-item.ep-anticipo {
-      background: var(--musgo); color: var(--blanco);
-    }
-    .ejemplo-payment-item.ep-saldo {
-      background: rgba(83,98,69,0.1);
-      border: 0.5px solid rgba(83,98,69,0.25);
-    }
-    .ejemplo-payment-item .epi-lbl {
-      font-size: 7.5px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; opacity: 0.65;
-    }
-    .ejemplo-payment-item.ep-anticipo .epi-lbl { color: var(--blanco); }
-    .ejemplo-payment-item.ep-saldo    .epi-lbl { color: var(--musgo);  }
-    .ejemplo-payment-item .epi-val {
-      font-family: var(--serif); font-weight: 200; font-size: 22px; line-height: 1;
-    }
-    .ejemplo-payment-item.ep-anticipo .epi-val { color: var(--blanco); }
-    .ejemplo-payment-item.ep-saldo    .epi-val { color: var(--musgo);  }
-    .ejemplo-scenario {
-      padding: 16px; border: 0.5px solid rgba(196,169,125,0.4);
-      background: rgba(196,169,125,0.06);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .ejemplo-scenario .esc-badge {
-      font-size: 7px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--tierra);
-    }
-    .ejemplo-scenario .esc-val {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 24px; color: var(--tierra); line-height: 1;
-    }
-    .ejemplo-scenario .esc-delta {
-      font-size: 11px; font-weight: 600; color: var(--tierra);
-    }
-    .ejemplo-scenario .esc-note {
-      font-size: 9px; color: var(--niebla); margin-top: 2px; line-height: 1.5;
-    }
+    .cm-lbl { font-size: 7.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,247,244,0.32); margin-bottom: 5px; }
+    .cm-val { font-size: 12px; font-weight: 300; color: rgba(248,247,244,0.82); }
 
-    /* ═══════════════════════════════════════════
-       PAGE 9 — TRES TIPOLOGÍAS
-    ═══════════════════════════════════════════ */
-    .tipos-page { display: flex; flex-direction: column; }
-    .tipos-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr;
+    .badge {
+      display: inline-block; font-size: 7px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; padding: 3px 8px;
     }
-    .tipo-col {
-      padding: 40px 28px 90px;
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    .tipo-col:last-child { border-right: none; }
-    .tipo-letter {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 64px; line-height: 1; letter-spacing: -0.02em;
-      color: rgba(26,26,24,0.07);
-      position: absolute; top: 0; right: 0;
-    }
-    .tipo-col-inner { position: relative; }
-    .tipo-name {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 30px; line-height: 1.05; color: var(--ink);
-    }
-    .tipo-sub { font-size: 10px; color: var(--niebla); margin-top: 4px; letter-spacing: 0.04em; }
-    .tipo-surfaces {
-      display: flex; flex-direction: column; gap: 4px;
-      padding: 14px 0; border-top: 0.5px solid var(--line);
-      border-bottom: 0.5px solid var(--line);
-    }
-    .tipo-surface-row {
-      display: flex; justify-content: space-between;
-      font-size: 11.5px; color: #6B5242;
-    }
-    .tipo-surface-row .tsr-lbl { font-weight: 400; }
-    .tipo-surface-row .tsr-val { font-weight: 600; color: var(--ink); }
-    .tipo-surface-row.tsr-total .tsr-lbl { color: var(--niebla); font-size: 10px; }
-    .tipo-surface-row.tsr-total .tsr-val { color: var(--niebla); font-size: 10px; }
-    .tipo-price-block { display: flex; flex-direction: column; gap: 4px; }
-    .tipo-price-block .tpb-lbl {
-      font-size: 7.5px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .tipo-price-block .tpb-total {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 26px; color: var(--musgo); line-height: 1;
-    }
-    .tipo-payment { display: flex; flex-direction: column; gap: 8px; }
-    .tipo-payment .tp-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      font-size: 11px; padding: 6px 0; border-bottom: 0.5px solid var(--line);
-    }
-    .tipo-payment .tp-row .tp-lbl { color: #6B5242; }
-    .tipo-payment .tp-row .tp-val { font-weight: 600; color: var(--ink); }
-    .tipo-payment .tp-row .tp-val-musgo { font-weight: 600; color: var(--musgo); }
-    .tipo-cac-note {
-      font-size: 9px; color: var(--niebla); line-height: 1.5;
-      margin-top: auto;
-    }
+    .badge--p { background: rgba(83,98,69,0.14); color: var(--musgo); }
+    .badge--e { background: rgba(196,169,125,0.2); color: var(--tierra); }
 
-    /* ═══════════════════════════════════════════
-       PAGE 10 — SAAVEDRA
-    ═══════════════════════════════════════════ */
-    .saavedra-page { display: flex; flex-direction: column; }
-    .saavedra-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .saavedra-left {
-      padding: 48px var(--mg) 90px;
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 24px;
-    }
-    .saavedra-right {
-      display: flex; flex-direction: column;
-    }
-    .saavedra-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 48px; line-height: 1.05; letter-spacing: -0.02em; color: var(--blanco);
-    }
-    .saavedra-desc {
-      font-size: 13px; line-height: 1.75; color: rgba(248,247,244,0.65);
-    }
-    .saavedra-stats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-      background: rgba(248,247,244,0.1); border: 0.5px solid rgba(248,247,244,0.1);
-      margin-top: 8px;
-    }
-    .saavedra-stat {
-      padding: 18px 20px;
-      background: rgba(26,26,24,0.5); backdrop-filter: blur(2px);
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .saavedra-stat .ss-num {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 36px; line-height: 1; letter-spacing: -0.02em; color: var(--blanco);
-    }
-    .saavedra-stat .ss-lbl {
-      font-size: 8.5px; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: rgba(248,247,244,0.45);
-    }
-    .saavedra-map-area {
-      flex: 1; position: relative; overflow: hidden;
-      min-height: 480px; background: #D4CFCA;
-    }
-    .saavedra-location-pin {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-    }
-    .saavedra-address-strip {
-      padding: 18px 24px; background: var(--ink);
-      border-top: 0.5px solid rgba(248,247,244,0.1);
-    }
-    .saavedra-address-strip .sa-label {
-      font-size: 7.5px; font-weight: 600; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(248,247,244,0.35);
-    }
-    .saavedra-address-strip .sa-address {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 20px; color: var(--blanco); line-height: 1.2; margin-top: 4px;
-    }
+    .bar { height: 7px; background: rgba(248,247,244,0.08); position: relative; }
+    .bar > i { position: absolute; inset: 0 auto 0 0; background: var(--musgo); }
+    .bar > i.m { background: rgba(143,144,137,0.5); }
 
-    /* ═══════════════════════════════════════════
-       PAGE 11 — BARRIO EN TRANSFORMACIÓN
-    ═══════════════════════════════════════════ */
-    .transform-page { display: flex; flex-direction: column; }
-    .transform-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .transform-left { display: flex; flex-direction: column; overflow: hidden; }
-    .transform-render { flex: 1; min-height: 500px; overflow: hidden; }
-    .transform-right {
-      padding: 48px 40px 90px var(--mg);
-      border-left: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 24px;
-    }
-    .transform-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 40px; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink);
-    }
-    .transform-desc {
-      font-size: 13px; line-height: 1.75; color: #6B5242;
-    }
-    .transform-data-item {
-      padding: 16px 0; border-bottom: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .transform-data-item:last-child { border-bottom: none; }
-    .transform-data-item .tdi-num {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 32px; color: var(--musgo); line-height: 1; letter-spacing: -0.02em;
-    }
-    .transform-data-item .tdi-lbl {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
-      color: var(--ink);
-    }
-    .transform-data-item .tdi-desc {
-      font-size: 11px; color: #6B5242; line-height: 1.5; margin-top: 2px;
-    }
-
-    /* ═══════════════════════════════════════════
-       PAGE 12 — VIDAL 3849 RENDER
-    ═══════════════════════════════════════════ */
-    .renderpage { display: flex; flex-direction: column; min-height: var(--page-h); }
-    .renderpage-full {
-      flex: 1; position: relative; min-height: 800px; overflow: hidden;
-    }
-    .renderpage-overlay-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 240px;
-      background: linear-gradient(to top, rgba(26,26,24,0.85) 0%, transparent 100%);
-      z-index: 1;
-    }
-    .renderpage-caption {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-      padding: 32px var(--mg);
-    }
-    .renderpage-caption .rc-eyebrow {
-      font-size: 8px; font-weight: 600; letter-spacing: 0.26em;
-      text-transform: uppercase; color: rgba(248,247,244,0.45);
-      margin-bottom: 10px;
-    }
-    .renderpage-caption .rc-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 52px; line-height: 0.95; letter-spacing: -0.025em; color: var(--blanco);
-    }
-    .renderpage-caption .rc-sub {
-      font-size: 13px; font-weight: 300; color: rgba(248,247,244,0.55);
-      margin-top: 8px; letter-spacing: 0.04em;
-    }
-
-    /* ═══════════════════════════════════════════
-       PAGE 13 — EL EDIFICIO
-    ═══════════════════════════════════════════ */
-    .edificio-page { display: flex; flex-direction: column; }
-    .edificio-body {
-      flex: 1; display: grid; grid-template-columns: 200px 1fr 1fr;
-    }
-    .edificio-sidebar {
-      padding: 44px 24px 90px var(--mg);
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    .edificio-sidebar-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 34px; line-height: 1.05; color: var(--ink);
-    }
-    .edificio-sidebar-desc {
-      font-size: 12px; line-height: 1.65; color: #6B5242;
-    }
-    .edificio-amenidades {
-      list-style: none; display: flex; flex-direction: column; gap: 7px;
-      margin-top: 4px;
-    }
-    .edificio-amenidades li {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 11px; color: #6B5242; line-height: 1.45;
-    }
-    .edificio-amenidades li::before {
-      content: ''; flex-shrink: 0; margin-top: 7px;
-      width: 12px; height: 0.5px; background: var(--arena);
-    }
-    .edificio-plan-col {
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column;
-    }
-    .edificio-plan-col:last-child { border-right: none; }
-    .edificio-plan-label {
-      padding: 14px 20px; border-bottom: 0.5px solid var(--line);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .edificio-plan-label .epl-title {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .edificio-plan-img {
-      flex: 1; padding: 16px; background: var(--blanco);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .edificio-plan-img img { max-width: 100%; max-height: 480px; object-fit: contain; }
-
-    /* ═══════════════════════════════════════════
-       PAGE 14 — LAS UNIDADES
-    ═══════════════════════════════════════════ */
-    .unidades-page { display: flex; flex-direction: column; }
-    .unidades-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr;
-    }
-    .unidad-col {
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column;
-    }
-    .unidad-col:last-child { border-right: none; }
-    .unidad-header {
-      padding: 24px 22px; border-bottom: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .unidad-header .uh-tipo {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .unidad-header .uh-name {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 24px; color: var(--ink); line-height: 1.1;
-    }
-    .unidad-plan-area {
-      flex: 1; background: var(--blanco);
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px; min-height: 340px;
-    }
-    .unidad-plan-area img {
-      max-height: 330px; max-width: 100%; object-fit: contain;
-    }
-    .unidad-footer {
-      padding: 16px 22px; border-top: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .unidad-footer .uf-row {
-      display: flex; justify-content: space-between;
-      font-size: 11.5px;
-    }
-    .unidad-footer .uf-lbl { color: #6B5242; }
-    .unidad-footer .uf-val { font-weight: 600; color: var(--ink); }
-
-    /* ═══════════════════════════════════════════
-       PAGE 15 — PARA QUIÉN
-    ═══════════════════════════════════════════ */
-    .perfiles-page { display: flex; flex-direction: column; }
-    .perfiles-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr;
-    }
-    .perfil-col {
-      padding: 48px 28px 90px;
-      border-right: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 20px;
-    }
-    .perfil-col:last-child { border-right: none; }
-    .perfil-icon {
-      width: 40px; height: 40px;
-      border: 0.5px solid rgba(83,98,69,0.35);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .perfil-label {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.24em;
-      text-transform: uppercase; color: var(--musgo);
-      margin-bottom: 2px;
-    }
-    .perfil-name {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 30px; line-height: 1.05; color: var(--ink);
-    }
-    .perfil-desc {
-      font-size: 13px; line-height: 1.72; color: #6B5242;
-    }
-    .perfil-items {
-      list-style: none; display: flex; flex-direction: column; gap: 8px;
-      margin-top: 4px;
-    }
-    .perfil-items li {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 12px; color: #6B5242; line-height: 1.5;
-    }
-    .perfil-items li::before {
-      content: ''; flex-shrink: 0; margin-top: 8px;
-      width: 12px; height: 0.5px; background: var(--arena);
-    }
-    .perfil-note {
-      font-size: 10px; color: var(--niebla); line-height: 1.6;
-      padding: 12px; background: var(--suelo); border: 0.5px solid var(--line);
-      margin-top: auto;
-    }
-
-    /* ═══════════════════════════════════════════
-       PAGE 16 — RESUMEN
-    ═══════════════════════════════════════════ */
-    .resumen-page { display: flex; flex-direction: column; }
-    .resumen-body {
-      flex: 1; padding: 48px var(--mg) 90px;
-      display: flex; flex-direction: column; gap: 28px;
-    }
-    .resumen-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .resumen-card {
-      padding: 28px; display: flex; flex-direction: column; gap: 8px;
+    .facts {
+      display: grid; grid-template-columns: repeat(3, 1fr);
       border: 0.5px solid var(--line); background: var(--blanco);
     }
-    .resumen-card.rc-musgo { background: var(--musgo); border-color: transparent; }
-    .resumen-card .rcc-badge {
-      font-size: 7.5px; font-weight: 700; letter-spacing: 0.24em;
-      text-transform: uppercase; color: var(--niebla);
+    .fact { padding: 14px 18px; border-right: 0.5px solid var(--line); }
+    .fact:last-child { border-right: none; }
+    .fact .l {
+      font-size: 8px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--niebla); margin-bottom: 6px;
     }
-    .resumen-card.rc-musgo .rcc-badge { color: rgba(248,247,244,0.5); }
-    .resumen-card .rcc-num {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 58px; line-height: 1; letter-spacing: -0.025em; color: var(--ink);
+    .fact .n {
+      font-family: var(--serif); font-weight: 200; font-size: 22px;
+      letter-spacing: -0.02em; line-height: 1;
     }
-    .resumen-card.rc-musgo .rcc-num { color: var(--blanco); }
-    .resumen-card .rcc-label {
-      font-size: 12px; font-weight: 400; color: var(--niebla); line-height: 1.5;
+
+    .plist-wrap { border: 0.5px solid var(--line); overflow: hidden; background: var(--blanco); }
+    .plist { width: 100%; border-collapse: collapse; }
+    .plist thead th {
+      font-size: 7.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(248,247,244,0.55); text-align: left; padding: 10px 12px;
+      background: var(--ink); border: none;
     }
-    .resumen-card.rc-musgo .rcc-label { color: rgba(248,247,244,0.6); }
-    .resumen-market-strip {
-      padding: 18px 20px; background: var(--suelo); border: 0.5px solid var(--line);
-      display: flex; flex-direction: column; gap: 6px;
+    .plist thead th.num { text-align: right; }
+    .plist td {
+      padding: 8px 12px; border-bottom: 0.5px solid rgba(132,96,64,0.12);
+      font-size: 12px; color: #5A4530; vertical-align: middle;
     }
-    .resumen-market-strip .rms-label {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--niebla);
+    .plist td.num {
+      text-align: right; font-family: var(--serif); font-weight: 300;
+      font-size: 13.5px; color: var(--ink); letter-spacing: -0.02em; white-space: nowrap;
     }
-    .resumen-market-row {
-      display: flex; gap: 0;
+    .plist td.num.price { color: var(--musgo); font-size: 14.5px; font-weight: 400; }
+    .plist td.num.delta { color: var(--tierra); }
+    .plist .floor-cell {
+      font-size: 8px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--musgo);
+      vertical-align: middle; width: 64px;
+      border-right: 0.5px solid var(--line);
+      background: var(--suelo);
     }
-    .resumen-market-item {
-      flex: 1; padding: 6px 12px 6px 0;
+    .plist .tipo { font-weight: 600; color: var(--ink); display: block; letter-spacing: -0.01em; }
+    .plist .tipo-sub { font-size: 10px; color: var(--niebla); font-weight: 400; margin-top: 1px; display: block; }
+    .plist tbody tr.alt td { background: var(--lino); }
+    .plist tbody tr.alt td.floor-cell { background: #DDD8CE; }
+    .plist tbody tr:last-child td { border-bottom: none; }
+
+    .pago-page {
+      flex: 1; min-height: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-start;
+      padding: 36px var(--mg) 28px;
+      gap: 22px;
+    }
+    .pago-head {
+      display: grid; grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px; align-items: end;
+    }
+    .pago-bar { display: flex; height: 52px; border: 0.5px solid var(--line); overflow: hidden; }
+    .pago-30 { width: 30%; background: var(--musgo); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; }
+    .pago-70 { flex: 1; background: rgba(83,98,69,0.12); display: flex; align-items: center; justify-content: center; color: var(--musgo); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; }
+    .pago-legend { display: flex; justify-content: space-between; margin-top: 8px; }
+    .pago-block { flex-shrink: 0; }
+    .pago-block .kicker { margin-bottom: 10px; }
+    .pago-cards {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      border: 0.5px solid var(--line);
+      background: var(--blanco);
+    }
+    .pago-card {
+      padding: 16px 18px;
       border-right: 0.5px solid var(--line);
     }
-    .resumen-market-item:last-child { border-right: none; }
-    .resumen-market-item .rmi-tipo {
-      font-size: 8px; color: var(--niebla);
+    .pago-card:last-child { border-right: none; }
+    .pago-card .tipo-lbl {
+      font-size: 8px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--liquen); margin-bottom: 6px;
     }
-    .resumen-market-item .rmi-val {
-      font-size: 13px; font-weight: 600; color: var(--ink); margin-top: 2px;
+    .pago-card .anticipo {
+      font-family: var(--serif); font-weight: 200;
+      font-size: 26px; letter-spacing: -0.03em; line-height: 1;
+      color: var(--musgo);
+    }
+    .pago-card .sobre {
+      margin-top: 6px; font-size: 11px; color: var(--niebla); line-height: 1.4;
+    }
+    .pago-card .resto {
+      margin-top: 10px; padding-top: 10px;
+      border-top: 0.5px solid var(--line);
+      font-size: 10.5px; line-height: 1.45; color: #5A4530;
+    }
+    .pago-steps {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .pago-step {
+      padding: 16px 16px 18px;
+      background: var(--suelo);
+      border: 0.5px solid var(--line);
+    }
+    .pago-step .n {
+      font-family: var(--serif); font-weight: 200;
+      font-size: 22px; color: var(--musgo); line-height: 1; margin-bottom: 8px;
+    }
+    .pago-step p { font-size: 12px; line-height: 1.45; color: #5A4530; }
+    .pago-note {
+      padding: 12px 16px;
+      background: var(--suelo);
+      border: 0.5px solid var(--line);
+      font-size: 11px; line-height: 1.55; color: var(--niebla);
     }
 
-    /* ═══════════════════════════════════════════
-       PAGE 17 — POR QUÉ VIDAL 3849
-    ═══════════════════════════════════════════ */
-    .porque-page { display: flex; flex-direction: column; }
-    .porque-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-    }
-    .porque-card {
-      padding: 44px 40px;
-      border-right: 0.5px solid rgba(248,247,244,0.1);
-      border-bottom: 0.5px solid rgba(248,247,244,0.1);
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .porque-card:nth-child(2) { border-right: none; }
-    .porque-card:nth-child(3) { border-bottom: none; }
-    .porque-card:nth-child(4) { border-right: none; border-bottom: none; }
-    .porque-card-number {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 80px; line-height: 1; letter-spacing: -0.03em;
-      color: rgba(248,247,244,0.06);
-    }
-    .porque-card-icon {
-      width: 40px; height: 40px; border: 0.5px solid rgba(248,247,244,0.18);
+    .sheet-plan { flex: 1; position: relative; min-height: 0; height: 0; }
+    .sheet-fit {
+      position: absolute; inset: 8px 12px 8px;
       display: flex; align-items: center; justify-content: center;
     }
-    .porque-card-title {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 34px; line-height: 1.05; letter-spacing: -0.02em;
-      color: var(--blanco); margin-top: 20px;
+    .sheet-fit img {
+      width: auto; height: auto;
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
     }
-    .porque-card-desc {
-      font-size: 12.5px; line-height: 1.7;
-      color: rgba(248,247,244,0.55); margin-top: 12px;
+    .sheet-caption {
+      position: absolute; top: 16px; left: 20px; z-index: 2;
+      max-width: 200px;
+      background: var(--lino);
+      border: 0.5px solid var(--line);
+      padding: 10px 12px 11px;
+    }
+    .sheet-caption .serif-title { font-size: 20px; }
+    .sheet-caption .body { font-size: 10.5px; line-height: 1.45; margin-top: 5px; }
+
+    .tipo-row {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 12px 16px 16px 0;
+    }
+    .tipo-mini {
+      display: grid; grid-template-columns: 88px 1fr;
+      gap: 12px; align-items: center;
+      background: var(--blanco);
+      border: 0.5px solid var(--line);
+      overflow: hidden;
+      min-height: 0;
+      flex: 1;
+    }
+    .tipo-mini img {
+      width: 88px; height: 100%; min-height: 92px;
+      object-fit: cover; object-position: center;
+    }
+    .tipo-mini .copy { padding: 10px 12px 10px 0; }
+    .tipo-mini .mark {
+      font-family: var(--serif); font-weight: 200;
+      font-size: 22px; color: var(--musgo); line-height: 1; opacity: 0.55;
+    }
+    .tipo-mini .name { font-family: var(--serif); font-weight: 200; font-size: 18px; letter-spacing: -0.02em; }
+    .tipo-mini .meta { font-size: 10.5px; color: var(--niebla); margin-top: 3px; }
+    .tipo-mini .spread {
+      margin-top: 8px; font-size: 11px; color: #5A4530;
+    }
+    .tipo-mini .spread strong { font-family: var(--serif); font-weight: 300; color: var(--musgo); }
+
+    .ladder { display: flex; flex-direction: column; gap: 16px; }
+    .lad-row .lad-top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 7px; gap: 12px;
+    }
+    .lad-row .lad-name { font-size: 12px; font-weight: 500; color: #5A4530; }
+    .lad-row .lad-val {
+      font-family: var(--serif); font-weight: 300; font-size: 18px;
+      letter-spacing: -0.02em; white-space: nowrap;
+    }
+    .lad-track { height: 9px; background: rgba(132,96,64,0.1); position: relative; }
+    .lad-fill { display: block; position: absolute; inset: 0 auto 0 0; height: 100%; background: var(--musgo); }
+    .lad-fill.is-t1 { background: var(--tierra); }
+    .lad-fill.is-mkt { background: var(--ink); }
+    .lad-fill.is-used { background: rgba(83,98,69,0.35); }
+
+    .amb-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .amb-card {
+      background: var(--blanco); border: 0.5px solid var(--line); padding: 16px 16px 14px;
+    }
+    .amb-card .amb-h {
+      font-size: 8px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--liquen); margin-bottom: 10px;
+    }
+    .amb-line { display: grid; grid-template-columns: 72px 1fr 52px; gap: 8px; align-items: center; margin-top: 7px; }
+    .amb-line span { font-size: 10px; color: var(--niebla); }
+    .amb-line b { font-family: var(--serif); font-weight: 300; font-size: 12px; text-align: right; color: var(--ink); }
+    .amb-mini { height: 6px; background: rgba(132,96,64,0.1); }
+    .amb-mini i { display: block; height: 100%; background: var(--musgo); }
+    .amb-mini i.used { background: rgba(83,98,69,0.35); }
+    .amb-mini i.new { background: var(--ink); }
+
+    .scen {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+    }
+    .scen-card {
+      padding: 16px 16px 18px;
+      background: var(--blanco);
+      border: 0.5px solid var(--line);
+    }
+    .scen-card.is-base { background: var(--musgo); color: var(--blanco); border-color: transparent; }
+    .scen-card.is-base .kicker { color: rgba(248,247,244,0.55); }
+    .scen-card.is-base .muted { color: rgba(248,247,244,0.55); }
+    .scen-card .n {
+      font-family: var(--serif); font-weight: 200; font-size: 28px;
+      letter-spacing: -0.03em; line-height: 1; margin: 8px 0 6px;
     }
 
-    /* ═══════════════════════════════════════════
-       PAGE 18 — CALL TO ACTION
-    ═══════════════════════════════════════════ */
-    .cta-page { display: flex; flex-direction: column; }
-    .cta-body {
-      flex: 1; display: grid; grid-template-columns: 1fr 1fr;
+    .wa-row { display: flex; align-items: center; gap: 10px; margin-top: 32px; }
+    .ico { width: 16px; height: 16px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+    .ico--lg { width: 20px; height: 20px; }
+    .brand-lockup {
+      width: 202px;
+      height: 44px;
+      background: url("assets/raices_logo_texto.png") left center / contain no-repeat;
+      filter: brightness(0) invert(1);
+      opacity: 0.82;
+      flex-shrink: 0;
     }
-    .cta-left {
-      padding: 56px var(--mg) 56px;
-      border-right: 0.5px solid rgba(248,247,244,0.08);
+    .contact-col {
+      padding: 52px var(--mg) 28px;
       display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .cta-right {
-      padding: 56px var(--mg) 56px;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .cta-headline {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 52px; line-height: 0.98; letter-spacing: -0.025em; color: var(--blanco);
-    }
-    .cta-subline {
-      font-size: 13px; font-weight: 300; line-height: 1.7;
-      color: rgba(248,247,244,0.5); margin-top: 20px;
-    }
-    .cta-brand {
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .cta-brand img { height: 28px; width: auto; }
-    .cta-brand span {
-      font-size: 7.5px; font-weight: 600; letter-spacing: 0.24em;
-      text-transform: uppercase; color: rgba(248,247,244,0.25);
-    }
-    .cta-contact-list {
-      display: flex; flex-direction: column; gap: 0;
-    }
-    .cta-contact-row {
-      display: flex; align-items: center; gap: 16px;
-      padding: 18px 0; border-bottom: 0.5px solid rgba(248,247,244,0.08);
-    }
-    .cta-contact-row:last-child { border-bottom: none; }
-    .cta-contact-icon {
-      width: 36px; height: 36px; flex-shrink: 0;
-      border: 0.5px solid rgba(196,169,125,0.3); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .cta-contact-label {
-      font-size: 7.5px; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--arena); margin-bottom: 3px;
-    }
-    .cta-contact-value {
-      font-size: 14px; font-weight: 300; font-family: var(--serif); color: var(--blanco);
-    }
-    .cta-contact-value--placeholder {
-      color: rgba(248,247,244,0.3); font-style: italic;
-    }
-    .cta-disclaimer {
-      font-size: 8.5px; line-height: 1.7; color: rgba(248,247,244,0.28);
-      padding-top: 18px; border-top: 0.5px solid rgba(248,247,244,0.08);
+      align-items: flex-start;
     }
 
-    /* ═══════════════════════════════════════════
-       PRINT
-    ═══════════════════════════════════════════ */
     @media print {
-      body { background: white; }
-      .page { width: 210mm; min-height: 297mm; margin: 0; box-shadow: none; page-break-after: always; }
+      body { background: #fff; }
+      .page { margin: 0; box-shadow: none; page-break-after: always; width: 210mm; height: 297mm; min-height: 297mm; }
+      .page:not(.cover) { padding-bottom: 14mm; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
     @page { size: A4 portrait; margin: 0; }
-
-    /* ─── Logo de proyecto (reemplaza imagen) ─── */
-    .logo-text {
-      font-family: var(--serif);
-      font-weight: 200;
-      font-size: 15px;
-      letter-spacing: 0.06em;
-      color: var(--ink);
-      white-space: nowrap;
-    }
-    .ph--dark .logo-text {
-      color: rgba(248,247,244,0.82);
-    }
-
   </style>
 </head>
-
 <body>
 
-<!-- ════════════════════════════════════════════════
-  PÁGINA 1 — PORTADA
-════════════════════════════════════════════════ -->
+<!-- COVER -->
 <div class="page cover">
-  <div class="cover-render">
-    <img class="render-img" src="assets/render%20frente%20edificio.jpeg"
-      alt="Vidal 3849 — Fachada" style="object-position: center 35%;" />
-    <div class="cover-overlay-top"></div>
-    <div class="cover-overlay-bottom"></div>
-    <div class="cover-header-bar">
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span style="font-size:8px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,247,244,0.52);">Daimar Developers</span>
-        <span style="color:rgba(248,247,244,0.22); font-size:8px;">&middot;</span>
-        <span style="font-size:8px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,247,244,0.52);">G&amp;D Developers</span>
-      </div>
-      <span style="font-size:8px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,247,244,0.38);">
-        Carpeta comercial · 2026
-      </span>
+  <div class="cover-hero">
+    <img class="render-img" src="assets/fachada-propuesta-sga.jpeg" alt="Fachada Ceibo Vidal — Vidal 3849" style="object-position: center 42%;" />
+    <div class="cover-grad-top"></div>
+    <div class="cover-grad-bot"></div>
+    <div class="cover-bar">
+      <img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="height:22px; filter:brightness(0) invert(1); opacity:0.85;" />
+      <span>Carpeta para inversores · Preventa 1</span>
     </div>
   </div>
-
-  <div class="cover-content">
-    <div class="cover-tagline">Entrar antes.</div>
-    <div class="cover-title">Vidal 3849</div>
-    <div class="cover-subtitle">Saavedra · Ciudad Autónoma de Buenos Aires</div>
+  <div class="cover-copy">
+    <div class="kicker kicker--light" style="margin-bottom:12px; color:var(--arena);">Entrar antes · el caso</div>
+    <h1>Ceibo Vidal</h1>
+    <div class="accent"></div>
+    <div class="sub">Vidal 3849 · Saavedra · 12 unidades · USD 2.600/m²</div>
     <div class="cover-meta">
-      <div class="cover-meta-item">
-        <div class="cm-lbl">Precio Preventa 1</div>
-        <div class="cm-val">desde USD 2.600/m²</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cm-lbl">Tipologías</div>
-        <div class="cm-val">Mono · 2 amb · 3 amb</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cm-lbl">Forma de pago</div>
-        <div class="cm-val">30% + 70% durante obra</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cm-lbl">Plazo estimado</div>
-        <div class="cm-val">~36 meses</div>
-      </div>
+      <div><div class="cm-lbl">Desde</div><div class="cm-val">USD 93.629</div></div>
+      <div><div class="cm-lbl">Vs. estreno zona</div><div class="cm-val">−28% a −32%</div></div>
+      <div><div class="cm-lbl">Pago</div><div class="cm-val">30% + 70% CAC</div></div>
+      <div><div class="cm-lbl">Plazo</div><div class="cm-val">~36 meses</div></div>
     </div>
   </div>
 </div>
 
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 2 — LA OPORTUNIDAD
-════════════════════════════════════════════════ -->
-<div class="page page--blanco">
+<!-- TESIS -->
+<div class="page page--blanco" style="display:flex;flex-direction:column;">
   <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · La oportunidad</span>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · La tesis</span>
   </div>
-  <div class="divider"></div>
-
-  <div class="oportunidad-hero">
-    <div class="kicker" style="margin-bottom: 20px;">Precio de preventa</div>
-    <div class="hero-price-label">USD 2.600</div>
-    <div class="hero-price-sub">por m² cubierto y semicubierto · Preventa 1</div>
-    <p class="hero-desc">
-      Comprás durante la etapa de construcción.<br />
-      Eso tiene un precio diferente al de una unidad terminada.
-    </p>
-  </div>
-
-  <div class="flow-diagram" style="margin: 0 var(--mg); padding-top: 36px; margin-top: 48px; border-top: 0.5px solid var(--line);">
-    <div class="flow-node">
-      <div class="fn-badge">Hoy · 2026</div>
-      <div class="fn-title">Ingreso<br />en preventa</div>
-      <div class="fn-body">Comprás a precio de pozo. El 30% de anticipo asegura la unidad. El saldo se integra durante la obra.</div>
-      <div class="data-badge data-badge--proyecto" style="margin-top: 4px;">Condición del proyecto</div>
-    </div>
-    <div class="flow-divider"></div>
-    <div class="flow-node" style="padding-left: 28px; padding-right: 28px;">
-      <div class="fn-badge">Construcción · ~36 meses</div>
-      <div class="fn-title">Desarrollo<br />del edificio</div>
-      <div class="fn-body">El saldo se abona durante el proceso constructivo, ajustado por el índice CAC. No necesitás el 100% al comienzo.</div>
-    </div>
-    <div class="flow-divider"></div>
-    <div class="flow-node" style="padding-left: 28px;">
-      <div class="fn-badge">Entrega · ~2029</div>
-      <div class="fn-title">Activo<br />terminado</div>
-      <div class="fn-body">Recibís una unidad nueva, en un edificio terminado, con valor de mercado de unidad a estrenar.</div>
-      <div class="data-badge data-badge--proyeccion" style="margin-top: 4px;">Escenario: USD 3.200/m² (Terminado 1)</div>
-    </div>
-  </div>
-
-  <div style="margin: 36px var(--mg) 0; padding-top: 20px; border-top: 0.5px solid var(--line);">
-    <p style="font-size: 11px; color: var(--niebla); line-height: 1.65;">
-      Los valores futuros son proyecciones estimativas del desarrollador. No constituyen garantía de valorización. El ajuste CAC aplica al saldo durante la obra.
-    </p>
-  </div>
-
-  <div class="pf">
-    <span>La oportunidad</span>
-    <span>Vidal 3849 · Ceibo Vidal</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 3 — PRECIO DE ENTRADA VS MERCADO ACTUAL
-════════════════════════════════════════════════ -->
-<div class="page page--dark barchart-page">
-  <div class="ph ph--dark">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Precio vs mercado</span>
-  </div>
-  <div class="divider divider--light"></div>
-
-  <div class="barchart-body">
+  <div style="padding:36px var(--mg) 24px; display:flex; flex-direction:column; gap:22px; flex:1;">
     <div>
-      <div class="kicker kicker--light" style="margin-bottom:16px;">Comparación de mercado</div>
-      <h2 style="font-family:var(--serif); font-weight:200; font-size:46px; line-height:1.05; letter-spacing:-0.02em; color:var(--blanco);">
-        ¿Cuánto cuesta<br />el mercado hoy?
-      </h2>
-      <p class="barchart-intro">
-        Valores medios de departamentos a estrenar en el área de Saavedra y alrededores, según el Reporte Inmobiliario de abril 2026. Vidal 3849 ingresa a USD 2.600/m² (base Preventa 1).
-      </p>
+      <div class="kicker" style="margin-bottom:12px;">En una página</div>
+      <div class="serif-title" style="font-size:38px;">Comprás el m² a 2.600.<br />El barrio lo vende a más de 3.600.</div>
+      <div class="accent accent--musgo"></div>
+      <p class="body" style="margin-top:16px; max-width:540px;">Preventa 1 es la primera ronda, friends and family. El precio no es un descuento de folleto: es el valor de entrar mientras el edificio todavía se financia con la obra.</p>
     </div>
-
-    <div class="barchart-rows">
-
-      <!-- Bar: Vidal 3849 -->
-      <div class="barchart-row">
-        <div class="barchart-row-header">
-          <div>
-            <span class="barchart-row-label">Vidal 3849</span>
-            <span class="barchart-row-sub">Preventa · Pozo</span>
-          </div>
-          <div class="barchart-row-value">USD 2.600/m²</div>
-        </div>
-        <div class="barchart-track">
-          <div class="barchart-fill barchart-fill--proyecto" style="width: 68.3%;"></div>
-        </div>
-        <div style="margin-top:6px;">
-          <div class="data-badge data-badge--proyecto">Condición del proyecto</div>
-        </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div style="padding:22px; background:var(--musgo); color:#F8F7F4;">
+        <div class="kicker" style="color:rgba(248,247,244,.55);">Precio de entrada</div>
+        <div class="serif-title" style="font-size:48px; margin-top:8px;">2.600</div>
+        <div style="font-size:12px; opacity:.7; margin-top:4px;">USD/m² · Preventa 1 · cubiertos + semicubiertos</div>
+        <div class="badge" style="margin-top:12px; background:rgba(248,247,244,.12); color:rgba(248,247,244,.75);">Condición del proyecto</div>
       </div>
-
-      <!-- Bar: 1 ambiente a estrenar -->
-      <div class="barchart-row">
-        <div class="barchart-row-header">
-          <div>
-            <span class="barchart-row-label">1 ambiente — a estrenar</span>
-            <span class="barchart-row-sub">Valor medio</span>
-          </div>
-          <div class="barchart-row-value">USD 3.618/m²</div>
-        </div>
-        <div class="barchart-track">
-          <div class="barchart-fill barchart-fill--mercado" style="width: 95.0%;"></div>
-        </div>
-        <div style="margin-top:6px;">
-          <div class="data-badge data-badge--mercado">Dato de mercado</div>
-        </div>
+      <div style="padding:22px; background:var(--suelo); border:0.5px solid var(--line);">
+        <div class="kicker">Lista interna a entrega</div>
+        <div class="serif-title" style="font-size:48px; margin-top:8px; color:var(--tierra);">3.200</div>
+        <div class="muted" style="margin-top:4px;">USD/m² · Terminado 1 del modelo. No es el precio de mercado del barrio.</div>
+        <div class="badge badge--e" style="margin-top:12px;">Piso conservador · no es techo</div>
       </div>
-
-      <!-- Bar: 2 ambientes a estrenar -->
-      <div class="barchart-row">
-        <div class="barchart-row-header">
-          <div>
-            <span class="barchart-row-label">2 ambientes — a estrenar</span>
-            <span class="barchart-row-sub">Valor medio</span>
-          </div>
-          <div class="barchart-row-value">USD 3.715/m²</div>
-        </div>
-        <div class="barchart-track">
-          <div class="barchart-fill barchart-fill--mercado" style="width: 97.6%;"></div>
-        </div>
-        <div style="margin-top:6px;">
-          <div class="data-badge data-badge--mercado">Dato de mercado</div>
-        </div>
-      </div>
-
-      <!-- Bar: 3 ambientes a estrenar -->
-      <div class="barchart-row">
-        <div class="barchart-row-header">
-          <div>
-            <span class="barchart-row-label">3 ambientes — a estrenar</span>
-            <span class="barchart-row-sub">Valor medio</span>
-          </div>
-          <div class="barchart-row-value">USD 3.807/m²</div>
-        </div>
-        <div class="barchart-track">
-          <div class="barchart-fill barchart-fill--mercado" style="width: 100%;"></div>
-        </div>
-        <div style="margin-top:6px;">
-          <div class="data-badge data-badge--mercado">Dato de mercado</div>
-        </div>
-      </div>
-
     </div>
-
-    <div style="margin-top: 36px; padding-top: 20px; border-top: 0.5px solid rgba(248,247,244,0.1);">
-      <p class="source source--light">
-        <strong>Fuente (barras grises):</strong> Reporte Inmobiliario · Market Analytics · Abril 2026. Valores medios publicados de departamentos a estrenar en el área.
-        Los valores publicados pueden diferir de precios efectivos de cierre.<br />
-        <strong>Fuente (barra verde):</strong> Condición comercial del proyecto Vidal 3849 al inicio de obras.
-      </p>
+    <div class="facts">
+      <div class="fact"><div class="l">P1 vs lista T1</div><div class="n">+23,1%</div></div>
+      <div class="fact"><div class="l">P1 vs estreno hoy</div><div class="n">+42%</div></div>
+      <div class="fact"><div class="l">Estreno zona · abr 2026</div><div class="n">3.618–3.807</div></div>
     </div>
+    <p class="muted">Fuente de mercado: Reporte Inmobiliario · Market Analytics · abril 2026 (valores medios publicados, Saavedra y área). Fuente de proyecto: hoja 05_Precios_Unidades del modelo VIDAL3849.</p>
   </div>
-
-  <div class="pf pf--dark">
-    <span>Precio vs mercado actual</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
+  <div class="pf"><span>La tesis</span><span>01 / 11</span></div>
 </div>
 
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 4 — POR QUÉ EXISTE ESTA DIFERENCIA
-════════════════════════════════════════════════ -->
-<div class="page page--suelo">
-  <div class="ph" style="border-bottom-color:rgba(132,96,64,0.18);">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid" style="color:var(--niebla);">Vidal 3849 · Por qué existe la diferencia</span>
+<!-- VS MERCADO -->
+<div class="page page--dark" style="display:flex;flex-direction:column;">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal · Precio vs mercado</span>
   </div>
-  <div class="divider"></div>
-
-  <div style="padding: 44px var(--mg) 0; margin-bottom: 32px;">
-    <div class="kicker" style="margin-bottom:14px;">El mecanismo</div>
-    <h2 style="font-family:var(--serif); font-weight:200; font-size:46px; line-height:1.05; letter-spacing:-0.02em; color:var(--ink);">
-      La diferencia<br />tiene una lógica.
-    </h2>
-    <p style="font-size:14px; line-height:1.75; color:#6B5242; margin-top:16px; max-width:560px;">
-      El precio de preventa no es un descuento arbitrario. Refleja el acuerdo entre quien compra y quien construye.
-    </p>
-  </div>
-
-  <div class="diferencia-body" style="padding-top: 28px;">
-    <div class="diferencia-col">
-      <div class="dc-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--musgo)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/>
-        </svg>
-      </div>
-      <div class="kicker" style="color:var(--musgo);">El comprador</div>
-      <div class="dc-title">Entra<br />antes.</div>
-      <ul class="dc-items">
-        <li>Ingresa al proyecto en la etapa de pozo</li>
-        <li>Espera el tiempo de construcción</li>
-        <li>Acompaña financieramente el desarrollo</li>
-        <li>Asume el riesgo propio de un proyecto en curso</li>
-      </ul>
+  <div style="padding:40px var(--mg) 28px; display:flex; flex-direction:column; gap:28px; flex:1;">
+    <div>
+      <div class="kicker kicker--light" style="margin-bottom:12px;">Comparación</div>
+      <div class="serif-title" style="font-size:40px; color:#F8F7F4;">El pozo y el estreno<br />no son el mismo producto.</div>
+      <p style="margin-top:14px; font-size:13.5px; line-height:1.7; color:rgba(248,247,244,.55); max-width:480px;">Valores medios de departamentos a estrenar en el área, abril 2026. Ceibo Vidal ingresa en Preventa 1 a USD 2.600/m².</p>
     </div>
-
-    <div class="diferencia-divider"></div>
-
-    <div class="diferencia-col col-pad-left">
-      <div class="dc-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--musgo)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-      </div>
-      <div class="kicker" style="color:var(--musgo);">El acuerdo</div>
-      <div class="dc-title">A cambio<br />de tiempo.</div>
-      <p class="dc-body">
-        Quien compra en etapa temprana obtiene acceso a un precio distinto al de mercado porque aporta capital durante el desarrollo, no después.
-      </p>
-      <p class="dc-body" style="margin-top: 12px;">
-        El precio de pozo existe porque el proyecto necesita financiamiento para construirse. La diferencia de precio refleja exactamente ese acuerdo.
-      </p>
-    </div>
-
-    <div class="diferencia-divider"></div>
-
-    <div class="diferencia-col col-pad-left">
-      <div class="dc-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--musgo)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
-        </svg>
-      </div>
-      <div class="kicker" style="color:var(--musgo);">El desarrollador</div>
-      <div class="dc-title">Construye<br />con respaldo.</div>
-      <ul class="dc-items">
-        <li>Obtiene capital durante la obra</li>
-        <li>Reduce su dependencia de financiamiento externo</li>
-        <li>Puede sostener la calidad del proyecto</li>
-        <li>Entrega la unidad terminada al precio acordado</li>
-      </ul>
-    </div>
-  </div>
-
-  <div style="margin: 32px var(--mg) 0; padding: 16px; background: rgba(83,98,69,0.1); border: 0.5px solid rgba(83,98,69,0.2);">
-    <p style="font-size: 12px; color: #6B5242; line-height: 1.65;">
-      <strong style="color:var(--musgo);">Lo que el comprador no obtiene:</strong> una unidad lista para habitar inmediatamente, ni la certeza de precios finales de cierre que pueda observar hoy en el mercado. 
-      Lo que obtiene: acceso en etapa temprana a un precio que el mercado de usados o a estrenar no ofrece.
-    </p>
-  </div>
-
-  <div class="pf">
-    <span>Por qué existe la diferencia</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 5 — EL TIEMPO COMO PARTE DE LA INVERSIÓN
-════════════════════════════════════════════════ -->
-<div class="page timeline-page page--blanco">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Cronograma estimado</span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="timeline-body">
-    <div class="timeline-header">
-      <div class="kicker" style="margin-bottom: 14px;">El tiempo es parte del acuerdo</div>
-      <div class="timeline-title">Del pozo<br />al activo terminado.</div>
-      <p class="timeline-desc">
-        La etapa de desarrollo dura aproximadamente 36 meses. Durante ese período se integra el saldo de la compra y el edificio se construye. Al final del proceso: una unidad nueva.
-      </p>
-    </div>
-
-    <div class="timeline-flow">
-      <div class="tl-stage">
-        <div class="tl-stage-label">Etapa 1</div>
-        <div class="tl-year">2026</div>
-        <div style="height: 0.5px; background: var(--line); margin: 4px 0;"></div>
-        <div class="tl-stage-price">desde USD 2.600/m²</div>
-        <div class="tl-stage-desc">
-          Ingreso al proyecto.<br />Anticipo del 30%.<br />Precio de preventa fijo.
-        </div>
-        <div class="tl-stage-note">
-          <div class="data-badge data-badge--proyecto" style="margin-bottom:6px;">Condición del proyecto</div><br />
-          La unidad queda reservada con el anticipo del 30% del valor total.
-        </div>
-      </div>
-
-      <div class="tl-middle">
-        <div class="tl-middle-num">36</div>
-        <div class="tl-middle-lbl">Meses estimados</div>
-        <div style="height: 0.5px; background: var(--line); width: 100%; margin: 8px 0;"></div>
-        <div class="tl-middle-desc">
-          Saldo del 70% durante la construcción.<br />Cuotas ajustadas por CAC.
-        </div>
-      </div>
-
-      <div class="tl-stage">
-        <div class="tl-stage-label">Etapa 2 — Entrega</div>
-        <div class="tl-year">~2029</div>
-        <div style="height: 0.5px; background: var(--line); margin: 4px 0;"></div>
-        <div class="tl-stage-price" style="color: var(--tierra);">Escenario: USD 3.200/m²</div>
-        <div class="tl-stage-desc">
-          Recepción de la unidad.<br />Escrituración.<br />Activo terminado.
-        </div>
-        <div class="tl-stage-note">
-          <div class="data-badge data-badge--proyeccion" style="margin-bottom:6px;">Terminado 1 · Referencia</div><br />
-          Precio de lista post-obra. No constituye garantía de valorización.
-        </div>
-      </div>
-    </div>
-
-    <div style="padding: 18px; background: rgba(132,96,64,0.08); border: 0.5px solid rgba(132,96,64,0.18);">
-      <p style="font-size: 11px; color: #6B5242; line-height: 1.65;">
-        <strong>Nota sobre el ajuste CAC:</strong> el saldo del 70% se ajusta por el índice de Costo de la Construcción (CAC). Las cuotas no son fijas en dólares. El monto final dependerá de la evolución del índice durante el período de obra.
-      </p>
-    </div>
-  </div>
-
-  <div class="pf">
-    <span>Cronograma estimado</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 6 — EL DIFERENCIAL POTENCIAL
-════════════════════════════════════════════════ -->
-<div class="page diferencial-page">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Diferencial potencial</span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="diferencial-body">
-    <div class="diferencial-left">
-      <div class="kicker" style="margin-bottom:16px;">Escenario estimado</div>
-
-      <div class="dif-price-block">
-        <div class="dif-price-label">Precio de entrada · Preventa 1</div>
-        <div class="dif-price-num">2.600</div>
-        <div class="dif-price-unit">USD por m² cubierto y semicubierto</div>
-        <div class="data-badge data-badge--proyecto" style="margin-top:8px;">Condición del proyecto</div>
-      </div>
-
-      <div style="height: 0.5px; background: var(--line);"></div>
-
-      <div class="dif-price-block">
-        <div class="dif-price-label">Escenario de referencia a entrega</div>
-        <div class="dif-price-num" style="color: var(--tierra);">3.200</div>
-        <div class="dif-price-unit">USD por m² · Terminado 1 (referencia post-obra)</div>
-        <div class="data-badge data-badge--proyeccion" style="margin-top:8px;">Estimación del desarrollador</div>
-      </div>
-
-      <div class="dif-arrow">
-        <div>
-          <div style="font-size:8px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--niebla); margin-bottom:4px;">Diferencial potencial estimado</div>
-          <div class="dif-arrow-pct">+23,1%</div>
-        </div>
-        <div class="dif-arrow-lbl">
-          Diferencia entre<br />Preventa 1 (P1) y<br />precio estimado<br />de unidad terminada.<br /><br />
-          No constituye garantía.
-        </div>
-      </div>
-
-      <div class="dif-disclaimer">
-        El diferencial de ~23,1% surge de comparar precios de Preventa 1 (piso 1) con los valores de Terminado 1 (USD 3.200/m², post-obra, mismo piso). El diferencial varía según el piso elegido: pisos más altos tienen menor margen. No constituye garantía de valorización.
-      </div>
-    </div>
-
-    <div class="diferencial-right">
+    <div style="display:flex; flex-direction:column; gap:22px;">
       <div>
-        <div class="kicker" style="margin-bottom:16px;">Por tipología</div>
-        <p style="font-size:13px; line-height:1.72; color:#6B5242;">
-          Comparando precios de Preventa 1 (piso 1) vs. valores estimados de unidad terminada (piso 1) según el modelo financiero del proyecto. El diferencial varía por piso; los pisos más altos tienen menor margen.
-        </p>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+          <span style="font-size:12px; font-weight:600;">Ceibo Vidal · Preventa 1</span>
+          <span class="serif-title" style="font-size:22px;">USD 2.600</span>
+        </div>
+        <div class="bar"><i style="width:68.3%;"></i></div>
+        <div class="badge badge--p" style="margin-top:8px;">Proyecto</div>
       </div>
+      <div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:12px; opacity:.7;">1 ambiente a estrenar · medio</span>
+          <span class="serif-title" style="font-size:22px;">USD 3.618</span>
+        </div>
+        <div class="bar"><i class="m" style="width:95%;"></i></div>
+      </div>
+      <div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:12px; opacity:.7;">2 ambientes a estrenar · medio</span>
+          <span class="serif-title" style="font-size:22px;">USD 3.715</span>
+        </div>
+        <div class="bar"><i class="m" style="width:97.6%;"></i></div>
+      </div>
+      <div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span style="font-size:12px; opacity:.7;">3 ambientes a estrenar · medio</span>
+          <span class="serif-title" style="font-size:22px;">USD 3.807</span>
+        </div>
+        <div class="bar"><i class="m" style="width:100%;"></i></div>
+      </div>
+    </div>
+    <p class="muted" style="color:rgba(248,247,244,.38); margin-top:auto;">Los precios publicados de mercado pueden diferir de cierres reales. Comprar en pozo implica tiempo, CAC y riesgo de obra a cambio de un precio que el mercado de estreno no ofrece hoy.</p>
+  </div>
+  <div class="pf pf--dark"><span>Vs. mercado</span><span>02 / 11</span></div>
+</div>
 
-      <table class="dif-table">
+<!-- INVENTARIO -->
+<div class="page page--suelo" style="display:flex;flex-direction:column;">
+  <div class="ph">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · Las doce unidades</span>
+  </div>
+  <div style="padding:24px var(--mg) 20px; display:flex; flex-direction:column; gap:14px; flex:1;">
+    <div>
+      <div class="kicker" style="margin-bottom:8px;">Preventa 1 · m² ponderados · modelo VIDAL3849</div>
+      <div class="serif-title" style="font-size:32px;">Inventario completo.</div>
+    </div>
+    <div class="plist-wrap">
+      <table class="plist">
         <thead>
           <tr>
-            <th>Tipología</th>
-            <th>Preventa 1 (P1)</th>
-            <th>Terminado 1 (3.200/m²)</th>
-            <th>Diferencial</th>
+            <th>Piso</th>
+            <th>Unidad</th>
+            <th class="num">m²</th>
+            <th class="num">P1 USD</th>
+            <th class="num">T1 USD</th>
+            <th class="num">Δ</th>
+            <th class="num">30%</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="td-tipo">Monoambiente B</td>
-            <td>desde USD 93.600</td>
-            <td class="td-bold">USD 115.200</td>
-            <td style="color:var(--tierra); font-weight:600;">+USD 21.600</td>
+            <td class="floor-cell" rowspan="3">Piso 1</td>
+            <td><span class="tipo">A · 3 ambientes</span><span class="tipo-sub">Frente</span></td>
+            <td class="num">84,1</td>
+            <td class="num price">218.463</td>
+            <td class="num">268.878</td>
+            <td class="num delta">+50.415</td>
+            <td class="num">65.539</td>
           </tr>
           <tr>
-            <td class="td-tipo">2 Ambientes C</td>
-            <td>desde USD 139.300</td>
-            <td class="td-bold">USD 171.500</td>
-            <td style="color:var(--tierra); font-weight:600;">+USD 32.200</td>
+            <td><span class="tipo">B · Monoambiente</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">37,5</td>
+            <td class="num price">93.629</td>
+            <td class="num">115.236</td>
+            <td class="num delta">+21.607</td>
+            <td class="num">28.089</td>
           </tr>
           <tr>
-            <td class="td-tipo">3 Ambientes A</td>
-            <td>desde USD 218.500</td>
-            <td class="td-bold">USD 268.900</td>
-            <td style="color:var(--tierra); font-weight:600;">+USD 50.400</td>
+            <td><span class="tipo">C · 2 ambientes</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">55,8</td>
+            <td class="num price">139.320</td>
+            <td class="num">171.471</td>
+            <td class="num delta">+32.151</td>
+            <td class="num">41.796</td>
+          </tr>
+          <tr class="alt">
+            <td class="floor-cell" rowspan="3">Piso 2</td>
+            <td><span class="tipo">A · 3 ambientes</span><span class="tipo-sub">Frente</span></td>
+            <td class="num">84,1</td>
+            <td class="num price">222.968</td>
+            <td class="num">274.422</td>
+            <td class="num delta">+51.454</td>
+            <td class="num">66.890</td>
+          </tr>
+          <tr class="alt">
+            <td><span class="tipo">B · Monoambiente</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">37,5</td>
+            <td class="num price">95.560</td>
+            <td class="num">117.612</td>
+            <td class="num delta">+22.052</td>
+            <td class="num">28.668</td>
+          </tr>
+          <tr class="alt">
+            <td><span class="tipo">C · 2 ambientes</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">55,8</td>
+            <td class="num price">142.193</td>
+            <td class="num">175.007</td>
+            <td class="num delta">+32.814</td>
+            <td class="num">42.658</td>
+          </tr>
+          <tr>
+            <td class="floor-cell" rowspan="3">Piso 3</td>
+            <td><span class="tipo">A · 3 ambientes</span><span class="tipo-sub">Frente</span></td>
+            <td class="num">84,1</td>
+            <td class="num price">227.472</td>
+            <td class="num">279.966</td>
+            <td class="num delta">+52.494</td>
+            <td class="num">68.242</td>
+          </tr>
+          <tr>
+            <td><span class="tipo">B · Monoambiente</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">37,5</td>
+            <td class="num price">97.490</td>
+            <td class="num">119.988</td>
+            <td class="num delta">+22.498</td>
+            <td class="num">29.247</td>
+          </tr>
+          <tr>
+            <td><span class="tipo">C · 2 ambientes</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">55,8</td>
+            <td class="num price">145.065</td>
+            <td class="num">178.542</td>
+            <td class="num delta">+33.477</td>
+            <td class="num">43.520</td>
+          </tr>
+          <tr class="alt">
+            <td class="floor-cell" rowspan="3">Piso 4</td>
+            <td><span class="tipo">A · 3 ambientes</span><span class="tipo-sub">Frente</span></td>
+            <td class="num">84,1</td>
+            <td class="num price">231.976</td>
+            <td class="num">285.509</td>
+            <td class="num delta">+53.533</td>
+            <td class="num">69.593</td>
+          </tr>
+          <tr class="alt">
+            <td><span class="tipo">B · Monoambiente</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">37,5</td>
+            <td class="num price">99.421</td>
+            <td class="num">122.364</td>
+            <td class="num delta">+22.943</td>
+            <td class="num">29.826</td>
+          </tr>
+          <tr class="alt">
+            <td><span class="tipo">C · 2 ambientes</span><span class="tipo-sub">Contrafrente</span></td>
+            <td class="num">55,8</td>
+            <td class="num price">147.938</td>
+            <td class="num">182.078</td>
+            <td class="num delta">+34.140</td>
+            <td class="num">44.381</td>
           </tr>
         </tbody>
       </table>
-
-      <div style="padding:14px; background:rgba(196,169,125,0.08); border:0.5px solid rgba(196,169,125,0.3);">
-        <p style="font-size:10px; color:var(--niebla); line-height:1.65;">
-            <strong style="color:var(--tierra);">Importante:</strong> el diferencial (~23,1% en piso 1) no es rentabilidad garantizada ni ROI. Compara Preventa 1 vs. Terminado 1 (primer precio de lista post-obra, USD 3.200/m²), ambos en piso 1. Pisos más altos tienen menor diferencial. Los costos de escrituración, ajuste CAC y condiciones de mercado afectan el resultado final.
-        </p>
-      </div>
-        <div class="kicker kicker--niebla" style="margin-bottom:8px;">Metodología de precio</div>
-        <p style="font-size:11px; color:#6B5242; line-height:1.65;">
-          Precio = m² totales (cubiertos + semicubiertos) × USD 2.600/m².<br />
-          Factor de piso: P1=0,97 · P2=0,99 · P3=1,01 · P4=1,03.<br />
-          Factor ubicación: frente=1,03 · contrafrente=0,99.
-        </p>
-      </div>
     </div>
+    <p class="muted">Terminado 1 = primer precio de lista post-obra (USD 3.200/m² × mismos ponderadores). El Δ no es rentabilidad neta: no descuenta CAC, escrituración ni el costo de oportunidad del capital. Pisos altos tienen menor spread porcentual. Accesorios aparte: cochera USD 30.000 · baulera USD 3.000 · terraza privada USD 25.000.</p>
   </div>
-
-  <div class="pf">
-    <span>Escenario de diferencial · Estimación</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
+  <div class="pf"><span>Inventario</span><span>03 / 11</span></div>
 </div>
 
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 7 — NO PAGÁS TODO HOY
-════════════════════════════════════════════════ -->
-<div class="page pago-page page--blanco">
+<!-- NEGOCIO DEL PROYECTO -->
+<div class="page page--blanco" style="display:flex;flex-direction:column;">
   <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Forma de pago</span>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · El negocio del desarrollo</span>
   </div>
-  <div class="divider"></div>
-
-  <div class="pago-body">
-    <div class="pago-left">
-      <div>
-        <div class="kicker" style="margin-bottom:16px;">Forma de pago</div>
-        <div class="pago-title">No pagás<br />todo hoy.</div>
-        <p class="pago-desc" style="margin-top:20px;">
-          Una de las ventajas de comprar en pozo es que no necesitás el valor total de la unidad al momento de firmar. La mayor parte del pago sucede durante la construcción.
-        </p>
-
-        <div style="margin-top: 32px;">
-          <div class="pago-visual">
-            <div class="pago-visual-anticipo">
-              <span class="pago-visual-text" style="color:var(--blanco);">30%</span>
-            </div>
-            <div class="pago-visual-saldo">
-              <span class="pago-visual-text" style="color:var(--musgo);">70%</span>
-            </div>
-          </div>
-          <div class="pago-legend" style="margin-top:10px;">
-            <div class="pago-legend-item">
-              <div class="pago-legend-dot" style="background:var(--musgo);"></div>
-              <span class="pago-legend-text">30% — Anticipo al ingresar</span>
-            </div>
-            <div class="pago-legend-item">
-              <div class="pago-legend-dot" style="background:rgba(83,98,69,0.25); border:0.5px solid rgba(83,98,69,0.4);"></div>
-              <span class="pago-legend-text">70% — Durante la obra</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pago-cac-note">
-        <strong>Ajuste por CAC:</strong> el saldo del 70% se ajusta mensualmente por el índice de Costo de la Construcción (CAC). Las cuotas no son fijas en dólares. El monto final depende de la evolución del índice durante el período de obra.
-      </div>
-    </div>
-
-    <div class="pago-right">
-      <div class="kicker" style="margin-bottom:16px;">Por tipología</div>
-
-      <div class="pago-amounts">
-        <div class="pago-amount-row">
-          <div class="pago-amount-tipo">Monoambiente B</div>
-          <div class="pago-amount-total">desde USD 93.600</div>
-          <div class="pago-amount-split">
-            <div class="s-item">
-              <span class="s-lbl">Anticipo 30%</span>
-              <span class="s-val">desde USD 28.100</span>
-            </div>
-            <div class="s-item" style="padding-left:16px; border-left:0.5px solid var(--line);">
-              <span class="s-lbl">Saldo 70%</span>
-              <span class="s-val" style="color:var(--niebla);">desde USD 65.500</span>
-            </div>
-          </div>
-          <div style="font-size:10px; color:var(--niebla); margin-top:4px;">Saldo durante ~36 meses · ajuste CAC</div>
-        </div>
-
-        <div class="pago-amount-row">
-          <div class="pago-amount-tipo">2 Ambientes C</div>
-          <div class="pago-amount-total">desde USD 139.300</div>
-          <div class="pago-amount-split">
-            <div class="s-item">
-              <span class="s-lbl">Anticipo 30%</span>
-              <span class="s-val">desde USD 41.800</span>
-            </div>
-            <div class="s-item" style="padding-left:16px; border-left:0.5px solid var(--line);">
-              <span class="s-lbl">Saldo 70%</span>
-              <span class="s-val" style="color:var(--niebla);">desde USD 97.500</span>
-            </div>
-          </div>
-          <div style="font-size:10px; color:var(--niebla); margin-top:4px;">Saldo durante ~36 meses · ajuste CAC</div>
-        </div>
-
-        <div class="pago-amount-row" style="border-bottom:none;">
-          <div class="pago-amount-tipo">3 Ambientes A</div>
-          <div class="pago-amount-total">desde USD 218.500</div>
-          <div class="pago-amount-split">
-            <div class="s-item">
-              <span class="s-lbl">Anticipo 30%</span>
-              <span class="s-val">desde USD 65.500</span>
-            </div>
-            <div class="s-item" style="padding-left:16px; border-left:0.5px solid var(--line);">
-              <span class="s-lbl">Saldo 70%</span>
-              <span class="s-val" style="color:var(--niebla);">desde USD 152.900</span>
-            </div>
-          </div>
-          <div style="font-size:10px; color:var(--niebla); margin-top:4px;">Saldo durante ~36 meses · ajuste CAC</div>
-        </div>
-      </div>
-
-      <div style="padding:14px; background:var(--suelo); border:0.5px solid var(--line); margin-top:auto;">
-        <p style="font-size:10.5px; color:#6B5242; line-height:1.65;">
-          Precios de Preventa 1 (piso 1). El precio varía según el piso y ubicación. Precio base: USD 2.600/m² (cubiertos + semicubiertos al 100%, sin ponderación). No incluye SUM ni cocheras/bauleras. El saldo se ajusta por CAC durante la obra.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="pf">
-    <span>Forma de pago</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 8 — EJEMPLO REAL · MONOAMBIENTE
-════════════════════════════════════════════════ -->
-<div class="page ejemplo-page">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Ejemplo real · Monoambiente B</span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="ejemplo-body">
-    <div class="ejemplo-left">
-      <div class="ejemplo-plan">
-        <img src="assets/plano_mono.png" alt="Plano Monoambiente B — Vidal 3849" />
-      </div>
-      <div class="ejemplo-surfaces">
-        <div class="ejemplo-surface-item">
-          <div class="es-lbl">Cubierto</div>
-          <div class="es-val">33,25</div>
-          <div style="font-size:9px; color:var(--niebla);">m²</div>
-        </div>
-        <div class="ejemplo-surface-item">
-          <div class="es-lbl">Balcón</div>
-          <div class="es-val">4,15</div>
-          <div style="font-size:9px; color:var(--niebla);">m²</div>
-        </div>
-        <div class="ejemplo-surface-item" style="background:var(--suelo);">
-          <div class="es-lbl">Ponderados</div>
-          <div class="es-val">37,5</div>
-          <div style="font-size:9px; color:var(--niebla);">m² totales (precio)</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ejemplo-right">
-      <div>
-        <div class="kicker" style="margin-bottom:12px;">Departamento B</div>
-        <div class="ejemplo-title">Monoambiente.<br />Los números<br />reales.</div>
-      </div>
-
-      <div class="ejemplo-block">
-        <div class="eb-label">Precio total · Preventa 1 · Piso 1</div>
-        <div class="eb-value">USD 93.600</div>
-        <div class="eb-note">37,5 m² totales (cub + semi) × USD 2.600/m² × P1 × CF</div>
-      </div>
-
-      <div class="ejemplo-payment">
-        <div class="ejemplo-payment-item ep-anticipo">
-          <div class="epi-lbl">Anticipo — 30%</div>
-          <div class="epi-val">USD 28.100</div>
-          <div style="font-size:10px; color:rgba(248,247,244,0.55); margin-top:4px;">Al ingresar al proyecto</div>
-        </div>
-        <div class="ejemplo-payment-item ep-saldo">
-          <div class="epi-lbl">Saldo — 70%</div>
-          <div class="epi-val">USD 65.500</div>
-          <div style="font-size:10px; color:var(--niebla); margin-top:4px;">Durante ~36 meses · ajuste CAC</div>
-        </div>
-      </div>
-
-      <div class="ejemplo-scenario">
-        <div class="esc-badge">Proyección / Escenario estimado · No garantizado</div>
-        <div style="display:flex; align-items:baseline; gap:12px; margin-top:4px;">
-          <div class="esc-val">USD 115.200</div>
-          <div class="esc-delta">+23,1%</div>
-        </div>
-        <div class="esc-note">
-          Precio Terminado 1 (piso 1, lista post-obra) según modelo financiero del proyecto.<br />
-          Diferencial estimado: ~USD 21.600 sobre precio de Preventa 1 (piso 1).<br />
-          No incluye SUM (≈ USD 6.183 por unidad) ni constituye garantía de valorización.
-        </div>
-        <div class="data-badge data-badge--proyeccion" style="margin-top:8px;">Estimación del desarrollador</div>
-      </div>
-
-      <div style="font-size:10px; color:var(--niebla); line-height:1.65;">
-        Superficie física total: 37,40 m² (33,25 cubiertos + 4,15 balcón).<br />
-        El precio se calcula sobre superficie ponderada, no sobre superficie física total.
-      </div>
-    </div>
-  </div>
-
-  <div class="pf">
-    <span>Ejemplo real · Monoambiente B</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 9 — TRES FORMAS DE ENTRAR
-════════════════════════════════════════════════ -->
-<div class="page tipos-page page--suelo">
-  <div class="ph" style="border-bottom-color:rgba(132,96,64,0.18);">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid" style="color:var(--niebla);">Vidal 3849 · Tipologías</span>
-  </div>
-  <div class="divider"></div>
-
-  <div style="padding: 32px var(--mg) 20px;">
-    <div class="kicker" style="margin-bottom:10px;">Tres formas de entrar</div>
-    <h2 style="font-family:var(--serif); font-weight:200; font-size:40px; letter-spacing:-0.02em; color:var(--ink);">Elegís la unidad. La lógica es la misma.</h2>
-  </div>
-
-  <div class="tipos-body" style="margin: 0 var(--mg); border: 0.5px solid var(--line); background: var(--blanco);">
-    <!-- Monoambiente -->
-    <div class="tipo-col">
-      <div class="tipo-col-inner">
-        <div class="kicker" style="color:var(--musgo); margin-bottom:6px;">Departamento B</div>
-        <div class="tipo-name">Mono<br />ambiente</div>
-        <div class="tipo-sub">Balcón propio · Planta eficiente</div>
-      </div>
-      <div class="tipo-surfaces">
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Cubierto</span>
-          <span class="tsr-val">33,25 m²</span>
-        </div>
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Balcón</span>
-          <span class="tsr-val">4,15 m²</span>
-        </div>
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Físico total</span>
-          <span class="tsr-val">37,40 m²</span>
-        </div>
-        <div class="tipo-surface-row tsr-total">
-          <span class="tsr-lbl">Total (precio)</span>
-          <span class="tsr-val">37,5 m²</span>
-        </div>
-      </div>
-      <div class="tipo-price-block">
-        <div class="tpb-lbl">Precio · Preventa 1 · desde P1</div>
-        <div class="tpb-total">USD 93.600</div>
-      </div>
-      <div class="tipo-payment">
-        <div class="tp-row">
-          <span class="tp-lbl">Anticipo 30%</span>
-          <span class="tp-val-musgo">USD 28.100</span>
-        </div>
-        <div class="tp-row">
-          <span class="tp-lbl">Saldo 70%</span>
-          <span class="tp-val">USD 65.500</span>
-        </div>
-      </div>
-      <div class="tipo-cac-note">Desde P1. P4: USD 99.400. Saldo ~36 meses, ajuste CAC.</div>
-    </div>
-
-    <!-- 2 Ambientes -->
-    <div class="tipo-col">
-      <div class="tipo-col-inner">
-        <div class="kicker" style="color:var(--musgo); margin-bottom:6px;">Departamento C</div>
-        <div class="tipo-name">2<br />Ambientes</div>
-        <div class="tipo-sub">Balcón de 9,29 m² · Dormitorio + suite</div>
-      </div>
-      <div class="tipo-surfaces">
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Cubierto</span>
-          <span class="tsr-val">46,54 m²</span>
-        </div>
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Balcón</span>
-          <span class="tsr-val">9,29 m²</span>
-        </div>
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Físico total</span>
-          <span class="tsr-val">55,83 m²</span>
-        </div>
-        <div class="tipo-surface-row tsr-total">
-          <span class="tsr-lbl">Total (precio)</span>
-          <span class="tsr-val">55,8 m²</span>
-        </div>
-      </div>
-      <div class="tipo-price-block">
-        <div class="tpb-lbl">Precio · Preventa 1 · desde P1</div>
-        <div class="tpb-total">USD 139.300</div>
-      </div>
-      <div class="tipo-payment">
-        <div class="tp-row">
-          <span class="tp-lbl">Anticipo 30%</span>
-          <span class="tp-val-musgo">USD 41.800</span>
-        </div>
-        <div class="tp-row">
-          <span class="tp-lbl">Saldo 70%</span>
-          <span class="tp-val">USD 97.500</span>
-        </div>
-      </div>
-      <div class="tipo-cac-note">Desde P1. P4: USD 147.900. Saldo ~36 meses, ajuste CAC.</div>
-    </div>
-
-    <!-- 3 Ambientes -->
-    <div class="tipo-col">
-      <div class="tipo-col-inner">
-        <div class="kicker" style="color:var(--musgo); margin-bottom:6px;">Departamento A</div>
-        <div class="tipo-name">3<br />Ambientes</div>
-        <div class="tipo-sub">Balcón de 9,95 m² · Al frente</div>
-      </div>
-      <div class="tipo-surfaces">
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Cubierto</span>
-          <span class="tsr-val">72,53 m²</span>
-        </div>
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Balcón</span>
-          <span class="tsr-val">9,95 m²</span>
-        </div>
-        <div class="tipo-surface-row">
-          <span class="tsr-lbl">Físico total</span>
-          <span class="tsr-val">82,48 m²</span>
-        </div>
-        <div class="tipo-surface-row tsr-total">
-          <span class="tsr-lbl">Total (precio)</span>
-          <span class="tsr-val">84,1 m²</span>
-        </div>
-      </div>
-      <div class="tipo-price-block">
-        <div class="tpb-lbl">Precio · Preventa 1 · desde P1</div>
-        <div class="tpb-total">USD 218.500</div>
-      </div>
-      <div class="tipo-payment">
-        <div class="tp-row">
-          <span class="tp-lbl">Anticipo 30%</span>
-          <span class="tp-val-musgo">USD 65.500</span>
-        </div>
-        <div class="tp-row">
-          <span class="tp-lbl">Saldo 70%</span>
-          <span class="tp-val">USD 152.900</span>
-        </div>
-      </div>
-      <div class="tipo-cac-note">Desde P1. P4: USD 232.000. Saldo ~36 meses, ajuste CAC.</div>
-    </div>
-  </div>
-
-  <div style="margin: 16px var(--mg) 0;">
-    <p style="font-size:10px; color:var(--niebla); line-height:1.6;">
-      Precios Preventa 1 · Piso 1 (precio base). Precio base: USD 2.600/m² (cubiertos + semicubiertos al 100%, sin ponderación). Factor de piso: P1 → P4 ≈ +6%. No incluye SUM ni cocheras/bauleras/terrazas privadas. Los precios pueden actualizarse. Saldo ajustado por CAC durante la obra.
-    </p>
-  </div>
-
-  <div class="pf">
-    <span>Tres tipologías</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 10 — SAAVEDRA
-════════════════════════════════════════════════ -->
-<div class="page saavedra-page page--dark">
-  <div class="ph ph--dark">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Saavedra</span>
-  </div>
-  <div class="divider divider--light"></div>
-
-  <div class="saavedra-body">
-    <div class="saavedra-left">
-      <div>
-        <div class="kicker kicker--light" style="margin-bottom:16px;">El barrio</div>
-        <div class="saavedra-title">Saavedra.</div>
-        <p class="saavedra-desc" style="margin-top:16px;">
-          Un barrio residencial consolidado del norte de la ciudad. Calles arboladas, escala humana, baja densidad edilicia y una comunidad con fuerte arraigo local. No es un barrio en formación: es uno que ya existe y funciona bien.
-        </p>
-        <p class="saavedra-desc" style="margin-top:12px;">
-          La demanda de vivienda nueva en Saavedra proviene mayormente de residentes que buscan mejorar su situación habitacional dentro del mismo barrio, y de compradores que eligen la zona por su calidad de vida.
-        </p>
-      </div>
-
-      <div>
-        <div class="kicker kicker--light" style="margin-bottom:14px;">Datos del área</div>
-        <div class="saavedra-stats">
-          <div class="saavedra-stat">
-            <div class="ss-num">26.782</div>
-            <div class="ss-lbl">Habitantes</div>
-          </div>
-          <div class="saavedra-stat">
-            <div class="ss-num">64%</div>
-            <div class="ss-lbl">Son propietarios</div>
-          </div>
-          <div class="saavedra-stat">
-            <div class="ss-num">26%</div>
-            <div class="ss-lbl">Con estudios universitarios</div>
-          </div>
-          <div class="saavedra-stat">
-            <div class="ss-num">Norte</div>
-            <div class="ss-lbl">CABA · Alta accesibilidad</div>
-          </div>
-        </div>
-        <p class="source source--light" style="margin-top:12px;">
-          <strong>Fuente:</strong> Reporte Inmobiliario · Market Analytics · Abril 2026.
-        </p>
-      </div>
-    </div>
-
-    <div class="saavedra-right" style="overflow:hidden;">
-      <div style="flex:1; overflow:hidden;">
-        <img class="render-img" src="assets/terraza%20verde.png"
-          alt="Vista desde Vidal 3849 — Saavedra" style="object-position: center 30%;" />
-      </div>
-      <div class="saavedra-address-strip">
-        <div class="sa-label">Ubicación del proyecto</div>
-        <div class="sa-address">Vidal 3849 · Saavedra · CABA</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="pf pf--dark">
-    <span>El barrio · Saavedra</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 11 — UN BARRIO EN MOVIMIENTO
-════════════════════════════════════════════════ -->
-<div class="page transform-page page--blanco">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Mercado de la zona</span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="transform-body">
-    <div class="transform-left">
-      <div class="transform-render">
-        <img class="render-img" src="assets/render_fachada_sga.png"
-          alt="Vidal 3849 — Vista fachada" style="object-position: center center;" />
-      </div>
-    </div>
-
-    <div class="transform-right">
-      <div>
-        <div class="kicker" style="margin-bottom:16px;">Mercado de la zona</div>
-        <div class="transform-title">Saavedra<br />sumó oferta<br />nueva.</div>
-        <p class="transform-desc" style="margin-top:16px;">
-          El área registra actividad inmobiliaria activa. El reporte de abril 2026 documenta múltiples permisos de obra y desarrollos en curso en Saavedra y zonas adyacentes, lo que indica demanda sostenida de vivienda nueva en el área.
-        </p>
-      </div>
-
-      <div>
-        <div class="kicker kicker--niebla" style="margin-bottom:14px;">Valores de referencia — unidades a estrenar</div>
-
-        <div class="transform-data-item">
-          <div class="tdi-num">USD 3.618/m²</div>
-          <div class="tdi-lbl">1 ambiente a estrenar</div>
-          <div class="tdi-desc">Valor medio publicado en el área.</div>
-        </div>
-        <div class="transform-data-item">
-          <div class="tdi-num">USD 3.715/m²</div>
-          <div class="tdi-lbl">2 ambientes a estrenar</div>
-          <div class="tdi-desc">Valor medio publicado en el área.</div>
-        </div>
-        <div class="transform-data-item">
-          <div class="tdi-num">USD 3.807/m²</div>
-          <div class="tdi-lbl">3 ambientes a estrenar</div>
-          <div class="tdi-desc">Valor medio publicado en el área.</div>
-        </div>
-      </div>
-
-      <div style="padding:14px; background:var(--suelo); border:0.5px solid var(--line);">
-        <p class="source">
-          <strong>Fuente:</strong> Reporte Inmobiliario · Market Analytics · Abril 2026.<br />
-          Valores medios de precios publicados. Los precios de cierre pueden diferir de los publicados.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="pf">
-    <span>Mercado de la zona</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 12 — VIDAL 3849 · EL EDIFICIO (RENDER)
-════════════════════════════════════════════════ -->
-<div class="page renderpage page--dark">
-  <div class="renderpage-full">
-    <img class="render-img" src="assets/render%20frente%20edificio.jpeg"
-      alt="Vidal 3849 — Fachada principal" style="object-position: center 20%;" />
-    <div class="renderpage-overlay-bottom"></div>
-    <div class="renderpage-caption">
-      <div class="rc-eyebrow">Schraifer Goldin Arquitectos · Saavedra</div>
-      <div class="rc-title">Vidal 3849</div>
-      <div class="rc-sub">PB + 4 pisos + terraza · Escala boutique · Buenos Aires</div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 13 — EL EDIFICIO · PLANTAS
-════════════════════════════════════════════════ -->
-<div class="page edificio-page page--blanco">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · El edificio</span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="edificio-body">
-    <div class="edificio-sidebar">
-      <div>
-        <div class="kicker" style="margin-bottom:14px;">El edificio</div>
-        <div class="edificio-sidebar-title">Planta<br />Baja y<br />Planta<br />Tipo</div>
-      </div>
-      <p class="edificio-sidebar-desc">
-        Planta baja con hall de acceso, SUM con expansión exterior, ascensor, bicicletero y bauleras. Planta tipo con tres unidades por piso, todas con balcón propio.
-      </p>
-      <div>
-        <div class="kicker kicker--niebla" style="margin-bottom:10px;">Espacios comunes</div>
-        <ul class="edificio-amenidades">
-          <li>Hall de acceso con verde integrado</li>
-          <li>SUM + expansión exterior</li>
-          <li>Ascensor</li>
-          <li>Escalera</li>
-          <li>Bicicletero</li>
-          <li>Bauleras</li>
-          <li>Terraza · nivel 5</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="edificio-plan-col">
-      <div class="edificio-plan-label">
-        <span class="epl-title">Planta Baja</span>
-        <span style="font-size:8px; color:var(--niebla);">Espacios comunes</span>
-      </div>
-      <div class="edificio-plan-img">
-        <img src="assets/planta_baja_full.png" alt="Planta Baja — Vidal 3849" />
-      </div>
-    </div>
-
-    <div class="edificio-plan-col">
-      <div class="edificio-plan-label">
-        <span class="epl-title">Planta Tipo</span>
-        <span style="font-size:8px; color:var(--niebla);">Pisos 1 al 4</span>
-      </div>
-      <div class="edificio-plan-img">
-        <img src="assets/planta_tipo_full.png" alt="Planta Tipo — Vidal 3849" />
-      </div>
-    </div>
-  </div>
-
-  <div class="pf">
-    <span>El edificio · Plantas</span>
-    <span>Vidal 3849 · SGA</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 14 — LAS UNIDADES
-════════════════════════════════════════════════ -->
-<div class="page unidades-page">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Las unidades</span>
-  </div>
-  <div class="divider"></div>
-
-  <div style="padding: 24px var(--mg) 16px;">
-    <div class="kicker" style="margin-bottom:8px;">Tipologías</div>
-    <h2 style="font-family:var(--serif); font-weight:200; font-size:38px; letter-spacing:-0.02em; color:var(--ink);">Las tres unidades.</h2>
-  </div>
-
-  <div class="unidades-body" style="margin: 0 var(--mg); border: 0.5px solid var(--line);">
-    <div class="unidad-col">
-      <div class="unidad-header">
-        <div class="uh-tipo">Departamento B</div>
-        <div class="uh-name">Mono<br />ambiente</div>
-      </div>
-      <div class="unidad-plan-area">
-        <img src="assets/plano_mono.png" alt="Plano Monoambiente B" />
-      </div>
-      <div class="unidad-footer">
-        <div class="uf-row">
-          <span class="uf-lbl">Cubierto</span>
-          <span class="uf-val">33,25 m²</span>
-        </div>
-        <div class="uf-row">
-          <span class="uf-lbl">Balcón</span>
-          <span class="uf-val">4,15 m²</span>
-        </div>
-        <div class="uf-row">
-          <span class="uf-lbl">Total físico</span>
-          <span class="uf-val">37,40 m²</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="unidad-col">
-      <div class="unidad-header">
-        <div class="uh-tipo">Departamento C</div>
-        <div class="uh-name">2<br />Ambientes</div>
-      </div>
-      <div class="unidad-plan-area">
-        <img src="assets/plano_2amb.png" alt="Plano 2 Ambientes C" />
-      </div>
-      <div class="unidad-footer">
-        <div class="uf-row">
-          <span class="uf-lbl">Cubierto</span>
-          <span class="uf-val">46,54 m²</span>
-        </div>
-        <div class="uf-row">
-          <span class="uf-lbl">Balcón</span>
-          <span class="uf-val">9,29 m²</span>
-        </div>
-        <div class="uf-row">
-          <span class="uf-lbl">Total físico</span>
-          <span class="uf-val">55,83 m²</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="unidad-col">
-      <div class="unidad-header">
-        <div class="uh-tipo">Departamento A</div>
-        <div class="uh-name">3<br />Ambientes</div>
-      </div>
-      <div class="unidad-plan-area">
-        <img src="assets/plano_3amb.png" alt="Plano 3 Ambientes A" />
-      </div>
-      <div class="unidad-footer">
-        <div class="uf-row">
-          <span class="uf-lbl">Cubierto</span>
-          <span class="uf-val">72,53 m²</span>
-        </div>
-        <div class="uf-row">
-          <span class="uf-lbl">Balcón</span>
-          <span class="uf-val">9,95 m²</span>
-        </div>
-        <div class="uf-row">
-          <span class="uf-lbl">Total físico</span>
-          <span class="uf-val">82,48 m²</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="margin: 14px var(--mg) 0;">
-    <p style="font-size:9.5px; color:var(--niebla); line-height:1.6;">
-      Superficies según planos SGA · Schraifer Goldin Arquitectos. El precio se calcula sobre superficie ponderada: m² cubiertos al 100% + m² de balcón al 50%. Las superficies son orientativas y sujetas a verificación final con planos aprobados.
-    </p>
-  </div>
-
-  <div class="pf">
-    <span>Las unidades</span>
-    <span>Vidal 3849 · SGA</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 15 — PARA QUIÉN PUEDE TENER SENTIDO
-════════════════════════════════════════════════ -->
-<div class="page perfiles-page page--blanco">
-  <div class="ph">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Para quién</span>
-  </div>
-  <div class="divider"></div>
-
-  <div style="padding: 32px var(--mg) 20px;">
-    <div class="kicker" style="margin-bottom:8px;">Tres perfiles posibles</div>
-    <h2 style="font-family:var(--serif); font-weight:200; font-size:38px; letter-spacing:-0.02em; color:var(--ink);">¿Para quién tiene sentido entrar hoy?</h2>
-  </div>
-
-  <div class="perfiles-body" style="margin: 0 var(--mg);">
-    <div class="perfil-col">
-      <div class="perfil-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--musgo)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-        </svg>
-      </div>
-      <div>
-        <div class="perfil-label">Perfil 1</div>
-        <div class="perfil-name">El<br />inversor</div>
-      </div>
-      <p class="perfil-desc">
-        Busca ingresar en una etapa temprana y capturar un potencial diferencial de valor entre el precio de pozo y el valor de mercado a la entrega.
-      </p>
-      <ul class="perfil-items">
-        <li>Tiene capital para el anticipo del 30%</li>
-        <li>Puede sostener el saldo durante 36 meses</li>
-        <li>No necesita la unidad para habitar en lo inmediato</li>
-        <li>Comprende que el resultado depende de las condiciones de mercado a futuro</li>
-      </ul>
-      <div class="perfil-note">
-        El diferencial entre precio de preventa y valor de estreno es parte del valor de entrar temprano. No implica una ganancia asegurada.
-      </div>
-    </div>
-
-    <div class="perfil-col">
-      <div class="perfil-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--musgo)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-        </svg>
-      </div>
-      <div>
-        <div class="perfil-label">Perfil 2</div>
-        <div class="perfil-name">El<br />ahorrista</div>
-      </div>
-      <p class="perfil-desc">
-        Tiene ahorros en dólares que no quiere mantener inmovilizados. Busca convertirlos en un activo inmobiliario concreto con pagos distribuidos en el tiempo.
-      </p>
-      <ul class="perfil-items">
-        <li>Puede hacer el anticipo del 30% con ahorros disponibles</li>
-        <li>Prefiere destinar el ahorro a cuotas antes que dejarlo líquido</li>
-        <li>Valora tener un activo físico como resultado del proceso</li>
-        <li>Acepta el plazo de obra como parte del plan</li>
-      </ul>
-      <div class="perfil-note">
-        La estructura de 30% + 70% permite transformar ahorro en activo sin necesitar el capital completo al inicio.
-      </div>
-    </div>
-
-    <div class="perfil-col">
-      <div class="perfil-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--musgo)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
-      <div>
-        <div class="perfil-label">Perfil 3</div>
-        <div class="perfil-name">El usuario<br />final</div>
-      </div>
-      <p class="perfil-desc">
-        Quiere vivir en Saavedra. Prefiere financiar su futura vivienda durante la construcción antes de pagar alquiler y luego comprar a precio de mercado.
-      </p>
-      <ul class="perfil-items">
-        <li>Planifica vivir en la unidad una vez terminada</li>
-        <li>Aprovecha el período de obra para preparar la mudanza</li>
-        <li>Valora la calidad del barrio y del edificio</li>
-        <li>Puede sostener su situación actual durante los 36 meses</li>
-      </ul>
-      <div class="perfil-note">
-        Comprar hoy a precio de pozo puede ser más eficiente que alquilar durante 3 años y comprar después a precio de mercado.
-      </div>
-    </div>
-  </div>
-
-  <div class="pf">
-    <span>Para quién tiene sentido</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 16 — RESUMEN
-════════════════════════════════════════════════ -->
-<div class="page resumen-page page--suelo">
-  <div class="ph" style="border-bottom-color:rgba(132,96,64,0.18);">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid" style="color:var(--niebla);">Vidal 3849 · Resumen</span>
-  </div>
-  <div class="divider"></div>
-
-  <div class="resumen-body">
+  <div style="padding:36px var(--mg) 24px; display:flex; flex-direction:column; gap:20px; flex:1;">
     <div>
-      <div class="kicker" style="margin-bottom:10px;">Los cuatro números</div>
-      <h2 style="font-family:var(--serif); font-weight:200; font-size:42px; letter-spacing:-0.02em; color:var(--ink);">Lo que necesitás saber.</h2>
+      <div class="kicker" style="margin-bottom:10px;">Cómo se sostiene el edificio — no es el retorno del comprador</div>
+      <div class="serif-title" style="font-size:36px;">Un proyecto chico,<br />con números que cierran.</div>
+      <div class="accent accent--musgo"></div>
+      <p class="body" style="margin-top:14px; max-width:520px;">Estos son los números del desarrollador, extraídos del modelo VIDAL3849. Sirven para entender por qué la Preventa 1 existe y por qué el precio de 2.600 es sostenible. No son la ganancia de quien compra una unidad.</p>
     </div>
-
-    <div class="resumen-grid">
-      <div class="resumen-card rc-musgo">
-        <div class="rcc-badge">Precio base Preventa 1</div>
-        <div class="rcc-num">2.600</div>
-        <div class="rcc-label">USD por m² (cubiertos + semicubiertos). Precio final varía según piso y ubicación.<br /><span style="opacity:0.5;">Factor de piso P1→P4 ≈ ±6%</span></div>
-        <div class="data-badge" style="background:rgba(248,247,244,0.15); color:rgba(248,247,244,0.7); margin-top:8px;">Condición del proyecto</div>
+    <div class="facts">
+      <div class="fact"><div class="l">Costo total</div><div class="n">USD 1,70 M</div><div class="muted" style="margin-top:6px;">Terreno + obra + honorarios</div></div>
+      <div class="fact"><div class="l">Capital inicial</div><div class="n">USD 450 k</div><div class="muted" style="margin-top:6px;">Terreno, legales y pre-obra</div></div>
+      <div class="fact"><div class="l">Gap a cubrir con preventa</div><div class="n">USD 1,25 M</div><div class="muted" style="margin-top:6px;">Por eso existe el pozo</div></div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; border:0.5px solid var(--line);">
+      <div style="padding:20px; border-right:0.5px solid var(--line);">
+        <div class="kicker">12 deptos a Preventa 1</div>
+        <div class="serif-title" style="font-size:32px; margin-top:8px; color:var(--musgo);">USD 1,86 M</div>
+        <div class="muted" style="margin-top:6px;">Suma columna F · 709,6 m²</div>
       </div>
-
-      <div class="resumen-card">
-        <div class="rcc-badge">Anticipo para entrar</div>
-        <div class="rcc-num">30%</div>
-        <div class="rcc-label">Del valor total de la unidad.<br />El 70% restante se integra durante la obra, ajustado por CAC.</div>
-        <div class="data-badge data-badge--proyecto" style="margin-top:8px;">Condición del proyecto</div>
-      </div>
-
-      <div class="resumen-card">
-        <div class="rcc-badge">Plazo estimado hasta entrega</div>
-        <div class="rcc-num">~36</div>
-        <div class="rcc-label">Meses de desarrollo estimados desde la firma.<br />Cronograma sujeto a condiciones de obra.</div>
-        <div class="data-badge data-badge--proyecto" style="margin-top:8px;">Condición del proyecto</div>
-      </div>
-
-      <div class="resumen-card">
-        <div class="rcc-badge">Terminado 1 · Referencia post-obra</div>
-        <div class="rcc-num" style="color:var(--tierra);">3.200</div>
-        <div class="rcc-label">USD por m² · precio de lista a la entrega.<br />No constituye garantía de valorización.</div>
-        <div class="data-badge data-badge--proyeccion" style="margin-top:8px;">Estimación del desarrollador</div>
+      <div style="padding:20px;">
+        <div class="kicker">Mismos 12 a Terminado 1</div>
+        <div class="serif-title" style="font-size:32px; margin-top:8px; color:var(--tierra);">USD 2,29 M</div>
+        <div class="muted" style="margin-top:6px;">Lista post-obra del modelo</div>
       </div>
     </div>
+    <div style="padding:16px; background:var(--suelo); border:0.5px solid var(--line);">
+      <p class="body" style="font-size:12.5px;">La Preventa 1 cubre de más el gap de obra si se coloca el edificio entero a este precio. El desarrollador reserva valor en la venta final y en accesorios (cocheras, terrazas, bauleras). Quien entra en P1 captura el tramo más bajo de la curva de precios.</p>
+    </div>
+  </div>
+  <div class="pf"><span>Negocio del desarrollo</span><span>04 / 11</span></div>
+</div>
 
-    <div class="resumen-market-strip">
-      <div class="rms-label">Precios Preventa 1 por tipología · Piso 1 → Piso 4</div>
-      <div class="resumen-market-row">
-        <div class="resumen-market-item">
-          <div class="rmi-tipo">Monoambiente B</div>
-          <div class="rmi-val">USD 93.600 → 99.400</div>
+<!-- PAGO -->
+<div class="page page--blanco" style="display:flex;flex-direction:column;">
+  <div class="ph">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · Estructura de pago</span>
+  </div>
+  <div class="pago-page">
+    <div class="pago-head">
+      <div>
+        <div class="kicker" style="margin-bottom:12px;">Flujo</div>
+        <div class="serif-title" style="font-size:42px;">30 ahora.<br />70 con la obra.</div>
+      </div>
+      <p class="body" style="font-size:13px;">El anticipo reserva la unidad. El saldo se integra en ~36 meses y se actualiza por CAC. No hay cuota fija en dólares sobre el 70%.</p>
+    </div>
+    <div>
+      <div class="pago-bar"><div class="pago-30">30% anticipo</div><div class="pago-70">70% saldo en obra</div></div>
+      <div class="pago-legend muted">
+        <span>Al firmar</span><span>Ajustado por CAC</span>
+      </div>
+    </div>
+    <div class="pago-block">
+      <div class="kicker">Anticipo desde piso 1</div>
+      <div class="pago-cards">
+        <div class="pago-card">
+          <div class="tipo-lbl">B · Monoambiente</div>
+          <div class="anticipo">USD 28.089</div>
+          <div class="sobre">30% de USD 93.629</div>
+          <div class="resto">El 70% restante, en cuotas según ajuste CAC.</div>
         </div>
-        <div class="resumen-market-item" style="padding-left:12px;">
-          <div class="rmi-tipo">2 Ambientes C</div>
-          <div class="rmi-val">USD 139.300 → 147.900</div>
+        <div class="pago-card">
+          <div class="tipo-lbl">C · 2 ambientes</div>
+          <div class="anticipo">USD 41.796</div>
+          <div class="sobre">30% de USD 139.320</div>
+          <div class="resto">El 70% restante, en cuotas según ajuste CAC.</div>
         </div>
-        <div class="resumen-market-item" style="padding-left:12px;">
-          <div class="rmi-tipo">3 Ambientes A</div>
-          <div class="rmi-val">USD 218.500 → 232.000</div>
-        </div>
-        <div class="resumen-market-item" style="padding-left:12px; border-right:none;">
-          <div class="rmi-tipo">Mercado a estrenar (área)</div>
-          <div class="rmi-val" style="color:var(--niebla);">USD 3.618 – 3.807/m²</div>
+        <div class="pago-card">
+          <div class="tipo-lbl">A · 3 ambientes</div>
+          <div class="anticipo">USD 65.539</div>
+          <div class="sobre">30% de USD 218.463</div>
+          <div class="resto">El 70% restante, en cuotas según ajuste CAC.</div>
         </div>
       </div>
-      <p class="source" style="margin-top:10px;">
-        <strong>Fuente (mercado):</strong> Reporte Inmobiliario · Market Analytics · Abril 2026. Valores medios publicados.
-        <strong>Fuente (proyecto):</strong> Condición comercial Vidal 3849. Los valores de mercado son precios publicados y pueden diferir de precios de cierre.
+    </div>
+    <div class="pago-steps">
+      <div class="pago-step">
+        <div class="n">01</div>
+        <p>Ingreso · anticipo · precio P1.</p>
+      </div>
+      <div class="pago-step">
+        <div class="n">02</div>
+        <p>Saldo en cuotas · ajuste CAC.</p>
+      </div>
+      <div class="pago-step">
+        <div class="n">03</div>
+        <p>Unidad terminada · escritura ~2029.</p>
+      </div>
+    </div>
+    <p class="pago-note">El 70% cotizado acá es el valor de lista hoy. Durante la obra se reexpresa por CAC. El monto final del saldo depende de la evolución del índice.</p>
+  </div>
+  <div class="pf"><span>Pago</span><span>05 / 11</span></div>
+</div>
+
+<!-- MERCADO -->
+<div class="page page--suelo" style="display:flex;flex-direction:column;">
+  <div class="ph">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · El mercado</span>
+  </div>
+  <div style="padding:26px var(--mg) 20px; display:flex; flex-direction:column; gap:16px; flex:1;">
+    <div>
+      <div class="kicker" style="margin-bottom:8px;">Saavedra · Reporte Inmobiliario · 14 abril 2026</div>
+      <div class="serif-title" style="font-size:32px;">El 3.200 no es el techo.</div>
+      <p class="body" style="margin-top:10px; font-size:13px; max-width:620px;">Es la lista interna Terminado 1 del modelo: el primer precio de Raíces después de la obra. El mercado de departamentos a estrenar en el área ya publica más. El informe es un corte, no una serie histórica: no proyectamos una tasa de suba. Sí comparamos contra lo que el barrio pide hoy.</p>
+    </div>
+
+    <div class="ladder">
+      <div class="lad-row">
+        <div class="lad-top"><span class="lad-name">Preventa 1 · Ceibo Vidal</span><span class="lad-val">USD 2.600</span></div>
+        <div class="lad-track"><i class="lad-fill" style="width:65%;"></i></div>
+      </div>
+      <div class="lad-row">
+        <div class="lad-top"><span class="lad-name">Usado · medio 1 a 3 amb</span><span class="lad-val">USD 2.895</span></div>
+        <div class="lad-track"><i class="lad-fill is-used" style="width:72%;"></i></div>
+      </div>
+      <div class="lad-row">
+        <div class="lad-top"><span class="lad-name">Terminado 1 · lista interna</span><span class="lad-val">USD 3.200</span></div>
+        <div class="lad-track"><i class="lad-fill is-t1" style="width:80%;"></i></div>
+      </div>
+      <div class="lad-row">
+        <div class="lad-top"><span class="lad-name">A estrenar · medio 1 a 3 amb</span><span class="lad-val">USD 3.703</span></div>
+        <div class="lad-track"><i class="lad-fill is-mkt" style="width:93%;"></i></div>
+      </div>
+    </div>
+
+    <div class="amb-grid">
+      <div class="amb-card">
+        <div class="amb-h">1 ambiente · USD/m²</div>
+        <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:75%;"></i></div><b>3.010</b></div>
+        <div class="amb-line"><span>P1</span><div class="amb-mini"><i style="width:65%;"></i></div><b>2.600</b></div>
+        <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:90%;"></i></div><b>3.618</b></div>
+      </div>
+      <div class="amb-card">
+        <div class="amb-h">2 ambientes · USD/m²</div>
+        <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:73%;"></i></div><b>2.929</b></div>
+        <div class="amb-line"><span>P1</span><div class="amb-mini"><i style="width:65%;"></i></div><b>2.600</b></div>
+        <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:93%;"></i></div><b>3.715</b></div>
+      </div>
+      <div class="amb-card">
+        <div class="amb-h">3 ambientes · USD/m²</div>
+        <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:70%;"></i></div><b>2.788</b></div>
+        <div class="amb-line"><span>P1</span><div class="amb-mini"><i style="width:65%;"></i></div><b>2.600</b></div>
+        <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:95%;"></i></div><b>3.807</b></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kicker" style="margin-bottom:8px;">A la entrega · ~2029</div>
+      <div class="scen">
+        <div class="scen-card">
+          <div class="kicker">Lista T1</div>
+          <div class="n">3.200</div>
+          <p class="muted">El piso del modelo. +23% vs P1. No descuenta CAC ni es el mercado.</p>
+        </div>
+        <div class="scen-card is-base">
+          <div class="kicker">Mercado plano</div>
+          <div class="n">~3.700</div>
+          <p class="muted">Si el estreno se mantiene en dólares, el m² comparable ya está acá. +42% vs P1.</p>
+        </div>
+        <div class="scen-card">
+          <div class="kicker">Rango publicado</div>
+          <div class="n">3.618–3.807</div>
+          <p class="muted">Medios a estrenar 1, 2 y 3 amb. Máximos del área llegan a 5.100–5.800.</p>
+        </div>
+      </div>
+    </div>
+    <p class="muted">Medios ponderados por cantidad de avisos (1–3 amb). Usado 2.895 · a estrenar 3.703. Fuente: Reporte Inmobiliario, Market Analytics, área de Vidal 3849. Valores de publicación, no de cierre. Una suba adicional a 2029 es posible; este informe no trae la serie para estimarla con rigor.</p>
+  </div>
+  <div class="pf"><span>El mercado</span><span>06 / 11</span></div>
+</div>
+
+<!-- PERFILES -->
+<div class="page page--suelo" style="display:flex;flex-direction:column;">
+  <div class="ph">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · Para quién</span>
+  </div>
+  <div style="padding:36px var(--mg) 24px; display:flex; flex-direction:column; gap:22px; flex:1;">
+    <div>
+      <div class="kicker" style="margin-bottom:8px;">Tres lecturas del mismo precio</div>
+      <div class="serif-title" style="font-size:34px;">¿Tiene sentido entrar ahora?</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; flex:1;">
+      <div style="background:var(--blanco); border:0.5px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:14px;">
+        <div class="kicker">Perfil 1</div>
+        <div class="serif-title" style="font-size:26px;">Inversor<br />de unidad</div>
+        <p class="body" style="font-size:12.5px;">Quiere el spread entre pozo y estreno. Tiene el 30% y puede sostener CAC 36 meses. No necesita mudarse mañana.</p>
+        <p class="muted" style="margin-top:auto;">El +23% vs Terminado 1 es un escenario de lista, no un ROI prometido.</p>
+      </div>
+      <div style="background:var(--blanco); border:0.5px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:14px;">
+        <div class="kicker">Perfil 2</div>
+        <div class="serif-title" style="font-size:26px;">Ahorro<br />en dólares</div>
+        <p class="body" style="font-size:12.5px;">Convierte liquidez en un activo físico con pagos distribuidos. El anticipo es el ticket; el resto acompaña la obra.</p>
+        <p class="muted" style="margin-top:auto;">Desde USD 28.089 se reserva un monoambiente en P1.</p>
+      </div>
+      <div style="background:var(--blanco); border:0.5px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:14px;">
+        <div class="kicker">Perfil 3</div>
+        <div class="serif-title" style="font-size:26px;">Usuario<br />final</div>
+        <p class="body" style="font-size:12.5px;">Quiere vivir en Saavedra. Prefiere financiar la vivienda durante la obra antes que alquilar tres años y comprar a precio de mercado.</p>
+        <p class="muted" style="margin-top:auto;">El edificio está pensado para habitar, no solo para rotar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Perfiles</span><span>07 / 11</span></div>
+</div>
+
+<!-- RIESGOS -->
+<div class="page page--dark" style="display:flex;flex-direction:column;">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal · Lo que hay que decir</span>
+  </div>
+  <div style="padding:40px var(--mg) 28px; display:flex; flex-direction:column; flex:1;">
+    <div class="kicker kicker--light" style="margin-bottom:12px;">Riesgos</div>
+    <div class="serif-title" style="font-size:38px; color:#F8F7F4;">El precio bajo existe<br />porque hay incertidumbre.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:36px; border-top:0.5px solid rgba(248,247,244,.12);">
+      <div style="padding:22px 28px 22px 0; border-right:0.5px solid rgba(248,247,244,.12); border-bottom:0.5px solid rgba(248,247,244,.12);">
+        <div class="kicker" style="color:var(--arena);">CAC</div>
+        <p style="margin-top:10px; font-size:13px; line-height:1.65; color:rgba(248,247,244,.65);">El 70% no está congelado en dólares. Si el índice corre, el saldo también.</p>
+      </div>
+      <div style="padding:22px 0 22px 28px; border-bottom:0.5px solid rgba(248,247,244,.12);">
+        <div class="kicker" style="color:var(--arena);">Plazo</div>
+        <p style="margin-top:10px; font-size:13px; line-height:1.65; color:rgba(248,247,244,.65);">36 meses es una estimación de obra. Permisos, clima y proveedores pueden correr la entrega.</p>
+      </div>
+      <div style="padding:22px 28px 22px 0; border-right:0.5px solid rgba(248,247,244,.12);">
+        <div class="kicker" style="color:var(--arena);">Mercado a la entrega</div>
+        <p style="margin-top:10px; font-size:13px; line-height:1.65; color:rgba(248,247,244,.65);">El 3.200 es lista interna. El estreno del área ya publica ~3.700. En 2029 el cierre puede estar por debajo o por encima de ambos.</p>
+      </div>
+      <div style="padding:22px 0 22px 28px;">
+        <div class="kicker" style="color:var(--arena);">Liquidez</div>
+        <p style="margin-top:10px; font-size:13px; line-height:1.65; color:rgba(248,247,244,.65);">Una unidad en pozo no se vende como un usado. La cesión de boleto tiene fricción y costo.</p>
+      </div>
+    </div>
+    <p style="margin-top:auto; padding-top:28px; font-size:12px; line-height:1.65; color:rgba(248,247,244,.4);">Raíces documenta supuestos. Si un número no cierra, se dice. Preventa 1 es para quien entiende el canje: tiempo y riesgo a cambio de precio.</p>
+  </div>
+  <div class="pf pf--dark"><span>Riesgos</span><span>08 / 11</span></div>
+</div>
+
+<!-- SAAVEDRA -->
+<div class="page page--dark" style="display:flex;flex-direction:column;">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal · Saavedra</span>
+  </div>
+  <div style="flex:1; display:grid; grid-template-columns:1.1fr 0.9fr; min-height:0;">
+    <div style="padding:48px var(--mg) 28px; display:flex; flex-direction:column; justify-content:space-between;">
+      <div>
+        <div class="kicker kicker--light" style="margin-bottom:14px;">El barrio</div>
+        <div class="serif-title" style="font-size:44px; color:#F8F7F4;">Demanda que<br />ya existe.</div>
+        <p style="margin-top:16px; font-size:14px; line-height:1.75; color:rgba(248,247,244,0.62); max-width:400px;">26.782 habitantes. 64% propietarios. El comprador típico de vivienda nueva en Saavedra mejora dentro del mismo barrio o elige la zona por calidad de vida, no por una tesis de “próximo Palermo”.</p>
+        <p style="margin-top:12px; font-size:14px; line-height:1.75; color:rgba(248,247,244,0.62); max-width:400px;">Eso baja el riesgo de narrativa y sube el de ejecución: hay que entregar un edificio que se distinga en una cuadra de casas y PH.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:0.5px solid rgba(248,247,244,0.12); padding-top:22px;">
+        <div style="padding:12px 16px 12px 0;"><div class="cm-lbl">Habitantes</div><div style="font-family:var(--serif);font-size:28px;font-weight:200;">26.782</div></div>
+        <div style="padding:12px 0 12px 16px; border-left:0.5px solid rgba(248,247,244,0.12);"><div class="cm-lbl">Propietarios</div><div style="font-family:var(--serif);font-size:28px;font-weight:200;">64%</div></div>
+        <div style="padding:12px 16px 0 0;"><div class="cm-lbl">El lote</div><div style="font-size:13px; font-weight:300; margin-top:6px;">Frente 8,75 m<br />Fondo 43,66 m</div></div>
+        <div style="padding:12px 0 0 16px; border-left:0.5px solid rgba(248,247,244,0.12);"><div class="cm-lbl">Estreno zona</div><div style="font-family:var(--serif);font-size:20px;font-weight:200;">3.618–3.807</div></div>
+      </div>
+    </div>
+    <div style="overflow:hidden;">
+      <img class="render-img" src="assets/fachada-propuesta-sga.jpeg" alt="Fachada" style="object-position:center 32%;" />
+    </div>
+  </div>
+  <div class="pf pf--dark"><span>Barrio</span><span>09 / 11</span></div>
+</div>
+
+<!-- POR QUE -->
+<div class="page page--suelo" style="display:flex;flex-direction:column;">
+  <div class="ph">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <span class="pid">Ceibo Vidal · Por qué ahora</span>
+  </div>
+  <div style="padding:40px var(--mg) 24px; display:flex; flex-direction:column; gap:22px; flex:1;">
+    <div>
+      <div class="kicker" style="margin-bottom:10px;">Cuatro hechos</div>
+      <div class="serif-title" style="font-size:36px;">Por qué Vidal 3849.</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; flex:1;">
+      <div style="padding:22px; background:var(--blanco); border:0.5px solid var(--line);">
+        <div class="serif-title" style="font-size:22px;">El piso de precio.</div>
+        <p class="body" style="margin-top:10px; font-size:13px;">USD 2.600/m² es Preventa 1. Preventa 2 ya está modelada a 2.800. Esperar es más caro, por diseño.</p>
+      </div>
+      <div style="padding:22px; background:var(--blanco); border:0.5px solid var(--line);">
+        <div class="serif-title" style="font-size:22px;">Ticket de entrada.</div>
+        <p class="body" style="margin-top:10px; font-size:13px;">Un monoambiente se reserva con ~USD 28.000. El resto se construye con la obra, no contra un crédito de vivienda terminada.</p>
+      </div>
+      <div style="padding:22px; background:var(--blanco); border:0.5px solid var(--line);">
+        <div class="serif-title" style="font-size:22px;">Escala boutique.</div>
+        <p class="body" style="margin-top:10px; font-size:13px;">Doce unidades. Inventario limitado. No hay una torre de 80 departamentos compitiendo consigo misma.</p>
+      </div>
+      <div style="padding:22px; background:var(--blanco); border:0.5px solid var(--line);">
+        <div class="serif-title" style="font-size:22px;">Producto con cara.</div>
+        <p class="body" style="margin-top:10px; font-size:13px;">Fachada de ladrillo, madera y verde. Balcón en todas. Terraza en el último nivel. Arquitectura que se distingue en la cuadra.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pf"><span>Por qué ahora</span><span>10 / 11</span></div>
+</div>
+
+<!-- CTA -->
+<div class="page page--dark" style="display:flex;flex-direction:column;">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal · Contacto</span>
+  </div>
+  <div style="flex:1; display:grid; grid-template-columns:1.15fr 0.85fr;">
+    <div class="contact-col">
+      <div>
+        <div class="kicker kicker--light" style="margin-bottom:16px;">Preventa 1</div>
+        <div class="serif-title" style="font-size:44px; color:#F8F7F4;">Pedí la unidad.<br />Vemos el piso.</div>
+        <p style="margin-top:18px; font-size:14px; line-height:1.7; color:rgba(248,247,244,.5); max-width:380px;">Te armamos la ficha de la unidad (m², precio P1, anticipo, CAC estimado) y la cruzamos con disponibilidad real.</p>
+      </div>
+      <div class="brand-lockup" role="img" aria-label="Raíces Developers"></div>
+    </div>
+    <div style="padding:52px var(--mg) 28px 0; border-left:0.5px solid rgba(248,247,244,0.1); padding-left:40px;">
+      <div class="kicker" style="color:var(--ceibo); margin-bottom:10px;">Vidal 3849</div>
+      <div class="serif-title" style="font-size:28px; color:#F8F7F4;">Saavedra<br /><span style="font-size:16px; opacity:0.5;">Buenos Aires</span></div>
+      <div class="wa-row">
+        <svg class="ico ico--lg" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--arena);">
+          <path d="M4 5h4l2 5-2 1a12 12 0 006 6l1-2 5 2v4a2 2 0 01-2 2A16 16 0 014 7a2 2 0 012-2z"/>
+        </svg>
+        <div>
+          <div style="font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--arena); margin-bottom:6px;">WhatsApp</div>
+          <div style="font-family:var(--serif); font-weight:200; font-size:22px;">+54 11 3699-4200</div>
+        </div>
+      </div>
+      <p style="margin-top:40px; font-size:10px; line-height:1.65; color:rgba(248,247,244,.32);">
+        Material para inversores de unidad — Raíces Desarrollos. Precios P1 y T1 según modelo VIDAL3849. Mercado: Reporte Inmobiliario, 14 abr 2026 (valores de publicación). El 3.200 es lista interna, no un techo de mercado. Los diferenciales no constituyen garantía de valorización. El CAC actualiza el saldo. Agosto 2026.
       </p>
     </div>
   </div>
-
-  <div class="pf">
-    <span>Resumen</span>
-    <span>Vidal 3849 · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 17 — POR QUÉ VIDAL 3849
-════════════════════════════════════════════════ -->
-<div class="page porque-page page--dark">
-  <div class="ph ph--dark">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Por qué</span>
-  </div>
-  <div class="divider divider--light"></div>
-
-  <div style="padding: 28px var(--mg) 16px;">
-    <div class="kicker kicker--light" style="margin-bottom:10px;">Cuatro razones</div>
-    <h2 style="font-family:var(--serif); font-weight:200; font-size:38px; letter-spacing:-0.02em; color:var(--blanco);">Por qué Vidal 3849.</h2>
-  </div>
-
-  <div class="porque-body">
-    <div class="porque-card">
-      <div>
-        <div class="porque-card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/>
-          </svg>
-        </div>
-        <div class="porque-card-title">Precio<br />de entrada.</div>
-        <p class="porque-card-desc">
-          USD 2.600/m² es el precio base de Preventa 1. El mercado de unidades a estrenar en el área se ubica entre USD 3.618 y USD 3.807/m² según tipología. La diferencia refleja el valor de entrar en etapa de desarrollo.
-        </p>
-      </div>
-      <div class="data-badge data-badge--proyecto" style="margin-top:12px;">Condición del proyecto</div>
-    </div>
-
-    <div class="porque-card">
-      <div>
-        <div class="porque-card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
-        </div>
-        <div class="porque-card-title">Financiación<br />durante la obra.</div>
-        <p class="porque-card-desc">
-          30% al firmar. 70% durante los aproximadamente 36 meses de construcción. No necesitás el valor completo al inicio. El saldo acompaña el desarrollo del edificio, ajustado por CAC.
-        </p>
-      </div>
-      <div class="data-badge data-badge--proyecto" style="margin-top:12px;">Condición del proyecto</div>
-    </div>
-
-    <div class="porque-card">
-      <div>
-        <div class="porque-card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-          </svg>
-        </div>
-        <div class="porque-card-title">Saavedra.<br />Un barrio que funciona.</div>
-        <p class="porque-card-desc">
-          Barrio residencial consolidado. 26.782 habitantes, 64% propietarios, escala humana y alta calidad de vida. La demanda de vivienda nueva en la zona tiene respaldo en una comunidad establecida.
-        </p>
-      </div>
-      <div class="data-badge data-badge--mercado" style="margin-top:12px;">Dato de mercado</div>
-    </div>
-
-    <div class="porque-card">
-      <div>
-        <div class="porque-card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-        </div>
-        <div class="porque-card-title">Un activo<br />terminado.</div>
-        <p class="porque-card-desc">
-          Al final del proceso recibís una unidad nueva en un edificio con identidad propia, diseñado por Schraifer Goldin Arquitectos, con balcón, amenities y terminaciones de calidad. Una propiedad para habitar o para el mercado.
-        </p>
-      </div>
-      <div class="data-badge data-badge--proyecto" style="margin-top:12px;">Condición del proyecto</div>
-    </div>
-  </div>
-
-  <div class="pf pf--dark">
-    <span>Por qué Vidal 3849</span>
-    <span>Ceibo Vidal · 2026</span>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════
-  PÁGINA 18 — CALL TO ACTION
-════════════════════════════════════════════════ -->
-<div class="page cta-page page--dark">
-  <div class="ph ph--dark">
-    <div class="logo"><span class="logo-text">Ceibo Vidal</span></div>
-    <span class="pid">Vidal 3849 · Contacto</span>
-  </div>
-  <div class="divider divider--light"></div>
-
-  <div class="cta-body">
-    <div class="cta-left">
-      <div>
-        <div class="kicker kicker--light" style="margin-bottom:20px;">Próximo paso</div>
-        <div class="cta-headline">Conocé<br />las unidades<br />disponibles<br />y elegís<br />cómo entrar.</div>
-        <p class="cta-subline">
-          Te respondemos directamente, sin intermediarios. Si tenés preguntas sobre tipologías, precios, forma de pago o el proceso de compra, escribinos con lo que necesitás saber.
-        </p>
-      </div>
-
-      <div class="cta-brand">
-        <div style="display:flex; align-items:center; gap:14px; margin-bottom:6px;">
-          <div style="background:rgba(248,247,244,0.12); padding:5px 10px; border:0.5px solid rgba(248,247,244,0.15);">
-            <img src="assets/daimar_logo.png" alt="Daimar"
-              style="height:20px; width:auto; display:block;" />
-          </div>
-          <div style="background:rgba(248,247,244,0.12); padding:5px 10px; border:0.5px solid rgba(248,247,244,0.15);">
-            <img src="assets/gyd_logo.png" alt="G&amp;D"
-              style="height:20px; width:auto; display:block;" />
-          </div>
-        </div>
-        <span>Ceibo Vidal · Saavedra · Buenos Aires</span>
-      </div>
-    </div>
-
-    <div class="cta-right">
-      <div>
-        <div style="margin-bottom:24px;">
-          <div style="font-size:8.5px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; color:var(--ceibo); margin-bottom:8px;">Vidal 3849</div>
-          <div style="font-family:var(--serif); font-weight:200; font-size:28px; color:var(--blanco); line-height:1.1;">
-            Vidal 3849<br />
-            <span style="font-size:16px; opacity:0.55;">Saavedra · Buenos Aires</span>
-          </div>
-        </div>
-
-        <div class="cta-contact-list">
-          <div class="cta-contact-row">
-            <div class="cta-contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.5">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 15.92z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cta-contact-label">WhatsApp</div>
-              <div class="cta-contact-value">+54 11 3699-4200</div>
-            </div>
-          </div>
-
-          <div class="cta-contact-row">
-            <div class="cta-contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.5">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cta-contact-label">Email</div>
-              <div class="cta-contact-value cta-contact-value--placeholder">[email@pendiente]</div>
-            </div>
-          </div>
-
-          <div class="cta-contact-row">
-            <div class="cta-contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.5">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cta-contact-label">Instagram</div>
-              <div class="cta-contact-value cta-contact-value--placeholder">@ceibovidal</div>
-            </div>
-          </div>
-
-          <div class="cta-contact-row" style="border-bottom:none;">
-            <div class="cta-contact-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(196,169,125,0.8)" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-              </svg>
-            </div>
-            <div>
-              <div class="cta-contact-label">Web</div>
-              <div class="cta-contact-value cta-contact-value--placeholder">[web pendiente]</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cta-disclaimer">
-        Las imágenes, superficies, precios, condiciones comerciales, plazos y especificaciones son orientativos y pueden estar sujetos a modificaciones. Los valores de Terminado 1 corresponden al primer precio de lista post-obra según el modelo financiero del proyecto y no implican garantía de valorización o rentabilidad. Los precios de Preventa 1 no incluyen m² del SUM, cocheras, bauleras ni terrazas privadas. Los valores de mercado provienen del Reporte Inmobiliario · Market Analytics · Abril 2026 y corresponden a precios publicados. El ajuste por CAC es un mecanismo de actualización del saldo y no implica cuota fija en dólares. Material comercial — Ceibo Vidal · Daimar Developers · G&amp;D Developers — Agosto 2026.
-      </div>
-    </div>
-  </div>
+  <div class="pf pf--dark"><span>Contacto</span><span>11 / 11</span></div>
 </div>
 
 </body>
