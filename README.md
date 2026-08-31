@@ -17,6 +17,24 @@ En la práctica significa que cualquier pregunta relevante para el negocio —"�
 
 ## Cómo usarlo
 
+Hay dos capas de conocimiento:
+
+1. **Git (`knowledge/company`, `knowledge/projects`, …)** — lo que el equipo edita y versiona: briefs, decisiones, copy. Esto viaja con el clone.
+2. **Drive → `knowledge/sync-drive/`** — PDFs, Excel, escrituras. Se baja en cada máquina y **no se commitea**.
+
+### Día a día
+
+```bash
+git pull
+npm install                 # solo si cambió package.json
+npm run sync:drive          # si necesitás la última versión de Drive
+npm run dev                 # app en http://localhost:3000
+```
+
+Después de sync, los archivos quedan en `knowledge/sync-drive/` (local). Si un dato tiene que ser canónico para el Brain, copiá o resumí lo relevante a un `.md` en `knowledge/projects/…` y eso sí va a Git.
+
+**No** hagas `git add` de PDFs/planillas bajadas de Drive.
+
 ### Chat con el Brain
 
 Abrí [http://localhost:3000/brain](http://localhost:3000/brain) y preguntá lo que necesitás. Podés elegir el agente según el tema:
@@ -76,14 +94,14 @@ Reporta archivos vacíos, placeholders sin completar y documentos faltantes.
 
 ### Mantener el Brain al día
 
-Desde la raíz del repo. Ir agregando comandos acá a medida que existan más syncs.
-
 ```bash
 npm install            # primera vez, o si cambió package.json
-npm run sync:drive     # Drive → knowledge/sync-drive/
+npm run sync:drive     # Drive → knowledge/sync-drive/ (solo local)
 ```
 
-`npm run sync:drive` equivale a `npx tsx scripts/sync-drive.ts`. Requiere `.env.local` con las credenciales de Google (ver más abajo). La autorización OAuth es una sola vez: `npx tsx scripts/get-google-token.ts`.
+`npm run sync:drive` requiere `.env.local` con Google (ver más abajo). OAuth es una sola vez: `npx tsx scripts/get-google-token.ts`.
+
+Carpetas excluidas de la sync: ver `SKIP_FOLDER_NAMES` en `scripts/sync-drive.ts` (hoy: `Estudio de oferta`).
 
 ---
 

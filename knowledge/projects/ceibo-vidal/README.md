@@ -36,6 +36,8 @@ Este directorio centraliza todo el conocimiento interno del proyecto Ceibo Vidal
 | `tasks/`           | Tareas pendientes y en curso                                         |
 | `risks/`           | Registro de riesgos identificados                                    |
 
+PDFs operativos (legales, presupuestos de terceros, brochures de obra) viven en **Google Drive**. No duplicarlos acá; el espejo local es `knowledge/sync-drive/` (fuera de Git).
+
 ## Decisiones clave registradas
 
 - [2026-06-27] Garage integrado en planta baja (contra medianera)

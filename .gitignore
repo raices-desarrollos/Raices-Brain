@@ -13,9 +13,6 @@ node_modules/
 # ─── Credenciales Google OAuth (nunca commitear) ─────────────────────────────
 credentials.json
 client_secret_*.json
-.env.development.local
-.env.test.local
-.env.production.local
 
 # ─── Next.js ──────────────────────────────────────────────────────────────────
 .next/
@@ -51,6 +48,9 @@ data/exports/*
 # ─── Archivos temporales de ingesta ──────────────────────────────────────────
 tmp/
 uploads/
+
+# Espejo local de Google Drive (fuente de verdad = Drive, no Git)
+knowledge/sync-drive/
 
 # ─── Notas privadas ───────────────────────────────────────────────────────────
 data.md
