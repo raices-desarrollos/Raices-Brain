@@ -15,6 +15,22 @@ import * as http from 'http';
 import * as path from 'path';
 import * as url from 'url';
 
+function loadEnvLocal() {
+  const envPath = path.join(process.cwd(), '.env.local');
+  if (!fs.existsSync(envPath)) return;
+  for (const line of fs.readFileSync(envPath, 'utf-8').split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eq = trimmed.indexOf('=');
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const val = trimmed.slice(eq + 1).trim();
+    if (key && process.env[key] === undefined) process.env[key] = val;
+  }
+}
+
+loadEnvLocal();
+
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
@@ -82,7 +98,7 @@ const server = http.createServer(async (req, res) => {
 
     console.log('\n✅  Token guardado en .env.local (GOOGLE_REFRESH_TOKEN)');
     console.log('\nPróximo paso: configurá GOOGLE_DRIVE_FOLDER_ID en .env.local');
-    console.log('y corré: npx tsx scripts/sync-drive.ts\n');
+    console.log('y corré: npm run sync:drive\n');
   } catch (err) {
     console.error('❌  Error al obtener el token:', err);
     process.exit(1);
