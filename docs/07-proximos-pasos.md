@@ -36,9 +36,9 @@ Los archivos de Drive (escrituras, presupuestos, excels, briefs) se descargan a 
   ```bash
   npx tsx scripts/get-google-token.ts
   ```
-- [ ] Sincronizar:
+- [ ] Sincronizar (`npm run sync:drive`; ver **Mantener el Brain al día** en el README):
   ```bash
-  npx tsx scripts/sync-drive.ts
+  npm run sync:drive
   ```
 - [ ] Verificar que los archivos aparecen en `knowledge/sync-drive/`
 
@@ -84,7 +84,7 @@ Permite que el Brain responda con información de presupuestos, escrituras y pla
 
 **El día a día sin conocimientos técnicos:**
 
-- Subir un documento importante a Drive → correr `npx tsx scripts/sync-drive.ts` → el Brain lo ve
+- Subir un documento importante a Drive → correr `npm run sync:drive` → el Brain lo ve
 - Tomar una decisión → crear un `.md` en `knowledge/projects/ceibo-vidal/decisions/` (o usar el formulario de la app cuando esté listo)
 - Evaluar un terreno → conversar con el agente `terrenos` en `/brain`
 

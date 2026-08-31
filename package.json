@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "db:migrate": "drizzle-kit push --force",
     "db:studio": "drizzle-kit studio",
-    "ingest": "tsx scripts/ingest-knowledge.ts"
+    "ingest": "tsx scripts/ingest-knowledge.ts",
+    "sync:drive": "tsx scripts/sync-drive.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",

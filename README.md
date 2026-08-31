@@ -37,8 +37,8 @@ Abrí [http://localhost:3000/brain](http://localhost:3000/brain) y preguntá lo 
 **Opción B — Ingesta desde fuentes externas:**
 
 ```bash
+npm run sync:drive                   # sincronizar desde Google Drive
 npx tsx scripts/sync-github.ts       # sincronizar desde GitHub
-npx tsx scripts/sync-drive.ts        # sincronizar desde Google Drive
 npx tsx scripts/ingest-folder.ts     # ingestar una carpeta local
 ```
 
@@ -73,6 +73,17 @@ npx tsx scripts/check-knowledge-health.ts
 ```
 
 Reporta archivos vacíos, placeholders sin completar y documentos faltantes.
+
+### Mantener el Brain al día
+
+Desde la raíz del repo. Ir agregando comandos acá a medida que existan más syncs.
+
+```bash
+npm install            # primera vez, o si cambió package.json
+npm run sync:drive     # Drive → knowledge/sync-drive/
+```
+
+`npm run sync:drive` equivale a `npx tsx scripts/sync-drive.ts`. Requiere `.env.local` con las credenciales de Google (ver más abajo). La autorización OAuth es una sola vez: `npx tsx scripts/get-google-token.ts`.
 
 ---
 
@@ -211,7 +222,7 @@ Permite sincronizar automáticamente documentos de una carpeta de Drive al knowl
    ```
 7. Para sincronizar:
    ```bash
-   npx tsx scripts/sync-drive.ts
+   npm run sync:drive
    ```
 
 ---
