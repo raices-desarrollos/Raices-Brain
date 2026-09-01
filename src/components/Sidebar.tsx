@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 
 import type { ReactNode } from 'react';
 
-type NavItem = { href: string; label: string; icon: ReactNode };
+type NavItem = { href: string; label: string; icon: ReactNode; external?: boolean };
+
+const CLICKUP_BOARD = 'https://app.clickup.com/90132811149/v/b/6-901328323836-2';
 
 const primary: NavItem[] = [
   {
@@ -80,8 +82,9 @@ const secondary: NavItem[] = [
     ),
   },
   {
-    href: '/tareas',
+    href: CLICKUP_BOARD,
     label: 'Tareas',
+    external: true,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />
@@ -132,24 +135,46 @@ const secondary: NavItem[] = [
 
 function NavLink({ item, collapsed, pathname }: { item: NavItem; collapsed: boolean; pathname: string }) {
   const active =
-    item.href === '/'
+    !item.external &&
+    (item.href === '/'
       ? pathname === '/'
-      : pathname === item.href || pathname.startsWith(item.href + '/');
+      : pathname === item.href || pathname.startsWith(item.href + '/'));
+
+  const className = `flex items-center rounded-lg transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2'} ${
+    active ? 'bg-white/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-white/5'
+  }`;
+
+  const inner = (
+    <>
+      {item.icon}
+      {!collapsed && (
+        <span className="text-sm flex-1 flex items-center justify-between gap-2">
+          {item.label}
+          {item.external && (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-3 h-3 opacity-50">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          )}
+        </span>
+      )}
+    </>
+  );
 
   return (
     <div className="relative group">
-      <Link
-        href={item.href}
-        className={`flex items-center rounded-sm transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2'} ${
-          active ? 'bg-white/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-white/5'
-        }`}>
-        {item.icon}
-        {!collapsed && <span className="text-sm">{item.label}</span>}
-      </Link>
+      {item.external ? (
+        <a href={item.href} target="_blank" rel="noreferrer" className={className} title="Abrir ClickUp">
+          {inner}
+        </a>
+      ) : (
+        <Link href={item.href} className={className}>
+          {inner}
+        </Link>
+      )}
       {collapsed && (
         <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100">
-          <div className="bg-ink text-blanco text-xs px-2.5 py-1.5 rounded-sm whitespace-nowrap border border-white/10">
-            {item.label}
+          <div className="bg-ink text-blanco text-xs px-2.5 py-1.5 rounded-md whitespace-nowrap border border-white/10">
+            {item.external ? `${item.label} · ClickUp` : item.label}
           </div>
         </div>
       )}
@@ -157,10 +182,18 @@ function NavLink({ item, collapsed, pathname }: { item: NavItem; collapsed: bool
   );
 }
 
-export function Sidebar() {
+export function Sidebar({
+  mobileOpen = false,
+  onClose,
+}: {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [collapsed, setCollapsed] = useState(false);
+  const isAdmin = session?.user?.role === 'admin';
+  const extra = isAdmin ? secondary : secondary.filter((item) => item.href !== '/admin');
 
   useEffect(() => {
     if (localStorage.getItem('sidebar-collapsed') === 'true') setCollapsed(true);
@@ -181,16 +214,20 @@ export function Sidebar() {
     .join('')
     .toUpperCase();
 
+  const compact = collapsed && !mobileOpen;
+
   return (
     <aside
-      className={`flex-shrink-0 bg-ink flex flex-col h-full transition-all duration-200 ${collapsed ? 'w-16' : 'w-56'}`}>
+      className={`bg-ink flex flex-col h-full transition-all duration-200 z-50
+        ${mobileOpen ? 'fixed inset-y-0 left-0 w-56 flex' : 'hidden md:flex flex-shrink-0'}
+        ${!mobileOpen && (collapsed ? 'md:w-16' : 'md:w-56')}`}>
       <div
-        className={`flex items-center h-16 border-b border-white/10 ${collapsed ? 'justify-center' : 'px-4 justify-between'}`}>
-        {collapsed ? (
+        className={`flex items-center h-16 border-b border-white/10 ${compact ? 'justify-center' : 'px-4 justify-between'}`}>
+        {compact ? (
           <button
             onClick={toggle}
             title="Expandir menú"
-            className="w-8 h-8 rounded-sm bg-musgo flex items-center justify-center hover:bg-liquen transition">
+            className="w-8 h-8 rounded-lg bg-musgo flex items-center justify-center hover:bg-liquen transition">
             <span className="text-blanco text-sm font-medium">R</span>
           </button>
         ) : (
@@ -200,9 +237,9 @@ export function Sidebar() {
               <p className="text-blanco/45 text-2xs tracking-[0.18em] uppercase mt-0.5">Brain</p>
             </div>
             <button
-              onClick={toggle}
-              title="Colapsar menú"
-              className="w-7 h-7 rounded-sm flex items-center justify-center text-blanco/45 hover:text-blanco hover:bg-white/10">
+              onClick={mobileOpen ? onClose : toggle}
+              title={mobileOpen ? 'Cerrar menú' : 'Colapsar menú'}
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-blanco/45 hover:text-blanco hover:bg-white/10">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
@@ -211,21 +248,21 @@ export function Sidebar() {
         )}
       </div>
 
-      <nav className={`flex-1 py-3 overflow-y-auto ${collapsed ? 'px-2' : 'px-2.5'}`}>
+      <nav className={`flex-1 py-3 overflow-y-auto ${compact ? 'px-2' : 'px-2.5'}`}>
         {primary.map((item) => (
-          <NavLink key={item.href} item={item} collapsed={collapsed} pathname={pathname} />
+          <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
         ))}
-        {!collapsed && (
+        {!compact && (
           <p className="text-2xs tracking-[0.18em] uppercase text-blanco/30 px-3 mt-5 mb-2">Más</p>
         )}
-        {collapsed && <div className="my-2 border-t border-white/10" />}
-        {secondary.map((item) => (
-          <NavLink key={item.href} item={item} collapsed={collapsed} pathname={pathname} />
+        {compact && <div className="my-2 border-t border-white/10" />}
+        {extra.map((item) => (
+          <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
         ))}
       </nav>
 
-      <div className={`border-t border-white/10 py-3 ${collapsed ? 'px-2' : 'px-3'}`}>
-        {collapsed ? (
+      <div className={`border-t border-white/10 py-3 ${compact ? 'px-2' : 'px-3'}`}>
+        {compact ? (
           <div className="flex flex-col items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
               <span className="text-blanco text-xs">{initials}</span>
@@ -233,7 +270,7 @@ export function Sidebar() {
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
               title="Cerrar sesión"
-              className="flex justify-center p-2 w-full rounded-sm text-blanco/45 hover:text-ceibo hover:bg-white/10">
+              className="flex justify-center p-2 w-full rounded-lg text-blanco/45 hover:text-ceibo hover:bg-white/10">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
                 <path
                   strokeLinecap="round"
@@ -260,7 +297,7 @@ export function Sidebar() {
             )}
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
-              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-sm text-blanco/45 hover:text-ceibo hover:bg-white/5 text-sm">
+              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-blanco/45 hover:text-ceibo hover:bg-white/5 text-sm">
               Cerrar sesión
             </button>
           </>

@@ -1,7 +1,7 @@
 'use client';
 
 import DriveFinancial from '@/components/DriveFinancial';
-import { EmptyState } from '@/components/ui';
+import { EmptyState, ProjectPageSkeleton } from '@/components/ui';
 import { formatMoney } from '@/lib/format';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
@@ -40,9 +40,16 @@ type Doc = { id: string; name: string; category: string; driveWebViewLink: strin
 type Unit = { id: string; code: string; status: string; typology: string | null };
 type Decision = { id: string; title: string; date: string; sourceFile?: string };
 
+function prettyName(slug: string) {
+  return slug
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 export default function ProjectPage() {
   return (
-    <Suspense fallback={<div className="px-8 py-16 text-sm text-niebla">Cargando proyecto…</div>}>
+    <Suspense fallback={<ProjectPageSkeleton />}>
       <ProjectView />
     </Suspense>
   );
@@ -92,7 +99,7 @@ function ProjectView() {
   }
 
   if (!project) {
-    return <div className="max-w-4xl mx-auto px-8 py-16 text-sm text-niebla">Cargando…</div>;
+    return <ProjectPageSkeleton name={prettyName(params.slug)} />;
   }
 
   return (
@@ -105,13 +112,15 @@ function ProjectView() {
       </p>
       <p className="text-xs text-tierra mt-2 uppercase tracking-wider">{project.statusLabel}</p>
 
-      <nav className="flex gap-1 mt-8 mb-10 border-b border-suelo overflow-x-auto">
+      <nav className="flex gap-1.5 mt-8 mb-10 overflow-x-auto pb-1">
         {TABS.map((t) => (
           <Link
             key={t.id}
             href={`/projects/${project.slug}?tab=${t.id}`}
-            className={`px-3 py-2.5 text-sm whitespace-nowrap ${
-              tab === t.id ? 'text-ink border-b border-ink' : 'text-niebla hover:text-ink'
+            className={`px-3 py-1.5 text-sm whitespace-nowrap rounded-full border transition-colors ${
+              tab === t.id
+                ? 'bg-ink text-blanco border-ink'
+                : 'text-niebla border-suelo hover:border-ink hover:text-ink'
             }`}>
             {t.label}
           </Link>
@@ -135,12 +144,12 @@ function ProjectView() {
             </div>
           </div>
           <div className="flex gap-3">
-            <Link href="/facturas/nueva" className="text-sm border border-ink px-4 py-2">
+            <Link href="/facturas/nueva" className="text-sm border border-ink rounded-lg px-4 py-2">
               Subir factura
             </Link>
             <Link
               href={`/brain?q=${encodeURIComponent(`Resumime el estado actual de ${project.name}`)}`}
-              className="text-sm bg-ink text-blanco px-4 py-2">
+              className="text-sm bg-ink text-blanco rounded-lg px-4 py-2">
               Preguntar a Brain
             </Link>
           </div>
@@ -193,7 +202,7 @@ function ProjectView() {
         <div>
           <div className="flex justify-between mb-4">
             <p className="text-sm text-niebla">{invoices.length} factura(s)</p>
-            <Link href="/facturas/nueva" className="text-sm border border-ink px-3 py-1.5">
+            <Link href="/facturas/nueva" className="text-sm border border-ink rounded-lg px-3 py-1.5">
               Subir factura
             </Link>
           </div>

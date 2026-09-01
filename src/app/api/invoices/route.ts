@@ -4,6 +4,7 @@ import { db } from '@/lib/db';
 import { documents, invoices } from '@/lib/db/schema';
 import { uploadInvoiceToDrive, isDriveConfigured } from '@/lib/google/drive';
 import { storeFile } from '@/lib/storage';
+import { validateInvoiceFile } from '@/lib/uploads';
 import { randomUUID } from 'crypto';
 import { and, desc, eq, ilike } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
@@ -34,8 +35,7 @@ export async function GET(req: NextRequest) {
     console.error(err);
     return NextResponse.json(
       {
-        error:
-          'La tabla de facturas no está disponible. Ejecutá `npm run db:migrate` para crearla.',
+        error: 'Las facturas no están disponibles ahora. Reintentá en un momento.',
       },
       { status: 503 },
     );
@@ -82,6 +82,8 @@ export async function POST(req: NextRequest) {
   let folderPath: string | null = null;
 
   if (file && file.size > 0) {
+    const invalid = validateInvoiceFile(file);
+    if (invalid) return NextResponse.json({ error: invalid }, { status: 400 });
     const bytes = Buffer.from(await file.arrayBuffer());
     const uploaded = await uploadInvoiceToDrive({
       name: file.name,

@@ -27,6 +27,22 @@ const config: Config = {
       fontSize: {
         '2xs': ['0.625rem', { lineHeight: '0.875rem' }],
       },
+      borderRadius: {
+        sm: '0.375rem',
+        DEFAULT: '0.5rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+      },
+      keyframes: {
+        rise: {
+          '0%, 100%': { transform: 'scaleY(0.38)', opacity: '0.35' },
+          '50%': { transform: 'scaleY(1)', opacity: '1' },
+        },
+      },
+      animation: {
+        rise: 'rise 1.15s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

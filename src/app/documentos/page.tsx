@@ -1,6 +1,6 @@
 'use client';
 
-import { EmptyState, PageHeader } from '@/components/ui';
+import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton, Spinner } from '@/components/ui';
 import { formatBytes, formatDate } from '@/lib/format';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -35,6 +35,7 @@ export default function DocumentosPage() {
   const [loading, setLoading] = useState(true);
 
   const [linkMsg, setLinkMsg] = useState('');
+  const [linking, setLinking] = useState<string | null>(null);
 
   async function loadDrive(nextFolder?: string, query = q) {
     setLoading(true);
@@ -75,6 +76,7 @@ export default function DocumentosPage() {
 
   async function linkFile(file: DriveFile) {
     setLinkMsg('');
+    setLinking(file.id);
     const res = await fetch('/api/documents/link', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -90,6 +92,7 @@ export default function DocumentosPage() {
               : 'otro',
       }),
     });
+    setLinking(null);
     if (res.ok) {
       setLinkMsg(`Vinculado: ${file.name}`);
       const docs = await fetch('/api/documents');
@@ -101,16 +104,12 @@ export default function DocumentosPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-10">
+    <PageShell wide>
       <PageHeader
         kicker="Archivo"
         title="Documentos"
         description="Google Drive es el archivo. Podés abrir, vincular a Ceibo Vidal y preguntarle a Brain."
-        action={
-          <Link href="/brain" className="text-sm bg-ink text-blanco px-4 py-2">
-            Preguntar a Brain
-          </Link>
-        }
+        action={<PrimaryButton href="/brain">Preguntar a Brain</PrimaryButton>}
       />
 
       <form
@@ -151,7 +150,9 @@ export default function DocumentosPage() {
       )}
 
       {loading ? (
-        <p className="text-sm text-niebla mb-8">Cargando…</p>
+        <div className="mb-12">
+          <ListSkeleton rows={8} />
+        </div>
       ) : configured && files.length === 0 ? (
         <p className="text-sm text-niebla mb-8">Esta carpeta está vacía.</p>
       ) : (
@@ -179,8 +180,10 @@ export default function DocumentosPage() {
                 <div className="flex items-center gap-3 flex-shrink-0">
                   <button
                     onClick={() => linkFile(f)}
-                    className="text-2xs uppercase tracking-wider text-tierra whitespace-nowrap">
-                    Vincular a Ceibo Vidal
+                    disabled={linking === f.id}
+                    className="inline-flex items-center gap-1 text-2xs uppercase tracking-wider text-tierra whitespace-nowrap disabled:opacity-50">
+                    {linking === f.id && <Spinner className="w-3 h-3" />}
+                    {linking === f.id ? 'Vinculando…' : 'Vincular a Ceibo Vidal'}
                   </button>
                   <Link
                     href={`/brain?q=${encodeURIComponent(`Qué información tenemos sobre el documento "${f.name}"?`)}`}
@@ -221,6 +224,6 @@ export default function DocumentosPage() {
           ))}
         </ul>
       )}
-    </div>
+    </PageShell>
   );
 }

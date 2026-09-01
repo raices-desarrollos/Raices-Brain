@@ -3,6 +3,7 @@
 import { diagnose } from '@/lib/domain/diagnostics';
 import type { FeasibilityInputs } from '@/lib/domain/feasibility';
 import { calculateFeasibility } from '@/lib/domain/feasibility';
+import { LoadingLine } from '@/components/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -94,7 +95,9 @@ export default function FactibilidadPage() {
 
       {/* List */}
       {loading ? (
-        <div className="text-gray-400 text-sm py-12 text-center">Cargando…</div>
+        <div className="flex justify-center">
+          <LoadingLine label="Abriendo análisis…" />
+        </div>
       ) : items.length === 0 ? (
         <div className="text-center py-16 border border-dashed border-gray-200 rounded-xl">
           <p className="text-gray-400 text-sm mb-4">No hay análisis guardados todavía.</p>

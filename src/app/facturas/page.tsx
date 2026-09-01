@@ -1,8 +1,7 @@
 'use client';
 
-import { EmptyState, PageHeader } from '@/components/ui';
+import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton, StatusBadge } from '@/components/ui';
 import { formatMoney } from '@/lib/format';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 type Invoice = {
@@ -106,16 +105,12 @@ export default function FacturasPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-10">
+    <PageShell wide>
       <PageHeader
         kicker="Operación"
         title="Facturas"
         description="Subí, revisá y marcá como pagada. El archivo vive en Drive."
-        action={
-          <Link href="/facturas/nueva" className="text-sm bg-ink text-blanco px-4 py-2">
-            Subir factura
-          </Link>
-        }
+        action={<PrimaryButton href="/facturas/nueva">Subir factura</PrimaryButton>}
       />
 
       <div className="flex flex-wrap gap-3 mb-8">
@@ -150,7 +145,7 @@ export default function FacturasPage() {
       {error && <p className="text-sm text-ceibo mb-6">{error}</p>}
 
       {loading ? (
-        <p className="text-sm text-niebla">Cargando…</p>
+        <ListSkeleton rows={7} />
       ) : !items.length && !error ? (
         <EmptyState
           title="Todavía no hay facturas"
@@ -180,7 +175,7 @@ export default function FacturasPage() {
                 <td className="text-niebla">{i.projectRef ?? '—'}</td>
                 <td className="text-niebla">{i.category}</td>
                 <td>{formatMoney(i.amount, i.currency)}</td>
-                <td>{STATUS[i.status] ?? i.status}</td>
+                <td><StatusBadge status={i.status} /></td>
                 <td className="text-right whitespace-nowrap">
                   {i.status === 'pendiente' && (
                     <button onClick={() => openPay(i)} className="text-2xs text-musgo mr-3">
@@ -201,7 +196,7 @@ export default function FacturasPage() {
 
       {paying && (
         <div className="fixed inset-0 bg-ink/40 flex items-center justify-center z-50 px-4">
-          <div className="bg-blanco max-w-md w-full p-6">
+          <div className="bg-blanco max-w-md w-full p-6 rounded-2xl">
             <h2 className="font-serif text-xl font-light text-ink mb-1">Registrar pago</h2>
             <p className="text-sm text-niebla mb-6">
               {paying.supplierName}
@@ -256,13 +251,13 @@ export default function FacturasPage() {
                 type="button"
                 onClick={confirmPay}
                 disabled={payBusy}
-                className="text-sm bg-ink text-blanco px-4 py-2 disabled:opacity-50">
+                className="text-sm bg-ink text-blanco px-4 py-2 rounded-lg disabled:opacity-50">
                 {payBusy ? 'Guardando…' : 'Confirmar pago'}
               </button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </PageShell>
   );
 }

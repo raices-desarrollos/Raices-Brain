@@ -35,6 +35,9 @@ export async function POST(req: NextRequest) {
   if (!message?.trim()) {
     return NextResponse.json({ error: 'Mensaje vacío' }, { status: 400 });
   }
+  if (message.length > 8000) {
+    return NextResponse.json({ error: 'El mensaje es demasiado largo.' }, { status: 400 });
+  }
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {

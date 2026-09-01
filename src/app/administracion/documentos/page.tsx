@@ -1,5 +1,6 @@
 'use client';
 
+import { LoadingLine } from '@/components/ui';
 import { useEffect, useRef, useState } from 'react';
 
 const DOC_CATEGORIES = [
@@ -200,7 +201,9 @@ export default function DocumentosPage() {
 
       {/* List */}
       {loading ? (
-        <div className="text-gray-400 text-sm py-12 text-center">Cargando…</div>
+        <div className="flex justify-center">
+          <LoadingLine label="Abriendo documentos…" />
+        </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-16 border border-dashed border-gray-200 rounded-xl text-gray-400 text-sm">
           {search ? 'Sin resultados para esa búsqueda.' : 'No hay documentos todavía.'}

@@ -1,6 +1,6 @@
 'use client';
 
-import { EmptyState, PageHeader } from '@/components/ui';
+import { EmptyState, LoadingLine, PageHeader, PageShell } from '@/components/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -14,25 +14,35 @@ type Project = {
 };
 
 export default function ProjectsPage() {
-  const [items, setItems] = useState<Project[]>([]);
+  const [items, setItems] = useState<Project[] | null>(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetch('/api/projects')
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setItems);
+      .then(async (r) => {
+        if (!r.ok) throw new Error('projects');
+        return r.json();
+      })
+      .then(setItems)
+      .catch(() => setError('No se pudieron cargar los proyectos.'));
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-10">
+    <PageShell>
       <PageHeader
         kicker="Cartera"
         title="Proyectos"
         description="Cada desarrollo tiene su propia vista: finanzas, documentos, unidades y decisiones."
       />
 
-      {items.length === 0 ? (
-        <EmptyState title="Sin proyectos" description="No hay proyectos cargados." />
-      ) : (
+      {error && <p className="text-sm text-ceibo mb-6">{error}</p>}
+      {items === null && !error && (
+        <LoadingLine label="Abriendo la cartera…" />
+      )}
+      {items && items.length === 0 && (
+        <EmptyState title="Sin proyectos" description="No hay proyectos cargados todavía." />
+      )}
+      {items && items.length > 0 && (
         <ul className="divide-y divide-suelo">
           {items.map((p) => (
             <li key={p.slug} className="py-6">
@@ -53,6 +63,6 @@ export default function ProjectsPage() {
           ))}
         </ul>
       )}
-    </div>
+    </PageShell>
   );
 }

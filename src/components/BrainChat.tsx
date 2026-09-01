@@ -16,9 +16,9 @@ const agents: Agent[] = [
   { slug: 'legal', label: 'Legal' },
 ];
 
-const noApiKeyMessage = `No hay una API key de OpenAI configurada.
+const noApiKeyMessage = `Brain no está disponible ahora.
 
-Completá \`OPENAI_API_KEY\` en \`.env.local\` y reiniciá el servidor.`;
+Quien administra la app tiene que completar la conexión con OpenAI.`;
 
 function TypingIndicator() {
   return (
@@ -128,7 +128,7 @@ export function BrainChat() {
             <button
               key={a.slug}
               onClick={() => setActiveAgent(a.slug)}
-              className={`text-2xs px-2.5 py-1 border transition-colors ${
+              className={`text-2xs px-3 py-1.5 rounded-full border transition-colors ${
                 activeAgent === a.slug
                   ? 'bg-ink text-blanco border-ink'
                   : 'text-niebla border-suelo hover:border-ink hover:text-ink'
@@ -140,10 +140,10 @@ export function BrainChat() {
       </div>
 
       {apiKeyMissing && (
-        <div className="mx-6 mt-4 px-4 py-3 bg-suelo/50 flex-shrink-0">
+        <div className="mx-6 mt-4 px-4 py-3 bg-suelo/50 rounded-lg flex-shrink-0">
           <p className="text-xs text-ink font-medium">API key no configurada</p>
           <p className="text-xs text-niebla mt-0.5">
-            Completá <code>OPENAI_API_KEY</code> en <code>.env.local</code>.
+            Brain no puede responder hasta que esté conectado OpenAI. Pedile a quien administra la app.
           </p>
         </div>
       )}
@@ -167,7 +167,7 @@ export function BrainChat() {
                 <button
                   key={q}
                   onClick={() => handleSend(q)}
-                  className="text-left text-sm text-niebla border-b border-suelo px-1 py-2 hover:text-ink hover:border-ink">
+                  className="text-left text-sm text-niebla border border-suelo rounded-lg px-3.5 py-2.5 hover:text-ink hover:border-ink hover:bg-suelo/30 transition-colors">
                   {q}
                 </button>
               ))}
@@ -177,7 +177,10 @@ export function BrainChat() {
 
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-2xl px-4 py-3 ${msg.role === 'user' ? 'bg-ink text-blanco' : 'bg-suelo/40'}`}>
+            <div
+              className={`max-w-2xl px-4 py-3 rounded-xl ${
+                msg.role === 'user' ? 'bg-ink text-blanco rounded-br-md' : 'bg-suelo/50 rounded-bl-md'
+              }`}>
               {msg.role === 'assistant' ? (
                 <Markdown text={msg.content} />
               ) : (
@@ -199,7 +202,7 @@ export function BrainChat() {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-suelo/40">
+            <div className="bg-suelo/50 rounded-xl rounded-bl-md">
               <TypingIndicator />
             </div>
           </div>
@@ -208,19 +211,19 @@ export function BrainChat() {
       </div>
 
       <div className="flex-shrink-0 px-6 py-4 border-t border-suelo">
-        <div className="flex items-end gap-3 border-b border-suelo focus-within:border-ink pb-2">
+        <div className="flex items-end gap-3 rounded-xl border border-suelo bg-blanco px-3 py-2 focus-within:border-ink">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Preguntá sobre Ceibo Vidal, facturas, documentos…"
             rows={1}
-            className="flex-1 bg-transparent text-sm text-ink placeholder:text-niebla resize-none outline-none max-h-32"
+            className="flex-1 bg-transparent text-sm text-ink placeholder:text-niebla resize-none outline-none max-h-32 py-1"
           />
           <button
             onClick={() => handleSend()}
             disabled={!input.trim() || loading}
-            className="flex-shrink-0 bg-ink text-blanco w-8 h-8 flex items-center justify-center disabled:opacity-30">
+            className="flex-shrink-0 bg-ink text-blanco w-8 h-8 rounded-full flex items-center justify-center disabled:opacity-30 hover:bg-musgo transition-colors">
             <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
             </svg>

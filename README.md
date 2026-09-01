@@ -52,7 +52,7 @@ Podés elegir el agente según el tema:
 
 ### Web app (socios)
 
-Navegación principal: **Inicio**, **Proyectos**, **Documentos**, **Facturas**, **Brain**. Factibilidad, tareas y terrenos siguen disponibles.
+Navegación principal: **Inicio**, **Proyectos**, **Documentos**, **Facturas**, **Brain**. **Tareas** abre el tablero de ClickUp.
 
 | Ruta | Uso |
 | ---- | --- |

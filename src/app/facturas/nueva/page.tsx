@@ -1,6 +1,8 @@
 'use client';
 
 import { INVOICE_CATEGORIES } from '@/lib/domain/catalog';
+import { validateInvoiceFile } from '@/lib/uploads';
+import { Overlay } from '@/components/ui';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
@@ -58,16 +60,31 @@ export default function NuevaFacturaPage() {
   }
 
   async function analyze(selected: File) {
+    const invalid = validateInvoiceFile(selected);
+    if (invalid) {
+      setError(invalid);
+      return;
+    }
     setError('');
     setBusy(true);
     setFile(selected);
     const fd = new FormData();
     fd.append('file', selected);
-    const res = await fetch('/api/invoices/extract', { method: 'POST', body: fd });
-    const data = await res.json();
-    setBusy(false);
-    setField({ ...EMPTY, ...data });
-    setStep('review');
+    try {
+      const res = await fetch('/api/invoices/extract', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'No se pudo leer el archivo.');
+        setBusy(false);
+        return;
+      }
+      setField({ ...EMPTY, ...data });
+      setStep('review');
+    } catch {
+      setError('No se pudo leer el archivo. Reintentá.');
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function confirm() {
@@ -95,7 +112,7 @@ export default function NuevaFacturaPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto px-8 py-10">
+    <div className="max-w-xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
       <p className="text-2xs tracking-[0.2em] uppercase text-niebla mb-2">Facturas</p>
       <h1 className="font-serif text-3xl font-light text-ink mb-2">Subir factura</h1>
       <p className="text-sm text-niebla mb-8">
@@ -104,6 +121,13 @@ export default function NuevaFacturaPage() {
       </p>
 
       {step === 'upload' && (
+        <div className="relative min-h-[12rem]">
+          {busy && (
+            <Overlay
+              title="Leyendo factura…"
+              description="Esto puede tardar unos segundos. Revisá los datos antes de guardar."
+            />
+          )}
         <div
           onDragOver={(e) => {
             e.preventDefault();
@@ -116,12 +140,13 @@ export default function NuevaFacturaPage() {
             const f = e.dataTransfer.files[0];
             if (f) analyze(f);
           }}
-          className={`border border-dashed px-6 py-14 text-center ${drag ? 'border-ink bg-suelo/40' : 'border-arena'}`}>
-          <p className="text-sm text-ink mb-3">PDF, JPG o PNG</p>
+          className={`border border-dashed rounded-xl px-6 py-14 text-center ${drag ? 'border-ink bg-suelo/40' : 'border-arena'}`}>
+          <p className="text-sm text-ink mb-3">PDF, JPG o PNG · hasta 12 MB</p>
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            className="text-sm border border-ink px-4 py-2">
+            disabled={busy}
+            className="text-sm border border-ink rounded-lg px-4 py-2 disabled:opacity-50">
             Elegir archivo
           </button>
           <input
@@ -134,7 +159,8 @@ export default function NuevaFacturaPage() {
               if (f) analyze(f);
             }}
           />
-          {busy && <p className="text-sm text-niebla mt-4">Leyendo factura…</p>}
+        </div>
+        {error && <p className="text-sm text-ceibo mt-4">{error}</p>}
         </div>
       )}
 
@@ -208,6 +234,7 @@ export default function NuevaFacturaPage() {
               onClick={() => {
                 setStep('upload');
                 setFile(null);
+                setError('');
               }}
               className="text-sm text-niebla">
               Volver
@@ -216,8 +243,8 @@ export default function NuevaFacturaPage() {
               type="button"
               onClick={confirm}
               disabled={busy}
-              className="text-sm bg-ink text-blanco px-5 py-2 disabled:opacity-50">
-              {busy ? 'Guardando…' : 'Confirmar'}
+              className="text-sm bg-ink text-blanco px-5 py-2 rounded-lg disabled:opacity-50">
+              {busy ? 'Guardando en Drive…' : 'Confirmar'}
             </button>
           </div>
         </div>
