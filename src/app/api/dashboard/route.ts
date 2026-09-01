@@ -1,8 +1,9 @@
 import { requireAuth } from '@/lib/auth/server';
 import { db } from '@/lib/db';
-import { documents, invoices, payments } from '@/lib/db/schema';
+import { invoices, payments } from '@/lib/db/schema';
 import { getCatalogProject } from '@/lib/domain/catalog';
-import { desc, eq } from 'drizzle-orm';
+import { listRecentDriveFiles } from '@/lib/google/drive';
+import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -14,12 +15,12 @@ export async function GET() {
 
   let invoiceRows: typeof invoices.$inferSelect[] = [];
   let paymentRows: typeof payments.$inferSelect[] = [];
-  let recentDocs: {
+  let recentDrive: {
     id: string;
     name: string;
-    category: string;
-    createdAt: Date | null;
-    driveWebViewLink: string | null;
+    modifiedTime: string | null;
+    webViewLink: string | null;
+    isFolder: boolean;
   }[] = [];
 
   try {
@@ -33,19 +34,15 @@ export async function GET() {
     paymentRows = [];
   }
   try {
-    recentDocs = await db
-      .select({
-        id: documents.id,
-        name: documents.name,
-        category: documents.category,
-        createdAt: documents.createdAt,
-        driveWebViewLink: documents.driveWebViewLink,
-      })
-      .from(documents)
-      .orderBy(desc(documents.createdAt))
-      .limit(8);
+    recentDrive = (await listRecentDriveFiles(8)).map((f) => ({
+      id: f.id,
+      name: f.name,
+      modifiedTime: f.modifiedTime,
+      webViewLink: f.webViewLink,
+      isFolder: f.isFolder,
+    }));
   } catch {
-    recentDocs = [];
+    recentDrive = [];
   }
 
   const active = invoiceRows.filter((i) => i.status !== 'anulada');
@@ -53,6 +50,17 @@ export async function GET() {
   const paidInvoices = active.filter((i) => i.status === 'pagada');
   const paidPayments = paymentRows.filter((p) => p.status === 'pagado');
   const currency = active[0]?.currency ?? paidPayments[0]?.currency ?? 'ARS';
+
+  const attention: { label: string; href: string }[] = [];
+  if (pending.length) {
+    attention.push({
+      label:
+        pending.length === 1
+          ? '1 factura pendiente de pago'
+          : `${pending.length} facturas pendientes de pago`,
+      href: '/facturas',
+    });
+  }
 
   return NextResponse.json({
     project,
@@ -74,6 +82,7 @@ export async function GET() {
           : paidInvoices.reduce((a, i) => a + (i.amount ?? 0), 0),
       currency,
     },
-    recentDocuments: recentDocs,
+    attention,
+    recentDocuments: recentDrive,
   });
 }

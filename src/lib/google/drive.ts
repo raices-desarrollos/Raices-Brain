@@ -87,6 +87,42 @@ export async function listDriveFiles(options: {
   return { configured: true, folderId, files, searched: Boolean(query) };
 }
 
+export async function listRecentDriveFiles(limit = 8): Promise<DriveFile[]> {
+  const drive = getDriveClient();
+  const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  if (!drive || !rootId) return [];
+
+  const res = await drive.files.list({
+    q: `'${rootId}' in parents and trashed = false`,
+    fields: 'files(id, name, mimeType, modifiedTime, webViewLink, size, parents)',
+    pageSize: 40,
+    orderBy: 'modifiedTime desc',
+  });
+  const files = (res.data.files ?? []).map(mapFile).filter((f): f is DriveFile => f !== null);
+  const nested = files.filter((f) => f.isFolder).slice(0, 4);
+  const recentFiles = files.filter((f) => !f.isFolder);
+  if (recentFiles.length >= limit) return recentFiles.slice(0, limit);
+
+  for (const folder of nested) {
+    if (recentFiles.length >= limit) break;
+    const inner = await drive.files.list({
+      q: `'${folder.id}' in parents and trashed = false and mimeType != 'application/vnd.google-apps.folder'`,
+      fields: 'files(id, name, mimeType, modifiedTime, webViewLink, size, parents)',
+      pageSize: 8,
+      orderBy: 'modifiedTime desc',
+    });
+    for (const f of inner.data.files ?? []) {
+      const mapped = mapFile(f);
+      if (mapped && !mapped.isFolder) recentFiles.push(mapped);
+      if (recentFiles.length >= limit) break;
+    }
+  }
+
+  return recentFiles
+    .sort((a, b) => (b.modifiedTime ?? '').localeCompare(a.modifiedTime ?? ''))
+    .slice(0, limit);
+}
+
 export async function searchDriveByName(query: string): Promise<DriveFile[]> {
   const drive = getDriveClient();
   if (!drive || !query.trim()) return [];

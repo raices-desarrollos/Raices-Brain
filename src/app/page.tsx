@@ -20,9 +20,10 @@ type Dashboard = {
   recentDocuments: {
     id: string;
     name: string;
-    category: string;
-    driveWebViewLink?: string | null;
+    modifiedTime?: string | null;
+    webViewLink?: string | null;
   }[];
+  attention: { label: string; href: string }[];
 };
 
 export default function DashboardPage() {
@@ -94,6 +95,21 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {data && data.attention.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-3">Requiere atención</h2>
+          <ul className="divide-y divide-suelo border-y border-suelo">
+            {data.attention.map((item) => (
+              <li key={item.href + item.label}>
+                <Link href={item.href} className="block py-3 text-sm text-ink hover:text-musgo">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {data && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
           <MetricCard
@@ -137,8 +153,8 @@ export default function DashboardPage() {
         ) : !data?.recentDocuments.length ? (
           <EmptyState
             compact
-            title="Todavía no hay documentos vinculados"
-            description="Los archivos viven en Drive. Subí una factura o vinculá un archivo existente."
+            title="Todavía no hay archivos recientes"
+            description="El archivo de Ceibo Vidal está en Documentos."
             actionLabel="Ver documentos"
             actionHref="/documentos"
           />
@@ -146,9 +162,9 @@ export default function DashboardPage() {
           <ul className="divide-y divide-suelo">
             {data.recentDocuments.map((d) => (
               <li key={d.id} className="py-3 flex justify-between gap-4">
-                {d.driveWebViewLink ? (
+                {d.webViewLink ? (
                   <a
-                    href={d.driveWebViewLink}
+                    href={d.webViewLink}
                     target="_blank"
                     rel="noreferrer"
                     className="text-sm text-ink truncate hover:text-musgo">
@@ -157,7 +173,6 @@ export default function DashboardPage() {
                 ) : (
                   <span className="text-sm text-ink truncate">{d.name}</span>
                 )}
-                <span className="text-2xs text-niebla uppercase">{d.category}</span>
               </li>
             ))}
           </ul>

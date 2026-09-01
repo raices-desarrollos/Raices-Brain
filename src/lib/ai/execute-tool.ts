@@ -184,7 +184,7 @@ async function runTool(name: string, args: Record<string, unknown>): Promise<unk
           source: 'postgres + drive',
           linkedDocuments: dbDocs,
           driveFiles: driveHits,
-          note: 'linkedDocuments son relaciones en la base. driveFiles son coincidencias en Drive. Si ambos están vacíos, no hay dato.',
+          note: 'linkedDocuments son facturas u otros archivos registrados en la app. driveFiles son coincidencias en la carpeta de Ceibo Vidal. Toda esa carpeta es de este proyecto.',
         };
       }, { linkedDocuments: [], driveFiles: [] });
     }

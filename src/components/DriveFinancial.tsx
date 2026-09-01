@@ -218,7 +218,7 @@ export default function DriveFinancial() {
         <EmptyState
           compact
           title="Todavía no hay presupuesto en Drive"
-          description="Las facturas de la app se ven arriba. El presupuesto aparece acá cuando hay planillas en Drive."
+          description="Las facturas de la app se ven arriba. El presupuesto aparece acá cuando hay planillas en la carpeta de Ceibo Vidal."
         />
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">

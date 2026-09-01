@@ -31,9 +31,6 @@ type Invoice = {
   issueDate: string | null;
   category: string;
 };
-
-type Doc = { id: string; name: string; category: string; driveWebViewLink: string | null };
-type Unit = { id: string; code: string; status: string; typology: string | null };
 type Decision = { id: string; title: string; date: string; sourceFile?: string };
 
 export default function ProjectPage() {
@@ -51,8 +48,6 @@ function ProjectView() {
   const [project, setProject] = useState<Project | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [docs, setDocs] = useState<Doc[]>([]);
-  const [units, setUnits] = useState<Unit[]>([]);
   const [decisions, setDecisions] = useState<Decision[]>([]);
 
   useEffect(() => {
@@ -63,14 +58,6 @@ function ProjectView() {
     fetch(`/api/invoices?project=${params.slug}`)
       .then((r) => (r.ok ? r.json() : []))
       .then((d) => setInvoices(Array.isArray(d) ? d : []));
-    fetch('/api/documents')
-      .then((r) => (r.ok ? r.json() : []))
-      .then((rows: Array<Doc & { projectRef?: string }>) =>
-        setDocs(rows.filter((d) => !d.projectRef || String(d.projectRef).includes(params.slug))),
-      );
-    fetch(`/api/units?project=${params.slug}`)
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setUnits);
     fetch('/api/dashboard')
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => setDecisions(d?.recentDecisions ?? []));
@@ -118,7 +105,7 @@ function ProjectView() {
 
       {tab === 'resumen' && (
         <div className="space-y-10">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-6">
             <div>
               <p className="text-2xs uppercase tracking-wider text-niebla">Programa</p>
               <p className="text-sm mt-1">{project.floorsDescription || '—'}</p>
@@ -126,12 +113,6 @@ function ProjectView() {
             <div>
               <p className="text-2xs uppercase tracking-wider text-niebla">Facturas</p>
               <p className="text-sm mt-1">{formatCount(invoices.length, 'factura', 'facturas')}</p>
-            </div>
-            <div>
-              <p className="text-2xs uppercase tracking-wider text-niebla">Unidades</p>
-              <p className="text-sm mt-1">
-                {units.length ? formatCount(units.length, 'unidad', 'unidades') : 'Aún no cargadas'}
-              </p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -167,35 +148,18 @@ function ProjectView() {
       {tab === 'documentos' && (
         <div>
           <div className="flex justify-between mb-4">
-            <p className="text-sm text-niebla">Archivos relacionados con este proyecto.</p>
+            <p className="text-sm text-niebla">El archivo de {project.name} está en Google Drive.</p>
             <Link href="/documentos" className="text-sm text-musgo">
-              Abrir Documentos
+              Abrir archivo
             </Link>
           </div>
-          {!docs.length ? (
-            <EmptyState
-              compact
-              title="Todavía no hay documentos vinculados"
-              description="Los archivos viven en Drive. Vinculá uno existente o subí una factura."
-              actionLabel="Ver documentos"
-              actionHref="/documentos"
-            />
-          ) : (
-            <ul className="divide-y divide-suelo">
-              {docs.map((d) => (
-                <li key={d.id} className="py-3 flex justify-between">
-                  {d.driveWebViewLink ? (
-                    <a href={d.driveWebViewLink} target="_blank" rel="noreferrer" className="text-sm hover:text-musgo">
-                      {d.name}
-                    </a>
-                  ) : (
-                    <span className="text-sm">{d.name}</span>
-                  )}
-                  <span className="text-2xs text-niebla uppercase">{d.category}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <EmptyState
+            compact
+            title="El archivo vive en Documentos"
+            description="Planos, planillas y carpetas de Ceibo Vidal se abren desde ahí. No hace falta vincularlos: ya son de este proyecto."
+            actionLabel="Ver documentos"
+            actionHref="/documentos"
+          />
         </div>
       )}
 

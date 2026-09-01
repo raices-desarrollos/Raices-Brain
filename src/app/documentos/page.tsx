@@ -1,7 +1,7 @@
 'use client';
 
-import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton, Spinner } from '@/components/ui';
-import { formatBytes, formatDate, formatProjectName } from '@/lib/format';
+import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton } from '@/components/ui';
+import { formatBytes, formatDate } from '@/lib/format';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -15,29 +15,70 @@ type DriveFile = {
   isFolder: boolean;
 };
 
-type LocalDoc = {
-  id: string;
-  name: string;
-  category: string;
-  projectRef: string | null;
-  createdAt: string;
-};
+function fileKind(file: DriveFile): 'folder' | 'pdf' | 'sheet' | 'image' | 'doc' | 'file' {
+  if (file.isFolder) return 'folder';
+  const mime = file.mimeType;
+  const name = file.name.toLowerCase();
+  if (mime.includes('pdf') || name.endsWith('.pdf')) return 'pdf';
+  if (mime.includes('spreadsheet') || mime.includes('excel') || name.endsWith('.xlsx') || name.endsWith('.xls')) {
+    return 'sheet';
+  }
+  if (mime.startsWith('image/') || /\.(png|jpe?g|gif|webp|heic)$/.test(name)) return 'image';
+  if (mime.includes('document') || name.endsWith('.docx') || name.endsWith('.doc')) return 'doc';
+  return 'file';
+}
+
+function FileGlyph({ kind }: { kind: ReturnType<typeof fileKind> }) {
+  const common = 'w-5 h-5 shrink-0';
+  if (kind === 'folder') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className={`${common} text-tierra`}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h6l2 2h10v10H3V7z" />
+      </svg>
+    );
+  }
+  if (kind === 'pdf') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className={`${common} text-ceibo`}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13H7V3z" />
+        <path strokeLinecap="round" d="M14 3v5h5" />
+      </svg>
+    );
+  }
+  if (kind === 'sheet') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className={`${common} text-musgo`}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12v18H6V3zM6 9h12M6 15h12M10 3v18" />
+      </svg>
+    );
+  }
+  if (kind === 'image') {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className={`${common} text-arena`}>
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <circle cx="9" cy="10" r="1.5" />
+        <path strokeLinecap="round" d="M21 16l-5-5-7 7" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className={`${common} text-niebla`}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13H7V3z" />
+    </svg>
+  );
+}
 
 export default function DocumentosPage() {
   const [q, setQ] = useState('');
   const [activeQuery, setActiveQuery] = useState('');
   const [folderId, setFolderId] = useState<string | undefined>();
   const [crumbs, setCrumbs] = useState<{ id: string | undefined; name: string }[]>([
-    { id: undefined, name: 'Drive' },
+    { id: undefined, name: 'Ceibo Vidal' },
   ]);
   const [files, setFiles] = useState<DriveFile[]>([]);
   const [configured, setConfigured] = useState<boolean | null>(null);
   const [driveError, setDriveError] = useState('');
-  const [localDocs, setLocalDocs] = useState<LocalDoc[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [linkMsg, setLinkMsg] = useState('');
-  const [linking, setLinking] = useState<string | null>(null);
 
   async function loadDrive(nextFolder?: string, query = q) {
     setLoading(true);
@@ -68,9 +109,6 @@ export default function DocumentosPage() {
 
   useEffect(() => {
     loadDrive();
-    fetch('/api/documents')
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setLocalDocs);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,43 +130,12 @@ export default function DocumentosPage() {
     loadDrive(id, '');
   }
 
-  async function linkFile(file: DriveFile) {
-    setLinkMsg('');
-    setLinking(file.id);
-    const res = await fetch('/api/documents/link', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        driveFileId: file.id,
-        projectRef: 'ceibo-vidal',
-        category: /plano/i.test(file.name)
-          ? 'plano'
-          : /factura/i.test(file.name)
-            ? 'factura'
-            : /presupuesto/i.test(file.name)
-              ? 'presupuesto'
-              : 'otro',
-      }),
-    });
-    setLinking(null);
-    if (res.ok) {
-      setLinkMsg(`Vinculado a Ceibo Vidal: ${file.name}`);
-      const docs = await fetch('/api/documents');
-      if (docs.ok) setLocalDocs(await docs.json());
-    } else {
-      const data = await res.json().catch(() => ({}));
-      setLinkMsg(data.error ?? 'No se pudo vincular.');
-    }
-  }
-
-  const linkedIds = new Set(localDocs.map((d) => d.name));
-
   return (
     <PageShell wide>
       <PageHeader
-        kicker="Archivo"
+        kicker="Ceibo Vidal"
         title="Documentos"
-        description="Los archivos viven en Google Drive. Acá los abrís y los vinculás a Ceibo Vidal."
+        description="El archivo del proyecto. Todo lo que está acá es de Ceibo Vidal (Vidal 3849)."
         action={<PrimaryButton href="/brain">Preguntar a Brain</PrimaryButton>}
       />
 
@@ -152,22 +159,22 @@ export default function DocumentosPage() {
         </button>
       </form>
 
-      <div className="flex gap-2 text-2xs uppercase tracking-wider text-niebla mb-4">
+      <nav className="flex flex-wrap gap-1 text-sm text-niebla mb-6" aria-label="Ubicación">
         {crumbs.map((c, i) => (
-          <button key={`${c.name}-${i}`} onClick={() => goCrumb(i)} className="hover:text-ink">
-            {c.name}
-            {i < crumbs.length - 1 ? ' /' : ''}
-          </button>
+          <span key={`${c.name}-${i}`} className="flex items-center gap-1">
+            <button type="button" onClick={() => goCrumb(i)} className="hover:text-ink">
+              {c.name}
+            </button>
+            {i < crumbs.length - 1 ? <span>/</span> : null}
+          </span>
         ))}
-      </div>
-
-      {linkMsg && <p className="text-sm text-musgo mb-4">{linkMsg}</p>}
+      </nav>
 
       {configured === false && (
         <div className="mb-8">
           <EmptyState
             title="Drive no está conectado"
-            description="Todavía no se puede listar el archivo. Los documentos ya vinculados aparecen más abajo."
+            description="Todavía no se puede listar el archivo de Ceibo Vidal."
           />
         </div>
       )}
@@ -182,88 +189,67 @@ export default function DocumentosPage() {
       )}
 
       {loading ? (
-        <div className="mb-12">
-          <ListSkeleton rows={8} />
-        </div>
+        <ListSkeleton rows={8} />
       ) : configured && !driveError && files.length === 0 ? (
-        <div className="mb-12">
-          <EmptyState
-            title={activeQuery ? 'No hay coincidencias' : 'Esta carpeta está vacía'}
-            description={
-              activeQuery
-                ? `No encontramos archivos que coincidan con «${activeQuery}».`
-                : 'Drive está conectado, pero no hay archivos en esta carpeta.'
-            }
-          />
-        </div>
+        <EmptyState
+          title={activeQuery ? 'No hay coincidencias' : 'Esta carpeta está vacía'}
+          description={
+            activeQuery
+              ? `No encontramos archivos que coincidan con «${activeQuery}».`
+              : 'No hay archivos en esta carpeta.'
+          }
+        />
       ) : configured && files.length > 0 ? (
-        <ul className="divide-y divide-suelo mb-12">
-          {files.map((f) => (
-            <li key={f.id} className="py-3 flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                {f.isFolder ? (
-                  <button onClick={() => openFolder(f)} className="text-sm text-ink hover:text-musgo text-left">
-                    {f.name}
-                  </button>
-                ) : f.webViewLink ? (
-                  <a href={f.webViewLink} target="_blank" rel="noreferrer" className="text-sm text-ink hover:text-musgo">
-                    {f.name}
-                  </a>
-                ) : (
-                  <span className="text-sm">{f.name}</span>
-                )}
-                <p className="text-2xs text-niebla mt-0.5">
-                  {f.isFolder ? 'Carpeta' : formatDate(f.modifiedTime)}
-                  {f.size ? ` · ${formatBytes(f.size)}` : ''}
-                  {!f.isFolder && linkedIds.has(f.name) ? ' · Vinculado a Ceibo Vidal' : ''}
-                </p>
-              </div>
-              {!f.isFolder && (
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  <button
-                    onClick={() => linkFile(f)}
-                    disabled={linking === f.id}
-                    className="inline-flex items-center gap-1 text-2xs uppercase tracking-wider text-tierra whitespace-nowrap disabled:opacity-50">
-                    {linking === f.id && <Spinner className="w-3 h-3" />}
-                    {linking === f.id ? 'Vinculando…' : 'Vincular a Ceibo Vidal'}
-                  </button>
-                  <Link
-                    href={`/brain?q=${encodeURIComponent(`Qué información tenemos sobre el documento "${f.name}"?`)}`}
-                    className="text-2xs uppercase tracking-wider text-musgo whitespace-nowrap">
-                    Preguntar a Brain
-                  </Link>
+        <ul className="divide-y divide-suelo">
+          {files.map((f) => {
+            const kind = fileKind(f);
+            return (
+              <li key={f.id} className="py-3 grid grid-cols-[auto_1fr_auto] sm:grid-cols-[auto_1fr_auto_auto] items-center gap-3">
+                <FileGlyph kind={kind} />
+                <div className="min-w-0">
+                  {f.isFolder ? (
+                    <button
+                      type="button"
+                      onClick={() => openFolder(f)}
+                      className="text-sm text-ink hover:text-musgo text-left font-medium">
+                      {f.name}
+                    </button>
+                  ) : f.webViewLink ? (
+                    <a
+                      href={f.webViewLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-ink hover:text-musgo">
+                      {f.name}
+                    </a>
+                  ) : (
+                    <span className="text-sm">{f.name}</span>
+                  )}
+                  <p className="text-2xs text-niebla mt-0.5 sm:hidden">
+                    {f.isFolder ? 'Carpeta' : formatDate(f.modifiedTime)}
+                    {f.size ? ` · ${formatBytes(f.size)}` : ''}
+                  </p>
                 </div>
-              )}
-            </li>
-          ))}
+                <p className="hidden sm:block text-2xs text-niebla whitespace-nowrap">
+                  {f.isFolder ? 'Carpeta' : formatDate(f.modifiedTime)}
+                </p>
+                <div className="text-right whitespace-nowrap">
+                  {!f.isFolder && f.size ? (
+                    <span className="hidden sm:inline text-2xs text-niebla mr-3">{formatBytes(f.size)}</span>
+                  ) : null}
+                  {!f.isFolder && (
+                    <Link
+                      href={`/brain?q=${encodeURIComponent(`Qué información tenemos sobre el documento "${f.name}"?`)}`}
+                      className="text-2xs text-musgo">
+                      Preguntar
+                    </Link>
+                  )}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       ) : null}
-
-      <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-4">Relacionados con Ceibo Vidal</h2>
-      {!localDocs.length ? (
-        <p className="text-sm text-niebla">
-          Todavía no hay documentos vinculados. Los archivos siguen en Drive hasta que los vincules.
-        </p>
-      ) : (
-        <ul className="divide-y divide-suelo">
-          {localDocs.map((d) => (
-            <li key={d.id} className="py-3 flex justify-between gap-4">
-              <div>
-                <p className="text-sm">{d.name}</p>
-                <p className="text-2xs text-niebla">
-                  {d.category}
-                  {d.projectRef ? ` · ${formatProjectName(d.projectRef)}` : ''}
-                </p>
-              </div>
-              <Link
-                href={`/brain?q=${encodeURIComponent(`Preguntame sobre el documento ${d.name}`)}`}
-                className="text-2xs uppercase tracking-wider text-musgo">
-                Preguntar
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
     </PageShell>
   );
 }
