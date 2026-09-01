@@ -30,22 +30,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-lino flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
-              <div className="w-3 h-3 rounded-full bg-blue-600" />
-            </div>
-            <span className="text-gray-900 text-xl font-semibold tracking-wide">Raíces Brain</span>
-          </div>
-          <p className="text-gray-500 text-sm">Plataforma interna de gestión</p>
+          <p className="text-ink text-xl font-serif font-light">Raíces</p>
+          <p className="text-niebla text-2xs tracking-[0.2em] uppercase mt-1">Brain</p>
+          <p className="text-niebla text-sm mt-3">Plataforma interna</p>
         </div>
 
-        {/* Card */}
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-8">
-          <h1 className="text-gray-900 text-lg font-semibold mb-6">Iniciar sesión</h1>
+        <div className="bg-blanco border border-suelo p-8">
+          <h1 className="text-ink text-lg font-medium mb-6">Iniciar sesión</h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -56,7 +50,7 @@ export default function LoginPage() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition"
+                className="w-full px-3 py-2.5 border border-suelo text-sm text-ink bg-blanco focus:outline-none focus:border-ink"
                 placeholder="socio@raices.com"
               />
             </div>
@@ -68,7 +62,7 @@ export default function LoginPage() {
                 required
                 autoComplete="current-password"
                 ref={passwordRef}
-                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition"
+                className="w-full px-3 py-2.5 border border-suelo text-sm text-ink bg-blanco focus:outline-none focus:border-ink"
                 placeholder="••••••••"
               />
             </div>
@@ -82,7 +76,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gray-900 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed">
+              className="w-full bg-ink text-blanco py-2.5 text-sm font-medium hover:bg-musgo transition disabled:opacity-50 disabled:cursor-not-allowed">
               {loading ? 'Ingresando…' : 'Ingresar'}
             </button>
           </form>

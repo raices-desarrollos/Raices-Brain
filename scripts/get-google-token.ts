@@ -24,7 +24,13 @@ function loadEnvLocal() {
     const eq = trimmed.indexOf('=');
     if (eq === -1) continue;
     const key = trimmed.slice(0, eq).trim();
-    const val = trimmed.slice(eq + 1).trim();
+    let val = trimmed.slice(eq + 1).trim();
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1);
+    }
     if (key && process.env[key] === undefined) process.env[key] = val;
   }
 }
@@ -42,7 +48,7 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
   process.exit(1);
 }
 
-const SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/drive'];
 const REDIRECT_URI = 'http://localhost:3001/oauth2callback';
 
 const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);

@@ -8,9 +8,10 @@
       "name": "Ceibo Vidal",
       "status": "design",
       "location": {
-        "neighborhood": "Placeholder — completar con barrio real",
+        "neighborhood": "Colegiales / Belgrano",
         "city": "Buenos Aires",
-        "province": "CABA"
+        "province": "CABA",
+        "address": "Vidal 3849"
       },
       "program": {
         "floors": 5,

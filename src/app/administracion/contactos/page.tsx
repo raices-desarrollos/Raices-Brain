@@ -30,6 +30,8 @@ function Initials({ name }: { name: string }) {
     </div>
   );
 }
+
+const CATEGORIES = [
   'socio',
   'inversor',
   'propietario',
