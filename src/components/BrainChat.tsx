@@ -47,14 +47,32 @@ export function BrainChat() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
-  const handleSend = async (preset?: string) => {
+  const handleSend = async (preset?: string, opts?: { retry?: boolean }) => {
     const text = (preset ?? input).trim();
     if (!text || loading) return;
 
-    const history = messages.map((m) => ({ role: m.role, content: m.content }));
-    const userMsg: Message = { role: 'user', content: text };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput('');
+    const retrying = Boolean(opts?.retry);
+    let history = messages.map((m) => ({ role: m.role, content: m.content }));
+    if (retrying) {
+      const last = history.at(-1);
+      if (last?.role === 'assistant') history = history.slice(0, -1);
+      const lastUser = history.at(-1);
+      if (lastUser?.role === 'user' && lastUser.content === text) {
+        history = history.slice(0, -1);
+      }
+    }
+
+    setMessages((prev) => {
+      if (!retrying) return [...prev, { role: 'user', content: text }];
+      const next = [...prev];
+      if (next.at(-1)?.role === 'assistant') next.pop();
+      const last = next.at(-1);
+      if (!(last?.role === 'user' && last.content === text)) {
+        next.push({ role: 'user', content: text });
+      }
+      return next;
+    });
+    if (!retrying) setInput('');
     setLoading(true);
     setError('');
     setLastFailed(null);
@@ -152,7 +170,7 @@ export function BrainChat() {
           {lastFailed && (
             <button
               type="button"
-              onClick={() => handleSend(lastFailed)}
+              onClick={() => handleSend(lastFailed, { retry: true })}
               className="text-sm text-ink underline shrink-0">
               Reintentar
             </button>

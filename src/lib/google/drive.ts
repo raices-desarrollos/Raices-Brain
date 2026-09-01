@@ -1,6 +1,5 @@
 import { google, type drive_v3 } from 'googleapis';
 import { Readable } from 'stream';
-import { pdfToText } from '@/lib/pdf';
 
 export type DriveFile = {
   id: string;
@@ -203,6 +202,7 @@ export async function getDriveFileText(fileId: string): Promise<{
     }
 
     if (meta.mimeType === 'application/pdf' || meta.name.toLowerCase().endsWith('.pdf')) {
+      const { pdfToText } = await import('@/lib/pdf');
       const downloadRes = await drive.files.get(
         { fileId, alt: 'media' },
         { responseType: 'arraybuffer' },

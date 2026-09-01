@@ -2,7 +2,6 @@ import { audit } from '@/lib/audit';
 import { getUserId, requireAuth } from '@/lib/auth/server';
 import { db } from '@/lib/db';
 import { documents, invoices } from '@/lib/db/schema';
-import { uploadInvoiceToDrive, isDriveConfigured } from '@/lib/google/drive';
 import { storeFile } from '@/lib/storage';
 import { validateInvoiceFile } from '@/lib/uploads';
 import { randomUUID } from 'crypto';
@@ -85,6 +84,7 @@ export async function POST(req: NextRequest) {
     const invalid = validateInvoiceFile(file);
     if (invalid) return NextResponse.json({ error: invalid }, { status: 400 });
     const bytes = Buffer.from(await file.arrayBuffer());
+    const { uploadInvoiceToDrive, isDriveConfigured } = await import('@/lib/google/drive');
     const uploaded = await uploadInvoiceToDrive({
       name: file.name,
       mimeType: file.type || 'application/octet-stream',

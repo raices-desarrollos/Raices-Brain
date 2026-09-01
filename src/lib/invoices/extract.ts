@@ -1,5 +1,4 @@
 import { INVOICE_CATEGORIES } from '@/lib/domain/catalog';
-import { pdfToText } from '@/lib/pdf';
 
 export type InvoiceExtraction = {
   supplierName: string;
@@ -140,6 +139,7 @@ export async function extractInvoiceFromFile(file: File): Promise<InvoiceExtract
   if (mime === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
     let text = '';
     try {
+      const { pdfToText } = await import('@/lib/pdf');
       text = await pdfToText(bytes);
     } catch {
       text = '';
