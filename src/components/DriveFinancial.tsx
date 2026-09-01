@@ -61,7 +61,18 @@ export default function DriveFinancial() {
   }
 
   useEffect(() => {
-    load().catch(() => setError('No se pudo consultar Drive.'));
+    load()
+      .then(() => {
+        if (typeof window === 'undefined') return;
+        if (sessionStorage.getItem('drive-auto-refresh') === '1') return;
+        sessionStorage.setItem('drive-auto-refresh', '1');
+        fetch('/api/drive/sync', { method: 'POST' })
+          .then((r) => {
+            if (r.ok) return load();
+          })
+          .catch(() => undefined);
+      })
+      .catch(() => setError('No se pudo consultar Drive.'));
   }, []);
 
   async function handleSync() {
@@ -72,7 +83,7 @@ export default function DriveFinancial() {
     setSyncing(false);
     if (res.ok) {
       setSyncMsg(
-        `${data.synced} archivo${data.synced !== 1 ? 's' : ''} sincronizado${data.synced !== 1 ? 's' : ''}`,
+        `${data.synced} planilla${data.synced !== 1 ? 's' : ''} actualizada${data.synced !== 1 ? 's' : ''}`,
       );
       await load();
     } else {
@@ -91,10 +102,11 @@ export default function DriveFinancial() {
   if (!status?.configured) {
     return (
       <div className="mb-10">
-        <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-4">Finanzas · Google Drive</h2>
+        <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-4">Presupuesto en Drive</h2>
         <EmptyState
+          compact
           title="Google Drive no está conectado"
-          description="Cuando Drive esté vinculado, acá van a aparecer presupuesto y planillas. Mientras tanto, las facturas de la app ya se ven arriba."
+          description="Cuando Drive esté vinculado, acá van a aparecer presupuesto y planillas. Las facturas de la app ya se ven arriba."
         />
       </div>
     );
@@ -180,11 +192,11 @@ export default function DriveFinancial() {
   return (
     <div className="mb-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-        <h2 className="text-xs tracking-[0.18em] uppercase text-niebla">Finanzas · Google Drive</h2>
+        <h2 className="text-xs tracking-[0.18em] uppercase text-niebla">Presupuesto en Drive</h2>
         <div className="flex items-center gap-3">
           {lastSync && (
             <span className="text-2xs text-niebla">
-              Última sync:{' '}
+              Última actualización:{' '}
               {new Date(lastSync).toLocaleString('es-AR', {
                 dateStyle: 'short',
                 timeStyle: 'short',
@@ -194,9 +206,9 @@ export default function DriveFinancial() {
           <button
             onClick={handleSync}
             disabled={syncing}
-            className="inline-flex items-center gap-2 text-xs bg-ink text-blanco px-3 py-1.5 hover:bg-musgo transition disabled:opacity-50">
-            {syncing && <Spinner className="w-3 h-3 text-blanco" />}
-            {syncing ? 'Sincronizando…' : 'Sincronizar Drive'}
+            className="inline-flex items-center gap-2 text-xs text-niebla hover:text-ink transition disabled:opacity-50">
+            {syncing && <Spinner className="w-3 h-3" />}
+            {syncing ? 'Actualizando…' : 'Actualizar planillas'}
           </button>
         </div>
       </div>
@@ -204,8 +216,9 @@ export default function DriveFinancial() {
 
       {!hasAny ? (
         <EmptyState
+          compact
           title="Todavía no hay presupuesto en Drive"
-          description="Las facturas de la app se ven arriba. El presupuesto y las planillas aparecen acá cuando estén en la carpeta de Drive y se sincronice."
+          description="Las facturas de la app se ven arriba. El presupuesto aparece acá cuando hay planillas en Drive."
         />
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">

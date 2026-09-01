@@ -8,6 +8,8 @@ import { sql } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 import * as XLSX from 'xlsx';
 
+export const maxDuration = 60;
+
 export interface FinancialKPIs {
   gastosTotal: number | null;
   ingresosTotal: number | null;
@@ -136,15 +138,14 @@ export async function POST(_req: NextRequest) {
 
   const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
   if (!folderId) {
-    return NextResponse.json({ error: 'GOOGLE_DRIVE_FOLDER_ID no configurado' }, { status: 400 });
+    return NextResponse.json({ error: 'Drive no está configurado.' }, { status: 400 });
   }
 
   const drive = getDriveClient();
   if (!drive) {
     return NextResponse.json(
       {
-        error:
-          'Credenciales de Google no configuradas. Configurá GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET y GOOGLE_REFRESH_TOKEN.',
+        error: 'Drive no está conectado. Pedile a quien administra la app que lo revise.',
       },
       { status: 400 },
     );

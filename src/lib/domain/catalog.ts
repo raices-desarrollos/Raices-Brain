@@ -41,6 +41,22 @@ export function getCatalogProject(slug: string): ProjectCatalogEntry | null {
   return PROJECT_CATALOG.find((p) => p.slug === slug) ?? null;
 }
 
+/** Nombre visible. Nunca mostrar el slug en la interfaz. */
+export function formatProjectName(ref: string | null | undefined): string {
+  if (!ref?.trim()) return '—';
+  const exact = PROJECT_CATALOG.find((p) => p.slug === ref);
+  if (exact) return exact.name;
+  const loose = PROJECT_CATALOG.find(
+    (p) => p.slug === ref.toLowerCase() || p.name.toLowerCase() === ref.toLowerCase(),
+  );
+  if (loose) return loose.name;
+  return ref
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 export const INVOICE_CATEGORIES = [
   'arquitectura',
   'carpintería',

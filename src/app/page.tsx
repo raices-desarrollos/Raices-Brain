@@ -2,7 +2,7 @@
 
 import DriveFinancial from '@/components/DriveFinancial';
 import { EmptyState, GhostButton, MetricCard, PageHeader, PageShell, PrimaryButton, Skeleton } from '@/components/ui';
-import { formatMoney } from '@/lib/format';
+import { formatCount, formatMoney } from '@/lib/format';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -99,7 +99,7 @@ export default function DashboardPage() {
           <MetricCard
             label="Facturado"
             value={data.invoiced.count ? formatMoney(data.invoiced.amount, data.invoiced.currency) : '—'}
-            sub={data.invoiced.count ? `${data.invoiced.count} factura(s)` : 'Sin facturas'}
+            sub={formatCount(data.invoiced.count, 'factura', 'facturas')}
             href="/facturas"
             empty={!data.invoiced.count}
           />
@@ -112,7 +112,7 @@ export default function DashboardPage() {
             }
             sub={
               data.invoicesPending.count
-                ? `${data.invoicesPending.count} factura(s)`
+                ? formatCount(data.invoicesPending.count, 'factura pendiente', 'facturas pendientes')
                 : 'Nada pendiente'
             }
             href="/facturas"
@@ -121,7 +121,7 @@ export default function DashboardPage() {
           <MetricCard
             label="Pagado"
             value={data.paid.count ? formatMoney(data.paid.amount, data.paid.currency) : '—'}
-            sub={data.paid.count ? `${data.paid.count} pago(s)` : 'Sin pagos'}
+            sub={data.paid.count ? formatCount(data.paid.count, 'pago', 'pagos') : 'Sin pagos'}
             href="/facturas"
             empty={!data.paid.count}
           />
@@ -136,6 +136,7 @@ export default function DashboardPage() {
           <Skeleton className="h-28" />
         ) : !data?.recentDocuments.length ? (
           <EmptyState
+            compact
             title="Todavía no hay documentos vinculados"
             description="Los archivos viven en Drive. Subí una factura o vinculá un archivo existente."
             actionLabel="Ver documentos"

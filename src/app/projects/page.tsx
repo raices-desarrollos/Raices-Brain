@@ -1,6 +1,6 @@
 'use client';
 
-import { EmptyState, LoadingLine, PageHeader, PageShell } from '@/components/ui';
+import { EmptyState, ListSkeleton, PageHeader, PageShell } from '@/components/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -37,7 +37,7 @@ export default function ProjectsPage() {
 
       {error && <p className="text-sm text-ceibo mb-6">{error}</p>}
       {items === null && !error && (
-        <LoadingLine label="Abriendo la cartera…" />
+        <ListSkeleton rows={4} />
       )}
       {items && items.length === 0 && (
         <EmptyState title="Sin proyectos" description="No hay proyectos cargados todavía." />

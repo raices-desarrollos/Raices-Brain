@@ -63,14 +63,13 @@ export default function DecisionesPage() {
       <div className="mb-8">
         <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Registro</p>
         <h1 className="text-2xl font-light text-gray-900">Decisiones</h1>
-        <p className="text-gray-500 text-sm mt-1">
-          {decisions.length} decisión{decisions.length !== 1 ? 'es' : ''} registrada
-          {decisions.length !== 1 ? 's' : ''}
+        <p className="text-niebla text-sm mt-1">
+          {decisions.length} {decisions.length === 1 ? 'decisión registrada' : 'decisiones registradas'}
         </p>
-        <p className="text-xs text-gray-500 mt-3 max-w-lg border-l-2 border-gray-200 pl-3">
+        <p className="text-sm text-niebla mt-3 max-w-lg border-l-2 border-suelo pl-3">
           Memoria institucional del proyecto. Cada decisión incluye contexto, alternativas
-          consideradas y razón de la elección. Si alguíx pregunta &ldquo;¿por qué hicimos
-          esto?&rdquo;, la respuesta está acá.
+          consideradas y razón de la elección. Si alguien pregunta «¿por qué hicimos
+          esto?», la respuesta está acá.
         </p>
       </div>
 
@@ -87,12 +86,8 @@ export default function DecisionesPage() {
 
       {/* Decisions list */}
       {decisions.length === 0 ? (
-        <div className="text-center py-20 text-gray-500">
+        <div className="text-center py-20 text-niebla">
           <p className="text-sm">No hay decisiones registradas todavía.</p>
-          <p className="text-xs mt-1">
-            Agregá archivos `.md` en{' '}
-            <code className="bg-gray-100 px-1 rounded">knowledge/projects/[proyecto]/decisions/</code>
-          </p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -122,10 +117,10 @@ export default function DecisionesPage() {
                 </div>
               )}
               <div className="px-6 py-3 border-t border-gray-200 flex justify-between items-center">
-                <span className="text-2xs text-gray-500">{d.slug}</span>
+                <span className="text-2xs text-niebla">{d.date}</span>
                 <Link
-                  href={`/brain?agent=proyecto&q=${encodeURIComponent(d.title)}`}
-                  className="text-xs text-blue-600 hover:text-blue-500 transition-colors">
+                  href={`/brain?q=${encodeURIComponent(d.title)}`}
+                  className="text-xs text-musgo hover:text-ink transition-colors">
                   Preguntar al Brain →
                 </Link>
               </div>

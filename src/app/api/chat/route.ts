@@ -4,39 +4,69 @@ import { requireAuth } from '@/lib/auth/server';
 import OpenAI from 'openai';
 import { NextRequest, NextResponse } from 'next/server';
 
-const AGENT_SYSTEM_PROMPTS: Record<string, string> = {
-  general:
-    'Sos el asistente operativo de Raíces Desarrollos, el cerebro interno de la empresa. Respondé en español, con calma, precisión y sin marketing. Si usás una herramienta, basá la respuesta en su resultado. Si no hay datos, decilo: no inventes números ni documentos.',
-  terrenos:
-    'Sos el agente de terrenos de Raíces Desarrollos. Evaluás terrenos con la rúbrica interna. No inventes pipeline.',
-  proyecto:
-    'Sos el agente de proyectos. Conocés estado, decisiones y avance. Usá get_project y get_latest_decisions para Ceibo Vidal (Vidal 3849).',
-  finanzas:
-    'Sos el agente de finanzas. Usá get_invoices, get_payments y get_project_financial_summary. Si no hay registros, decí que aún no están cargados.',
-  comercial:
-    'Sos el agente comercial de Raíces Desarrollos. Tono de marca: calma, naturaleza urbana, sin superlativos de inmobiliaria genérica.',
-  legal:
-    'Sos el agente legal. Contratos, normativa y escribanía. No des asesoramiento jurídico formal; señalá documentos y hechos registrados.',
-};
+export const runtime = 'nodejs';
+export const maxDuration = 60;
+
+const SYSTEM_PROMPT = `Sos el asistente operativo de Raíces Desarrollos. Respondé en español, con calma y precisión, para socios que no programan.
+
+Tenés herramientas para consultar facturas, pagos, documentos, Drive y el estado de Ceibo Vidal (Vidal 3849). Usalas cuando la pregunta lo pida.
+
+Reglas:
+- Preferí get_invoices, get_payments, get_project_financial_summary y search_documents antes que search_knowledge.
+- Si una herramienta devuelve lista vacía, decí que todavía no hay datos cargados. No inventes números, facturas ni documentos.
+- Ejemplos: si no hay facturas, respondé «Todavía no hay facturas registradas para Ceibo Vidal.»
+- Distinguí dato existente (viene de una herramienta) de información no disponible.
+- Respondé en markdown breve, útil para operar el proyecto esta semana.`;
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
+
+function userFacingAiError(err: unknown): { code: string; status: number; message: string } {
+  const raw = err instanceof Error ? err.message : String(err);
+  if (/timeout|ETIMEDOUT|timed out/i.test(raw)) {
+    return {
+      code: 'timeout',
+      status: 504,
+      message: 'Brain tardó demasiado. Reintentá con una pregunta más concreta.',
+    };
+  }
+  if (err instanceof OpenAI.APIError) {
+    if (err.status === 401 || err.status === 403) {
+      return {
+        code: 'ai_config',
+        status: 502,
+        message: 'Brain no puede conectarse al servicio de inteligencia. Pedile a quien administra la app que lo revise.',
+      };
+    }
+    return {
+      code: 'ai',
+      status: 502,
+      message: 'Brain no pudo completar la consulta. Reintentá en un momento.',
+    };
+  }
+  return {
+    code: 'internal',
+    status: 500,
+    message: 'No se pudo completar la consulta. Reintentá en un momento.',
+  };
+}
 
 export async function POST(req: NextRequest) {
   const { response } = await requireAuth();
   if (response) return response;
 
-  const body = await req.json();
-  const { message, agent = 'general', history } = body as {
-    message?: string;
-    agent?: string;
-    history?: ChatMessage[];
-  };
+  let body: { message?: string; history?: ChatMessage[] };
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'invalid', message: 'Pedido inválido.' }, { status: 400 });
+  }
 
+  const { message, history } = body;
   if (!message?.trim()) {
-    return NextResponse.json({ error: 'Mensaje vacío' }, { status: 400 });
+    return NextResponse.json({ error: 'empty', message: 'Escribí una pregunta.' }, { status: 400 });
   }
   if (message.length > 8000) {
-    return NextResponse.json({ error: 'El mensaje es demasiado largo.' }, { status: 400 });
+    return NextResponse.json({ error: 'too_long', message: 'El mensaje es demasiado largo.' }, { status: 400 });
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
@@ -44,23 +74,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ apiKeyMissing: true, answer: null });
   }
 
-  const openai = new OpenAI({ apiKey });
-  const basePrompt = AGENT_SYSTEM_PROMPTS[agent] ?? AGENT_SYSTEM_PROMPTS.general;
-  const systemPrompt = `${basePrompt}
-
-Tenés herramientas para consultar base de datos, documentos y knowledge. Usalas cuando la pregunta pida facturas, pagos, unidades, documentos, decisiones o el estado de un proyecto.
-
-Proyecto principal: Ceibo Vidal, dirección Vidal 3849, slug ceibo-vidal.
-
-Reglas:
-- Preferí tools de facturas, pagos y documentos estructurados antes que knowledge/RAG.
-- Distinguí: dato existente (viene de una tool), dato inferido (solo si lo marcás explícitamente), información no disponible.
-- Si una tool devuelve lista vacía, decí que no hay datos cargados todavía. No inventes números, facturas ni documentos.
-- Respondé en markdown claro, breve, útil para socios no técnicos.
-- Para "último plano" u otros archivos: search_documents y, si hay driveFileId, read_drive_file.`;
-
+  const openai = new OpenAI({ apiKey, timeout: 45_000 });
   const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
-    { role: 'system', content: systemPrompt },
+    { role: 'system', content: SYSTEM_PROMPT },
   ];
 
   if (Array.isArray(history)) {
@@ -132,12 +148,16 @@ Reglas:
     }
 
     return NextResponse.json({
-      answer: 'Se alcanzó el límite de herramientas. Reformulá la pregunta.',
+      answer: 'Hace falta acotar la pregunta. Probá de nuevo con un tema a la vez (facturas, pagos o documentos).',
       sources: [...sources],
       toolsUsed,
     });
   } catch (err) {
-    console.error('Chat route error:', err);
-    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
+    const mapped = userFacingAiError(err);
+    console.error('[brain]', mapped.code, err instanceof Error ? err.message : err);
+    return NextResponse.json(
+      { error: mapped.code, message: mapped.message },
+      { status: mapped.status },
+    );
   }
 }

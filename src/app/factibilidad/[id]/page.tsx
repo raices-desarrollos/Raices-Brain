@@ -155,7 +155,7 @@ export default function FeasibilityDetailPage() {
       <div className="flex items-center gap-4 mb-8">
         <button
           onClick={() => router.push('/factibilidad')}
-          className="flex items-center gap-1 text-gray-500 hover:text-gray-900 text-sm transition">
+          className="flex items-center gap-1 text-niebla hover:text-ink text-sm transition">
           <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
             <path
               fillRule="evenodd"
@@ -165,7 +165,7 @@ export default function FeasibilityDetailPage() {
           </svg>
           Factibilidades
         </button>
-        <h1 className="text-2xl font-semibold text-gray-900 flex-1">
+        <h1 className="font-serif text-2xl font-light text-ink flex-1">
           {isNew ? 'Nuevo análisis' : meta.name || 'Análisis'}
         </h1>
         {!isNew && (
@@ -176,7 +176,7 @@ export default function FeasibilityDetailPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition disabled:opacity-50">
+          className="bg-ink text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-musgo transition disabled:opacity-50">
           {saving ? 'Guardando…' : saved ? '✓ Guardado' : 'Guardar'}
         </button>
       </div>
@@ -244,6 +244,7 @@ export default function FeasibilityDetailPage() {
                   value={meta.date}
                   onChange={(v) => setMeta((p) => ({ ...p, date: v }))}
                 />
+                <p className="text-2xs text-niebla mt-1">Día / mes / año</p>
               </Field>
             </div>
             <Field label="Observaciones">
@@ -251,7 +252,7 @@ export default function FeasibilityDetailPage() {
                 value={meta.observations}
                 onChange={(e) => setMeta((p) => ({ ...p, observations: e.target.value }))}
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 resize-none transition"
+                className="w-full px-3 py-2 border border-suelo rounded-lg text-sm text-ink bg-blanco focus:outline-none focus:ring-2 focus:ring-musgo/20 focus:border-ink resize-none transition"
               />
             </Field>
           </Section>
@@ -397,7 +398,7 @@ export default function FeasibilityDetailPage() {
               value={fmtCurrency(results.totalProjectCost, currency)}
               highlight
             />
-            <div className="border-t border-gray-200 my-2" />
+            <div className="border-t border-suelo my-2" />
             <ResultRow label="Ingresos brutos" value={fmtCurrency(results.grossIncome, currency)} />
             <ResultRow
               label="Comisión de venta"
@@ -408,7 +409,7 @@ export default function FeasibilityDetailPage() {
               value={fmtCurrency(results.netIncome, currency)}
               highlight
             />
-            <div className="border-t border-gray-200 my-2" />
+            <div className="border-t border-suelo my-2" />
             <ResultRow
               label="Ganancia estimada"
               value={fmtCurrency(results.netProfit, currency)}
@@ -434,7 +435,7 @@ export default function FeasibilityDetailPage() {
               value={fmtCurrency(results.minSalePriceToBreakEven, currency)}
               highlight
             />
-            <div className="border-t border-gray-200 my-2" />
+            <div className="border-t border-suelo my-2" />
             <ResultRow
               label="M² para punto de equilibrio"
               value={`${results.breakEvenSqm.toFixed(0)} m²`}
@@ -455,14 +456,14 @@ export default function FeasibilityDetailPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="text-gray-500">
+                  <tr className="text-niebla">
                     <th className="text-left py-1 font-medium">Indicador</th>
                     <th className="text-right py-1 font-medium">Conservador</th>
-                    <th className="text-right py-1 font-medium text-blue-600">Base</th>
+                    <th className="text-right py-1 font-medium text-musgo">Base</th>
                     <th className="text-right py-1 font-medium">Optimista</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-suelo">
                   {[
                     {
                       label: 'Ganancia',
@@ -483,14 +484,14 @@ export default function FeasibilityDetailPage() {
                     },
                   ].map(({ label, fmt }) => (
                     <tr key={label}>
-                      <td className="py-1.5 text-gray-500">{label}</td>
-                      <td className="py-1.5 text-right text-gray-900">
+                      <td className="py-1.5 text-niebla">{label}</td>
+                      <td className="py-1.5 text-right text-ink">
                         {fmt(scenarios.conservador)}
                       </td>
-                      <td className="py-1.5 text-right text-blue-600 font-medium">
+                      <td className="py-1.5 text-right text-musgo font-medium">
                         {fmt(scenarios.base)}
                       </td>
-                      <td className="py-1.5 text-right text-gray-900">
+                      <td className="py-1.5 text-right text-ink">
                         {fmt(scenarios.optimista)}
                       </td>
                     </tr>
@@ -498,7 +499,7 @@ export default function FeasibilityDetailPage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-2xs text-gray-500 mt-2">
+            <p className="text-2xs text-niebla mt-2">
               Conservador: precio −10%, costo +10%, contingencia 10% · Base: valores ingresados ·
               Optimista: precio +10%, costo −5%, contingencia 3%
             </p>
@@ -513,8 +514,8 @@ export default function FeasibilityDetailPage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-      <h2 className="text-sm font-semibold text-gray-700 mb-4 pb-3 border-b border-gray-100">
+    <div className="bg-blanco border border-suelo rounded-xl p-5 ">
+      <h2 className="text-sm font-medium text-ink mb-4 pb-3 border-b border-suelo">
         {title}
       </h2>
       <div className="space-y-3">{children}</div>
@@ -525,7 +526,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-600 mb-1.5">{label}</label>
+      <label className="block text-sm font-medium text-ink mb-1.5">{label}</label>
       {children}
     </div>
   );
@@ -545,10 +546,11 @@ function Input({
   return (
     <input
       type={type}
+      lang={type === 'date' ? 'es-AR' : undefined}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition placeholder:text-gray-400"
+      className="w-full px-3 py-2.5 border border-suelo rounded-lg text-sm text-ink bg-blanco focus:outline-none focus:ring-2 focus:ring-musgo/20 focus:border-ink transition placeholder:text-niebla"
     />
   );
 }
@@ -572,7 +574,7 @@ function NumField({
         onChange={(e) => onChange(e.target.value)}
         step={step}
         min="0"
-        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition"
+        className="w-full px-3 py-2 border border-suelo rounded-lg text-sm text-ink bg-blanco focus:outline-none focus:ring-2 focus:ring-musgo/20 focus:border-ink transition"
       />
     </Field>
   );
@@ -591,16 +593,16 @@ function ResultRow({
 }) {
   return (
     <div className={`flex justify-between items-center py-1 ${highlight ? 'font-semibold' : ''}`}>
-      <span className={`text-sm ${highlight ? 'text-gray-900' : 'text-gray-500'}`}>{label}</span>
+      <span className={`text-sm ${highlight ? 'text-ink' : 'text-niebla'}`}>{label}</span>
       <span
         className={`text-sm font-medium ${
           accent === 'positive'
-            ? 'text-blue-600'
+            ? 'text-musgo'
             : accent === 'negative'
               ? 'text-red-600'
               : highlight
-                ? 'text-gray-900'
-                : 'text-gray-700'
+                ? 'text-ink'
+                : 'text-ink'
         }`}>
         {value}
       </span>

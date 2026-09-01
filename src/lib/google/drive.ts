@@ -53,31 +53,39 @@ export async function listDriveFiles(options: {
   folderId?: string;
   query?: string;
   pageSize?: number;
-}): Promise<{ configured: boolean; folderId: string | null; files: DriveFile[] }> {
+}): Promise<{
+  configured: boolean;
+  folderId: string | null;
+  files: DriveFile[];
+  searched: boolean;
+}> {
   const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID ?? null;
   const drive = getDriveClient();
   if (!drive || !rootId) {
-    return { configured: false, folderId: rootId, files: [] };
+    return { configured: false, folderId: rootId, files: [], searched: false };
   }
 
   const folderId = options.folderId || rootId;
-  const parts = [`'${folderId}' in parents`, 'trashed = false'];
-  if (options.query?.trim()) {
-    const q = options.query.trim().replace(/'/g, "\\'");
-    parts.push(`name contains '${q}'`);
-  }
+  const query = options.query?.trim();
+  const escaped = query ? query.replace(/'/g, "\\'") : '';
+
+  const q = query
+    ? `trashed = false and (name contains '${escaped}')`
+    : `'${folderId}' in parents and trashed = false`;
 
   const res = await drive.files.list({
-    q: parts.join(' and '),
+    q,
     fields: 'files(id, name, mimeType, modifiedTime, webViewLink, size, parents)',
     pageSize: options.pageSize ?? 100,
-    orderBy: 'folder,name',
+    orderBy: query ? 'modifiedTime desc' : 'folder,name',
   });
 
   const files = (res.data.files ?? []).map(mapFile).filter((f): f is DriveFile => f !== null);
-  files.sort((a, b) => Number(b.isFolder) - Number(a.isFolder) || a.name.localeCompare(b.name, 'es'));
+  if (!query) {
+    files.sort((a, b) => Number(b.isFolder) - Number(a.isFolder) || a.name.localeCompare(b.name, 'es'));
+  }
 
-  return { configured: true, folderId, files };
+  return { configured: true, folderId, files, searched: Boolean(query) };
 }
 
 export async function searchDriveByName(query: string): Promise<DriveFile[]> {

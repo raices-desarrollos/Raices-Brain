@@ -2,19 +2,15 @@
 
 import DriveFinancial from '@/components/DriveFinancial';
 import { EmptyState, ProjectPageSkeleton } from '@/components/ui';
-import { formatMoney } from '@/lib/format';
+import { formatCount, formatMoney, formatProjectName } from '@/lib/format';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
 const TABS = [
   { id: 'resumen', label: 'Resumen' },
-  { id: 'finanzas', label: 'Finanzas' },
   { id: 'documentos', label: 'Documentos' },
   { id: 'facturas', label: 'Facturas' },
-  { id: 'unidades', label: 'Unidades' },
-  { id: 'comercial', label: 'Comercial' },
-  { id: 'decisiones', label: 'Decisiones' },
 ] as const;
 
 type Project = {
@@ -39,13 +35,6 @@ type Invoice = {
 type Doc = { id: string; name: string; category: string; driveWebViewLink: string | null };
 type Unit = { id: string; code: string; status: string; typology: string | null };
 type Decision = { id: string; title: string; date: string; sourceFile?: string };
-
-function prettyName(slug: string) {
-  return slug
-    .split('-')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
-}
 
 export default function ProjectPage() {
   return (
@@ -99,7 +88,7 @@ function ProjectView() {
   }
 
   if (!project) {
-    return <ProjectPageSkeleton name={prettyName(params.slug)} />;
+    return <ProjectPageSkeleton name={formatProjectName(params.slug)} />;
   }
 
   return (
@@ -128,19 +117,21 @@ function ProjectView() {
       </nav>
 
       {tab === 'resumen' && (
-        <div className="space-y-8">
-          <div className="grid grid-cols-3 gap-6">
+        <div className="space-y-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             <div>
               <p className="text-2xs uppercase tracking-wider text-niebla">Programa</p>
               <p className="text-sm mt-1">{project.floorsDescription || '—'}</p>
             </div>
             <div>
               <p className="text-2xs uppercase tracking-wider text-niebla">Facturas</p>
-              <p className="text-sm mt-1">{invoices.length || 'Ninguna cargada'}</p>
+              <p className="text-sm mt-1">{formatCount(invoices.length, 'factura', 'facturas')}</p>
             </div>
             <div>
               <p className="text-2xs uppercase tracking-wider text-niebla">Unidades</p>
-              <p className="text-sm mt-1">{units.length || 'Aún no cargadas'}</p>
+              <p className="text-sm mt-1">
+                {units.length ? formatCount(units.length, 'unidad', 'unidades') : 'Aún no cargadas'}
+              </p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -153,20 +144,23 @@ function ProjectView() {
               Preguntar a Brain
             </Link>
           </div>
-        </div>
-      )}
-
-      {tab === 'finanzas' && (
-        <div>
           <DriveFinancial />
-          <p className="text-sm text-niebla mt-4">
-            Los KPIs aparecen cuando Drive está conectado y hay planillas sincronizadas. Los pagos
-            manuales están en{' '}
-            <Link href="/administracion/pagos" className="text-musgo">
-              Administración → Pagos
-            </Link>
-            .
-          </p>
+          {decisions.length > 0 && (
+            <div>
+              <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-3">Decisiones recientes</h2>
+              <ul className="divide-y divide-suelo">
+                {decisions.slice(0, 3).map((d) => (
+                  <li key={d.id} className="py-3">
+                    <p className="text-sm">{d.title}</p>
+                    <p className="text-2xs text-niebla">{d.date}</p>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/decisiones" className="inline-block mt-3 text-sm text-musgo">
+                Consultá el registro completo de decisiones del proyecto.
+              </Link>
+            </div>
+          )}
         </div>
       )}
 
@@ -180,16 +174,23 @@ function ProjectView() {
           </div>
           {!docs.length ? (
             <EmptyState
-              title="Sin documentos en la base"
-              description="Consultá Drive desde Documentos. No se inventan archivos."
-              actionLabel="Buscar documento"
+              compact
+              title="Todavía no hay documentos vinculados"
+              description="Los archivos viven en Drive. Vinculá uno existente o subí una factura."
+              actionLabel="Ver documentos"
               actionHref="/documentos"
             />
           ) : (
             <ul className="divide-y divide-suelo">
               {docs.map((d) => (
                 <li key={d.id} className="py-3 flex justify-between">
-                  <span className="text-sm">{d.name}</span>
+                  {d.driveWebViewLink ? (
+                    <a href={d.driveWebViewLink} target="_blank" rel="noreferrer" className="text-sm hover:text-musgo">
+                      {d.name}
+                    </a>
+                  ) : (
+                    <span className="text-sm">{d.name}</span>
+                  )}
                   <span className="text-2xs text-niebla uppercase">{d.category}</span>
                 </li>
               ))}
@@ -201,15 +202,16 @@ function ProjectView() {
       {tab === 'facturas' && (
         <div>
           <div className="flex justify-between mb-4">
-            <p className="text-sm text-niebla">{invoices.length} factura(s)</p>
+            <p className="text-sm text-niebla">{formatCount(invoices.length, 'factura', 'facturas')}</p>
             <Link href="/facturas/nueva" className="text-sm border border-ink rounded-lg px-3 py-1.5">
               Subir factura
             </Link>
           </div>
           {!invoices.length ? (
             <EmptyState
+              compact
               title="No hay facturas de este proyecto"
-              description="Subí un PDF o una foto. Brain puede ayudarte a completar los datos."
+              description="Subí un PDF o una foto. Revisás los datos y confirmás."
               actionLabel="Subir factura"
               actionHref="/facturas/nueva"
             />
@@ -227,69 +229,12 @@ function ProjectView() {
                   <tr key={i.id} className="border-t border-suelo">
                     <td className="py-3">{i.supplierName}</td>
                     <td>{formatMoney(i.amount, i.currency)}</td>
-                    <td className="text-niebla">{i.status}</td>
+                    <td className="text-niebla capitalize">{i.status}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           )}
-        </div>
-      )}
-
-      {tab === 'unidades' && (
-        <div>
-          {!units.length ? (
-            <EmptyState
-              title="Unidades aún no cargadas"
-              description="Cuando estén definidas las tipologías de Ceibo Vidal, van a aparecer acá. No se muestran números inventados."
-            />
-          ) : (
-            <ul className="divide-y divide-suelo">
-              {units.map((u) => (
-                <li key={u.id} className="py-3 flex justify-between">
-                  <span>
-                    {u.code} {u.typology && <span className="text-niebla">· {u.typology}</span>}
-                  </span>
-                  <span className="text-2xs uppercase">{u.status}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
-
-      {tab === 'comercial' && (
-        <div className="space-y-3 text-sm text-ink max-w-xl">
-          <p>
-            Material comercial de {project.name} vive en knowledge y en Drive (carpeta Comercial).
-          </p>
-          <Link href="/documentos" className="text-musgo">
-            Ver documentos
-          </Link>
-          <span className="text-niebla"> · </span>
-          <Link href="/brain?agent=comercial" className="text-musgo">
-            Preguntar al agente comercial
-          </Link>
-        </div>
-      )}
-
-      {tab === 'decisiones' && (
-        <div>
-          {!decisions.length ? (
-            <EmptyState title="Sin decisiones listadas" description="El registro vive en /decisiones." />
-          ) : (
-            <ul className="divide-y divide-suelo">
-              {decisions.map((d) => (
-                <li key={d.id} className="py-3">
-                  <p className="text-sm">{d.title}</p>
-                  <p className="text-2xs text-niebla">{d.date}</p>
-                </li>
-              ))}
-            </ul>
-          )}
-          <Link href="/decisiones" className="inline-block mt-4 text-sm text-musgo">
-            Registro completo
-          </Link>
         </div>
       )}
     </div>

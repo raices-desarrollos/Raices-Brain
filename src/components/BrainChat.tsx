@@ -4,21 +4,11 @@ import { Markdown } from '@/components/Markdown';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-type Agent = { slug: string; label: string };
 type Message = { role: 'user' | 'assistant'; content: string; sources?: string[] };
-
-const agents: Agent[] = [
-  { slug: 'general', label: 'General' },
-  { slug: 'terrenos', label: 'Terrenos' },
-  { slug: 'proyecto', label: 'Proyecto' },
-  { slug: 'finanzas', label: 'Finanzas' },
-  { slug: 'comercial', label: 'Comercial' },
-  { slug: 'legal', label: 'Legal' },
-];
 
 const noApiKeyMessage = `Brain no está disponible ahora.
 
-Quien administra la app tiene que completar la conexión con OpenAI.`;
+Quien administra la app tiene que completar la conexión.`;
 
 function TypingIndicator() {
   return (
@@ -34,16 +24,23 @@ function TypingIndicator() {
   );
 }
 
+function errorFromResponse(status: number, data: { message?: string; error?: string }): string {
+  if (data.message) return data.message;
+  if (status === 401) return 'La sesión venció. Volvé a iniciar sesión.';
+  if (status === 504 || status === 408) return 'Brain tardó demasiado. Reintentá.';
+  if (status >= 500) return 'No se pudo completar la consulta. Reintentá en un momento.';
+  return 'No se pudo completar la consulta.';
+}
+
 export function BrainChat() {
   const searchParams = useSearchParams();
-  const initialAgent = searchParams.get('agent') ?? 'general';
   const initialQ = searchParams.get('q') ?? '';
-  const [activeAgent, setActiveAgent] = useState(initialAgent);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState(initialQ);
   const [loading, setLoading] = useState(false);
   const [apiKeyMissing, setApiKeyMissing] = useState(false);
   const [error, setError] = useState('');
+  const [lastFailed, setLastFailed] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,30 +57,50 @@ export function BrainChat() {
     setInput('');
     setLoading(true);
     setError('');
+    setLastFailed(null);
 
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, agent: activeAgent, history }),
+        body: JSON.stringify({ message: text, history }),
       });
 
-      const data = await res.json();
+      const raw = await res.text();
+      let data: {
+        apiKeyMissing?: boolean;
+        error?: string;
+        message?: string;
+        answer?: string;
+        sources?: Array<string | { title?: string; path?: string }>;
+      } = {};
+      try {
+        data = raw ? JSON.parse(raw) : {};
+      } catch {
+        setError(
+          res.status === 504
+            ? 'Brain tardó demasiado. Reintentá.'
+            : 'No se pudo completar la consulta. Reintentá en un momento.',
+        );
+        setLastFailed(text);
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: 'No pude responder ahora. Reintentá en un momento.' },
+        ]);
+        return;
+      }
 
       if (data.apiKeyMissing) {
         setApiKeyMissing(true);
         setMessages((prev) => [...prev, { role: 'assistant', content: noApiKeyMessage }]);
-      } else if (data.error) {
-        setError(data.detail ?? data.error);
-        setMessages((prev) => [
-          ...prev,
-          { role: 'assistant', content: 'No se pudo completar la consulta. Reintentá en un momento.' },
-        ]);
+      } else if (!res.ok || data.error) {
+        const msg = errorFromResponse(res.status, data);
+        setError(msg);
+        setLastFailed(text);
+        setMessages((prev) => [...prev, { role: 'assistant', content: msg }]);
       } else {
         const sources: string[] = Array.isArray(data.sources)
-          ? data.sources.map((s: string | { title?: string; path?: string }) =>
-              typeof s === 'string' ? s : s.path || s.title || '',
-            )
+          ? data.sources.map((s) => (typeof s === 'string' ? s : s.path || s.title || ''))
           : [];
         setMessages((prev) => [
           ...prev,
@@ -95,10 +112,11 @@ export function BrainChat() {
         ]);
       }
     } catch {
-      setError('Error al conectar con el servidor.');
+      setError('No se pudo completar la consulta. Reintentá en un momento.');
+      setLastFailed(text);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'Error al conectar con el servidor. Verificá que la app esté corriendo.' },
+        { role: 'assistant', content: 'No se pudo completar la consulta. Reintentá en un momento.' },
       ]);
     } finally {
       setLoading(false);
@@ -112,43 +130,35 @@ export function BrainChat() {
     }
   };
 
-  const currentAgent = agents.find((a) => a.slug === activeAgent);
-
   return (
     <div className="flex flex-col h-full bg-blanco">
       <div className="flex items-center justify-between px-6 py-4 border-b border-suelo flex-shrink-0">
         <div>
           <h1 className="font-serif text-lg font-light text-ink">Brain</h1>
-          <p className="text-2xs text-niebla mt-0.5">
-            Agente: <span className="text-ink">{currentAgent?.label}</span>
-          </p>
-        </div>
-        <div className="flex items-center gap-1.5 flex-wrap justify-end">
-          {agents.map((a) => (
-            <button
-              key={a.slug}
-              onClick={() => setActiveAgent(a.slug)}
-              className={`text-2xs px-3 py-1.5 rounded-full border transition-colors ${
-                activeAgent === a.slug
-                  ? 'bg-ink text-blanco border-ink'
-                  : 'text-niebla border-suelo hover:border-ink hover:text-ink'
-              }`}>
-              {a.label}
-            </button>
-          ))}
+          <p className="text-sm text-niebla mt-0.5">Preguntá sobre Ceibo Vidal, facturas, pagos o documentos.</p>
         </div>
       </div>
 
       {apiKeyMissing && (
         <div className="mx-6 mt-4 px-4 py-3 bg-suelo/50 rounded-lg flex-shrink-0">
-          <p className="text-xs text-ink font-medium">API key no configurada</p>
-          <p className="text-xs text-niebla mt-0.5">
-            Brain no puede responder hasta que esté conectado OpenAI. Pedile a quien administra la app.
-          </p>
+          <p className="text-sm text-ink">Brain no está disponible ahora.</p>
+          <p className="text-sm text-niebla mt-0.5">Pedile a quien administra la app que revise la conexión.</p>
         </div>
       )}
 
-      {error && !apiKeyMissing && <div className="mx-6 mt-4 text-xs text-ceibo">{error}</div>}
+      {error && !apiKeyMissing && (
+        <div className="mx-6 mt-4 flex items-center justify-between gap-3 text-sm text-ceibo">
+          <p>{error}</p>
+          {lastFailed && (
+            <button
+              type="button"
+              onClick={() => handleSend(lastFailed)}
+              className="text-sm text-ink underline shrink-0">
+              Reintentar
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-5">
         {messages.length === 0 && (
@@ -221,6 +231,7 @@ export function BrainChat() {
             className="flex-1 bg-transparent text-sm text-ink placeholder:text-niebla resize-none outline-none max-h-32 py-1"
           />
           <button
+            type="button"
             onClick={() => handleSend()}
             disabled={!input.trim() || loading}
             className="flex-shrink-0 bg-ink text-blanco w-8 h-8 rounded-full flex items-center justify-center disabled:opacity-30 hover:bg-musgo transition-colors">

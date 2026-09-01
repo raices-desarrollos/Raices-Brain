@@ -43,17 +43,25 @@ async function runTool(name: string, args: Record<string, unknown>): Promise<unk
     case 'search_knowledge': {
       const query = asString(args.query);
       if (!query) return { results: [] };
-      const chunks = await searchKnowledge(query, 6);
-      const relevant = chunks.filter((c) => c.similarity > 0.28);
-      return {
-        results: relevant.map((c) => ({
-          heading: c.heading,
-          path: c.filePath,
-          similarity: Number(c.similarity.toFixed(3)),
-          excerpt: c.content.slice(0, 800),
-        })),
-        context: formatContext(relevant),
-      };
+      try {
+        const chunks = await searchKnowledge(query, 6);
+        const relevant = chunks.filter((c) => c.similarity > 0.28);
+        return {
+          results: relevant.map((c) => ({
+            heading: c.heading,
+            path: c.filePath,
+            similarity: Number(c.similarity.toFixed(3)),
+            excerpt: c.content.slice(0, 800),
+          })),
+          context: formatContext(relevant),
+        };
+      } catch (err) {
+        return {
+          results: [],
+          note: 'El índice de documentos internos no está disponible. Usá facturas, pagos o Drive.',
+          error: err instanceof Error ? err.message : 'índice no disponible',
+        };
+      }
     }
 
     case 'get_project': {

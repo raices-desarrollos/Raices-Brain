@@ -82,9 +82,8 @@ export default function AdminPage() {
             );
           })}
         </div>
-        <p className="text-2xs text-gray-500 mt-2">
-          Editá <code className="bg-gray-100 px-1 rounded">.env.local</code> y reiniciá el servidor
-          para aplicar cambios.
+        <p className="text-2xs text-niebla mt-2">
+          Las conexiones se configuran en el servidor de despliegue. Esta pantalla es solo para quien administra la app.
         </p>
       </div>
 
@@ -112,34 +111,12 @@ export default function AdminPage() {
 
       {/* Scripts */}
       <div>
-        <h2 className="text-xs font-medium text-gray-500 tracking-widest uppercase mb-3">
-          Scripts disponibles
+        <h2 className="text-xs font-medium text-niebla tracking-widest uppercase mb-3">
+          Mantenimiento
         </h2>
-        <div className="border border-gray-200 rounded-xl overflow-hidden divide-y divide-gray-100">
-          {[
-            {
-              cmd: 'npx tsx scripts/seed-db.ts',
-              description: 'Carga datos base en la base de datos',
-            },
-            {
-              cmd: 'npx tsx scripts/check-knowledge-health.ts',
-              description: 'Verifica la salud del knowledge base',
-            },
-            {
-              cmd: 'npx tsx scripts/sync-github.ts',
-              description: 'Sincroniza documentos desde GitHub',
-            },
-            {
-              cmd: 'npx tsx scripts/sync-drive.ts',
-              description: 'Sincroniza documentos desde Google Drive',
-            },
-          ].map((s) => (
-            <div key={s.cmd} className="px-5 py-3 bg-gray-50">
-              <code className="text-xs text-gray-900 font-mono">{s.cmd}</code>
-              <p className="text-2xs text-gray-500 mt-0.5">{s.description}</p>
-            </div>
-          ))}
-        </div>
+        <p className="text-sm text-niebla">
+          Sembrar datos y actualizar el archivo se hacen desde la máquina de desarrollo, no desde esta pantalla.
+        </p>
       </div>
     </div>
   );

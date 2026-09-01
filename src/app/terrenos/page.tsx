@@ -85,16 +85,13 @@ export default function TerrenosPage() {
 
       {/* Empty state */}
       {terrains.length === 0 && (
-        <div className="text-center py-20 border border-dashed border-gray-200 rounded-xl">
-          <p className="text-sm text-gray-500">No hay terrenos en el sistema todavía.</p>
-          <p className="text-xs text-gray-500 mt-2">
-            Agregá archivos `.md` en{' '}
-            <code className="bg-gray-100 px-1 rounded">knowledge/terrains/pipeline/</code>
-          </p>
+        <div className="text-center py-16 border border-dashed border-suelo rounded-xl">
+          <p className="text-sm text-ink">Todavía no hay terrenos en análisis.</p>
+          <p className="text-sm text-niebla mt-2">Cuando evalúen uno, va a aparecer acá.</p>
           <Link
-            href="/brain?agent=terrenos"
-            className="inline-block mt-4 text-xs text-blue-600 border border-blue-200 rounded-lg px-4 py-2 hover:bg-blue-50/50 transition-colors">
-            Evaluar un terreno con el Brain →
+            href="/brain?q=Evaluá este terreno"
+            className="inline-block mt-4 text-sm text-musgo border border-ink rounded-lg px-4 py-2">
+            Preguntar a Brain
           </Link>
         </div>
       )}
@@ -138,9 +135,9 @@ export default function TerrenosPage() {
       <div className="mt-6 border border-dashed border-gray-200 rounded-xl p-6 text-center">
         <p className="text-sm text-gray-500 mb-3">¿Tenés un terreno para evaluar?</p>
         <Link
-          href="/brain?agent=terrenos"
-          className="inline-block text-sm font-medium text-blanco bg-gray-900 rounded-lg px-5 py-2.5 hover:bg-blue-600 transition-colors">
-          Evaluar con el agente de terrenos →
+          href="/brain?q=Evaluá este terreno"
+          className="inline-block text-sm font-medium text-blanco bg-ink rounded-lg px-5 py-2.5 hover:bg-musgo transition-colors">
+          Evaluar con Brain
         </Link>
       </div>
     </div>

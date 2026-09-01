@@ -6,7 +6,7 @@ export const BRAIN_TOOLS: OpenAI.Chat.Completions.ChatCompletionTool[] = [
     function: {
       name: 'search_knowledge',
       description:
-        'Busca en el knowledge base interno (briefs, decisiones, arquitectura, finanzas). Usar para preguntas de contexto institucional.',
+        'Busca en documentos internos curados (decisiones, briefs). No usar para facturas, pagos o listados de Drive.',
       parameters: {
         type: 'object',
         properties: {

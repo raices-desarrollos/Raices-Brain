@@ -14,6 +14,18 @@ export async function requireAuth() {
   return { session, response: null };
 }
 
+export async function requireAdmin() {
+  const result = await requireAuth();
+  if (result.response) return result;
+  if (result.session.user.role !== 'admin') {
+    return {
+      session: result.session,
+      response: NextResponse.json({ error: 'No autorizado' }, { status: 403 }),
+    };
+  }
+  return result;
+}
+
 export function getUserId(session: Session | null): string | null {
   return session?.user?.id ?? null;
 }

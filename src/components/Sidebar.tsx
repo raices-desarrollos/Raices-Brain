@@ -91,46 +91,6 @@ const secondary: NavItem[] = [
       </svg>
     ),
   },
-  {
-    href: '/decisiones',
-    label: 'Decisiones',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7 4h10a2 2 0 012 2v14l-7-3-7 3V6a2 2 0 012-2z" />
-      </svg>
-    ),
-  },
-  {
-    href: '/terrenos',
-    label: 'Terrenos',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z" />
-      </svg>
-    ),
-  },
-  {
-    href: '/administracion',
-    label: 'Administración',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h10" />
-      </svg>
-    ),
-  },
-  {
-    href: '/admin',
-    label: 'Config',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.7 1.7 0 00.34 1.86l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.86-.34 1.7 1.7 0 00-1 1.56V21a2 2 0 01-4 0v-.09a1.7 1.7 0 00-1-1.56 1.7 1.7 0 00-1.86.34l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.7 1.7 0 00.34-1.86 1.7 1.7 0 00-1.56-1H3a2 2 0 010-4h.09a1.7 1.7 0 001.56-1 1.7 1.7 0 00-.34-1.86l-.06-.06a2 2 0 012.83-2.83l.06.06a1.7 1.7 0 001.86.34H9a1.7 1.7 0 001-1.56V3a2 2 0 014 0v.09a1.7 1.7 0 001 1.56 1.7 1.7 0 001.86-.34l.06-.06a2 2 0 012.83 2.83l-.06.06a1.7 1.7 0 00-.34 1.86V9c.26.63.98 1.09 1.7 1.09H21a2 2 0 010 4h-.09a1.7 1.7 0 00-1.51.91z"
-        />
-      </svg>
-    ),
-  },
 ];
 
 function NavLink({ item, collapsed, pathname }: { item: NavItem; collapsed: boolean; pathname: string }) {
@@ -192,8 +152,6 @@ export function Sidebar({
   const pathname = usePathname();
   const { data: session } = useSession();
   const [collapsed, setCollapsed] = useState(false);
-  const isAdmin = session?.user?.role === 'admin';
-  const extra = isAdmin ? secondary : secondary.filter((item) => item.href !== '/admin');
 
   useEffect(() => {
     if (localStorage.getItem('sidebar-collapsed') === 'true') setCollapsed(true);
@@ -256,7 +214,7 @@ export function Sidebar({
           <p className="text-2xs tracking-[0.18em] uppercase text-blanco/30 px-3 mt-5 mb-2">Más</p>
         )}
         {compact && <div className="my-2 border-t border-white/10" />}
-        {extra.map((item) => (
+        {secondary.map((item) => (
           <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
         ))}
       </nav>

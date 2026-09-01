@@ -40,15 +40,20 @@ export function EmptyState({
   actionLabel,
   actionHref,
   action,
+  compact,
 }: {
   title: string;
   description: string;
   actionLabel?: string;
   actionHref?: string;
   action?: ReactNode;
+  compact?: boolean;
 }) {
   return (
-    <div className="border border-dashed border-arena/60 rounded-xl px-6 py-10 text-center">
+    <div
+      className={`border border-dashed border-arena/60 rounded-xl text-center ${
+        compact ? 'px-4 py-5' : 'px-6 py-10'
+      }`}>
       <p className="text-sm font-medium text-ink">{title}</p>
       <p className="text-sm text-niebla mt-1 max-w-md mx-auto">{description}</p>
       {action}
@@ -190,7 +195,7 @@ export function ProjectPageSkeleton({ name }: { name?: string }) {
         <p className="text-sm text-niebla mt-2">Preparando facturas, documentos y estado.</p>
       </div>
       <div className="flex gap-3 border-b border-suelo mb-10 pb-3 overflow-hidden">
-        {['w-16', 'w-14', 'w-20', 'w-16', 'w-16', 'w-20', 'w-20'].map((w, i) => (
+        {['w-16', 'w-20', 'w-16'].map((w, i) => (
           <Skeleton key={i} className={`h-3.5 ${w} shrink-0`} />
         ))}
       </div>

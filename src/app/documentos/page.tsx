@@ -1,7 +1,7 @@
 'use client';
 
 import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton, Spinner } from '@/components/ui';
-import { formatBytes, formatDate } from '@/lib/format';
+import { formatBytes, formatDate, formatProjectName } from '@/lib/format';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -25,12 +25,14 @@ type LocalDoc = {
 
 export default function DocumentosPage() {
   const [q, setQ] = useState('');
+  const [activeQuery, setActiveQuery] = useState('');
   const [folderId, setFolderId] = useState<string | undefined>();
   const [crumbs, setCrumbs] = useState<{ id: string | undefined; name: string }[]>([
     { id: undefined, name: 'Drive' },
   ]);
   const [files, setFiles] = useState<DriveFile[]>([]);
   const [configured, setConfigured] = useState<boolean | null>(null);
+  const [driveError, setDriveError] = useState('');
   const [localDocs, setLocalDocs] = useState<LocalDoc[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,16 +41,29 @@ export default function DocumentosPage() {
 
   async function loadDrive(nextFolder?: string, query = q) {
     setLoading(true);
+    setDriveError('');
     const params = new URLSearchParams();
-    if (nextFolder) params.set('folderId', nextFolder);
-    if (query) params.set('q', query);
-    const res = await fetch(`/api/drive/files?${params}`);
-    if (res.ok) {
-      const data = await res.json();
+    if (nextFolder && !query.trim()) params.set('folderId', nextFolder);
+    if (query.trim()) params.set('q', query.trim());
+    try {
+      const res = await fetch(`/api/drive/files?${params}`);
+      const data = await res.json().catch(() => null);
+      if (!data) {
+        setDriveError('No se pudieron leer los documentos. Reintentá.');
+        setConfigured(null);
+        setFiles([]);
+        return;
+      }
       setConfigured(data.configured);
       setFiles(data.files ?? []);
+      setActiveQuery(query.trim());
+      if (data.error) setDriveError(data.error);
+    } catch {
+      setDriveError('No se pudieron leer los documentos. Reintentá.');
+      setFiles([]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -62,8 +77,9 @@ export default function DocumentosPage() {
   function openFolder(file: DriveFile) {
     setFolderId(file.id);
     setCrumbs((c) => [...c, { id: file.id, name: file.name }]);
-    loadDrive(file.id, '');
     setQ('');
+    setActiveQuery('');
+    loadDrive(file.id, '');
   }
 
   function goCrumb(index: number) {
@@ -71,6 +87,8 @@ export default function DocumentosPage() {
     setCrumbs(next);
     const id = next[next.length - 1]?.id;
     setFolderId(id);
+    setQ('');
+    setActiveQuery('');
     loadDrive(id, '');
   }
 
@@ -94,21 +112,23 @@ export default function DocumentosPage() {
     });
     setLinking(null);
     if (res.ok) {
-      setLinkMsg(`Vinculado: ${file.name}`);
+      setLinkMsg(`Vinculado a Ceibo Vidal: ${file.name}`);
       const docs = await fetch('/api/documents');
       if (docs.ok) setLocalDocs(await docs.json());
     } else {
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       setLinkMsg(data.error ?? 'No se pudo vincular.');
     }
   }
+
+  const linkedIds = new Set(localDocs.map((d) => d.name));
 
   return (
     <PageShell wide>
       <PageHeader
         kicker="Archivo"
         title="Documentos"
-        description="Google Drive es el archivo. Podés abrir, vincular a Ceibo Vidal y preguntarle a Brain."
+        description="Los archivos viven en Google Drive. Acá los abrís y los vinculás a Ceibo Vidal."
         action={<PrimaryButton href="/brain">Preguntar a Brain</PrimaryButton>}
       />
 
@@ -118,13 +138,16 @@ export default function DocumentosPage() {
           e.preventDefault();
           loadDrive(folderId, q);
         }}>
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Buscar documento…"
-          className="flex-1 bg-transparent border-b border-suelo px-0 py-2 text-sm outline-none focus:border-ink"
-        />
-        <button type="submit" className="text-sm text-musgo px-2">
+        <label className="flex-1">
+          <span className="block text-2xs uppercase tracking-wider text-niebla mb-1">Buscar</span>
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Nombre del archivo…"
+            className="w-full bg-transparent border-b border-suelo px-0 py-2 text-sm outline-none focus:border-ink"
+          />
+        </label>
+        <button type="submit" className="self-end text-sm text-musgo px-2 py-2">
           Buscar
         </button>
       </form>
@@ -143,9 +166,18 @@ export default function DocumentosPage() {
       {configured === false && (
         <div className="mb-8">
           <EmptyState
-            title="Google Drive no está conectado"
-            description="Faltan las credenciales de Google. El listado de Drive queda listo; mientras tanto ves documentos ya vinculados."
+            title="Drive no está conectado"
+            description="Todavía no se puede listar el archivo. Los documentos ya vinculados aparecen más abajo."
           />
+        </div>
+      )}
+
+      {driveError && (
+        <div className="mb-8">
+          <EmptyState title="No se pudo conectar con Drive" description={driveError} />
+          <button type="button" onClick={() => loadDrive(folderId, q)} className="mt-3 text-sm text-musgo">
+            Reintentar
+          </button>
         </div>
       )}
 
@@ -153,9 +185,18 @@ export default function DocumentosPage() {
         <div className="mb-12">
           <ListSkeleton rows={8} />
         </div>
-      ) : configured && files.length === 0 ? (
-        <p className="text-sm text-niebla mb-8">Esta carpeta está vacía.</p>
-      ) : (
+      ) : configured && !driveError && files.length === 0 ? (
+        <div className="mb-12">
+          <EmptyState
+            title={activeQuery ? 'No hay coincidencias' : 'Esta carpeta está vacía'}
+            description={
+              activeQuery
+                ? `No encontramos archivos que coincidan con «${activeQuery}».`
+                : 'Drive está conectado, pero no hay archivos en esta carpeta.'
+            }
+          />
+        </div>
+      ) : configured && files.length > 0 ? (
         <ul className="divide-y divide-suelo mb-12">
           {files.map((f) => (
             <li key={f.id} className="py-3 flex items-center justify-between gap-4">
@@ -174,6 +215,7 @@ export default function DocumentosPage() {
                 <p className="text-2xs text-niebla mt-0.5">
                   {f.isFolder ? 'Carpeta' : formatDate(f.modifiedTime)}
                   {f.size ? ` · ${formatBytes(f.size)}` : ''}
+                  {!f.isFolder && linkedIds.has(f.name) ? ' · Vinculado a Ceibo Vidal' : ''}
                 </p>
               </div>
               {!f.isFolder && (
@@ -195,14 +237,12 @@ export default function DocumentosPage() {
             </li>
           ))}
         </ul>
-      )}
+      ) : null}
 
-      <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-4">
-        Relacionados con proyectos
-      </h2>
+      <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-4">Relacionados con Ceibo Vidal</h2>
       {!localDocs.length ? (
         <p className="text-sm text-niebla">
-          Todavía no hay archivos en la base. Las facturas subidas desde la app aparecen acá.
+          Todavía no hay documentos vinculados. Los archivos siguen en Drive hasta que los vincules.
         </p>
       ) : (
         <ul className="divide-y divide-suelo">
@@ -212,7 +252,7 @@ export default function DocumentosPage() {
                 <p className="text-sm">{d.name}</p>
                 <p className="text-2xs text-niebla">
                   {d.category}
-                  {d.projectRef ? ` · ${d.projectRef}` : ''}
+                  {d.projectRef ? ` · ${formatProjectName(d.projectRef)}` : ''}
                 </p>
               </div>
               <Link

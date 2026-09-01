@@ -1,7 +1,7 @@
 'use client';
 
 import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton, StatusBadge } from '@/components/ui';
-import { formatMoney } from '@/lib/format';
+import { formatMoney, formatProjectName } from '@/lib/format';
 import { useEffect, useState } from 'react';
 
 type Invoice = {
@@ -37,6 +37,7 @@ export default function FacturasPage() {
   const [project, setProject] = useState('ceibo-vidal');
   const [supplier, setSupplier] = useState('');
   const [status, setStatus] = useState('');
+  const [payReceipt, setPayReceipt] = useState('');
   const [loading, setLoading] = useState(true);
   const [paying, setPaying] = useState<Invoice | null>(null);
   const [payDate, setPayDate] = useState('');
@@ -77,6 +78,7 @@ export default function FacturasPage() {
     setPayAmount(String(i.amount));
     setPayMethod('transferencia');
     setPayNote('');
+    setPayReceipt('');
     setPayError('');
   }
 
@@ -91,7 +93,9 @@ export default function FacturasPage() {
         paidDate: payDate,
         amount: parseFloat(payAmount) || paying.amount,
         method: payMethod,
-        observations: payNote,
+        observations: [payNote, payReceipt ? `Comprobante: ${payReceipt}` : '']
+          .filter(Boolean)
+          .join('\n'),
       }),
     });
     setPayBusy(false);
@@ -113,31 +117,41 @@ export default function FacturasPage() {
         action={<PrimaryButton href="/facturas/nueva">Subir factura</PrimaryButton>}
       />
 
-      <div className="flex flex-wrap gap-3 mb-8">
-        <input
-          value={project}
-          onChange={(e) => setProject(e.target.value)}
-          placeholder="Proyecto"
-          className="text-sm border-b border-suelo bg-transparent py-1 outline-none w-36"
-        />
-        <input
-          value={supplier}
-          onChange={(e) => setSupplier(e.target.value)}
-          placeholder="Proveedor"
-          className="text-sm border-b border-suelo bg-transparent py-1 outline-none w-40"
-        />
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="text-sm bg-transparent border-b border-suelo py-1 outline-none">
-          <option value="">Todos los estados</option>
-          {Object.entries(STATUS).map(([k, v]) => (
-            <option key={k} value={k}>
-              {v}
-            </option>
-          ))}
-        </select>
-        <button onClick={load} className="text-sm text-musgo">
+      <div className="flex flex-wrap gap-6 mb-8">
+        <label className="block">
+          <span className="block text-2xs uppercase tracking-wider text-niebla mb-1">Proyecto</span>
+          <select
+            value={project}
+            onChange={(e) => setProject(e.target.value)}
+            className="text-sm bg-transparent border-b border-suelo py-1 outline-none">
+            <option value="ceibo-vidal">Ceibo Vidal</option>
+            <option value="">Todos</option>
+          </select>
+        </label>
+        <label className="block">
+          <span className="block text-2xs uppercase tracking-wider text-niebla mb-1">Proveedor</span>
+          <input
+            value={supplier}
+            onChange={(e) => setSupplier(e.target.value)}
+            placeholder="Todos"
+            className="text-sm border-b border-suelo bg-transparent py-1 outline-none w-40"
+          />
+        </label>
+        <label className="block">
+          <span className="block text-2xs uppercase tracking-wider text-niebla mb-1">Estado</span>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="text-sm bg-transparent border-b border-suelo py-1 outline-none">
+            <option value="">Todos</option>
+            {Object.entries(STATUS).map(([k, v]) => (
+              <option key={k} value={k}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button onClick={load} className="self-end text-sm text-musgo py-1">
           Filtrar
         </button>
       </div>
@@ -172,7 +186,7 @@ export default function FacturasPage() {
                   {i.supplierName}
                   {i.number && <span className="text-niebla text-2xs block">{i.number}</span>}
                 </td>
-                <td className="text-niebla">{i.projectRef ?? '—'}</td>
+                <td className="text-niebla">{formatProjectName(i.projectRef)}</td>
                 <td className="text-niebla">{i.category}</td>
                 <td>{formatMoney(i.amount, i.currency)}</td>
                 <td><StatusBadge status={i.status} /></td>
@@ -197,19 +211,23 @@ export default function FacturasPage() {
       {paying && (
         <div className="fixed inset-0 bg-ink/40 flex items-center justify-center z-50 px-4">
           <div className="bg-blanco max-w-md w-full p-6 rounded-2xl">
-            <h2 className="font-serif text-xl font-light text-ink mb-1">Registrar pago</h2>
+            <h2 className="font-serif text-xl font-light text-ink mb-1">Marcar como pagada</h2>
             <p className="text-sm text-niebla mb-6">
               {paying.supplierName}
               {paying.number ? ` · ${paying.number}` : ''}
+              {' · '}
+              {formatMoney(paying.amount, paying.currency)}
             </p>
             <label className="block mb-4">
-              <span className="text-2xs uppercase tracking-wider text-niebla">Fecha</span>
+              <span className="text-2xs uppercase tracking-wider text-niebla">Fecha de pago</span>
               <input
                 type="date"
+                lang="es-AR"
                 value={payDate}
                 onChange={(e) => setPayDate(e.target.value)}
                 className="w-full border-b border-suelo py-1.5 text-sm outline-none"
               />
+              <span className="text-2xs text-niebla">Día / mes / año</span>
             </label>
             <label className="block mb-4">
               <span className="text-2xs uppercase tracking-wider text-niebla">Monto</span>
@@ -232,6 +250,15 @@ export default function FacturasPage() {
                   </option>
                 ))}
               </select>
+            </label>
+            <label className="block mb-4">
+              <span className="text-2xs uppercase tracking-wider text-niebla">Comprobante (opcional)</span>
+              <input
+                value={payReceipt}
+                onChange={(e) => setPayReceipt(e.target.value)}
+                placeholder="Número o enlace"
+                className="w-full border-b border-suelo py-1.5 text-sm outline-none"
+              />
             </label>
             <label className="block mb-4">
               <span className="text-2xs uppercase tracking-wider text-niebla">Observación</span>
