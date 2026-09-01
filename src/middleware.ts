@@ -6,5 +6,7 @@ export default withAuth({
 
 export const config = {
   // Protect everything except login, NextAuth internals and Next.js assets
-  matcher: ['/((?!login|api/auth|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/((?!login|api/auth|_next/static|_next/image|favicon.ico|icon.svg|apple-icon.svg).*)',
+  ],
 };

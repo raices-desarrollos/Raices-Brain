@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   description: 'Sistema operativo interno de Raíces Desarrollos',
   applicationName: 'Raíces Brain',
   icons: {
-    icon: '/icon.svg',
+    icon: [
+      { url: '/favicon.ico', sizes: '48x48' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
     apple: '/apple-icon.svg',
   },
 };
