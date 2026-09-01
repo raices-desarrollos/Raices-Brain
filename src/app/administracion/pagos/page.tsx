@@ -1,5 +1,6 @@
 'use client';
 
+import { LoadingLine } from '@/components/ui';
 import { useEffect, useState } from 'react';
 
 const STATUS_OPTIONS = ['pendiente', 'pagado', 'vencido', 'cancelado'];
@@ -380,7 +381,9 @@ export default function PagosPage() {
 
       {/* Table */}
       {loading ? (
-        <div className="text-gray-400 text-sm py-12 text-center">Cargando…</div>
+        <div className="flex justify-center">
+          <LoadingLine label="Abriendo pagos…" />
+        </div>
       ) : items.length === 0 ? (
         <div className="text-center py-16 border border-dashed border-gray-200 rounded-xl text-gray-400 text-sm">
           No hay registros.

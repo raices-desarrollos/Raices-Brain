@@ -9,17 +9,9 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { relative, resolve } from 'path';
 import { Pool } from 'pg';
+import { loadDotenv } from './load-env';
 
-// Cargar .env.local antes de cualquier otra cosa
-for (const file of ['.env.local', '.env']) {
-  try {
-    const lines = readFileSync(resolve(process.cwd(), file), 'utf-8').split('\n');
-    for (const line of lines) {
-      const m = line.match(/^([^#\s][^=]*)=(.*)$/);
-      if (m) process.env[m[1].trim()] ??= m[2].trim();
-    }
-  } catch {}
-}
+loadDotenv();
 
 const KNOWLEDGE_ROOT = resolve(process.cwd(), 'knowledge');
 const MIN_CHUNK_CHARS = 80;
@@ -105,7 +97,10 @@ async function main() {
   const dbUrl = process.env.DATABASE_URL;
   if (!dbUrl) throw new Error('DATABASE_URL no configurado');
 
-  const pool = new Pool({ connectionString: dbUrl, ssl: { rejectUnauthorized: false } });
+  const pool = new Pool({
+    connectionString: dbUrl,
+    ssl: { rejectUnauthorized: false },
+  });
   const db = drizzle(pool);
 
   // Recolectar todos los chunks

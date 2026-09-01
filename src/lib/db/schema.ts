@@ -77,10 +77,73 @@ export const payments = pgTable('payments', {
   dueDate: text('due_date'),
   paidDate: text('paid_date'),
   status: text('status').notNull().default('pendiente'), // 'pendiente' | 'pagado' | 'vencido' | 'cancelado'
+  method: text('method'), // transferencia | efectivo | cheque | otro
   contactId: text('contact_id').references(() => contacts.id),
   projectRef: text('project_ref'), // libre: nombre de proyecto o terreno
+  invoiceId: text('invoice_id'),
   observations: text('observations'),
   documentId: text('document_id'), // ref a documents tabla
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+  createdBy: text('created_by').references(() => users.id),
+  updatedBy: text('updated_by').references(() => users.id),
+});
+
+// ─── Proyectos ───────────────────────────────────────────────────────────────
+export const projects = pgTable('projects', {
+  id: text('id').primaryKey(),
+  slug: text('slug').unique().notNull(),
+  name: text('name').notNull(),
+  address: text('address'),
+  neighborhood: text('neighborhood'),
+  city: text('city'),
+  status: text('status').notNull().default('design'), // design | permits | construction | sales | delivered
+  floorsDescription: text('floors_description'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
+
+// ─── Unidades ────────────────────────────────────────────────────────────────
+export const units = pgTable('units', {
+  id: text('id').primaryKey(),
+  projectId: text('project_id').references(() => projects.id),
+  projectRef: text('project_ref'),
+  code: text('code').notNull(),
+  typology: text('typology'),
+  floor: text('floor'),
+  sqm: real('sqm'),
+  status: text('status').notNull().default('disponible'), // disponible | reservada | vendida
+  price: real('price'),
+  currency: text('currency').notNull().default('USD'),
+  notes: text('notes'),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
+
+// ─── Facturas ────────────────────────────────────────────────────────────────
+export const invoices = pgTable('invoices', {
+  id: text('id').primaryKey(),
+  number: text('number'),
+  supplierName: text('supplier_name').notNull(),
+  contactId: text('contact_id').references(() => contacts.id),
+  projectRef: text('project_ref'),
+  issueDate: text('issue_date'),
+  dueDate: text('due_date'),
+  amount: real('amount').notNull(),
+  subtotal: real('subtotal'),
+  taxAmount: real('tax_amount'),
+  cuit: text('cuit'),
+  currency: text('currency').notNull().default('ARS'),
+  concept: text('concept'),
+  category: text('category').notNull().default('otro'),
+  status: text('status').notNull().default('pendiente'), // pendiente | pagada | parcial | anulada
+  paymentId: text('payment_id'),
+  documentId: text('document_id'),
+  driveFileId: text('drive_file_id'),
+  driveWebViewLink: text('drive_web_view_link'),
+  extraction: jsonb('extraction'), // propuesta AI cruda, para auditoría
+  notes: text('notes'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
   createdBy: text('created_by').references(() => users.id),
@@ -100,6 +163,9 @@ export const documents = pgTable('documents', {
   paymentId: text('payment_id').references(() => payments.id),
   feasibilityId: text('feasibility_id').references(() => feasibilities.id),
   projectRef: text('project_ref'),
+  driveFileId: text('drive_file_id'),
+  driveWebViewLink: text('drive_web_view_link'),
+  folderPath: text('folder_path'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
   createdBy: text('created_by').references(() => users.id),

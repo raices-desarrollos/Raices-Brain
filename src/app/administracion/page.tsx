@@ -2,6 +2,18 @@ import Link from 'next/link';
 
 const modules = [
   {
+    href: '/facturas',
+    label: 'Facturas',
+    description: 'Cargar y revisar facturas de obra y proveedores.',
+    icon: '🧾',
+  },
+  {
+    href: '/documentos',
+    label: 'Documentos',
+    description: 'Consultar Google Drive y archivos de la empresa.',
+    icon: '📎',
+  },
+  {
     href: '/administracion/contactos',
     label: 'Contactos',
     description: 'Socios, inversores, arquitectos, contadores y demás contactos del estudio.',
@@ -15,9 +27,9 @@ const modules = [
   },
   {
     href: '/administracion/documentos',
-    label: 'Documentos',
-    description: 'Contratos, escrituras, planos, presupuestos y comprobantes.',
-    icon: '📎',
+    label: 'Documentos (archivo local)',
+    description: 'Contratos, escrituras, planos, presupuestos y comprobantes subidos a la app.',
+    icon: '📁',
   },
 ];
 

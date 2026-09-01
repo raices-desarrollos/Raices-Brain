@@ -2,9 +2,9 @@ import { generateEmbedding } from '@/lib/ai/embeddings';
 import { getUserId, requireAuth } from '@/lib/auth/server';
 import { db } from '@/lib/db';
 import { financialSnapshots } from '@/lib/db/schema';
+import { getDriveClient } from '@/lib/google/drive';
 import { randomUUID } from 'crypto';
 import { sql } from 'drizzle-orm';
-import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
 import * as XLSX from 'xlsx';
 
@@ -30,17 +30,6 @@ const EXCEL_MIMES = new Set([
   'application/vnd.ms-excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 ]);
-
-function getDriveClient() {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
-  if (!clientId || !clientSecret || !refreshToken) return null;
-
-  const auth = new google.auth.OAuth2(clientId, clientSecret);
-  auth.setCredentials({ refresh_token: refreshToken });
-  return google.drive({ version: 'v3', auth });
-}
 
 // Convierte hojas de un workbook a texto plano con tabla markdown por hoja
 function workbookToText(workbook: XLSX.WorkBook): string {

@@ -23,7 +23,7 @@ function parseDecisionFile(filePath: string, slug: string): Decision {
   const statusMatch = raw.match(/\*\*Estado:\*\*\s*(.+)/);
 
   // Extract first paragraph after "## La decisión"
-  const sectionMatch = raw.match(/## La decisión\n\n(.+?)(?:\n\n|$)/s);
+  const sectionMatch = raw.match(/## La decisión\n\n([\s\S]+?)(?:\n\n|$)/);
 
   return {
     title,

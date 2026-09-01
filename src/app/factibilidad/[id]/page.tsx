@@ -2,12 +2,13 @@
 
 import { diagnose } from '@/lib/domain/diagnostics';
 import {
-    calculateFeasibility,
-    calculateScenario,
-    SCENARIOS,
-    validateInputs,
-    type FeasibilityInputs,
+  calculateFeasibility,
+  calculateScenario,
+  SCENARIOS,
+  validateInputs,
+  type FeasibilityInputs,
 } from '@/lib/domain/feasibility';
+import { PageLoader } from '@/components/ui';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -139,7 +140,13 @@ export default function FeasibilityDetailPage() {
   }
 
   if (loading) {
-    return <div className="max-w-4xl mx-auto px-8 py-10 text-gray-500 text-sm">Cargando…</div>;
+    return (
+      <PageLoader
+        kicker="Factibilidad"
+        title="Abriendo el análisis"
+        hint="Cifras y escenarios del terreno."
+      />
+    );
   }
 
   return (

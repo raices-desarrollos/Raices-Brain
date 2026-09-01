@@ -1,20 +1,30 @@
 import { SessionProvider } from '@/components/SessionProvider';
-import { Sidebar } from '@/components/Sidebar';
+import { AppShell } from '@/components/AppShell';
 import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Raíces Brain',
-  description: 'Cerebro digital de Raíces Desarrollos',
+  description: 'Sistema operativo interno de Raíces Desarrollos',
+  applicationName: 'Raíces Brain',
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.svg',
+  },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#1A1A18',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className="flex h-screen overflow-hidden bg-gray-50">
+      <body className="flex h-screen overflow-hidden bg-blanco">
         <SessionProvider>
-          <Sidebar />
-          <main className="flex-1 overflow-y-auto scrollbar-thin">{children}</main>
+          <AppShell>{children}</AppShell>
         </SessionProvider>
       </body>
     </html>

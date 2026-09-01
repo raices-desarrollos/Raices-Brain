@@ -5,21 +5,49 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const nav = [
+import type { ReactNode } from 'react';
+
+type NavItem = { href: string; label: string; icon: ReactNode; external?: boolean };
+
+const CLICKUP_BOARD = 'https://app.clickup.com/90132811149/v/b/6-901328323836-2';
+
+const primary: NavItem[] = [
   {
     href: '/',
-    label: 'Dashboard',
+    label: 'Inicio',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-8 9 8M5 10v10h14V10" />
+      </svg>
+    ),
+  },
+  {
+    href: '/projects',
+    label: 'Proyectos',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 21V8l9-5 9 5v13M9 21v-8h6v8" />
+      </svg>
+    ),
+  },
+  {
+    href: '/documentos',
+    label: 'Documentos',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7 3h7l5 5v13a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z" />
+      </svg>
+    ),
+  },
+  {
+    href: '/facturas',
+    label: 'Facturas',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          d="M8 7h8M8 11h8M8 15h4M6 3h12a2 2 0 012 2v16l-3-1.5L14 21l-3-1.5L8 21l-3-1.5L3 21V5a2 2 0 012-2z"
         />
       </svg>
     ),
@@ -28,12 +56,7 @@ const nav = [
     href: '/brain',
     label: 'Brain',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -42,39 +65,29 @@ const nav = [
       </svg>
     ),
   },
+];
+
+const secondary: NavItem[] = [
   {
-    href: '/tareas',
-    label: 'Tareas',
+    href: '/factibilidad',
+    label: 'Factibilidad',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+          d="M4 19V5m4 14V9m4 10V7m4 12V11m4 8V5"
         />
       </svg>
     ),
   },
   {
-    href: '/factibilidad',
-    label: 'Factibilidad',
+    href: CLICKUP_BOARD,
+    label: 'Tareas',
+    external: true,
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-        />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />
       </svg>
     ),
   },
@@ -82,17 +95,8 @@ const nav = [
     href: '/decisiones',
     label: 'Decisiones',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
-        />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7 4h10a2 2 0 012 2v14l-7-3-7 3V6a2 2 0 012-2z" />
       </svg>
     ),
   },
@@ -100,18 +104,8 @@ const nav = [
     href: '/terrenos',
     label: 'Terrenos',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-        />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21s7-5.5 7-11a7 7 0 10-14 0c0 5.5 7 11 7 11z" />
       </svg>
     ),
   },
@@ -119,17 +113,8 @@ const nav = [
     href: '/administracion',
     label: 'Administración',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-        />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h10" />
       </svg>
     ),
   },
@@ -137,27 +122,78 @@ const nav = [
     href: '/admin',
     label: 'Config',
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        className="w-5 h-5 flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+          d="M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.7 1.7 0 00.34 1.86l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.86-.34 1.7 1.7 0 00-1 1.56V21a2 2 0 01-4 0v-.09a1.7 1.7 0 00-1-1.56 1.7 1.7 0 00-1.86.34l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.7 1.7 0 00.34-1.86 1.7 1.7 0 00-1.56-1H3a2 2 0 010-4h.09a1.7 1.7 0 001.56-1 1.7 1.7 0 00-.34-1.86l-.06-.06a2 2 0 012.83-2.83l.06.06a1.7 1.7 0 001.86.34H9a1.7 1.7 0 001-1.56V3a2 2 0 014 0v.09a1.7 1.7 0 001 1.56 1.7 1.7 0 001.86-.34l.06-.06a2 2 0 012.83 2.83l-.06.06a1.7 1.7 0 00-.34 1.86V9c.26.63.98 1.09 1.7 1.09H21a2 2 0 010 4h-.09a1.7 1.7 0 00-1.51.91z"
         />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
   },
 ];
 
-export function Sidebar() {
+function NavLink({ item, collapsed, pathname }: { item: NavItem; collapsed: boolean; pathname: string }) {
+  const active =
+    !item.external &&
+    (item.href === '/'
+      ? pathname === '/'
+      : pathname === item.href || pathname.startsWith(item.href + '/'));
+
+  const className = `flex items-center rounded-lg transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2'} ${
+    active ? 'bg-white/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-white/5'
+  }`;
+
+  const inner = (
+    <>
+      {item.icon}
+      {!collapsed && (
+        <span className="text-sm flex-1 flex items-center justify-between gap-2">
+          {item.label}
+          {item.external && (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-3 h-3 opacity-50">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          )}
+        </span>
+      )}
+    </>
+  );
+
+  return (
+    <div className="relative group">
+      {item.external ? (
+        <a href={item.href} target="_blank" rel="noreferrer" className={className} title="Abrir ClickUp">
+          {inner}
+        </a>
+      ) : (
+        <Link href={item.href} className={className}>
+          {inner}
+        </Link>
+      )}
+      {collapsed && (
+        <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100">
+          <div className="bg-ink text-blanco text-xs px-2.5 py-1.5 rounded-md whitespace-nowrap border border-white/10">
+            {item.external ? `${item.label} · ClickUp` : item.label}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Sidebar({
+  mobileOpen = false,
+  onClose,
+}: {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [collapsed, setCollapsed] = useState(false);
+  const isAdmin = session?.user?.role === 'admin';
+  const extra = isAdmin ? secondary : secondary.filter((item) => item.href !== '/admin');
 
   useEffect(() => {
     if (localStorage.getItem('sidebar-collapsed') === 'true') setCollapsed(true);
@@ -178,40 +214,33 @@ export function Sidebar() {
     .join('')
     .toUpperCase();
 
+  const compact = collapsed && !mobileOpen;
+
   return (
     <aside
-      className={`flex-shrink-0 bg-gray-900 flex flex-col h-full transition-all duration-200 ease-in-out ${collapsed ? 'w-16' : 'w-56'}`}>
-      {/* Logo + toggle */}
+      className={`bg-ink flex flex-col h-full transition-all duration-200 z-50
+        ${mobileOpen ? 'fixed inset-y-0 left-0 w-56 flex' : 'hidden md:flex flex-shrink-0'}
+        ${!mobileOpen && (collapsed ? 'md:w-16' : 'md:w-56')}`}>
       <div
-        className={`flex items-center h-16 border-b border-white/10 ${collapsed ? 'justify-center' : 'px-4 justify-between'}`}>
-        {collapsed ? (
+        className={`flex items-center h-16 border-b border-white/10 ${compact ? 'justify-center' : 'px-4 justify-between'}`}>
+        {compact ? (
           <button
             onClick={toggle}
             title="Expandir menú"
-            className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center hover:bg-blue-500 transition">
-            <span className="text-white text-sm font-bold">R</span>
+            className="w-8 h-8 rounded-lg bg-musgo flex items-center justify-center hover:bg-liquen transition">
+            <span className="text-blanco text-sm font-medium">R</span>
           </button>
         ) : (
           <>
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-base font-bold">R</span>
-              </div>
-              <div>
-                <p className="text-white text-sm font-semibold leading-none">Raíces</p>
-                <p className="text-gray-400 text-xs mt-0.5">Brain</p>
-              </div>
+            <div>
+              <p className="text-blanco text-sm font-medium tracking-wide">Raíces</p>
+              <p className="text-blanco/45 text-2xs tracking-[0.18em] uppercase mt-0.5">Brain</p>
             </div>
             <button
-              onClick={toggle}
-              title="Colapsar menú"
-              className="w-7 h-7 rounded-md flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                className="w-4 h-4">
+              onClick={mobileOpen ? onClose : toggle}
+              title={mobileOpen ? 'Cerrar menú' : 'Colapsar menú'}
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-blanco/45 hover:text-blanco hover:bg-white/10">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
@@ -219,72 +248,30 @@ export function Sidebar() {
         )}
       </div>
 
-      {/* Nav */}
-      <nav className={`flex-1 py-3 space-y-0.5 overflow-y-auto ${collapsed ? 'px-2' : 'px-3'}`}>
-        {collapsed && (
-          <button
-            onClick={toggle}
-            className="w-full flex justify-center p-2.5 mb-1 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition"
-            title="Expandir">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              className="w-4 h-4">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+      <nav className={`flex-1 py-3 overflow-y-auto ${compact ? 'px-2' : 'px-2.5'}`}>
+        {primary.map((item) => (
+          <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
+        ))}
+        {!compact && (
+          <p className="text-2xs tracking-[0.18em] uppercase text-blanco/30 px-3 mt-5 mb-2">Más</p>
         )}
-
-        {nav.map((item) => {
-          const active =
-            item.href === '/'
-              ? pathname === '/'
-              : pathname === item.href || pathname.startsWith(item.href + '/');
-          return (
-            <div key={item.href} className="relative group">
-              <Link
-                href={item.href}
-                className={`flex items-center rounded-lg transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'} ${
-                  active
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-400 hover:text-white hover:bg-white/10'
-                }`}>
-                {item.icon}
-                {!collapsed && <span className="text-sm font-medium">{item.label}</span>}
-              </Link>
-              {/* Tooltip only when collapsed */}
-              {collapsed && (
-                <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="bg-gray-800 text-white text-xs font-medium px-2.5 py-1.5 rounded-lg whitespace-nowrap shadow-lg border border-white/10">
-                    {item.label}
-                    <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-gray-800" />
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {compact && <div className="my-2 border-t border-white/10" />}
+        {extra.map((item) => (
+          <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
+        ))}
       </nav>
 
-      {/* Footer */}
-      <div className={`border-t border-white/10 py-3 ${collapsed ? 'px-2' : 'px-3'}`}>
-        {collapsed ? (
+      <div className={`border-t border-white/10 py-3 ${compact ? 'px-2' : 'px-3'}`}>
+        {compact ? (
           <div className="flex flex-col items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center">
-              <span className="text-white text-xs font-semibold">{initials}</span>
+            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+              <span className="text-blanco text-xs">{initials}</span>
             </div>
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
               title="Cerrar sesión"
-              className="flex justify-center p-2.5 w-full rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/10 transition">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.8}
-                className="w-4 h-4">
+              className="flex justify-center p-2 w-full rounded-lg text-blanco/45 hover:text-ceibo hover:bg-white/10">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -297,32 +284,20 @@ export function Sidebar() {
           <>
             {session?.user && (
               <div className="flex items-center gap-3 mb-3 px-1">
-                <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0">
-                  <span className="text-white text-xs font-semibold">{initials}</span>
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-blanco text-xs">{initials}</span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-white text-xs font-semibold truncate">
+                  <p className="text-blanco text-xs font-medium truncate">
                     {session.user.name ?? session.user.email?.split('@')[0]}
                   </p>
-                  <p className="text-gray-400 text-2xs truncate">{session.user.email}</p>
+                  <p className="text-blanco/40 text-2xs truncate">{session.user.email}</p>
                 </div>
               </div>
             )}
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
-              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-gray-400 hover:text-red-400 hover:bg-white/10 transition text-sm">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.8}
-                className="w-4 h-4">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
+              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-blanco/45 hover:text-ceibo hover:bg-white/5 text-sm">
               Cerrar sesión
             </button>
           </>

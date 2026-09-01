@@ -37,7 +37,9 @@ Después de sync, los archivos quedan en `knowledge/sync-drive/` (local). Si un 
 
 ### Chat con el Brain
 
-Abrí [http://localhost:3000/brain](http://localhost:3000/brain) y preguntá lo que necesitás. Podés elegir el agente según el tema:
+Abrí [http://localhost:3000/brain](http://localhost:3000/brain) y preguntá lo que necesitás. El chat puede usar herramientas (facturas, pagos, proyectos, documentos, decisiones). Si no hay datos cargados, lo dice: no inventa números.
+
+Podés elegir el agente según el tema:
 
 | Agente      | Para qué sirve                                        |
 | ----------- | ----------------------------------------------------- |
@@ -47,6 +49,40 @@ Abrí [http://localhost:3000/brain](http://localhost:3000/brain) y preguntá lo 
 | `Finanzas`  | Costos, proyecciones y estructura financiera          |
 | `Comercial` | Copy de venta, posicionamiento y estrategia comercial |
 | `Legal`     | Contratos, normativa y procesos notariales            |
+
+### Web app (socios)
+
+Navegación principal: **Inicio**, **Proyectos**, **Documentos**, **Facturas**, **Brain**. **Tareas** abre el tablero de ClickUp.
+
+| Ruta | Uso |
+| ---- | --- |
+| `/` | Dashboard de Ceibo Vidal (métricas reales o vacías, nunca inventadas) |
+| `/projects/ceibo-vidal` | Vista del proyecto (resumen, finanzas, documentos, unidades…) |
+| `/documentos` | Listado de Google Drive + archivos de la app |
+| `/facturas` y `/facturas/nueva` | Listado y carga de facturas |
+| `/brain` | Conversación con tools |
+| `/factibilidad` | Análisis de terrenos (módulo existente) |
+
+Después de actualizar el schema:
+
+```bash
+npm run db:migrate
+npm run db:seed
+```
+
+`db:migrate` crea tablas nuevas (`projects`, `units`, `invoices` y columnas extra en `documents`). Sin eso, Facturas muestra un aviso y el resto de la app sigue funcionando.
+
+Si Drive no está conectado, Documentos y la subida de facturas siguen disponibles: los archivos se guardan en storage local (`STORAGE_PROVIDER=local`).
+
+**Credenciales que pueden faltar**
+
+| Variable | Para qué |
+| -------- | -------- |
+| `OPENAI_API_KEY` | Chat, extracción de facturas (fotos) y sync financiera de Excel |
+| `GOOGLE_CLIENT_ID` / `SECRET` / `REFRESH_TOKEN` / `GOOGLE_DRIVE_FOLDER_ID` | Listar Drive, subir facturas a Drive, sync |
+| `GOOGLE_DRIVE_INVOICES_FOLDER_ID` | Opcional. Destino de facturas; si no está, se usa/crea la carpeta `Facturas` |
+| `DATABASE_URL` | Postgres (usuarios, facturas, pagos, documentos) |
+| `NEXTAUTH_SECRET` | Login |
 
 ### Agregar conocimiento nuevo
 
@@ -172,8 +208,14 @@ psql -U postgres -c "CREATE DATABASE raices_brain;"
 # Habilitar pgvector (búsqueda semántica)
 psql -U postgres -d raices_brain -c "CREATE EXTENSION IF NOT EXISTS vector;"
 
-# Cargar datos iniciales
-npx tsx scripts/seed-db.ts
+# Aplicar schema (users, facturas, proyectos, etc.)
+npm run db:migrate
+
+# Proyecto inicial (Ceibo Vidal)
+npm run db:seed
+
+# Tres socios (emails y passwords en .env.local)
+npm run db:users
 ```
 
 > Si `pgvector` no está instalado: `brew install pgvector` (macOS) o ver las [instrucciones oficiales](https://github.com/pgvector/pgvector).
@@ -190,12 +232,108 @@ Abrí [http://localhost:3000](http://localhost:3000). Vas a ver el dashboard de 
 
 ---
 
+## Puesta en producción (v1)
+
+La app es privada: no hay registro público. Solo entran los usuarios creados con `npm run db:users`.
+
+### 1. Postgres (Supabase)
+
+1. Entrá a [https://supabase.com/dashboard](https://supabase.com/dashboard) → **New project**.
+2. Nombre: `raices-brain`. Región cercana (ej. `sa-east-1`).
+3. Guardá la contraseña de la base.
+4. **Project Settings → Database → Connection string → URI**.
+5. Copiá la URI y reemplazá `[YOUR-PASSWORD]`.
+6. En **SQL Editor** de Supabase:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+7. En tu máquina, con esa URI:
+
+```bash
+DATABASE_URL="postgresql://postgres:...@db.XXXX.supabase.co:5432/postgres" npm run db:migrate
+DATABASE_URL="..." npm run db:seed
+USER1_EMAIL=... USER1_PASSWORD=... USER2_EMAIL=... USER2_PASSWORD=... USER3_EMAIL=... USER3_PASSWORD=... npm run db:users
+```
+
+### 2. Google Drive (escritura)
+
+El token anterior era de **solo lectura**. Hay que renovarlo para poder **subir facturas**.
+
+1. [https://console.cloud.google.com](https://console.cloud.google.com) → el proyecto de Raíces.
+2. **APIs & Services → Library** → habilitar **Google Drive API**.
+3. **APIs & Services → Credentials → Create credentials → OAuth client ID**.
+   - Tipo: **Desktop app** (el script `get-google-token.ts` usa `http://localhost:3001/oauth2callback`).
+   - En **OAuth consent screen**, usuarios de prueba: los 3 gmails de los socios (si la app está en Testing).
+4. Copiá Client ID y Secret a `.env.local` (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`).
+5. `GOOGLE_DRIVE_FOLDER_ID`: abrí la carpeta Raíces en Drive; el ID es lo que sigue a `folders/` en la URL.
+6. En la máquina local:
+
+```bash
+npx tsx scripts/get-google-token.ts
+```
+
+Autorizá. El script escribe `GOOGLE_REFRESH_TOKEN` en `.env.local`.
+
+### 3. OpenAI
+
+1. [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys) → **Create new secret key**.
+2. Copiá a `OPENAI_API_KEY`.
+
+### 4. NextAuth
+
+```bash
+openssl rand -base64 32
+```
+
+Eso va en `NEXTAUTH_SECRET`. En producción `NEXTAUTH_URL` es la URL de Vercel (ej. `https://raices-brain.vercel.app`).
+
+### 5. Vercel
+
+1. [https://vercel.com/new](https://vercel.com/new) → **Import** el repo `raices-desarrollos/Raices-Brain`.
+2. Framework: Next.js. Root: `.`
+3. **Environment Variables** (Production + Preview):
+
+| Variable | Valor |
+| --- | --- |
+| `DATABASE_URL` | URI de Supabase (paso 1) |
+| `NEXTAUTH_SECRET` | el de `openssl` |
+| `NEXTAUTH_URL` | `https://TU-PROYECTO.vercel.app` (después del primer deploy, actualizá si cambia) |
+| `OPENAI_API_KEY` | key de OpenAI |
+| `OPENAI_MODEL` | `gpt-4o` |
+| `GOOGLE_CLIENT_ID` | de Cloud Console |
+| `GOOGLE_CLIENT_SECRET` | de Cloud Console |
+| `GOOGLE_REFRESH_TOKEN` | el de `get-google-token.ts` |
+| `GOOGLE_DRIVE_FOLDER_ID` | ID de la carpeta raíz en Drive |
+| `STORAGE_PROVIDER` | `local` (el archivo canónico es Drive; no hace falta S3) |
+
+4. Deploy. Copiá la URL.
+5. Si la URL no era la que pusiste en `NEXTAUTH_URL`, actualizá esa variable y **Redeploy**.
+
+No hay callback de Google en Vercel: Drive usa refresh token de escritorio, no OAuth web.
+
+---
+
+### Google Drive (ingesta y facturas)
+
+Permite listar Drive, subir facturas a `Ceibo Vidal / Facturas` y que Brain busque archivos.
+
+1. Proyecto en [console.cloud.google.com](https://console.cloud.google.com), **Google Drive API** habilitada.
+2. OAuth 2.0 **Desktop app**.
+3. En `.env.local`: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_DRIVE_FOLDER_ID`.
+4. Token (una vez; pide permiso de **escritura**):
+
+```bash
+npx tsx scripts/get-google-token.ts
+```
+
 ### Problemas frecuentes
 
 | Error                         | Causa probable                         | Solución                                 |
 | ----------------------------- | -------------------------------------- | ---------------------------------------- |
 | `ECONNREFUSED` al arrancar    | PostgreSQL no está corriendo           | `brew services start postgresql` (macOS) |
-| `relation "X" does not exist` | Migraciones no aplicadas               | `npx tsx scripts/seed-db.ts`             |
+| `relation "X" does not exist` | Migraciones no aplicadas               | `npm run db:migrate`                     |
 | `Invalid API Key` de OpenAI   | Falta `OPENAI_API_KEY` en `.env.local` | Completar con la clave real              |
 | Puerto 3000 en uso            | Otro proceso ocupa el puerto           | `npm run dev -- -p 3001`                 |
 
