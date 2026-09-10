@@ -6,10 +6,10 @@
   <title>Ceibo Vidal — Carpeta de venta · Vidal 3849</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+U:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink: #1A1A18;
+      --ink: #21201E;
       --lino: #F0EDE6;
       --blanco: #F8F7F4;
       --suelo: #E8E3DA;
@@ -21,8 +21,8 @@
       --niebla: #6E6F68;
       --line: rgba(133, 96, 64, 0.22);
       --line-dark: rgba(248, 247, 244, 0.14);
-      --serif: "Noto Serif JP", serif;
-      --sans: "Inter", sans-serif;
+      --serif: "M PLUS U", sans-serif;
+      --sans: Montserrat, sans-serif;
       --page-w: 794px;
       --page-h: 1123px;
       --mg: 52px;
@@ -57,7 +57,9 @@
       box-shadow: 0 10px 40px rgba(26, 26, 24, 0.22);
     }
     .page:not(.cover) { padding-bottom: var(--footer-h); }
-    .page--dark { background: var(--ink); color: var(--blanco); }
+    .page.page--loc { padding-bottom: 0; }
+    .page--loc .pf { display: none; }
+    .page--dark { background: #21201E; color: var(--blanco); }
     .page--blanco { background: var(--blanco); }
     .page--suelo { background: var(--suelo); }
 
@@ -87,13 +89,14 @@
     }
     .ph--dark { border-bottom-color: var(--line-dark); }
     .pid {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-family: "M PLUS U", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--niebla);
+      color: var(--ink);
     }
-    .ph--dark .pid { color: rgba(248, 247, 244, 0.48); }
+    .ph--dark .pid { color: var(--blanco); }
     .pf {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -103,8 +106,8 @@
     .pf--dark { border-top-color: var(--line-dark); }
     .pf span {
       font-size: 9.5px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--niebla);
     }
@@ -112,20 +115,19 @@
 
     /* ─── Type ─── */
     .kicker {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.16em;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--musgo);
+      color: var(--arena);
     }
     .kicker--light { color: rgba(248, 247, 244, 0.5); }
     .kicker--arena { color: var(--arena); }
     .serif-title {
       font-family: var(--serif);
-      font-weight: 200;
-      letter-spacing: -0.025em;
+      font-weight: 400;
+      letter-spacing: 0.02em;
       line-height: 1.08;
-      font-feature-settings: "kern" 1, "liga" 1;
     }
     .body {
       font-size: 14.5px;
@@ -141,7 +143,7 @@
     }
     .accent {
       width: 28px;
-      height: 1.5px;
+      height: 2.5px;
       background: var(--arena);
       margin-top: 14px;
     }
@@ -150,34 +152,38 @@
 
     /* ─── Metric ─── */
     .metric .lbl {
-      font-size: 9.5px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--niebla);
       margin-bottom: 6px;
     }
     .metric .val {
       font-family: var(--serif);
-      font-weight: 300;
-      font-size: 22px;
+      font-weight: 400;
+      font-size: 20px;
       color: var(--ink);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+      line-height: 1.15;
+      letter-spacing: 0;
     }
 
     /* ══════════════════════════════════════
        1. COVER
        ══════════════════════════════════════ */
-    .cover { background: var(--ink); }
+    .cover { background: #21201E; }
     .cover-hero { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+    .cover-hero .render-img {
+      object-fit: cover;
+      object-position: center bottom;
+    }
     .cover-grad-top {
       position: absolute; inset: 0 0 auto; height: 150px; z-index: 1;
       background: linear-gradient(to bottom, rgba(26,26,24,0.72), transparent);
     }
     .cover-grad-bot {
-      position: absolute; inset: auto 0 0; height: 300px; z-index: 1;
-      background: linear-gradient(to top, var(--ink) 10%, rgba(26,26,24,0.58) 52%, transparent);
+      position: absolute; inset: auto 0 0; height: 40px; z-index: 1;
+      background: linear-gradient(to top, #21201E, transparent);
     }
     .cover-bar {
       position: absolute; top: 0; left: 0; right: 0; z-index: 2;
@@ -188,26 +194,71 @@
       font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
       text-transform: uppercase; color: rgba(248,247,244,0.62);
     }
-    .cover-copy { padding: 4px var(--mg) 34px; position: relative; z-index: 2; }
-    .cover-copy h1 {
-      font-family: var(--serif); font-weight: 200; font-size: 68px;
-      line-height: 0.92; letter-spacing: -0.03em; color: var(--blanco);
-      font-feature-settings: "kern" 1, "liga" 1;
+    .cover-copy {
+      flex-shrink: 0;
+      background: #21201E;
+      padding: 28px var(--mg) 36px;
     }
-    .cover-copy .sub {
-      margin-top: 12px; font-size: 16px; font-weight: 400;
-      color: rgba(248,247,244,0.78); letter-spacing: 0.02em;
+    .cover-place {
+      font-family: Montserrat, sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      color: var(--arena);
+      margin-top: 5px;
+      text-transform: none;
+    }
+    .cover-copy .accent {
+      width: 28px;
+      height: 2.5px;
+      margin-top: 14px;
+      background: var(--arena);
+    }
+    .cover-copy h1 {
+      font-family: "M PLUS U", sans-serif;
+      font-weight: 400;
+      font-size: 52px;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--blanco);
     }
     .cover-meta {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      margin-top: 22px; padding-top: 16px;
-      border-top: 0.75px solid rgba(248,247,244,0.16);
+      display: flex;
+      align-items: stretch;
+      margin-top: 22px;
+      gap: 0;
+    }
+    .cover-meta > div {
+      padding: 0 22px;
+      border-left: 0.75px solid rgba(248,247,244,0.18);
+    }
+    .cover-meta > div:first-child {
+      padding-left: 0;
+      border-left: none;
+      flex: 1.35 1 0;
+      min-width: 0;
+    }
+    .cover-meta > div:not(:first-child) {
+      flex: 0 0 auto;
+    }
+    .cm-val {
+      font-family: Montserrat, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: #F8F7F4;
+      line-height: 1.3;
     }
     .cm-lbl {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(248,247,244,0.48); margin-bottom: 6px;
+      font-family: Montserrat, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(248,247,244,0.7);
+      margin-top: 5px;
     }
-    .cm-val { font-size: 14px; font-weight: 400; color: rgba(248,247,244,0.92); }
 
     /* ══════════════════════════════════════
        2. PROJECT
@@ -218,31 +269,17 @@
       border-right: 0.75px solid var(--line);
       display: flex; flex-direction: column; gap: 28px;
     }
-    .arch-fiche {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 0.75px solid var(--line);
-      border-left: 0.75px solid var(--line);
-    }
-    .arch-fiche .metric {
-      padding: 12px 14px 13px;
-      border-right: 0.75px solid var(--line);
-      border-bottom: 0.75px solid var(--line);
-    }
-    .arch-fiche .val { font-size: 18px; }
     .amen-line {
-      display: flex; flex-direction: column; gap: 8px;
-      padding-top: 16px;
-      border-top: 0.75px solid var(--line);
+      display: flex; flex-direction: column; gap: 10px;
       margin-top: auto;
     }
     .amen-line span {
-      font-size: 12.5px; letter-spacing: 0.01em; color: var(--tierra);
-      position: relative; padding-left: 14px;
+      font-size: 14.5px; line-height: 1.45; letter-spacing: 0.01em; color: var(--tierra);
+      position: relative; padding-left: 16px;
     }
     .amen-line span::before {
-      content: ""; position: absolute; left: 0; top: 6px;
-      width: 5px; height: 5px; border-radius: 50%; background: var(--musgo);
+      content: ""; position: absolute; left: 0; top: 8px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--arena);
     }
 
     /* ══════════════════════════════════════
@@ -251,63 +288,57 @@
     .loc-page {
       flex: 1; min-height: 0;
       display: flex; flex-direction: column;
-      padding: 12px 0 8px;
-      gap: 10px;
+      padding: 20px 0 0;
     }
-    .loc-head {
+    .loc-copy {
+      flex-shrink: 0;
+      padding: 0 var(--mg);
+    }
+    .loc-copy .serif-title { font-size: 36px; color: var(--blanco); }
+    .loc-lead {
+      margin-top: 10px; font-size: 14px; line-height: 1.5;
+      color: rgba(248,247,244,0.7); max-width: 34em;
+    }
+    .loc-facts {
       flex-shrink: 0;
       display: grid;
-      grid-template-columns: 1.1fr 1.3fr;
-      gap: 20px;
-      align-items: end;
-      padding: 0 28px;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 36px;
+      margin: 20px var(--mg) 14px;
     }
-    .loc-head .serif-title { font-size: 28px; color: var(--blanco); }
-    .loc-lead {
-      margin-top: 8px; font-size: 13.5px; line-height: 1.45;
-      color: rgba(248,247,244,0.68); max-width: none;
+    .loc-fact {
+      font-family: Montserrat, sans-serif;
+      padding: 0;
     }
-    .pillars {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0 16px;
-    }
-    .loc-item {
-      display: grid; grid-template-columns: 22px 1fr;
-      gap: 8px; align-items: start;
-      padding: 7px 0;
-      border-top: 0.75px solid var(--line-dark);
-    }
-    .loc-item:nth-child(1),
-    .loc-item:nth-child(2) { border-top: none; padding-top: 0; }
-    .loc-ico {
-      width: 22px; height: 22px; margin-top: 1px;
+    .loc-fact .n {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--arena);
     }
-    .loc-ico svg { width: 18px; height: 18px; display: block; }
-    .pillar-lbl {
-      font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--arena); margin-bottom: 2px;
+    .loc-fact .t {
+      margin-top: 7px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: rgba(248,247,244,0.94);
     }
-    .pillar-txt { font-size: 12px; line-height: 1.3; color: rgba(248,247,244,0.82); }
     .loc-map-frame {
       flex: 1 1 auto;
       min-height: 0;
       position: relative;
       overflow: hidden;
-      border-top: 0.75px solid rgba(248,247,244,0.12);
-      border-bottom: 0.75px solid rgba(248,247,244,0.12);
-      background: #E4D9C8;
+      margin: 16px 0 0;
+      background: #21201E;
     }
     .loc-map-frame img {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: auto !important;
-      height: 85% !important;
-      max-width: none !important;
-      max-height: none !important;
-      object-fit: contain;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover;
+      object-position: center center;
     }
     .callout {
       position: absolute; z-index: 2;
@@ -328,10 +359,13 @@
     .callout--park { left: 22%; top: 62%; }
     .callout--cabildo { right: 8%; top: 28%; }
     .loc-map-cap {
-      flex-shrink: 0;
-      padding: 0 28px;
+      position: absolute;
+      left: var(--mg);
+      bottom: 12px;
+      z-index: 2;
+      padding: 0;
       font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(248,247,244,0.48);
+      color: rgba(248,247,244,0.72);
     }
 
     /* ══════════════════════════════════════
@@ -345,19 +379,23 @@
     .tipo-lower {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 22px;
       margin-top: 4px;
     }
     .tipo-grid {
       flex: 0 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto auto auto auto auto;
       border-top: 0.75px solid var(--line);
       border-bottom: 0.75px solid var(--line);
     }
     .tipo {
       position: relative;
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 6;
       padding: 18px 18px 18px 0;
-      display: flex; flex-direction: column;
       border-right: 0.75px solid var(--line);
       overflow: hidden;
       min-height: 0;
@@ -366,18 +404,20 @@
     .tipo:last-child { border-right: none; padding-right: 0; }
     .tipo-letter {
       position: absolute; top: 12px; right: -8px;
-      font-family: var(--serif); font-weight: 200;
+      grid-row: 1 / -1;
+      grid-column: 1;
+      font-family: var(--serif); font-weight: 400;
       font-size: 220px; line-height: 0.7; letter-spacing: -0.08em;
       color: var(--musgo); opacity: 0.1;
       pointer-events: none; user-select: none;
     }
     .tipo-mark {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 20px; color: var(--musgo); letter-spacing: -0.03em;
       line-height: 1;
     }
     .tipo h3 {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 26px; letter-spacing: -0.03em; line-height: 1.05;
       margin-top: 10px;
     }
@@ -386,15 +426,36 @@
     }
     .tipo-hero { margin-top: 20px; display: flex; align-items: baseline; gap: 6px; }
     .tipo-hero .n {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 56px; letter-spacing: -0.05em; line-height: 0.9; color: var(--ink);
     }
     .tipo-hero .u {
-      font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--niebla);
+      font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: none; color: var(--niebla);
     }
-    .tipo-split { margin-top: 8px; font-size: 13px; color: var(--tierra); }
-    .tipo p { font-size: 13.5px; line-height: 1.45; color: var(--tierra); margin-top: 18px; max-width: 16em; }
+    .tipo-split {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--tierra);
+    }
+    .tipo-prog {
+      margin: 0;
+      padding-top: 18px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--tierra);
+    }
+    .tipo-from {
+      margin: 0;
+      padding-top: 16px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--ink);
+    }
 
     .amen-block {
       background: var(--blanco);
@@ -409,19 +470,23 @@
     .amen-item h4 { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
     .amen-item p { font-size: 11.5px; line-height: 1.4; color: var(--tierra); }
 
+    .extras-wrap .kicker { margin-bottom: 10px; color: var(--ink); }
     .extras { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     .extra {
-      display: flex; align-items: baseline; gap: 12px;
-      padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
       background: rgba(83, 98, 69, 0.08);
       border-left: 2px solid var(--musgo);
       border-radius: var(--radius);
     }
-    .extra .l {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--niebla); margin-bottom: 3px;
+    .extra svg {
+      width: 22px; height: 22px; flex-shrink: 0;
+      color: var(--musgo);
     }
-    .extra .n { font-family: var(--serif); font-weight: 300; font-size: 24px; line-height: 1; color: var(--ink); }
+    .extra .l {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--ink);
+    }
 
     /* ══════════════════════════════════════
        5–7. ARCHITECTURAL PLANS
@@ -494,10 +559,11 @@
       gap: 10px;
     }
     .unit-head h2 {
-      font-family: var(--serif); font-weight: 200;
-      font-size: 30px; letter-spacing: -0.03em; line-height: 1;
+      font-family: var(--serif); font-weight: 400;
+      font-size: 30px; letter-spacing: 0.02em; line-height: 1.05;
       margin-top: 4px;
     }
+    .unit-head .accent { margin-top: 10px; }
     .price-metrics {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1.15fr;
@@ -513,7 +579,7 @@
     }
     .pm:last-child { border-right: none; }
     .pm .n {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 28px; letter-spacing: -0.03em; line-height: 1; color: var(--ink);
     }
     .pm .l {
@@ -521,7 +587,8 @@
       font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--niebla);
     }
-    .pm--price { background: var(--musgo); }
+    .pm .l .sq { text-transform: none; letter-spacing: 0.04em; }
+    .pm--price { background: #21201E; }
     .pm--price .n { color: var(--blanco); font-size: 22px; letter-spacing: -0.02em; }
     .pm--price .l { color: rgba(248,247,244,0.72); }
 
@@ -544,7 +611,7 @@
     }
     .ub-t { font-size: 12.5px; line-height: 1.4; color: var(--tierra); }
     .ub-n {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 20px; letter-spacing: -0.02em; color: var(--musgo); line-height: 1.15;
     }
     .unit-plan, .unit-render {
@@ -611,7 +678,7 @@
       text-transform: uppercase; color: var(--niebla); margin-bottom: 6px;
     }
     .fact .n {
-      font-family: var(--serif); font-weight: 200; font-size: 24px;
+      font-family: var(--serif); font-weight: 400; font-size: 24px;
       letter-spacing: -0.03em; line-height: 1;
       white-space: nowrap;
     }
@@ -626,7 +693,7 @@
       border-bottom: 0.75px solid var(--line);
     }
     .plist thead th:first-child { padding-left: 16px; }
-    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 10px; }
+    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 10px; text-transform: none; letter-spacing: 0.04em; }
     .plist thead th:last-child { padding-right: 16px; }
     .plist td {
       padding: 9px 12px 9px 0;
@@ -695,7 +762,7 @@
       margin-bottom: 14px;
     }
     .mkt-pago-cols .n {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 22px; letter-spacing: -0.03em; line-height: 1.15;
     }
     .mkt-pago-cols p {
@@ -746,7 +813,7 @@
       text-transform: uppercase; color: var(--musgo);
     }
     .amb-card .amb-name {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 22px; letter-spacing: -0.03em; line-height: 1.1;
       color: var(--ink);
     }
@@ -788,7 +855,7 @@
     .scen-card.is-base .kicker { color: rgba(248,247,244,0.6); }
     .scen-card.is-base .muted { color: rgba(248,247,244,0.62); }
     .scen-card .n {
-      font-family: var(--serif); font-weight: 200; font-size: 26px;
+      font-family: var(--serif); font-weight: 400; font-size: 26px;
       letter-spacing: -0.03em; line-height: 1; margin: 6px 0 6px;
     }
 
@@ -832,7 +899,7 @@
       gap: 24px; margin-top: 28px;
     }
     .pago-step .n {
-      font-family: var(--serif); font-weight: 200;
+      font-family: var(--serif); font-weight: 400;
       font-size: 22px; color: var(--arena); line-height: 1; margin-bottom: 8px;
     }
     .pago-step p { font-size: 14px; line-height: 1.4; color: rgba(248,247,244,0.7); }
@@ -856,8 +923,17 @@
     }
     .close-hero img {
       width: 100%; height: 100%;
-      object-fit: fill;
-      object-position: center top;
+      object-fit: cover;
+      object-position: center bottom;
+    }
+    .close::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 40%;
+      z-index: 1;
+      background: linear-gradient(to top, #21201E 12%, transparent);
+      pointer-events: none;
     }
     .close-sub {
       margin-top: 14px; font-size: 14px; line-height: 1.55;
@@ -880,7 +956,7 @@
       width: 100%;
       border-radius: var(--radius);
     }
-    .wa .num { font-family: var(--serif); font-weight: 200; font-size: 28px; letter-spacing: -0.02em; }
+    .wa .num { font-family: var(--serif); font-weight: 400; font-size: 28px; letter-spacing: -0.02em; }
     .wa-lbl {
       font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--arena); margin-bottom: 6px;
@@ -919,7 +995,7 @@
 <!-- 1 COVER -->
 <div class="page cover">
   <div class="cover-hero">
-    <img class="render-img" src="assets/fachada-propuesta-sga.jpeg" alt="Fachada Ceibo Vidal — Vidal 3849" style="object-position: center 42%;" />
+    <img class="render-img" src="assets/fachada-v2.jpg" alt="Fachada Ceibo Vidal — Vidal 3849" />
     <div class="cover-grad-top"></div>
     <div class="cover-grad-bot"></div>
     <div class="cover-bar">
@@ -928,15 +1004,25 @@
     </div>
   </div>
   <div class="cover-copy">
-    <div class="kicker kicker--arena" style="margin-bottom:12px;">Raíces Developers · Saavedra</div>
     <h1>Ceibo Vidal</h1>
     <div class="accent"></div>
-    <div class="sub">Una vida de barrio en Capital</div>
     <div class="cover-meta">
-      <div><div class="cm-lbl">Dirección</div><div class="cm-val">Vidal 3849</div></div>
-      <div><div class="cm-lbl">Unidades</div><div class="cm-val">12 con balcón</div></div>
-      <div><div class="cm-lbl">Tipologías</div><div class="cm-val">Mono · 2 y 3 amb.</div></div>
-      <div><div class="cm-lbl">Entrega</div><div class="cm-val">Fines 2028</div></div>
+      <div>
+        <div class="cm-val">Vidal y García del Río</div>
+        <div class="cover-place">Saavedra</div>
+      </div>
+      <div>
+        <div class="cm-val">12</div>
+        <div class="cm-lbl">Unidades</div>
+      </div>
+      <div>
+        <div class="cm-val">1 · 2 · 3 · 4</div>
+        <div class="cm-lbl">Ambientes</div>
+      </div>
+      <div>
+        <div class="cm-val">2028</div>
+        <div class="cm-lbl">Posesión</div>
+      </div>
     </div>
   </div>
 </div>
@@ -945,203 +1031,153 @@
 <div class="page page--blanco">
   <div class="ph">
     <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
-    <span class="pid">Ceibo Vidal · El proyecto</span>
+    <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="split-page">
     <div class="proj-copy">
       <div>
-        <div class="kicker" style="margin-bottom:12px;">Raíces Developers</div>
-        <div class="serif-title" style="font-size:38px;">Doce departamentos.<br />Cada uno con balcón.</div>
-        <div class="accent accent--musgo"></div>
+        <div class="serif-title" style="font-size:38px;">12 unidades,<br />cada una con balcón.</div>
+        <div class="accent"></div>
         <p class="body" style="margin-top:18px;">
-          Escala humana en Vidal 3849. Planta baja con hall, SUM in-out y cocheras. Cuatro pisos de tres unidades. Terraza común con jacuzzi.
+          En un barrio en crecimiento, conectado y con identidad, decidimos dejar nuestras propias raíces. <br/><br/>Ceibo Vidal es un edificio que se propone lograr el balance perfecto entre ciudad y aire libre.
         </p>
       </div>
-      <div class="arch-fiche">
-        <div class="metric"><div class="lbl">Dirección</div><div class="val">Vidal 3849</div></div>
-        <div class="metric"><div class="lbl">Barrio</div><div class="val">Saavedra</div></div>
-        <div class="metric"><div class="lbl">Unidades</div><div class="val">12</div></div>
-        <div class="metric"><div class="lbl">Niveles</div><div class="val">PB + 4</div></div>
-        <div class="metric"><div class="lbl">Cocheras</div><div class="val">6</div></div>
-        <div class="metric"><div class="lbl">Entrega</div><div class="val">Fines 2028</div></div>
-      </div>
       <div class="amen-line">
-        <span>SUM in-out con cocina y cowork</span>
-        <span>Terraza común con jacuzzi</span>
-        <span>Bicicletero</span>
+        <span>Planta baja con SUM in-out, cowork y cocheras.</span>
+        <span>Cuatro pisos de tres unidades.</span>
+        <span>Terraza común con jacuzzi.</span>
+        <span>Terrazas privadas, bauleras y bicicletero.</span>
       </div>
     </div>
     <div style="overflow:hidden;">
-      <img class="render-img" src="assets/fachada-propuesta-sga.jpeg" alt="Fachada Ceibo Vidal" style="object-position:center 30%;" />
+      <img class="render-img" src="assets/fachada-v2.jpg" alt="Fachada Ceibo Vidal" style="object-position:center bottom;" />
     </div>
   </div>
   <div class="pf"><span>El proyecto</span><span>01 / 12</span></div>
 </div>
 
 <!-- 3 UBICACIÓN -->
-<div class="page page--dark">
+<div class="page page--dark page--loc">
   <div class="ph ph--dark">
     <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
-    <span class="pid">Ceibo Vidal · Ubicación</span>
+    <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="loc-page">
-    <div class="loc-head">
-      <div>
-        <div class="kicker kicker--light" style="margin-bottom:10px;">Vidal 3849 · Saavedra</div>
-        <div class="serif-title">El lado más tranquilo<br />de la ciudad.</div>
-        <p class="loc-lead">Del parque al boulevard, y Cabildo a cuatro cuadras.</p>
+    <div class="loc-copy">
+      <div class="kicker kicker--arena" style="margin-bottom:10px;">Vidal 3849</div>
+      <div class="serif-title">Saavedra</div>
+      <div class="accent"></div>
+      <p class="loc-lead">El barrio donde todo pasa cerca. Conectividad, comercios y espacios de encuentro, en el corredor Norte.</p>
+    </div>
+    <div class="loc-facts">
+      <div class="loc-fact">
+        <div class="n">A 4 cuadras</div>
+        <div class="t">Av. Cabildo y del Parque Saavedra</div>
       </div>
-      <div class="pillars">
-        <div class="loc-item">
-          <div class="loc-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12c-3-4-7-5-7-9 3 0 7 2 7 5 0-3 4-5 7-5 0 4-4 5-7 9z"/></svg>
-          </div>
-          <div>
-            <div class="pillar-lbl">4 cuadras</div>
-            <div class="pillar-txt">Parque Saavedra</div>
-          </div>
-        </div>
-        <div class="loc-item">
-          <div class="loc-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 8h18"/><path d="M3 12h18"/><path d="M3 16h18"/></svg>
-          </div>
-          <div>
-            <div class="pillar-lbl">½ cuadra</div>
-            <div class="pillar-txt">Boulevard García del Río</div>
-          </div>
-        </div>
-        <div class="loc-item">
-          <div class="loc-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"/><path d="M6 7v10"/><path d="M18 7v10"/><path d="M8 17h8"/><circle cx="8" cy="19" r="1.4"/><circle cx="16" cy="19" r="1.4"/></svg>
-          </div>
-          <div>
-            <div class="pillar-lbl">4 cuadras</div>
-            <div class="pillar-txt">Av. Cabildo</div>
-          </div>
-        </div>
-        <div class="loc-item">
-          <div class="loc-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5h5L12 16z" fill="currentColor" stroke="none"/></svg>
-          </div>
-          <div>
-            <div class="pillar-lbl">10 cuadras</div>
-            <div class="pillar-txt">Subte D · Congreso de Tucumán</div>
-          </div>
-        </div>
-        <div class="loc-item">
-          <div class="loc-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 17v2M16 17v2M4 11h16"/></svg>
-          </div>
-          <div>
-            <div class="pillar-lbl">Sobre Cabildo</div>
-            <div class="pillar-txt">Metrobus Norte</div>
-          </div>
-        </div>
-        <div class="loc-item">
-          <div class="loc-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16v8H4z"/><path d="M8 4h8v3H8z"/><path d="M8 15h.01M16 15h.01"/></svg>
-          </div>
-          <div>
-            <div class="pillar-lbl">En el barrio</div>
-            <div class="pillar-txt">Bares y restaurantes</div>
-          </div>
-        </div>
+      <div class="loc-fact">
+        <div class="n">En el barrio</div>
+        <div class="t">Zona comercial sobre Av. Cabildo, propuesta cultural, bares y restaurantes</div>
+      </div>
+      <div class="loc-fact">
+        <div class="n">Proximidad</div>
+        <div class="t">Shopping DOT, Subte D y Metrobus</div>
+      </div>
+      <div class="loc-fact">
+        <div class="n">Conectividad</div>
+        <div class="t">Corredor Norte, estudio y trabajo cerca</div>
       </div>
     </div>
     <div class="loc-map-frame">
       <img src="assets/mapa-barrio-ceibo.png" alt="Barrio — de Parque Saavedra a Av. Cabildo" />
-      <div class="callout callout--park">
-        <div class="d">4 cuadras</div>
-        <div class="t">Parque Saavedra</div>
-      </div>
-      <div class="callout callout--cabildo">
-        <div class="d">4 cuadras</div>
-        <div class="t">Av. Cabildo</div>
-      </div>
     </div>
-    <div class="loc-map-cap">De Parque Saavedra a Cabildo · Saavedra</div>
   </div>
-  <div class="pf pf--dark"><span>Ubicación</span><span>02 / 12</span></div>
 </div>
 
 <!-- 4 TIPOLOGÍAS -->
 <div class="page page--suelo">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal · Unidades</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="tipo-page">
     <div>
-      <div class="kicker" style="margin-bottom:8px;">Tres plantas</div>
-      <div class="serif-title" style="font-size:36px;">Unidades</div>
+      <div class="serif-title" style="font-size:36px;">Tres tipologías</div>
+      <div class="accent"></div>
     </div>
     <div class="tipo-grid">
       <article class="tipo">
         <div class="tipo-letter">A</div>
-        <div class="tipo-mark">A</div>
         <h3>3 ambientes</h3>
-        <div class="where">Frente · 4 unidades</div>
-        <div class="tipo-hero"><span class="n">82</span><span class="u">m² aprox.</span></div>
-        <div class="tipo-split">73 cubiertos · 10 balcón</div>
-        <p>Living al frente, suite y segundo dormitorio.</p>
+        <div class="where">Frente</div>
+        <div class="tipo-hero"><span class="n">82</span><span class="u">m2</span></div>
+        <div class="tipo-split">71 m2 cubiertos · 11 m2 balcón</div>
+        <p class="tipo-prog">Suite, segundo dormitorio, baño completo y balcón corrido</p>
+        <div class="tipo-from">Desde USD 218.000</div>
       </article>
       <article class="tipo">
         <div class="tipo-letter">B</div>
-        <div class="tipo-mark">B</div>
         <h3>Monoambiente</h3>
-        <div class="where">Contrafrente · 4 unidades</div>
-        <div class="tipo-hero"><span class="n">37</span><span class="u">m² aprox.</span></div>
-        <div class="tipo-split">33 cubiertos · 4 balcón</div>
-        <p>Planta libre, baño completo, balcón propio.</p>
+        <div class="where">Contrafrente</div>
+        <div class="tipo-hero"><span class="n">37</span><span class="u">m2</span></div>
+        <div class="tipo-split">34 m2 cubiertos · 3 m2 balcón</div>
+        <p class="tipo-prog">Amplio estudio, espacio de guardado y balcón propio.</p>
+        <div class="tipo-from">Desde USD 93.000</div>
       </article>
       <article class="tipo">
         <div class="tipo-letter">C</div>
-        <div class="tipo-mark">C</div>
         <h3>2 ambientes</h3>
-        <div class="where">Contrafrente · 4 unidades</div>
-        <div class="tipo-hero"><span class="n">56</span><span class="u">m² aprox.</span></div>
-        <div class="tipo-split">47 cubiertos · 9 balcón</div>
-        <p>Living con cocina, dormitorio en suite.</p>
+        <div class="where">Contrafrente</div>
+        <div class="tipo-hero"><span class="n">54</span><span class="u">m2</span></div>
+        <div class="tipo-split">48 m2 cubiertos · 6 m2 balcón</div>
+        <p class="tipo-prog">Suite, toilette y balcón corrido.</p>
+        <div class="tipo-from">Desde USD 139.000</div>
       </article>
     </div>
     <div class="tipo-lower">
     <div class="amen-block">
-      <div class="kicker">Amenidades comunes</div>
+      <div class="kicker">Amenities comunes</div>
       <div class="amen-grid">
         <div class="amen-item">
           <h4>Terraza con jacuzzi</h4>
-          <p>Terraza común de 76 m². Jacuzzi y estar al aire libre.</p>
+          <p>Terraza común de 76 m2.<br/> Jacuzzi y estar al aire libre.</p>
         </div>
         <div class="amen-item">
-          <h4>SUM in-out</h4>
-          <p>Planta baja. Cocina, cowork y uso mixto interior–exterior.</p>
+          <h4>SUM Cowork interior–exterior</h4>
+          <p>Planta baja. <br/>Espacio de uso mixto con cocina.</p>
         </div>
         <div class="amen-item">
           <h4>Bicicletero</h4>
-          <p>Guarda de bicicletas en planta baja, de uso común.</p>
+          <p>Espacio de guardado de bicicletas de uso común.</p>
         </div>
       </div>
     </div>
+    <div class="extras-wrap">
+      <div class="kicker">Disponibles</div>
     <div class="extras">
       <div class="extra">
-        <div><div class="l">Cocheras</div><div class="n">6</div></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13h18v6H3z"/><path d="M5 13V9l3-4h8l3 4v4"/><circle cx="7.5" cy="16.5" r="1.2"/><circle cx="16.5" cy="16.5" r="1.2"/></svg>
+        <div class="l">Cocheras</div>
       </div>
       <div class="extra">
-        <div><div class="l">Bauleras</div><div class="n">13</div></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16v12H4z"/><path d="M8 8V6a4 4 0 018 0v2"/><path d="M4 13h16"/></svg>
+        <div class="l">Bauleras</div>
       </div>
       <div class="extra">
-        <div><div class="l">Terrazas privadas</div><div class="n">3</div></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h16v5H4z"/><path d="M7 14V9l5-4 5 4v5"/><path d="M4 18h16"/></svg>
+        <div class="l">Terrazas privadas</div>
       </div>
+    </div>
     </div>
     </div>
   </div>
-  <div class="pf"><span>Unidades</span><span>03 / 12</span></div>
+  <div class="pf"><span>Unidades y Amenities</span><span>03 / 12</span></div>
 </div>
 
 <!-- 5 PLANTA BAJA -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal · Planta baja</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
-      <div class="kicker">Nivel 0</div>
+      <div class="kicker">Planta baja</div>
       <div class="serif-title">Planta baja</div>
+      <div class="accent"></div>
       <p class="body">Hall, SUM in-out con cocina y cowork, bicicletero y cocheras.</p>
     </aside>
     <div class="sheet-stage">
@@ -1153,24 +1189,25 @@
 
 <!-- 6 PLANTA TIPO -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal · Planta tipo</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
-      <div class="kicker">Pisos 1 a 4</div>
+      <div class="kicker">Pisos 1 a 3</div>
       <div class="serif-title">Planta tipo</div>
-      <p class="body">Tres unidades por piso, todas con balcón.</p>
+      <div class="accent"></div>
+      <p class="body">Tres unidades por piso, todas con balcón. El 4° ajusta levemente las superficies.</p>
       <div class="leg-area">
         <div class="row">
-          <span class="k">A · 3 ambientes<span class="sub">72,53 cubiertos · 9,95 balcón</span></span>
-          <span class="leg-n">82,48 m²</span>
+          <span class="k">A · 3 ambientes<span class="sub">71,36 cubiertos · 11,07 balcón</span></span>
+          <span class="leg-n">82,43 m2</span>
         </div>
         <div class="row">
-          <span class="k">B · Monoambiente<span class="sub">33,25 cubiertos · 4,15 balcón</span></span>
-          <span class="leg-n">37,40 m²</span>
+          <span class="k">B · Monoambiente<span class="sub">33,61 cubiertos · 3,32 balcón</span></span>
+          <span class="leg-n">36,93 m2</span>
         </div>
         <div class="row">
-          <span class="k">C · 2 ambientes<span class="sub">46,54 cubiertos · 9,29 balcón</span></span>
-          <span class="leg-n">55,83 m²</span>
+          <span class="k">C · 2 ambientes<span class="sub">47,81 cubiertos · 6,46 balcón</span></span>
+          <span class="leg-n">54,27 m2</span>
         </div>
       </div>
     </aside>
@@ -1183,17 +1220,18 @@
 
 <!-- 7 TERRAZAS -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal · Terrazas</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
-      <div class="kicker">Nivel 5</div>
+      <div class="kicker">Terraza</div>
       <div class="serif-title">Terrazas</div>
+      <div class="accent"></div>
       <p class="body">Terraza común con jacuzzi. Tres terrazas privadas.</p>
       <div class="leg-area">
-        <div class="row"><span class="k">Común</span><span class="leg-n">76 m²</span></div>
-        <div class="row"><span class="k">Privada A</span><span class="leg-n">42 m²</span></div>
-        <div class="row"><span class="k">Privada B</span><span class="leg-n">22 m²</span></div>
-        <div class="row"><span class="k">Privada C</span><span class="leg-n">27 m²</span></div>
+        <div class="row"><span class="k">Común</span><span class="leg-n">76 m2</span></div>
+        <div class="row"><span class="k">Privada A</span><span class="leg-n">33,11 m2</span></div>
+        <div class="row"><span class="k">Privada B</span><span class="leg-n">20,45 m2</span></div>
+        <div class="row"><span class="k">Privada C</span><span class="leg-n">24,86 m2</span></div>
       </div>
     </aside>
     <div class="sheet-stage">
@@ -1205,16 +1243,17 @@
 
 <!-- UNIDAD A -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Tipología A · 3 ambientes</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page">
     <div class="unit-head">
-      <div class="kicker">Departamento A · Frente</div>
+      <div class="kicker">Unidad A · Frente</div>
       <h2>3 ambientes</h2>
+      <div class="accent"></div>
     </div>
     <div class="price-metrics">
-      <div class="pm"><div class="n">72,53</div><div class="l">m² cubiertos</div></div>
-      <div class="pm"><div class="n">9,95</div><div class="l">m² balcón</div></div>
-      <div class="pm"><div class="n">82,48</div><div class="l">m² total</div></div>
+      <div class="pm"><div class="n">71,36</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
+      <div class="pm"><div class="n">11,07</div><div class="l"><span class="sq">m2</span> balcón</div></div>
+      <div class="pm"><div class="n">82,43</div><div class="l"><span class="sq">m2</span> total</div></div>
       <div class="pm pm--price"><div class="n">USD 218.463</div><div class="l">Desde piso 1</div></div>
     </div>
     <div class="unit-info">
@@ -1243,16 +1282,17 @@
 
 <!-- UNIDAD B -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Tipología B · Monoambiente</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page unit-page--b">
     <div class="unit-head">
-      <div class="kicker">Departamento B · Contrafrente</div>
+      <div class="kicker">Unidad B · Contrafrente</div>
       <h2>Monoambiente</h2>
+      <div class="accent"></div>
     </div>
     <div class="price-metrics">
-      <div class="pm"><div class="n">33,25</div><div class="l">m² cubiertos</div></div>
-      <div class="pm"><div class="n">4,15</div><div class="l">m² balcón</div></div>
-      <div class="pm"><div class="n">37,40</div><div class="l">m² total</div></div>
+      <div class="pm"><div class="n">33,61</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
+      <div class="pm"><div class="n">3,32</div><div class="l"><span class="sq">m2</span> balcón</div></div>
+      <div class="pm"><div class="n">36,93</div><div class="l"><span class="sq">m2</span> total</div></div>
       <div class="pm pm--price"><div class="n">USD 93.629</div><div class="l">Desde piso 1</div></div>
     </div>
     <div class="unit-info">
@@ -1281,16 +1321,17 @@
 
 <!-- UNIDAD C -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Tipología C · 2 ambientes</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page unit-page--c">
     <div class="unit-head">
-      <div class="kicker">Departamento C · Contrafrente</div>
+      <div class="kicker">Unidad C · Contrafrente</div>
       <h2>2 ambientes</h2>
+      <div class="accent"></div>
     </div>
     <div class="price-metrics">
-      <div class="pm"><div class="n">46,54</div><div class="l">m² cubiertos</div></div>
-      <div class="pm"><div class="n">9,29</div><div class="l">m² balcón</div></div>
-      <div class="pm"><div class="n">55,83</div><div class="l">m² total</div></div>
+      <div class="pm"><div class="n">47,81</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
+      <div class="pm"><div class="n">6,46</div><div class="l"><span class="sq">m2</span> balcón</div></div>
+      <div class="pm"><div class="n">54,27</div><div class="l"><span class="sq">m2</span> total</div></div>
       <div class="pm pm--price"><div class="n">USD 139.320</div><div class="l">Desde piso 1</div></div>
     </div>
     <div class="unit-info">
@@ -1319,15 +1360,16 @@
 
 <!-- 8 LISTA DE PRECIOS -->
 <div class="page page--suelo">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal · Lista de precios</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
       <div class="kicker" style="margin-bottom:8px;">Preventa 1</div>
       <div class="serif-title" style="font-size:34px;">Lista de precios</div>
+      <div class="accent"></div>
     </div>
     <div class="facts">
       <div class="fact"><div class="l">Unidades</div><div class="n">12</div></div>
-      <div class="fact"><div class="l">Precio base</div><div class="n">USD 2.600/m²</div></div>
+      <div class="fact"><div class="l">Precio base</div><div class="n">USD 2.600/m2</div></div>
       <div class="fact"><div class="l">Anticipo</div><div class="n">30%</div></div>
       <div class="fact"><div class="l">Cuotas</div><div class="n">18</div></div>
     </div>
@@ -1348,7 +1390,7 @@
         <tr>
           <th>Piso</th>
           <th>Unidad</th>
-          <th class="num">m²</th>
+          <th class="num">m2</th>
           <th class="num">Precio</th>
           <th class="num">Anticipo 30%</th>
           <th class="num">Cuota × 18</th>
@@ -1358,21 +1400,21 @@
         <tr>
           <td class="floor-cell" rowspan="3">Piso 1</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">84</td>
+          <td class="num">82</td>
           <td class="num price">218.463</td>
           <td class="num hi">65.539</td>
           <td class="num hi">8.501</td>
         </tr>
         <tr>
-          <td><span class="uname">B · Mono</span><span class="usub">Contrafrente</span></td>
-          <td class="num">38</td>
+          <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+          <td class="num">37</td>
           <td class="num price">93.629</td>
           <td class="num hi">28.089</td>
           <td class="num hi">3.641</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">56</td>
+          <td class="num">54</td>
           <td class="num price">139.320</td>
           <td class="num hi">41.796</td>
           <td class="num hi">5.418</td>
@@ -1380,21 +1422,21 @@
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 2</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">84</td>
+          <td class="num">82</td>
           <td class="num price">222.968</td>
           <td class="num hi">66.890</td>
           <td class="num hi">8.677</td>
         </tr>
         <tr>
-          <td><span class="uname">B · Mono</span><span class="usub">Contrafrente</span></td>
-          <td class="num">38</td>
+          <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+          <td class="num">37</td>
           <td class="num price">95.560</td>
           <td class="num hi">28.668</td>
           <td class="num hi">3.716</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">56</td>
+          <td class="num">54</td>
           <td class="num price">142.193</td>
           <td class="num hi">42.658</td>
           <td class="num hi">5.530</td>
@@ -1402,21 +1444,21 @@
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 3</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">84</td>
+          <td class="num">82</td>
           <td class="num price">227.472</td>
           <td class="num hi">68.242</td>
           <td class="num hi">8.852</td>
         </tr>
         <tr>
-          <td><span class="uname">B · Mono</span><span class="usub">Contrafrente</span></td>
-          <td class="num">38</td>
+          <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+          <td class="num">37</td>
           <td class="num price">97.490</td>
           <td class="num hi">29.247</td>
           <td class="num hi">3.791</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">56</td>
+          <td class="num">54</td>
           <td class="num price">145.065</td>
           <td class="num hi">43.520</td>
           <td class="num hi">5.641</td>
@@ -1424,40 +1466,41 @@
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 4</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">84</td>
+          <td class="num">82</td>
           <td class="num price">231.976</td>
           <td class="num hi">69.593</td>
           <td class="num hi">9.027</td>
         </tr>
         <tr>
-          <td><span class="uname">B · Mono</span><span class="usub">Contrafrente</span></td>
-          <td class="num">38</td>
+          <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+          <td class="num">37</td>
           <td class="num price">99.421</td>
           <td class="num hi">29.826</td>
           <td class="num hi">3.866</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">56</td>
+          <td class="num">54</td>
           <td class="num price">147.938</td>
           <td class="num hi">44.381</td>
           <td class="num hi">5.753</td>
         </tr>
       </tbody>
     </table>
-    <p class="plist-note">Valores en USD. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    <p class="plist-note">Valores en USD. Superficies de planta tipo (pisos 1 a 3). El 4° varía levemente. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
   </div>
   <div class="pf"><span>Lista de precios</span><span>10 / 12</span></div>
 </div>
 
 <!-- 11 MERCADO -->
 <div class="page page--suelo">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal · El mercado</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="mkt-page">
     <div class="mkt-hero">
       <div class="kicker" style="margin-bottom:8px;">Saavedra · Market Analytics · 14 abril 2026</div>
       <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.600.</div>
-      <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m².</p>
+      <div class="accent"></div>
+      <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m2.</p>
     </div>
 
     <div class="amb-grid">
@@ -1465,16 +1508,16 @@
         <div class="amb-name">Monoambiente</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo · 37,40 m²</span>
-            <span class="v">USD 2.600/m²</span>
+            <span class="k">Ceibo · 36,93 m2</span>
+            <span class="v">USD 2.600/m2</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Estreno zona · 34 m²</span>
-            <span class="v">USD 3.618/m²</span>
+            <span class="k">Estreno zona · 34 m2</span>
+            <span class="v">USD 3.618/m2</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Usado zona · 32 m²</span>
-            <span class="v">USD 3.010/m²</span>
+            <span class="k">Usado zona · 32 m2</span>
+            <span class="v">USD 3.010/m2</span>
           </div>
         </div>
         <div class="amb-totals">
@@ -1488,16 +1531,16 @@
         <div class="amb-name">2 ambientes</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo · 55,83 m²</span>
-            <span class="v">USD 2.600/m²</span>
+            <span class="k">Ceibo · 54,27 m2</span>
+            <span class="v">USD 2.600/m2</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Estreno zona · 47 m²</span>
-            <span class="v">USD 3.715/m²</span>
+            <span class="k">Estreno zona · 47 m2</span>
+            <span class="v">USD 3.715/m2</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Usado zona · 44 m²</span>
-            <span class="v">USD 2.929/m²</span>
+            <span class="k">Usado zona · 44 m2</span>
+            <span class="v">USD 2.929/m2</span>
           </div>
         </div>
         <div class="amb-totals">
@@ -1511,16 +1554,16 @@
         <div class="amb-name">3 ambientes</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo · 82,48 m²</span>
-            <span class="v">USD 2.600/m²</span>
+            <span class="k">Ceibo · 82,43 m2</span>
+            <span class="v">USD 2.600/m2</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Estreno zona · 75 m²</span>
-            <span class="v">USD 3.807/m²</span>
+            <span class="k">Estreno zona · 75 m2</span>
+            <span class="v">USD 3.807/m2</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Usado zona · 60 m²</span>
-            <span class="v">USD 2.788/m²</span>
+            <span class="k">Usado zona · 60 m2</span>
+            <span class="v">USD 2.788/m2</span>
           </div>
         </div>
         <div class="amb-totals">
@@ -1556,14 +1599,15 @@
 <div class="page page--dark">
   <div class="ph ph--dark">
     <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
-    <span class="pid">Ceibo Vidal · Contacto</span>
+    <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="close">
     <div class="close-contact">
       <div class="left">
         <div>
-          <div class="kicker kicker--light" style="margin-bottom:14px;">Siguiente paso</div>
+          <div class="kicker kicker--arena" style="margin-bottom:14px;">Siguiente paso</div>
           <div class="serif-title close-cta">Coordiná tu reunión.<br />Conversemos.</div>
+          <div class="accent"></div>
           <p class="close-sub">Unidades, amenidades y forma de pago. Un solo canal.</p>
         </div>
       </div>
@@ -1583,12 +1627,12 @@
           </div>
         </a>
         <p class="close-legal">
-          Material comercial — Raíces Developers. Superficies de planos. Los valores pueden actualizarse. Renders de referencia.
+          Material comercial. Superficies de planos. Los valores pueden actualizarse. Renders de referencia.
         </p>
       </div>
     </div>
     <div class="close-hero">
-      <img src="assets/fachada-contacto.jpg" alt="Fachada Ceibo Vidal" />
+      <img src="assets/fachada-v2.jpg" alt="Fachada Ceibo Vidal" />
     </div>
   </div>
   <div class="pf pf--dark"><span>Contacto</span><span>12 / 12</span></div>
