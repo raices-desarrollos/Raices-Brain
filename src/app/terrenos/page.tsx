@@ -59,7 +59,7 @@ export default function TerrenosPage() {
       {/* Header */}
       <div className="mb-8">
         <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Adquisiciones</p>
-        <h1 className="text-2xl font-light text-gray-900">Terrenos</h1>
+        <h1 className="text-2xl font-normal text-gray-900">Terrenos</h1>
         <p className="text-gray-500 text-sm mt-1">
           {terrains.length} terreno{terrains.length !== 1 ? 's' : ''} en el sistema
         </p>
@@ -77,7 +77,7 @@ export default function TerrenosPage() {
           { label: 'Descartados', value: rejected.length, color: 'text-red-600' },
         ].map((s) => (
           <div key={s.label} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <p className={`text-2xl font-light ${s.color}`}>{s.value}</p>
+            <p className={`text-2xl font-normal ${s.color}`}>{s.value}</p>
             <p className="text-xs text-gray-500 mt-1">{s.label}</p>
           </div>
         ))}

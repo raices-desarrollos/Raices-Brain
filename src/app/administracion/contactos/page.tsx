@@ -279,12 +279,12 @@ export default function ContactosPage() {
                       <Initials name={c.name} />
                       <div>
                         <p className="font-medium text-gray-900">{c.name}</p>
-                        {c.company && <p className="text-2xs text-gray-400 mt-0.5">{c.company}</p>}
+                        {c.company && <p className="text-xs text-gray-400 mt-0.5">{c.company}</p>}
                       </div>
                     </div>
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className={`text-2xs font-medium px-2.5 py-1 rounded-full capitalize ${CATEGORY_COLORS[c.category] ?? 'bg-gray-100 text-gray-400'}`}>
+                    <span className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${CATEGORY_COLORS[c.category] ?? 'bg-gray-100 text-gray-400'}`}>
                       {c.category}
                     </span>
                   </td>
@@ -308,7 +308,7 @@ export default function ContactosPage() {
               ))}
             </tbody>
           </table>
-          <div className="px-5 py-3 border-t border-gray-200 bg-gray-50/60 text-2xs text-gray-400">
+          <div className="px-5 py-3 border-t border-gray-200 bg-gray-50/60 text-xs text-gray-400">
             {items.length} resultado{items.length !== 1 ? 's' : ''}
           </div>
         </div>

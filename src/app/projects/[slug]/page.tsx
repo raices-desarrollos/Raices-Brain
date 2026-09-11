@@ -1,6 +1,7 @@
 'use client';
 
-import DriveFinancial from '@/components/DriveFinancial';
+import { ProjectFinance } from '@/components/ProjectFinance';
+import { SalesDeck } from '@/components/SalesDeck';
 import { EmptyState, ProjectPageSkeleton } from '@/components/ui';
 import { formatCount, formatMoney, formatProjectName } from '@/lib/format';
 import Link from 'next/link';
@@ -34,8 +35,14 @@ type Invoice = {
 type Decision = { id: string; title: string; date: string; sourceFile?: string };
 
 export default function ProjectPage() {
+  // useSearchParams suspende durante el render del servidor, así que el
+  // fallback tiene que mostrar exactamente lo mismo que el primer render del
+  // cliente; si no, la hidratación no coincide.
+  const params = useParams<{ slug: string }>();
+  const name = formatProjectName(params.slug);
+
   return (
-    <Suspense fallback={<ProjectPageSkeleton />}>
+    <Suspense fallback={<ProjectPageSkeleton name={name} />}>
       <ProjectView />
     </Suspense>
   );
@@ -79,14 +86,25 @@ function ProjectView() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-10">
-      <p className="text-2xs tracking-[0.2em] uppercase text-niebla mb-2">Proyecto</p>
-      <h1 className="font-serif text-3xl font-light text-ink">{project.name}</h1>
-      <p className="text-sm text-niebla mt-1">
-        {project.address}
-        {project.city ? ` · ${project.city}` : ''}
-      </p>
-      <p className="text-xs text-tierra mt-2 uppercase tracking-wider">{project.statusLabel}</p>
+    <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+        <div>
+          <p className="text-2xs tracking-[0.2em] uppercase text-niebla mb-2">Proyecto</p>
+          <h1 className="font-serif text-3xl font-normal text-ink tracking-tight">{project.name}</h1>
+          <p className="text-sm text-niebla mt-1.5">
+            {project.address}
+            {project.city ? ` · ${project.city}` : ''}
+          </p>
+        </div>
+        {project.statusLabel && (
+          <span className="inline-flex self-start items-center gap-2 rounded-full border border-suelo px-3 py-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-tierra" aria-hidden />
+            <span className="text-2xs uppercase tracking-[0.14em] text-tierra">
+              {project.statusLabel}
+            </span>
+          </span>
+        )}
+      </div>
 
       <nav className="flex gap-1.5 mt-8 mb-10 overflow-x-auto pb-1">
         {TABS.map((t) => (
@@ -104,41 +122,48 @@ function ProjectView() {
       </nav>
 
       {tab === 'resumen' && (
-        <div className="space-y-10">
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <p className="text-2xs uppercase tracking-wider text-niebla">Programa</p>
-              <p className="text-sm mt-1">{project.floorsDescription || '—'}</p>
-            </div>
-            <div>
-              <p className="text-2xs uppercase tracking-wider text-niebla">Facturas</p>
-              <p className="text-sm mt-1">{formatCount(invoices.length, 'factura', 'facturas')}</p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <Link href="/facturas/nueva" className="text-sm border border-ink rounded-lg px-4 py-2">
-              Subir factura
-            </Link>
+        <div className="space-y-12">
+          <div className="flex flex-wrap items-center gap-2">
+            <SalesDeck slug={project.slug} />
             <Link
               href={`/brain?q=${encodeURIComponent(`Resumime el estado actual de ${project.name}`)}`}
-              className="text-sm bg-ink text-blanco rounded-lg px-4 py-2">
+              className="text-sm bg-ink text-blanco rounded-lg px-4 py-2 hover:bg-musgo transition-colors">
               Preguntar a Brain
             </Link>
           </div>
-          <DriveFinancial />
+
+          <dl className="grid grid-cols-2 gap-px bg-suelo rounded-xl border border-suelo overflow-hidden">
+            <div className="bg-blanco px-5 py-4">
+              <dt className="text-2xs uppercase tracking-[0.16em] text-niebla">Programa</dt>
+              <dd className="text-sm text-ink mt-1.5">{project.floorsDescription || '—'}</dd>
+            </div>
+            <div className="bg-blanco px-5 py-4">
+              <dt className="text-2xs uppercase tracking-[0.16em] text-niebla">Facturas</dt>
+              <dd className="text-sm text-ink mt-1.5">
+                {formatCount(invoices.length, 'factura', 'facturas')}
+              </dd>
+            </div>
+          </dl>
+
+          <ProjectFinance slug={project.slug} />
+
           {decisions.length > 0 && (
             <div>
-              <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-3">Decisiones recientes</h2>
-              <ul className="divide-y divide-suelo">
+              <h2 className="text-2xs tracking-[0.18em] uppercase text-niebla mb-3">
+                Decisiones recientes
+              </h2>
+              <ul className="divide-y divide-suelo border-y border-suelo">
                 {decisions.slice(0, 3).map((d) => (
-                  <li key={d.id} className="py-3">
-                    <p className="text-sm">{d.title}</p>
-                    <p className="text-2xs text-niebla">{d.date}</p>
+                  <li key={d.id} className="py-3.5">
+                    <p className="text-sm text-ink">{d.title}</p>
+                    <p className="text-xs text-niebla mt-0.5">{d.date}</p>
                   </li>
                 ))}
               </ul>
-              <Link href="/decisiones" className="inline-block mt-3 text-sm text-musgo">
-                Consultá el registro completo de decisiones del proyecto.
+              <Link
+                href="/decisiones"
+                className="inline-block mt-3 text-xs text-musgo hover:text-ink transition-colors">
+                Ver el registro completo
               </Link>
             </div>
           )}

@@ -152,7 +152,7 @@ export function BrainChat() {
     <div className="flex flex-col h-full bg-blanco">
       <div className="flex items-center justify-between px-6 py-4 border-b border-suelo flex-shrink-0">
         <div>
-          <h1 className="font-serif text-lg font-light text-ink">Brain</h1>
+          <h1 className="font-serif text-lg font-normal text-ink">Brain</h1>
           <p className="text-sm text-niebla mt-0.5">Preguntá sobre Ceibo Vidal, facturas, pagos o documentos.</p>
         </div>
       </div>
@@ -181,7 +181,7 @@ export function BrainChat() {
       <div className="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-5">
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <p className="font-serif text-xl font-light text-ink">Preguntale al Brain</p>
+            <p className="font-serif text-xl font-normal text-ink">Preguntale al Brain</p>
             <p className="text-sm text-niebla mt-2 max-w-sm">
               Facturas, pagos, documentos y el estado de Ceibo Vidal. Si no hay datos, te lo dice.
             </p>
@@ -218,7 +218,7 @@ export function BrainChat() {
                 <div className="mt-3 pt-3 border-t border-suelo/80 space-y-1">
                   <p className="text-2xs text-niebla uppercase tracking-wider">Fuentes</p>
                   {msg.sources.map((s, si) => (
-                    <p key={si} className="text-2xs text-niebla">
+                    <p key={si} className="text-xs text-niebla">
                       {s}
                     </p>
                   ))}
@@ -258,7 +258,7 @@ export function BrainChat() {
             </svg>
           </button>
         </div>
-        <p className="text-2xs text-niebla mt-2">Enter para enviar · Shift+Enter nueva línea</p>
+        <p className="text-xs text-niebla mt-2">Enter para enviar · Shift+Enter nueva línea</p>
       </div>
     </div>
   );

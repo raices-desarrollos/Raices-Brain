@@ -225,22 +225,22 @@ export default function DocumentosPage() {
                   ) : (
                     <span className="text-sm">{f.name}</span>
                   )}
-                  <p className="text-2xs text-niebla mt-0.5 sm:hidden">
+                  <p className="text-xs text-niebla mt-0.5 sm:hidden">
                     {f.isFolder ? 'Carpeta' : formatDate(f.modifiedTime)}
                     {f.size ? ` · ${formatBytes(f.size)}` : ''}
                   </p>
                 </div>
-                <p className="hidden sm:block text-2xs text-niebla whitespace-nowrap">
+                <p className="hidden sm:block text-xs text-niebla whitespace-nowrap">
                   {f.isFolder ? 'Carpeta' : formatDate(f.modifiedTime)}
                 </p>
                 <div className="text-right whitespace-nowrap">
                   {!f.isFolder && f.size ? (
-                    <span className="hidden sm:inline text-2xs text-niebla mr-3">{formatBytes(f.size)}</span>
+                    <span className="hidden sm:inline text-xs text-niebla mr-3">{formatBytes(f.size)}</span>
                   ) : null}
                   {!f.isFolder && (
                     <Link
                       href={`/brain?q=${encodeURIComponent(`Qué información tenemos sobre el documento "${f.name}"?`)}`}
-                      className="text-2xs text-musgo">
+                      className="text-xs text-musgo">
                       Preguntar
                     </Link>
                   )}

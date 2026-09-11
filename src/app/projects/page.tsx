@@ -48,7 +48,7 @@ export default function ProjectsPage() {
             <li key={p.slug} className="py-6">
               <Link href={`/projects/${p.slug}`} className="group block">
                 <div className="flex items-baseline justify-between gap-4">
-                  <h2 className="font-serif text-xl font-light text-ink group-hover:text-musgo">
+                  <h2 className="font-serif text-xl font-normal text-ink group-hover:text-musgo">
                     {p.name}
                   </h2>
                   <span className="text-2xs uppercase tracking-wider text-tierra">{p.statusLabel}</span>

@@ -72,7 +72,7 @@ export default function FactibilidadPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-niebla text-xs tracking-widest uppercase mb-1">Análisis</p>
-          <h1 className="font-serif text-3xl font-light text-ink">Factibilidad</h1>
+          <h1 className="font-serif text-3xl font-normal text-ink">Factibilidad</h1>
           <p className="text-niebla text-sm mt-0.5">
             {items.length > 0
               ? `${items.length} análisis guardado${items.length !== 1 ? 's' : ''}`
@@ -140,17 +140,17 @@ export default function FactibilidadPage() {
                         className="font-semibold text-ink hover:text-musgo transition">
                         {item.name}
                       </Link>
-                      <p className="text-2xs text-niebla mt-0.5">
+                      <p className="text-xs text-niebla mt-0.5">
                         {item.address}
                         {item.neighborhood ? ` · ${item.neighborhood}` : ''}
                       </p>
-                      <p className="text-2xs text-niebla/60 mt-0.5">
+                      <p className="text-xs text-niebla/60 mt-0.5">
                         {new Date(item.updatedAt).toLocaleDateString('es-AR')}
                       </p>
                     </td>
                     <td className="px-5 py-4">
                       <span
-                        className={`inline-flex items-center gap-1.5 text-2xs font-medium px-2.5 py-1 rounded-full ${dcfg.cls}`}>
+                        className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${dcfg.cls}`}>
                         <span className={`w-1.5 h-1.5 rounded-full ${dcfg.dot}`} />
                         {diagnosis.label}
                       </span>
@@ -203,7 +203,7 @@ export default function FactibilidadPage() {
               })}
             </tbody>
           </table>
-          <div className="px-5 py-3 border-t border-suelo bg-suelo/40/60 text-2xs text-niebla">
+          <div className="px-5 py-3 border-t border-suelo bg-suelo/40/60 text-xs text-niebla">
             {items.length} análisis
           </div>
         </div>

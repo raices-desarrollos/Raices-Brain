@@ -40,7 +40,7 @@ function LoginForm() {
     <div className="min-h-screen bg-lino flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <p className="text-ink text-xl font-serif font-light">Raíces</p>
+          <p className="text-ink text-xl font-serif font-normal">Raíces</p>
           <p className="text-niebla text-2xs tracking-[0.2em] uppercase mt-1">Brain</p>
           <p className="text-niebla text-sm mt-3">Plataforma interna</p>
         </div>

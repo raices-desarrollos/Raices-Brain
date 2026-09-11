@@ -49,7 +49,7 @@ export default function AdminPage() {
       {/* Header */}
       <div className="mb-8">
         <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Configuración</p>
-        <h1 className="text-2xl font-light text-gray-900">Admin</h1>
+        <h1 className="text-2xl font-normal text-gray-900">Admin</h1>
         <p className="text-xs text-gray-500 mt-3 max-w-lg border-l-2 border-gray-200 pl-3">
           Estado de la configuración del sistema. Muestra qué variables de entorno están activas,
           qué servicios externos están conectados y qué scripts están disponibles para correr
@@ -72,17 +72,17 @@ export default function AdminPage() {
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-mono text-gray-900">{v.key}</p>
-                  <p className="text-2xs text-gray-500">{v.description}</p>
+                  <p className="text-xs text-gray-500">{v.description}</p>
                 </div>
                 <span
-                  className={`text-2xs ${ok ? 'text-blue-600' : v.required ? 'text-red-600' : 'text-gray-500'}`}>
+                  className={`text-xs ${ok ? 'text-blue-600' : v.required ? 'text-red-600' : 'text-gray-500'}`}>
                   {ok ? 'Configurada' : v.required ? 'Faltante' : 'Opcional'}
                 </span>
               </div>
             );
           })}
         </div>
-        <p className="text-2xs text-niebla mt-2">
+        <p className="text-xs text-niebla mt-2">
           Las conexiones se configuran en el servidor de despliegue. Esta pantalla es solo para quien administra la app.
         </p>
       </div>
@@ -101,7 +101,7 @@ export default function AdminPage() {
                 <p className="font-medium text-sm text-gray-900">{s.title}</p>
                 <p className="text-xs text-gray-500 mt-0.5">{s.description}</p>
               </div>
-              <span className="flex-shrink-0 text-2xs text-gray-500 border border-gray-200 rounded-full px-2.5 py-1">
+              <span className="flex-shrink-0 text-xs text-gray-500 border border-gray-200 rounded-full px-2.5 py-1">
                 {s.status}
               </span>
             </div>

@@ -165,7 +165,7 @@ export default function FeasibilityDetailPage() {
           </svg>
           Factibilidades
         </button>
-        <h1 className="font-serif text-2xl font-light text-ink flex-1">
+        <h1 className="font-serif text-2xl font-normal text-ink flex-1">
           {isNew ? 'Nuevo análisis' : meta.name || 'Análisis'}
         </h1>
         {!isNew && (
@@ -244,7 +244,7 @@ export default function FeasibilityDetailPage() {
                   value={meta.date}
                   onChange={(v) => setMeta((p) => ({ ...p, date: v }))}
                 />
-                <p className="text-2xs text-niebla mt-1">Día / mes / año</p>
+                <p className="text-xs text-niebla mt-1">Día / mes / año</p>
               </Field>
             </div>
             <Field label="Observaciones">
@@ -499,7 +499,7 @@ export default function FeasibilityDetailPage() {
                 </tbody>
               </table>
             </div>
-            <p className="text-2xs text-niebla mt-2">
+            <p className="text-xs text-niebla mt-2">
               Conservador: precio −10%, costo +10%, contingencia 10% · Base: valores ingresados ·
               Optimista: precio +10%, costo −5%, contingencia 3%
             </p>

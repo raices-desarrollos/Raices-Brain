@@ -226,11 +226,11 @@ export default function DocumentosPage() {
                   <td className="px-4 py-3">
                     <div className="font-medium text-gray-900 truncate max-w-48">{d.name}</div>
                     {d.description && (
-                      <div className="text-2xs text-gray-400 mt-0.5 truncate">{d.description}</div>
+                      <div className="text-xs text-gray-400 mt-0.5 truncate">{d.description}</div>
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-2xs bg-gray-100 text-gray-900 px-2 py-0.5 rounded-full capitalize">
+                    <span className="text-xs bg-gray-100 text-gray-900 px-2 py-0.5 rounded-full capitalize">
                       {d.category.replace('-', ' ')}
                     </span>
                   </td>
@@ -251,7 +251,7 @@ export default function DocumentosPage() {
                           {ingesting === d.id ? 'Ingeniando…' : 'Ingestar Brain'}
                         </button>
                         {ingestResult?.id === d.id && (
-                          <span className="text-2xs text-blue-600">{ingestResult.msg}</span>
+                          <span className="text-xs text-blue-600">{ingestResult.msg}</span>
                         )}
                       </>
                     )}

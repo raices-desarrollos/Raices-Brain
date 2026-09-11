@@ -169,6 +169,33 @@ export async function findOrCreateFolder(parentId: string, name: string): Promis
   return created.data.id ?? null;
 }
 
+/** Carpeta "Finanzas" del proyecto. Es donde viven las planillas y las facturas. */
+export async function resolveFinanzasFolder(): Promise<string | null> {
+  const override = process.env.GOOGLE_DRIVE_FINANZAS_FOLDER_ID;
+  if (override) return override;
+
+  const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  if (!rootId || !getDriveClient()) return null;
+
+  const { files } = await listDriveFiles({ folderId: rootId, pageSize: 200 });
+  const match = files.find((f) => f.isFolder && /finanz/i.test(f.name));
+  if (match) return match.id;
+
+  return findOrCreateFolder(rootId, 'Finanzas');
+}
+
+/** Las facturas se guardan en Finanzas / Facturas. */
+export async function resolveInvoicesFolder(): Promise<{ id: string; path: string } | null> {
+  const override = process.env.GOOGLE_DRIVE_INVOICES_FOLDER_ID;
+  if (override) return { id: override, path: 'Finanzas / Facturas' };
+
+  const finanzas = await resolveFinanzasFolder();
+  if (!finanzas) return null;
+
+  const facturas = await findOrCreateFolder(finanzas, 'Facturas');
+  return facturas ? { id: facturas, path: 'Finanzas / Facturas' } : null;
+}
+
 export async function resolveProjectFolder(projectSlug: string): Promise<string | null> {
   const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID;
   const drive = getDriveClient();
@@ -194,18 +221,15 @@ export async function uploadInvoiceToDrive(options: {
   body: Buffer;
   projectSlug: string;
 }): Promise<{ id: string; webViewLink: string | null; folderPath: string } | null> {
-  const projectFolder = await resolveProjectFolder(options.projectSlug);
-  const invoicesFolder =
-    process.env.GOOGLE_DRIVE_INVOICES_FOLDER_ID ||
-    (projectFolder ? await findOrCreateFolder(projectFolder, 'Facturas') : null);
+  const invoicesFolder = await resolveInvoicesFolder();
   const uploaded = await uploadToDrive({
     name: options.name,
     mimeType: options.mimeType,
     body: options.body,
-    parentId: invoicesFolder ?? undefined,
+    parentId: invoicesFolder?.id,
   });
   if (!uploaded) return null;
-  return { ...uploaded, folderPath: 'Ceibo Vidal / Facturas' };
+  return { ...uploaded, folderPath: invoicesFolder?.path ?? 'Finanzas / Facturas' };
 }
 
 export async function getDriveFileText(fileId: string): Promise<{

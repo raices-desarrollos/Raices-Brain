@@ -15,7 +15,7 @@ function StatusBadge({ status }: { status: string }) {
   const cfg = STATUS_CONFIG[status] ?? STATUS_CONFIG.cancelado;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 text-2xs font-medium px-2.5 py-1 rounded-full ${cfg.cls}`}>
+      className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${cfg.cls}`}>
       <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`} />
       {cfg.label}
     </span>
@@ -408,12 +408,12 @@ export default function PagosPage() {
                   <td className="px-5 py-3.5">
                     <p className="font-medium text-gray-900">{p.concept}</p>
                     {p.projectRef && (
-                      <p className="text-2xs text-gray-400 mt-0.5">{p.projectRef}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{p.projectRef}</p>
                     )}
                   </td>
                   <td className="px-5 py-3.5">
                     <span
-                      className={`text-2xs font-medium px-2 py-0.5 rounded-full ${
+                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                         p.type === 'ingreso' ? 'bg-blue-50 text-blue-600' : 'bg-red-50 text-red-600'
                       }`}>
                       {p.type}
@@ -456,7 +456,7 @@ export default function PagosPage() {
               ))}
             </tbody>
           </table>
-          <div className="px-5 py-3 border-t border-gray-200 bg-gray-50/60 text-2xs text-gray-400">
+          <div className="px-5 py-3 border-t border-gray-200 bg-gray-50/60 text-xs text-gray-400">
             {items.length} resultado{items.length !== 1 ? 's' : ''}
           </div>
         </div>

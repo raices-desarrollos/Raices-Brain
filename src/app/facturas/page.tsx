@@ -168,50 +168,66 @@ export default function FacturasPage() {
           actionHref="/facturas/nueva"
         />
       ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-2xs uppercase tracking-wider text-niebla">
-              {['Fecha', 'Proveedor', 'Proyecto', 'Categoría', 'Total', 'Estado', ''].map((h) => (
-                <th key={h} className="py-2 font-medium">
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((i) => (
-              <tr key={i.id} className="border-t border-suelo">
-                <td className="py-3 text-niebla">{i.issueDate ?? '—'}</td>
-                <td>
-                  {i.supplierName}
-                  {i.number && <span className="text-niebla text-2xs block">{i.number}</span>}
-                </td>
-                <td className="text-niebla">{formatProjectName(i.projectRef)}</td>
-                <td className="text-niebla">{i.category}</td>
-                <td>{formatMoney(i.amount, i.currency)}</td>
-                <td><StatusBadge status={i.status} /></td>
-                <td className="text-right whitespace-nowrap">
-                  {i.status === 'pendiente' && (
-                    <button onClick={() => openPay(i)} className="text-2xs text-musgo mr-3">
-                      Marcar pagada
-                    </button>
-                  )}
-                  {i.driveWebViewLink && (
-                    <a href={i.driveWebViewLink} target="_blank" rel="noreferrer" className="text-2xs text-niebla">
-                      Ver archivo
-                    </a>
-                  )}
-                </td>
+        <div className="-mx-4 sm:mx-0 overflow-x-auto scrollbar-thin">
+          <table className="w-full text-sm min-w-[44rem]">
+            <thead>
+              <tr className="text-left text-2xs uppercase tracking-wider text-niebla">
+                {['Fecha', 'Proveedor', 'Proyecto', 'Categoría', 'Total', 'Estado', ''].map((h) => (
+                  <th key={h} className="py-2 px-4 sm:px-0 sm:pr-4 font-medium">
+                    {h}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {items.map((i) => (
+                <tr key={i.id} className="border-t border-suelo">
+                  <td className="py-3 px-4 sm:px-0 sm:pr-4 text-niebla whitespace-nowrap">
+                    {i.issueDate ?? '—'}
+                  </td>
+                  <td className="py-3 px-4 sm:px-0 sm:pr-4 text-ink">
+                    {i.supplierName}
+                    {i.number && <span className="text-niebla text-xs block">{i.number}</span>}
+                  </td>
+                  <td className="py-3 px-4 sm:px-0 sm:pr-4 text-niebla whitespace-nowrap">
+                    {formatProjectName(i.projectRef)}
+                  </td>
+                  <td className="py-3 px-4 sm:px-0 sm:pr-4 text-niebla capitalize">{i.category}</td>
+                  <td className="py-3 px-4 sm:px-0 sm:pr-4 text-ink tabular-nums whitespace-nowrap">
+                    {formatMoney(i.amount, i.currency)}
+                  </td>
+                  <td className="py-3 px-4 sm:px-0 sm:pr-4">
+                    <StatusBadge status={i.status} />
+                  </td>
+                  <td className="py-3 px-4 sm:px-0 text-right whitespace-nowrap">
+                    {i.status === 'pendiente' && (
+                      <button
+                        onClick={() => openPay(i)}
+                        className="text-xs text-musgo hover:text-ink transition-colors mr-3">
+                        Marcar pagada
+                      </button>
+                    )}
+                    {i.driveWebViewLink && (
+                      <a
+                        href={i.driveWebViewLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-niebla hover:text-ink transition-colors">
+                        Ver archivo
+                      </a>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
       {paying && (
-        <div className="fixed inset-0 bg-ink/40 flex items-center justify-center z-50 px-4">
-          <div className="bg-blanco max-w-md w-full p-6 rounded-2xl">
-            <h2 className="font-serif text-xl font-light text-ink mb-1">Marcar como pagada</h2>
+        <div className="fixed inset-0 bg-ink/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-blanco max-w-md w-full p-6 rounded-2xl max-h-[90vh] overflow-y-auto scrollbar-thin">
+            <h2 className="font-serif text-xl font-normal text-ink mb-1">Marcar como pagada</h2>
             <p className="text-sm text-niebla mb-6">
               {paying.supplierName}
               {paying.number ? ` · ${paying.number}` : ''}
@@ -227,7 +243,7 @@ export default function FacturasPage() {
                 onChange={(e) => setPayDate(e.target.value)}
                 className="w-full border-b border-suelo py-1.5 text-sm outline-none"
               />
-              <span className="text-2xs text-niebla">Día / mes / año</span>
+              <span className="text-xs text-niebla">Día / mes / año</span>
             </label>
             <label className="block mb-4">
               <span className="text-2xs uppercase tracking-wider text-niebla">Monto</span>

@@ -62,7 +62,7 @@ export default function DecisionesPage() {
       {/* Header */}
       <div className="mb-8">
         <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Registro</p>
-        <h1 className="text-2xl font-light text-gray-900">Decisiones</h1>
+        <h1 className="text-2xl font-normal text-gray-900">Decisiones</h1>
         <p className="text-niebla text-sm mt-1">
           {decisions.length} {decisions.length === 1 ? 'decisión registrada' : 'decisiones registradas'}
         </p>
@@ -76,10 +76,10 @@ export default function DecisionesPage() {
       {/* Filter bar (visual only) */}
       <div className="flex items-center gap-2 mb-6">
         <span className="text-2xs text-gray-500 uppercase tracking-wider mr-2">Proyecto</span>
-        <button className="text-2xs px-2.5 py-1 rounded-full bg-gray-900 text-white border border-ink">
+        <button className="text-xs px-2.5 py-1 rounded-full bg-gray-900 text-white border border-ink">
           Ceibo Vidal
         </button>
-        <button className="text-2xs px-2.5 py-1 rounded-full text-gray-500 border border-gray-200 hover:border-ink hover:text-gray-900 transition-colors">
+        <button className="text-xs px-2.5 py-1 rounded-full text-gray-500 border border-gray-200 hover:border-ink hover:text-gray-900 transition-colors">
           Todos
         </button>
       </div>
@@ -99,11 +99,11 @@ export default function DecisionesPage() {
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-gray-900 text-sm leading-snug">{d.title}</p>
                   <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                    <span className="text-2xs text-gray-500">{d.date}</span>
-                    <span className="text-2xs text-gray-500">·</span>
-                    <span className="text-2xs text-gray-500">{d.project}</span>
-                    <span className="text-2xs text-gray-500">·</span>
-                    <span className="text-2xs text-gray-500">{d.area}</span>
+                    <span className="text-xs text-gray-500">{d.date}</span>
+                    <span className="text-xs text-gray-500">·</span>
+                    <span className="text-xs text-gray-500">{d.project}</span>
+                    <span className="text-xs text-gray-500">·</span>
+                    <span className="text-xs text-gray-500">{d.area}</span>
                   </div>
                 </div>
                 <span
@@ -117,7 +117,7 @@ export default function DecisionesPage() {
                 </div>
               )}
               <div className="px-6 py-3 border-t border-gray-200 flex justify-between items-center">
-                <span className="text-2xs text-niebla">{d.date}</span>
+                <span className="text-xs text-niebla">{d.date}</span>
                 <Link
                   href={`/brain?q=${encodeURIComponent(d.title)}`}
                   className="text-xs text-musgo hover:text-ink transition-colors">

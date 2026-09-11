@@ -1,5 +1,6 @@
 'use client';
 
+import { displayName, initialsOf } from '@/lib/domain/people';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -7,9 +8,7 @@ import { useEffect, useState } from 'react';
 
 import type { ReactNode } from 'react';
 
-type NavItem = { href: string; label: string; icon: ReactNode; external?: boolean };
-
-const CLICKUP_BOARD = 'https://app.clickup.com/90132811149/v/b/6-901328323836-2';
+type NavItem = { href: string; label: string; icon: ReactNode };
 
 const primary: NavItem[] = [
   {
@@ -67,74 +66,27 @@ const primary: NavItem[] = [
   },
 ];
 
-const secondary: NavItem[] = [
-  {
-    href: '/factibilidad',
-    label: 'Factibilidad',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4 19V5m4 14V9m4 10V7m4 12V11m4 8V5"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: CLICKUP_BOARD,
-    label: 'Tareas',
-    external: true,
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />
-      </svg>
-    ),
-  },
-];
-
 function NavLink({ item, collapsed, pathname }: { item: NavItem; collapsed: boolean; pathname: string }) {
   const active =
-    !item.external &&
-    (item.href === '/'
+    item.href === '/'
       ? pathname === '/'
-      : pathname === item.href || pathname.startsWith(item.href + '/'));
-
-  const className = `flex items-center rounded-lg transition-colors ${collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2'} ${
-    active ? 'bg-white/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-white/5'
-  }`;
-
-  const inner = (
-    <>
-      {item.icon}
-      {!collapsed && (
-        <span className="text-sm flex-1 flex items-center justify-between gap-2">
-          {item.label}
-          {item.external && (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-3 h-3 opacity-50">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          )}
-        </span>
-      )}
-    </>
-  );
+      : pathname === item.href || pathname.startsWith(item.href + '/');
 
   return (
     <div className="relative group">
-      {item.external ? (
-        <a href={item.href} target="_blank" rel="noreferrer" className={className} title="Abrir ClickUp">
-          {inner}
-        </a>
-      ) : (
-        <Link href={item.href} className={className}>
-          {inner}
-        </Link>
-      )}
+      <Link
+        href={item.href}
+        aria-current={active ? 'page' : undefined}
+        className={`flex items-center rounded-lg transition-colors ${
+          collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2'
+        } ${active ? 'bg-white/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-white/5'}`}>
+        {item.icon}
+        {!collapsed && <span className="text-sm">{item.label}</span>}
+      </Link>
       {collapsed && (
-        <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100">
+        <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="bg-ink text-blanco text-xs px-2.5 py-1.5 rounded-md whitespace-nowrap border border-white/10">
-            {item.external ? `${item.label} · ClickUp` : item.label}
+            {item.label}
           </div>
         </div>
       )}
@@ -165,12 +117,8 @@ export function Sidebar({
     });
   }
 
-  const initials = (session?.user?.name ?? session?.user?.email ?? '?')
-    .split(' ')
-    .map((w: string) => w[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+  const initials = initialsOf(session?.user);
+  const name = displayName(session?.user);
 
   const compact = collapsed && !mobileOpen;
 
@@ -206,15 +154,8 @@ export function Sidebar({
         )}
       </div>
 
-      <nav className={`flex-1 py-3 overflow-y-auto ${compact ? 'px-2' : 'px-2.5'}`}>
+      <nav className={`flex-1 py-3 overflow-y-auto space-y-0.5 ${compact ? 'px-2' : 'px-2.5'}`}>
         {primary.map((item) => (
-          <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
-        ))}
-        {!compact && (
-          <p className="text-2xs tracking-[0.18em] uppercase text-blanco/30 px-3 mt-5 mb-2">Más</p>
-        )}
-        {compact && <div className="my-2 border-t border-white/10" />}
-        {secondary.map((item) => (
           <NavLink key={item.href} item={item} collapsed={compact} pathname={pathname} />
         ))}
       </nav>
@@ -246,10 +187,10 @@ export function Sidebar({
                   <span className="text-blanco text-xs">{initials}</span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-blanco text-xs font-medium truncate">
-                    {session.user.name ?? session.user.email?.split('@')[0]}
+                  <p className="text-blanco text-sm font-medium truncate">
+                    {name ?? session.user.email?.split('@')[0]}
                   </p>
-                  <p className="text-blanco/40 text-2xs truncate">{session.user.email}</p>
+                  <p className="text-blanco/45 text-xs truncate">{session.user.email}</p>
                 </div>
               </div>
             )}
