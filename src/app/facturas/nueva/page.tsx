@@ -114,10 +114,10 @@ export default function NuevaFacturaPage() {
   return (
     <div className="max-w-xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
       <p className="text-2xs tracking-[0.2em] uppercase text-niebla mb-2">Facturas</p>
-      <h1 className="font-serif text-3xl font-light text-ink mb-2">Subir factura</h1>
+      <h1 className="font-serif text-3xl font-normal text-ink mb-2">Subir factura</h1>
       <p className="text-sm text-niebla mb-8">
         PDF, JPG o PNG. Brain propone los datos. Siempre revisás antes de guardar. El archivo queda
-        en Drive, en Ceibo Vidal / Facturas.
+        en Drive, en Finanzas / Facturas.
       </p>
 
       {step === 'upload' && (

@@ -31,10 +31,10 @@ function fmtPct(val: number) {
 }
 
 const DIAGNOSIS_CONFIG: Record<string, { cls: string; dot: string }> = {
-  atractivo: { cls: 'bg-green-50 text-green-700', dot: 'bg-green-500' },
+  atractivo: { cls: 'bg-musgo/5 text-musgo', dot: 'bg-musgo' },
   factible: { cls: 'bg-suelo/60 text-musgo', dot: 'bg-musgo' },
-  riesgoso: { cls: 'bg-amber-50 text-amber-700', dot: 'bg-amber-500' },
-  'no-rentable': { cls: 'bg-red-50 text-red-700', dot: 'bg-red-500' },
+  riesgoso: { cls: 'bg-arena/10 text-tierra', dot: 'bg-arena' },
+  'no-rentable': { cls: 'bg-ceibo/5 text-ceibo', dot: 'bg-ceibo' },
   insuficiente: { cls: 'bg-suelo text-niebla', dot: 'bg-niebla' },
 };
 
@@ -72,7 +72,7 @@ export default function FactibilidadPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <p className="text-niebla text-xs tracking-widest uppercase mb-1">Análisis</p>
-          <h1 className="font-serif text-3xl font-light text-ink">Factibilidad</h1>
+          <h1 className="font-serif text-3xl font-normal text-ink">Factibilidad</h1>
           <p className="text-niebla text-sm mt-0.5">
             {items.length > 0
               ? `${items.length} análisis guardado${items.length !== 1 ? 's' : ''}`
@@ -133,24 +133,24 @@ export default function FactibilidadPage() {
                 const diagnosis = diagnose(results);
                 const dcfg = DIAGNOSIS_CONFIG[diagnosis.level] ?? DIAGNOSIS_CONFIG.insuficiente;
                 return (
-                  <tr key={item.id} className="hover:bg-suelo/40/60 transition-colors">
+                  <tr key={item.id} className="hover:bg-lino/60 transition-colors">
                     <td className="px-5 py-4">
                       <Link
                         href={`/factibilidad/${item.id}`}
                         className="font-semibold text-ink hover:text-musgo transition">
                         {item.name}
                       </Link>
-                      <p className="text-2xs text-niebla mt-0.5">
+                      <p className="text-xs text-niebla mt-0.5">
                         {item.address}
                         {item.neighborhood ? ` · ${item.neighborhood}` : ''}
                       </p>
-                      <p className="text-2xs text-niebla/60 mt-0.5">
+                      <p className="text-xs text-niebla/60 mt-0.5">
                         {new Date(item.updatedAt).toLocaleDateString('es-AR')}
                       </p>
                     </td>
                     <td className="px-5 py-4">
                       <span
-                        className={`inline-flex items-center gap-1.5 text-2xs font-medium px-2.5 py-1 rounded-full ${dcfg.cls}`}>
+                        className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${dcfg.cls}`}>
                         <span className={`w-1.5 h-1.5 rounded-full ${dcfg.dot}`} />
                         {diagnosis.label}
                       </span>
@@ -178,7 +178,7 @@ export default function FactibilidadPage() {
                         </Link>
                         <button
                           onClick={() => handleDuplicate(item.id)}
-                          className="p-1.5 rounded-lg text-niebla hover:bg-suelo hover:text-amber-700 transition">
+                          className="p-1.5 rounded-lg text-niebla hover:bg-suelo hover:text-tierra transition">
                           <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                             <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
                             <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
@@ -187,7 +187,7 @@ export default function FactibilidadPage() {
                         <button
                           onClick={() => handleDelete(item.id, item.name)}
                           disabled={deleting === item.id}
-                          className="p-1.5 rounded-lg text-niebla hover:bg-red-50 hover:text-red-600 transition disabled:opacity-50">
+                          className="p-1.5 rounded-lg text-niebla hover:bg-ceibo/5 hover:text-ceibo transition disabled:opacity-50">
                           <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
                             <path
                               fillRule="evenodd"
@@ -203,7 +203,7 @@ export default function FactibilidadPage() {
               })}
             </tbody>
           </table>
-          <div className="px-5 py-3 border-t border-suelo bg-suelo/40/60 text-2xs text-niebla">
+          <div className="px-5 py-3 border-t border-suelo bg-lino/60 text-xs text-niebla">
             {items.length} análisis
           </div>
         </div>

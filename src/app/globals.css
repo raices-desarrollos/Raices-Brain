@@ -1,38 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@200;300;400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --ink:    #1A1A18;
+    --ink:    #21201E;
     --lino:   #F0EDE6;
     --blanco: #F8F7F4;
-    --suelo:  #E8E3DA;
-    --tierra: #856040;
-    --arena:  #C4A97D;
-    --liquen: #7E8E5F;
-    --musgo:  #536245;
-    --ceibo:  #B85C42;
-    --niebla: #8F9089;
+    --suelo:  #E2DCD1;
+    --tierra: #5F4632;
+    --arena:  #B3945F;
+    --liquen: #6F7F4F;
+    --musgo:  #4A5A3C;
+    --ceibo:  #A84C33;
+    --niebla: #6E6F68;
   }
 
   html {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    background-color: #F8F7F4;
-    color: #1A1A18;
-  }
-
-  /* Override browser default green selection */
-  ::selection {
-    background-color: #DBEAFE;
-    color: #1E40AF;
+    background-color: var(--lino);
+    color: var(--ink);
   }
 
   * {
@@ -40,8 +33,8 @@
   }
 
   ::selection {
-    background-color: #7E8E5F;
-    color: #F8F7F4;
+    background-color: var(--liquen);
+    color: var(--blanco);
   }
 }
 

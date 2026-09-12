@@ -2,7 +2,7 @@ import { audit } from '@/lib/audit';
 import { getUserId, requireAuth } from '@/lib/auth/server';
 import { db } from '@/lib/db';
 import { documents } from '@/lib/db/schema';
-import { getDriveFileMeta } from '@/lib/google/drive';
+import { getDriveFileMeta, isInsideProjectFolder } from '@/lib/google/drive';
 import { eq } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 import { randomUUID } from 'crypto';
@@ -33,6 +33,15 @@ export async function POST(req: NextRequest) {
   const meta = await getDriveFileMeta(driveFileId);
   if (!meta) {
     return NextResponse.json({ error: 'No se encontró el archivo en Drive.' }, { status: 404 });
+  }
+
+  // El id llega del cliente y el token de Drive ve toda la cuenta: solo
+  // vinculamos archivos que cuelguen de la carpeta del proyecto.
+  if (!(await isInsideProjectFolder(meta))) {
+    return NextResponse.json(
+      { error: 'Ese archivo está fuera de la carpeta del proyecto.' },
+      { status: 403 },
+    );
   }
 
   const userId = getUserId(session);

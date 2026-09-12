@@ -48,6 +48,66 @@ function mapFile(f: drive_v3.Schema$File): DriveFile | null {
   };
 }
 
+/**
+ * Todas las carpetas que cuelgan de la carpeta raíz del proyecto.
+ *
+ * El token de OAuth ve todo el Drive de la cuenta, así que sin esto alcanza con
+ * pasar el id de cualquier carpeta (o buscar por nombre) para leer archivos que
+ * no son del proyecto. Cacheado porque el árbol cambia poco.
+ */
+const FOLDER_TREE_TTL_MS = 10 * 60 * 1000;
+let folderTreeCache: { ids: Set<string>; at: number } | null = null;
+
+async function projectFolderIds(): Promise<Set<string>> {
+  const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  const drive = getDriveClient();
+  if (!rootId || !drive) return new Set();
+
+  if (folderTreeCache && Date.now() - folderTreeCache.at < FOLDER_TREE_TTL_MS) {
+    return folderTreeCache.ids;
+  }
+
+  const ids = new Set<string>([rootId]);
+  let frontier = [rootId];
+
+  for (let depth = 0; depth < 8 && frontier.length; depth++) {
+    const next: string[] = [];
+    for (const batch of chunk(frontier, 20)) {
+      const q =
+        batch.map((id) => `'${id}' in parents`).join(' or ') +
+        ` and mimeType = '${FOLDER_MIME}' and trashed = false`;
+      const res = await drive.files.list({ q, fields: 'files(id)', pageSize: 200 });
+      for (const folder of res.data.files ?? []) {
+        if (folder.id && !ids.has(folder.id)) {
+          ids.add(folder.id);
+          next.push(folder.id);
+        }
+      }
+    }
+    frontier = next;
+  }
+
+  folderTreeCache = { ids, at: Date.now() };
+  return ids;
+}
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < items.length; i += size) out.push(items.slice(i, i + size));
+  return out;
+}
+
+/** Si el archivo cuelga de la carpeta del proyecto. */
+export async function isInsideProjectFolder(file: {
+  id: string;
+  parents: string[];
+}): Promise<boolean> {
+  const allowed = await projectFolderIds();
+  if (!allowed.size) return false;
+  if (allowed.has(file.id)) return true;
+  return file.parents.some((parent) => allowed.has(parent));
+}
+
 export async function listDriveFiles(options: {
   folderId?: string;
   query?: string;
@@ -64,7 +124,13 @@ export async function listDriveFiles(options: {
     return { configured: false, folderId: rootId, files: [], searched: false };
   }
 
-  const folderId = options.folderId || rootId;
+  const allowed = await projectFolderIds();
+
+  // El folderId llega desde la URL: si no es una carpeta del proyecto, volvemos
+  // a la raíz en vez de listar algo ajeno.
+  const requested = options.folderId || rootId;
+  const folderId = allowed.has(requested) ? requested : rootId;
+
   const query = options.query?.trim();
   const escaped = query ? query.replace(/'/g, "\\'") : '';
 
@@ -74,12 +140,23 @@ export async function listDriveFiles(options: {
 
   const res = await drive.files.list({
     q,
+    // Pedimos más de lo necesario porque después descartamos lo que no cuelga
+    // del proyecto.
     fields: 'files(id, name, mimeType, modifiedTime, webViewLink, size, parents)',
-    pageSize: options.pageSize ?? 100,
+    pageSize: query ? 300 : (options.pageSize ?? 100),
     orderBy: query ? 'modifiedTime desc' : 'folder,name',
   });
 
-  const files = (res.data.files ?? []).map(mapFile).filter((f): f is DriveFile => f !== null);
+  let files = (res.data.files ?? []).map(mapFile).filter((f): f is DriveFile => f !== null);
+
+  // La búsqueda de Drive es global: no acepta restringir por subárbol, así que
+  // filtramos acá para no mostrar archivos de fuera del proyecto.
+  if (query) {
+    files = files
+      .filter((f) => allowed.has(f.id) || f.parents.some((p) => allowed.has(p)))
+      .slice(0, options.pageSize ?? 100);
+  }
+
   if (!query) {
     files.sort((a, b) => Number(b.isFolder) - Number(a.isFolder) || a.name.localeCompare(b.name, 'es'));
   }
@@ -169,6 +246,33 @@ export async function findOrCreateFolder(parentId: string, name: string): Promis
   return created.data.id ?? null;
 }
 
+/** Carpeta "Finanzas" del proyecto. Es donde viven las planillas y las facturas. */
+export async function resolveFinanzasFolder(): Promise<string | null> {
+  const override = process.env.GOOGLE_DRIVE_FINANZAS_FOLDER_ID;
+  if (override) return override;
+
+  const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  if (!rootId || !getDriveClient()) return null;
+
+  const { files } = await listDriveFiles({ folderId: rootId, pageSize: 200 });
+  const match = files.find((f) => f.isFolder && /finanz/i.test(f.name));
+  if (match) return match.id;
+
+  return findOrCreateFolder(rootId, 'Finanzas');
+}
+
+/** Las facturas se guardan en Finanzas / Facturas. */
+export async function resolveInvoicesFolder(): Promise<{ id: string; path: string } | null> {
+  const override = process.env.GOOGLE_DRIVE_INVOICES_FOLDER_ID;
+  if (override) return { id: override, path: 'Finanzas / Facturas' };
+
+  const finanzas = await resolveFinanzasFolder();
+  if (!finanzas) return null;
+
+  const facturas = await findOrCreateFolder(finanzas, 'Facturas');
+  return facturas ? { id: facturas, path: 'Finanzas / Facturas' } : null;
+}
+
 export async function resolveProjectFolder(projectSlug: string): Promise<string | null> {
   const rootId = process.env.GOOGLE_DRIVE_FOLDER_ID;
   const drive = getDriveClient();
@@ -194,18 +298,15 @@ export async function uploadInvoiceToDrive(options: {
   body: Buffer;
   projectSlug: string;
 }): Promise<{ id: string; webViewLink: string | null; folderPath: string } | null> {
-  const projectFolder = await resolveProjectFolder(options.projectSlug);
-  const invoicesFolder =
-    process.env.GOOGLE_DRIVE_INVOICES_FOLDER_ID ||
-    (projectFolder ? await findOrCreateFolder(projectFolder, 'Facturas') : null);
+  const invoicesFolder = await resolveInvoicesFolder();
   const uploaded = await uploadToDrive({
     name: options.name,
     mimeType: options.mimeType,
     body: options.body,
-    parentId: invoicesFolder ?? undefined,
+    parentId: invoicesFolder?.id,
   });
   if (!uploaded) return null;
-  return { ...uploaded, folderPath: 'Ceibo Vidal / Facturas' };
+  return { ...uploaded, folderPath: invoicesFolder?.path ?? 'Finanzas / Facturas' };
 }
 
 export async function getDriveFileText(fileId: string): Promise<{

@@ -124,31 +124,31 @@ export default function DocumentosPage() {
   return (
     <div className="max-w-4xl mx-auto px-8 py-10">
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-gray-900">Documentos</h1>
-        <p className="text-gray-400 text-sm mt-1">
+        <h1 className="text-2xl font-semibold text-ink">Documentos</h1>
+        <p className="text-niebla text-sm mt-1">
           {items.length} documento{items.length !== 1 ? 's' : ''} almacenado
           {items.length !== 1 ? 's' : ''}
         </p>
       </div>
 
       {/* Upload form */}
-      <div className="bg-white border border-gray-200 rounded-xl p-5 mb-6">
-        <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
+      <div className="bg-blanco border border-suelo rounded-xl p-5 mb-6">
+        <h2 className="text-xs font-semibold text-niebla uppercase tracking-widest mb-4">
           Subir documento
         </h2>
         <form onSubmit={handleUpload} className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1.5">Archivo *</label>
+              <label className="block text-sm font-medium text-niebla mb-1.5">Archivo *</label>
               <input
                 ref={fileRef}
                 type="file"
                 required
-                className="w-full text-sm text-gray-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-gray-100 file:text-gray-900 hover:file:bg-gray-100 transition"
+                className="w-full text-sm text-niebla file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-suelo file:text-ink hover:file:bg-suelo transition"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1.5">Categoría *</label>
+              <label className="block text-sm font-medium text-niebla mb-1.5">Categoría *</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -161,7 +161,7 @@ export default function DocumentosPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1.5">Descripción</label>
+              <label className="block text-sm font-medium text-niebla mb-1.5">Descripción</label>
               <input
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -170,7 +170,7 @@ export default function DocumentosPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600 mb-1.5">Proyecto / Referencia</label>
+              <label className="block text-sm font-medium text-niebla mb-1.5">Proyecto / Referencia</label>
               <input
                 value={projectRef}
                 onChange={(e) => setProjectRef(e.target.value)}
@@ -179,11 +179,11 @@ export default function DocumentosPage() {
               />
             </div>
           </div>
-          {uploadError && <p className="text-red-600 text-xs">{uploadError}</p>}
+          {uploadError && <p className="text-ceibo text-xs">{uploadError}</p>}
           <button
             type="submit"
             disabled={uploading}
-            className="bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 transition disabled:opacity-50">
+            className="bg-ink text-blanco px-4 py-2 rounded-lg text-sm font-medium hover:bg-ink transition disabled:opacity-50">
             {uploading ? 'Subiendo…' : 'Subir documento'}
           </button>
         </form>
@@ -205,40 +205,40 @@ export default function DocumentosPage() {
           <LoadingLine label="Abriendo documentos…" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="text-center py-16 border border-dashed border-gray-200 rounded-xl text-gray-400 text-sm">
+        <div className="text-center py-16 border border-dashed border-suelo rounded-xl text-niebla text-sm">
           {search ? 'Sin resultados para esa búsqueda.' : 'No hay documentos todavía.'}
         </div>
       ) : (
-        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <div className="bg-blanco border border-suelo rounded-xl overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-lino border-b border-suelo">
               <tr>
                 {['Nombre', 'Categoría', 'Tamaño', 'Fecha', 'Referencia', ''].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-xs text-gray-400 font-medium">
+                  <th key={h} className="text-left px-4 py-3 text-xs text-niebla font-medium">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-suelo">
               {filtered.map((d) => (
-                <tr key={d.id} className="hover:bg-gray-50 transition">
+                <tr key={d.id} className="hover:bg-lino transition">
                   <td className="px-4 py-3">
-                    <div className="font-medium text-gray-900 truncate max-w-48">{d.name}</div>
+                    <div className="font-medium text-ink truncate max-w-48">{d.name}</div>
                     {d.description && (
-                      <div className="text-2xs text-gray-400 mt-0.5 truncate">{d.description}</div>
+                      <div className="text-xs text-niebla mt-0.5 truncate">{d.description}</div>
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-2xs bg-gray-100 text-gray-900 px-2 py-0.5 rounded-full capitalize">
+                    <span className="text-xs bg-suelo text-ink px-2 py-0.5 rounded-full capitalize">
                       {d.category.replace('-', ' ')}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">{fmtSize(d.size)}</td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
+                  <td className="px-4 py-3 text-niebla text-xs">{fmtSize(d.size)}</td>
+                  <td className="px-4 py-3 text-niebla text-xs">
                     {new Date(d.createdAt).toLocaleDateString('es-AR')}
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs truncate max-w-32">
+                  <td className="px-4 py-3 text-niebla text-xs truncate max-w-32">
                     {d.projectRef ?? '—'}
                   </td>
                   <td className="px-4 py-3 text-right space-x-3">
@@ -247,24 +247,24 @@ export default function DocumentosPage() {
                         <button
                           onClick={() => handleIngest(d.id, d.name)}
                           disabled={ingesting === d.id}
-                          className="text-xs text-blue-600 hover:underline disabled:opacity-50">
+                          className="text-xs text-musgo hover:underline disabled:opacity-50">
                           {ingesting === d.id ? 'Ingeniando…' : 'Ingestar Brain'}
                         </button>
                         {ingestResult?.id === d.id && (
-                          <span className="text-2xs text-blue-600">{ingestResult.msg}</span>
+                          <span className="text-xs text-musgo">{ingestResult.msg}</span>
                         )}
                       </>
                     )}
                     <a
                       href={`/api/documents/${d.id}/download`}
                       target="_blank"
-                      className="text-xs text-blue-600 hover:underline">
+                      className="text-xs text-musgo hover:underline">
                       Descargar
                     </a>
                     <button
                       onClick={() => handleDelete(d.id, d.name)}
                       disabled={deleting === d.id}
-                      className="text-xs text-gray-400 hover:text-red-600 transition">
+                      className="text-xs text-niebla hover:text-ceibo transition">
                       {deleting === d.id ? '…' : 'Eliminar'}
                     </button>
                   </td>
@@ -279,4 +279,4 @@ export default function DocumentosPage() {
 }
 
 const inputCls =
-  'w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 transition';
+  'w-full px-3 py-2 border border-suelo rounded-lg text-sm text-ink bg-blanco focus:outline-none focus:ring-2 focus:ring-arena/30 focus:border-musgo transition';

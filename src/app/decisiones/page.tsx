@@ -49,9 +49,9 @@ function getDecisions(): Decision[] {
 }
 
 const statusColors: Record<string, string> = {
-  'Aprobada y vigente': 'bg-blue-50 text-blue-600 border-blue-200',
-  'En revisión': 'bg-gray-100 text-amber-700 border-amber-200',
-  Pendiente: 'bg-niebla/10 text-gray-500 border-niebla/20',
+  'Aprobada y vigente': 'bg-suelo/50 text-musgo border-arena/30',
+  'En revisión': 'bg-suelo text-tierra border-arena/30',
+  Pendiente: 'bg-niebla/10 text-niebla border-niebla/20',
 };
 
 export default function DecisionesPage() {
@@ -61,8 +61,8 @@ export default function DecisionesPage() {
     <div className="max-w-4xl mx-auto px-8 py-10">
       {/* Header */}
       <div className="mb-8">
-        <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Registro</p>
-        <h1 className="text-2xl font-light text-gray-900">Decisiones</h1>
+        <p className="text-niebla text-xs tracking-widest uppercase mb-1">Registro</p>
+        <h1 className="text-2xl font-normal text-ink">Decisiones</h1>
         <p className="text-niebla text-sm mt-1">
           {decisions.length} {decisions.length === 1 ? 'decisión registrada' : 'decisiones registradas'}
         </p>
@@ -75,11 +75,11 @@ export default function DecisionesPage() {
 
       {/* Filter bar (visual only) */}
       <div className="flex items-center gap-2 mb-6">
-        <span className="text-2xs text-gray-500 uppercase tracking-wider mr-2">Proyecto</span>
-        <button className="text-2xs px-2.5 py-1 rounded-full bg-gray-900 text-white border border-ink">
+        <span className="text-2xs text-niebla uppercase tracking-wider mr-2">Proyecto</span>
+        <button className="text-xs px-2.5 py-1 rounded-full bg-ink text-blanco border border-ink">
           Ceibo Vidal
         </button>
-        <button className="text-2xs px-2.5 py-1 rounded-full text-gray-500 border border-gray-200 hover:border-ink hover:text-gray-900 transition-colors">
+        <button className="text-xs px-2.5 py-1 rounded-full text-niebla border border-suelo hover:border-ink hover:text-ink transition-colors">
           Todos
         </button>
       </div>
@@ -94,30 +94,30 @@ export default function DecisionesPage() {
           {decisions.map((d) => (
             <div
               key={d.slug}
-              className="border border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 transition-colors">
-              <div className="px-6 py-4 bg-gray-50 flex items-start justify-between gap-4">
+              className="border border-suelo rounded-xl overflow-hidden hover:border-suelo transition-colors">
+              <div className="px-6 py-4 bg-lino flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900 text-sm leading-snug">{d.title}</p>
+                  <p className="font-medium text-ink text-sm leading-snug">{d.title}</p>
                   <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                    <span className="text-2xs text-gray-500">{d.date}</span>
-                    <span className="text-2xs text-gray-500">·</span>
-                    <span className="text-2xs text-gray-500">{d.project}</span>
-                    <span className="text-2xs text-gray-500">·</span>
-                    <span className="text-2xs text-gray-500">{d.area}</span>
+                    <span className="text-xs text-niebla">{d.date}</span>
+                    <span className="text-xs text-niebla">·</span>
+                    <span className="text-xs text-niebla">{d.project}</span>
+                    <span className="text-xs text-niebla">·</span>
+                    <span className="text-xs text-niebla">{d.area}</span>
                   </div>
                 </div>
                 <span
-                  className={`flex-shrink-0 text-2xs font-medium tracking-wider px-2.5 py-1 rounded-full border ${statusColors[d.status] ?? 'bg-gray-100 text-gray-500 border-gray-200'}`}>
+                  className={`flex-shrink-0 text-2xs font-medium tracking-wider px-2.5 py-1 rounded-full border ${statusColors[d.status] ?? 'bg-suelo text-niebla border-suelo'}`}>
                   {d.status}
                 </span>
               </div>
               {d.content && (
-                <div className="px-6 py-4 border-t border-gray-200">
-                  <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{d.content}</p>
+                <div className="px-6 py-4 border-t border-suelo">
+                  <p className="text-sm text-niebla leading-relaxed line-clamp-2">{d.content}</p>
                 </div>
               )}
-              <div className="px-6 py-3 border-t border-gray-200 flex justify-between items-center">
-                <span className="text-2xs text-niebla">{d.date}</span>
+              <div className="px-6 py-3 border-t border-suelo flex justify-between items-center">
+                <span className="text-xs text-niebla">{d.date}</span>
                 <Link
                   href={`/brain?q=${encodeURIComponent(d.title)}`}
                   className="text-xs text-musgo hover:text-ink transition-colors">

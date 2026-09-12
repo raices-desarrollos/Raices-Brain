@@ -1,8 +1,10 @@
 'use client';
 
-import DriveFinancial from '@/components/DriveFinancial';
+import { FinanceSummary } from '@/components/ProjectFinance';
 import { EmptyState, GhostButton, MetricCard, PageHeader, PageShell, PrimaryButton, Skeleton } from '@/components/ui';
+import { firstName, greetingFor } from '@/lib/domain/people';
 import { formatCount, formatMoney } from '@/lib/format';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -13,6 +15,7 @@ type Dashboard = {
     slug: string;
     statusLabel: string;
     floorsDescription: string;
+    stage?: { current: { label: string }; phase: { label: string } };
   } | null;
   invoiced: { count: number; amount: number; currency: string };
   invoicesPending: { count: number; amount: number; currency: string };
@@ -29,6 +32,14 @@ type Dashboard = {
 export default function DashboardPage() {
   const [data, setData] = useState<Dashboard | null>(null);
   const [error, setError] = useState('');
+  const { data: session } = useSession();
+  // La hora se resuelve en el cliente para que el saludo no se desincronice
+  // con lo que renderiza el servidor.
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setNow(new Date());
+  }, []);
 
   useEffect(() => {
     fetch('/api/dashboard')
@@ -41,18 +52,27 @@ export default function DashboardPage() {
   }, []);
 
   const p = data?.project;
+  const name = firstName(session?.user);
+  const greeting = name
+    ? `${now ? greetingFor(now) : 'Hola'}, ${name}`
+    : 'Bienvenido de nuevo';
+  const today = now
+    ? now.toLocaleDateString('es-AR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : undefined;
 
   return (
     <PageShell wide>
       <PageHeader
         kicker="Raíces Desarrollos"
-        title="Inicio"
-        description={new Date().toLocaleDateString('es-AR', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}
+        title={greeting}
+        description={
+          today ? `Qué bueno verte de nuevo. Hoy es ${today}.` : 'Qué bueno verte de nuevo.'
+        }
         action={
           <>
             <GhostButton href="/facturas/nueva">Subir factura</GhostButton>
@@ -80,13 +100,15 @@ export default function DashboardPage() {
           <p className="text-2xs tracking-[0.2em] uppercase text-niebla mb-1">Proyecto activo</p>
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
             <div>
-              <h2 className="font-serif text-2xl font-light text-ink">{p.name}</h2>
+              <h2 className="font-serif text-2xl font-normal text-ink">{p.name}</h2>
               <p className="text-sm text-niebla mt-1">
                 {p.address} · {p.floorsDescription}
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-2xs uppercase tracking-wider text-tierra">{p.statusLabel}</span>
+              <span className="text-2xs uppercase tracking-wider text-tierra">
+                {p.stage?.current.label ?? p.statusLabel}
+              </span>
               <Link href={`/projects/${p.slug}`} className="text-sm text-musgo hover:underline">
                 Ver {p.name}
               </Link>
@@ -144,7 +166,11 @@ export default function DashboardPage() {
         </div>
       )}
 
-      <DriveFinancial />
+      {p && (
+        <div className="mb-12">
+          <FinanceSummary slug={p.slug} />
+        </div>
+      )}
 
       <section>
         <h2 className="text-xs tracking-[0.18em] uppercase text-niebla mb-4">Documentos recientes</h2>

@@ -1,10 +1,13 @@
-import { requireAuth } from '@/lib/auth/server';
+import { requireAdmin } from '@/lib/auth/server';
 import { db } from '@/lib/db';
 import { documentSyncs, importCandidates, meetings } from '@/lib/db/schema';
 import { createHash, randomUUID } from 'crypto';
 import { eq } from 'drizzle-orm';
 import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
+
+// Lee de Drive, parsea y genera embeddings: excede el timeout por defecto.
+export const maxDuration = 60;
 
 // ─── Google auth ──────────────────────────────────────────────────────────────
 
@@ -216,7 +219,7 @@ function extractAssignee(text: string): string | null {
 // ─── Route ────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
-  const { response } = await requireAuth();
+  const { response } = await requireAdmin();
   if (response) return response;
 
   const { docId } = await req.json();
@@ -352,7 +355,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(_req: NextRequest) {
-  const { response } = await requireAuth();
+  const { response } = await requireAdmin();
   if (response) return response;
 
   const syncs = await db.select().from(documentSyncs).orderBy(documentSyncs.createdAt);

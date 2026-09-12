@@ -28,7 +28,7 @@ export default function AdministracionPage() {
     <div className="max-w-3xl mx-auto px-8 py-10">
       <div className="mb-8">
         <p className="text-niebla text-xs tracking-[0.2em] uppercase mb-2">Operación</p>
-        <h1 className="font-serif text-3xl font-light text-ink">Administración</h1>
+        <h1 className="font-serif text-3xl font-normal text-ink">Administración</h1>
         <p className="text-niebla text-sm mt-1.5">Pagos y contactos. Facturas y documentos tienen su propia sección.</p>
       </div>
 

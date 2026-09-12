@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
         projectRef,
         driveFileId,
         driveWebViewLink,
-        folderPath: folderPath ?? (driveFileId ? 'Ceibo Vidal / Facturas' : null),
+        folderPath: folderPath ?? (driveFileId ? 'Finanzas / Facturas' : null),
         createdBy: userId,
       })
       .returning();

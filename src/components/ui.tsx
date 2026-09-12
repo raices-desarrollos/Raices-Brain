@@ -26,7 +26,7 @@ export function PageHeader({
         {kicker && (
           <p className="text-niebla text-xs tracking-[0.2em] uppercase mb-2">{kicker}</p>
         )}
-        <h1 className="font-serif text-3xl font-light text-ink tracking-tight">{title}</h1>
+        <h1 className="font-serif text-3xl font-normal text-ink tracking-tight">{title}</h1>
         {description && <p className="text-niebla text-sm mt-1.5">{description}</p>}
       </div>
       {action ? <div className="flex flex-wrap gap-2 shrink-0">{action}</div> : null}
@@ -51,7 +51,7 @@ export function EmptyState({
 }) {
   return (
     <div
-      className={`border border-dashed border-arena/60 rounded-xl text-center ${
+      className={`border border-dashed border-arena/60 bg-blanco/60 rounded-xl text-center ${
         compact ? 'px-4 py-5' : 'px-6 py-10'
       }`}>
       <p className="text-sm font-medium text-ink">{title}</p>
@@ -83,11 +83,11 @@ export function MetricCard({
 }) {
   const inner = (
     <div className="py-4 pr-4">
-      <p className={`text-2xl font-light tracking-tight ${empty ? 'text-niebla' : 'text-ink'}`}>
+      <p className={`text-2xl font-normal tracking-tight ${empty ? 'text-niebla' : 'text-ink'}`}>
         {value}
       </p>
       <p className="text-xs font-medium text-ink mt-2">{label}</p>
-      {sub && <p className="text-2xs text-niebla mt-0.5">{sub}</p>}
+      {sub && <p className="text-xs text-niebla mt-0.5">{sub}</p>}
     </div>
   );
   if (href) {
@@ -157,7 +157,7 @@ export function PageLoader({
       aria-live="polite">
       <BrandMark />
       <p className="text-2xs tracking-[0.22em] uppercase text-niebla mt-8">{kicker}</p>
-      <p className="font-serif text-2xl sm:text-3xl font-light text-ink mt-2">{title}</p>
+      <p className="font-serif text-2xl sm:text-3xl font-normal text-ink mt-2">{title}</p>
       <p className="text-sm text-niebla mt-2 max-w-xs">{hint}</p>
     </div>
   );
@@ -191,7 +191,7 @@ export function ProjectPageSkeleton({ name }: { name?: string }) {
       <div className="mb-10" role="status" aria-live="polite">
         <BrandMark />
         <p className="text-2xs tracking-[0.2em] uppercase text-niebla mt-8">Proyecto</p>
-        <h1 className="font-serif text-3xl font-light text-ink mt-1">{name ?? 'Abriendo…'}</h1>
+        <h1 className="font-serif text-3xl font-normal text-ink mt-1">{name ?? 'Abriendo…'}</h1>
         <p className="text-sm text-niebla mt-2">Preparando facturas, documentos y estado.</p>
       </div>
       <div className="flex gap-3 border-b border-suelo mb-10 pb-3 overflow-hidden">
@@ -217,7 +217,7 @@ export function Overlay({
 }) {
   return (
     <div
-      className="absolute inset-0 bg-blanco/80 flex flex-col items-center justify-center z-10 px-6"
+      className="absolute inset-0 bg-lino/85 flex flex-col items-center justify-center z-10 px-6"
       role="status"
       aria-live="polite">
       <Spinner className="w-6 h-6 mb-3" />

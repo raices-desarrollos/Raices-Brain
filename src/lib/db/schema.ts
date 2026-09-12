@@ -97,7 +97,8 @@ export const projects = pgTable('projects', {
   address: text('address'),
   neighborhood: text('neighborhood'),
   city: text('city'),
-  status: text('status').notNull().default('design'), // design | permits | construction | sales | delivered
+  // Id de etapa (planos-municipalidad, estructura, …) o, en filas viejas, de fase.
+  status: text('status').notNull().default('planos-municipalidad'),
   floorsDescription: text('floors_description'),
   notes: text('notes'),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),

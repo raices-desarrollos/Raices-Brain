@@ -12,7 +12,7 @@ function inline(text: string, keyPrefix: string) {
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
-        <code key={`${keyPrefix}-${i}`} className="text-2xs bg-suelo px-1 py-0.5 rounded-sm">
+        <code key={`${keyPrefix}-${i}`} className="text-xs bg-suelo px-1 py-0.5 rounded-sm">
           {part.slice(1, -1)}
         </code>
       );

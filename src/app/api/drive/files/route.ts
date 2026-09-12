@@ -2,6 +2,9 @@ import { requireAuth } from '@/lib/auth/server';
 import { isDriveConfigured, listDriveFiles } from '@/lib/google/drive';
 import { NextRequest, NextResponse } from 'next/server';
 
+// Recorre el arbol de carpetas de Drive.
+export const maxDuration = 60;
+
 export async function GET(req: NextRequest) {
   const { response } = await requireAuth();
   if (response) return response;
