@@ -1,6 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ['pg', 'pdf-parse', 'pdfjs-dist'],
+
+  // No anunciar qué framework corre atrás.
+  poweredByHeader: false,
+
+  // Los source maps de producción exponen el código del servidor a cualquiera
+  // que abra las devtools.
+  productionBrowserSourceMaps: false,
+
+  eslint: {
+    dirs: ['src'],
+  },
+
   async headers() {
     return [
       {
@@ -13,6 +25,12 @@ const nextConfig = {
           { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          // Obliga a HTTPS por dos años, incluidos los subdominios.
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
         ],
       },
     ];

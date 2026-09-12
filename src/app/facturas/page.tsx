@@ -1,6 +1,16 @@
 'use client';
 
-import { EmptyState, ListSkeleton, PageHeader, PageShell, PrimaryButton, StatusBadge } from '@/components/ui';
+import { Modal } from '@/components/Modal';
+import {
+  Alert,
+  EmptyState,
+  GhostButton,
+  ListSkeleton,
+  PageHeader,
+  PageShell,
+  PrimaryButton,
+  StatusBadge,
+} from '@/components/ui';
 import { formatMoney, formatProjectName } from '@/lib/format';
 import { useEffect, useState } from 'react';
 
@@ -225,15 +235,22 @@ export default function FacturasPage() {
       )}
 
       {paying && (
-        <div className="fixed inset-0 bg-ink/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-blanco max-w-md w-full p-6 rounded-2xl max-h-[90vh] overflow-y-auto scrollbar-thin">
-            <h2 className="font-serif text-xl font-normal text-ink mb-1">Marcar como pagada</h2>
-            <p className="text-sm text-niebla mb-6">
-              {paying.supplierName}
-              {paying.number ? ` · ${paying.number}` : ''}
-              {' · '}
-              {formatMoney(paying.amount, paying.currency)}
-            </p>
+        <Modal
+          title="Marcar como pagada"
+          subtitle={`${paying.supplierName}${paying.number ? ` · ${paying.number}` : ''} · ${formatMoney(
+            paying.amount,
+            paying.currency,
+          )}`}
+          onClose={() => setPaying(null)}
+          footer={
+            <>
+              <GhostButton onClick={() => setPaying(null)}>Cancelar</GhostButton>
+              <PrimaryButton onClick={confirmPay} disabled={payBusy}>
+                {payBusy ? 'Guardando…' : 'Confirmar pago'}
+              </PrimaryButton>
+            </>
+          }>
+          <div>
             <label className="block mb-4">
               <span className="text-2xs uppercase tracking-wider text-niebla">Fecha de pago</span>
               <input
@@ -285,21 +302,9 @@ export default function FacturasPage() {
                 rows={2}
               />
             </label>
-            {payError && <p className="text-sm text-ceibo mb-3">{payError}</p>}
-            <div className="flex gap-3 justify-end">
-              <button type="button" onClick={() => setPaying(null)} className="text-sm text-niebla">
-                Cancelar
-              </button>
-              <button
-                type="button"
-                onClick={confirmPay}
-                disabled={payBusy}
-                className="text-sm bg-ink text-blanco px-4 py-2 rounded-lg disabled:opacity-50">
-                {payBusy ? 'Guardando…' : 'Confirmar pago'}
-              </button>
-            </div>
+            {payError && <Alert>{payError}</Alert>}
           </div>
-        </div>
+        </Modal>
       )}
     </PageShell>
   );

@@ -1,5 +1,5 @@
 import { generateEmbedding } from '@/lib/ai/embeddings';
-import { getUserId, requireAuth } from '@/lib/auth/server';
+import { getUserId, requireAdmin } from '@/lib/auth/server';
 import { db } from '@/lib/db';
 import { financialSnapshots } from '@/lib/db/schema';
 import { getDriveClient } from '@/lib/google/drive';
@@ -133,7 +133,7 @@ ${tableText.slice(0, 8000)}`;
 }
 
 export async function POST(_req: NextRequest) {
-  const { session, response } = await requireAuth();
+  const { session, response } = await requireAdmin();
   if (response) return response;
 
   const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;

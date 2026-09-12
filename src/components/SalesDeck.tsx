@@ -72,20 +72,6 @@ export function SalesDeck({ slug }: { slug: string }) {
             Ver carpeta de venta
           </button>
         )}
-        {deck.pdfName && (
-          <a
-            href={pdfUrl}
-            className="inline-flex items-center gap-2 text-sm text-ink border border-suelo px-4 py-2 rounded-lg hover:border-ink hover:bg-lino transition-colors">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"
-              />
-            </svg>
-            Descargar PDF
-          </a>
-        )}
       </div>
 
       {open && (

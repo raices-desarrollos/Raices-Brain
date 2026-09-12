@@ -9,6 +9,9 @@ import { eq, sql } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 import * as XLSX from 'xlsx';
 
+// Parsea el documento y pide embeddings a OpenAI por cada fragmento.
+export const maxDuration = 60;
+
 type Params = { params: Promise<{ id: string }> };
 
 const EXCEL_MIME_TYPES = new Set([

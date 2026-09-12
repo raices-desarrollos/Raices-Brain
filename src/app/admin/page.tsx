@@ -48,9 +48,9 @@ export default function AdminPage() {
     <div className="max-w-3xl mx-auto px-8 py-10">
       {/* Header */}
       <div className="mb-8">
-        <p className="text-gray-500 text-xs tracking-widest uppercase mb-1">Configuración</p>
-        <h1 className="text-2xl font-normal text-gray-900">Admin</h1>
-        <p className="text-xs text-gray-500 mt-3 max-w-lg border-l-2 border-gray-200 pl-3">
+        <p className="text-niebla text-xs tracking-widest uppercase mb-1">Configuración</p>
+        <h1 className="text-2xl font-normal text-ink">Admin</h1>
+        <p className="text-xs text-niebla mt-3 max-w-lg border-l-2 border-suelo pl-3">
           Estado de la configuración del sistema. Muestra qué variables de entorno están activas,
           qué servicios externos están conectados y qué scripts están disponibles para correr
           manualmente.
@@ -59,23 +59,23 @@ export default function AdminPage() {
 
       {/* Environment status */}
       <div className="mb-8">
-        <h2 className="text-xs font-medium text-gray-500 tracking-widest uppercase mb-3">
+        <h2 className="text-xs font-medium text-niebla tracking-widest uppercase mb-3">
           Variables de entorno
         </h2>
-        <div className="border border-gray-200 rounded-xl overflow-hidden divide-y divide-gray-100">
+        <div className="border border-suelo rounded-xl overflow-hidden divide-y divide-suelo">
           {envVars.map((v) => {
             const ok = configured[v.key as keyof typeof configured];
             return (
-              <div key={v.key} className="flex items-center gap-4 px-5 py-3 bg-gray-50">
+              <div key={v.key} className="flex items-center gap-4 px-5 py-3 bg-lino">
                 <div
-                  className={`w-2 h-2 rounded-full flex-shrink-0 ${ok ? 'bg-blue-600' : v.required ? 'bg-ceibo' : 'bg-niebla'}`}
+                  className={`w-2 h-2 rounded-full flex-shrink-0 ${ok ? 'bg-musgo' : v.required ? 'bg-ceibo' : 'bg-niebla'}`}
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-mono text-gray-900">{v.key}</p>
-                  <p className="text-xs text-gray-500">{v.description}</p>
+                  <p className="text-sm font-mono text-ink">{v.key}</p>
+                  <p className="text-xs text-niebla">{v.description}</p>
                 </div>
                 <span
-                  className={`text-xs ${ok ? 'text-blue-600' : v.required ? 'text-red-600' : 'text-gray-500'}`}>
+                  className={`text-xs ${ok ? 'text-musgo' : v.required ? 'text-ceibo' : 'text-niebla'}`}>
                   {ok ? 'Configurada' : v.required ? 'Faltante' : 'Opcional'}
                 </span>
               </div>
@@ -89,19 +89,19 @@ export default function AdminPage() {
 
       {/* Admin sections */}
       <div className="mb-8">
-        <h2 className="text-xs font-medium text-gray-500 tracking-widest uppercase mb-3">
+        <h2 className="text-xs font-medium text-niebla tracking-widest uppercase mb-3">
           Secciones
         </h2>
         <div className="space-y-3">
           {sections.map((s) => (
             <div
               key={s.href}
-              className="border border-gray-200 rounded-xl p-5 bg-gray-50 flex items-center justify-between gap-4">
+              className="border border-suelo rounded-xl p-5 bg-lino flex items-center justify-between gap-4">
               <div>
-                <p className="font-medium text-sm text-gray-900">{s.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5">{s.description}</p>
+                <p className="font-medium text-sm text-ink">{s.title}</p>
+                <p className="text-xs text-niebla mt-0.5">{s.description}</p>
               </div>
-              <span className="flex-shrink-0 text-xs text-gray-500 border border-gray-200 rounded-full px-2.5 py-1">
+              <span className="flex-shrink-0 text-xs text-niebla border border-suelo rounded-full px-2.5 py-1">
                 {s.status}
               </span>
             </div>

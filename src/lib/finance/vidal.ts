@@ -290,7 +290,11 @@ function titleCase(value: string): string {
     .join(' ');
 }
 
-function buildFinance(
+/**
+ * Toda la aritmética del tablero, separada de la descarga de Drive para poder
+ * verificarla con planillas armadas a mano.
+ */
+export function buildVidalFinance(
   fondos: XLSX.WorkBook,
   socios: XLSX.WorkBook | null,
   sources: VidalFinance['sources'],
@@ -513,7 +517,7 @@ export async function getVidalFinance(options?: { force?: boolean }): Promise<Vi
         modifiedTime: f.modifiedTime,
       }));
 
-    const data = buildFinance(fondos, socios, sources);
+    const data = buildVidalFinance(fondos, socios, sources);
     if (!sociosFile) {
       data.warnings.push('No se encontró "CUENTA SOCIOS": faltan los saldos por socio.');
     }

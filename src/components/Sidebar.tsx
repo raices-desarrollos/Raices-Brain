@@ -21,8 +21,8 @@ const primary: NavItem[] = [
     ),
   },
   {
-    href: '/projects',
-    label: 'Proyectos',
+    href: '/projects/ceibo-vidal',
+    label: 'Ceibo Vidal',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-5 h-5">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 21V8l9-5 9 5v13M9 21v-8h6v8" />
@@ -79,13 +79,13 @@ function NavLink({ item, collapsed, pathname }: { item: NavItem; collapsed: bool
         aria-current={active ? 'page' : undefined}
         className={`flex items-center rounded-lg transition-colors ${
           collapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2'
-        } ${active ? 'bg-white/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-white/5'}`}>
+        } ${active ? 'bg-blanco/10 text-blanco' : 'text-blanco/55 hover:text-blanco hover:bg-blanco/5'}`}>
         {item.icon}
         {!collapsed && <span className="text-sm">{item.label}</span>}
       </Link>
       {collapsed && (
         <div className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2 z-50 opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="bg-ink text-blanco text-xs px-2.5 py-1.5 rounded-md whitespace-nowrap border border-white/10">
+          <div className="bg-ink text-blanco text-xs px-2.5 py-1.5 rounded-md whitespace-nowrap border border-blanco/10">
             {item.label}
           </div>
         </div>
@@ -128,7 +128,7 @@ export function Sidebar({
         ${mobileOpen ? 'fixed inset-y-0 left-0 w-56 flex' : 'hidden md:flex flex-shrink-0'}
         ${!mobileOpen && (collapsed ? 'md:w-16' : 'md:w-56')}`}>
       <div
-        className={`flex items-center h-16 border-b border-white/10 ${compact ? 'justify-center' : 'px-4 justify-between'}`}>
+        className={`flex items-center h-16 border-b border-blanco/10 ${compact ? 'justify-center' : 'px-4 justify-between'}`}>
         {compact ? (
           <button
             onClick={toggle}
@@ -145,7 +145,7 @@ export function Sidebar({
             <button
               onClick={mobileOpen ? onClose : toggle}
               title={mobileOpen ? 'Cerrar menú' : 'Colapsar menú'}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-blanco/45 hover:text-blanco hover:bg-white/10">
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-blanco/45 hover:text-blanco hover:bg-blanco/10">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
@@ -160,16 +160,16 @@ export function Sidebar({
         ))}
       </nav>
 
-      <div className={`border-t border-white/10 py-3 ${compact ? 'px-2' : 'px-3'}`}>
+      <div className={`border-t border-blanco/10 py-3 ${compact ? 'px-2' : 'px-3'}`}>
         {compact ? (
           <div className="flex flex-col items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-blanco/10 flex items-center justify-center">
               <span className="text-blanco text-xs">{initials}</span>
             </div>
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
               title="Cerrar sesión"
-              className="flex justify-center p-2 w-full rounded-lg text-blanco/45 hover:text-ceibo hover:bg-white/10">
+              className="flex justify-center p-2 w-full rounded-lg text-blanco/45 hover:text-ceibo hover:bg-blanco/10">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
                 <path
                   strokeLinecap="round"
@@ -183,7 +183,7 @@ export function Sidebar({
           <>
             {session?.user && (
               <div className="flex items-center gap-3 mb-3 px-1">
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-blanco/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-blanco text-xs">{initials}</span>
                 </div>
                 <div className="min-w-0">
@@ -196,7 +196,7 @@ export function Sidebar({
             )}
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
-              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-blanco/45 hover:text-ceibo hover:bg-white/5 text-sm">
+              className="flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-blanco/45 hover:text-ceibo hover:bg-blanco/5 text-sm">
               Cerrar sesión
             </button>
           </>

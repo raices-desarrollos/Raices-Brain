@@ -1,7 +1,7 @@
 // Catálogo canónico de proyectos. Fuente de verdad de producto cuando la DB
 // todavía no tiene filas (o la migración no se aplicó). No inventa métricas.
 
-export type ProjectStatus = 'design' | 'permits' | 'construction' | 'sales' | 'delivered';
+export type ProjectStatus = 'design' | 'permits' | 'construction' | 'delivery';
 
 export interface ProjectCatalogEntry {
   slug: string;
@@ -19,8 +19,7 @@ export const PROJECT_STATUS_LABEL: Record<ProjectStatus, string> = {
   design: 'En diseño',
   permits: 'Permisos',
   construction: 'En obra',
-  sales: 'En venta',
-  delivered: 'Entregado',
+  delivery: 'Entrega',
 };
 
 export const PROJECT_CATALOG: ProjectCatalogEntry[] = [
@@ -30,8 +29,8 @@ export const PROJECT_CATALOG: ProjectCatalogEntry[] = [
     address: 'Vidal 3849',
     neighborhood: null,
     city: 'CABA',
-    status: 'design',
-    statusLabel: 'En diseño',
+    status: 'permits',
+    statusLabel: 'Permisos',
     floorsDescription: 'PB + 4 pisos + terraza',
     notes: null,
   },

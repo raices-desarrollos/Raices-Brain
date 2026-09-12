@@ -1,6 +1,7 @@
 'use client';
 
 import { ProjectFinance } from '@/components/ProjectFinance';
+import { ProjectStages, type StageSnapshot } from '@/components/ProjectStages';
 import { SalesDeck } from '@/components/SalesDeck';
 import { EmptyState, ProjectPageSkeleton } from '@/components/ui';
 import { formatCount, formatMoney, formatProjectName } from '@/lib/format';
@@ -21,6 +22,7 @@ type Project = {
   city: string;
   statusLabel: string;
   floorsDescription: string;
+  stage: StageSnapshot;
 };
 
 type Invoice = {
@@ -74,8 +76,8 @@ function ProjectView() {
     return (
       <div className="max-w-4xl mx-auto px-8 py-16">
         <p className="text-sm text-niebla">Proyecto no encontrado.</p>
-        <Link href="/projects" className="text-sm text-musgo mt-2 inline-block">
-          Volver a proyectos
+        <Link href="/" className="text-sm text-musgo mt-2 inline-block">
+          Volver al inicio
         </Link>
       </div>
     );
@@ -96,13 +98,12 @@ function ProjectView() {
             {project.city ? ` · ${project.city}` : ''}
           </p>
         </div>
-        {project.statusLabel && (
-          <span className="inline-flex self-start items-center gap-2 rounded-full border border-suelo px-3 py-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-tierra" aria-hidden />
-            <span className="text-2xs uppercase tracking-[0.14em] text-tierra">
-              {project.statusLabel}
-            </span>
-          </span>
+        {project.stage && (
+          <ProjectStages
+            slug={project.slug}
+            initial={project.stage}
+            onChange={(stage) => setProject({ ...project, stage, statusLabel: stage.current.label })}
+          />
         )}
       </div>
 
@@ -125,6 +126,18 @@ function ProjectView() {
         <div className="space-y-12">
           <div className="flex flex-wrap items-center gap-2">
             <SalesDeck slug={project.slug} />
+            <Link
+              href={`/projects/${project.slug}/precios`}
+              className="inline-flex items-center gap-2 text-sm text-ink border border-suelo px-4 py-2 rounded-lg hover:border-ink hover:bg-lino transition-colors">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+                />
+              </svg>
+              Lista de precios
+            </Link>
             <Link
               href={`/brain?q=${encodeURIComponent(`Resumime el estado actual de ${project.name}`)}`}
               className="text-sm bg-ink text-blanco rounded-lg px-4 py-2 hover:bg-musgo transition-colors">

@@ -1,9 +1,22 @@
+import { isLockedOut, recordFailure, recordSuccess } from '@/lib/auth/throttle';
 import { db } from '@/lib/db';
 import { users } from '@/lib/db/schema';
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+if (!process.env.NEXTAUTH_SECRET) {
+  // Sin secret, NextAuth firma los JWT con una clave derivada que cambia entre
+  // deploys: las sesiones se caen sin explicación. Mejor fallar de entrada.
+  throw new Error('NEXTAUTH_SECRET env var is required');
+}
+
+/**
+ * Hash de una contraseña que nadie usa. Sirve para que el login tarde lo mismo
+ * cuando el email no existe que cuando existe.
+ */
+const DUMMY_HASH = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy';
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -22,17 +35,23 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const [user] = await db
-          .select()
-          .from(users)
-          .where(eq(users.email, credentials.email.toLowerCase().trim()))
-          .limit(1);
+        const email = credentials.email.toLowerCase().trim();
+        if (isLockedOut(email)) return null;
 
-        if (!user || !user.active) return null;
+        const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
-        const valid = await bcrypt.compare(credentials.password, user.passwordHash);
-        if (!valid) return null;
+        // Siempre comparamos contra un hash, exista el usuario o no: si
+        // cortáramos antes, el tiempo de respuesta delataría qué emails están
+        // registrados.
+        const hash = user?.active ? user.passwordHash : DUMMY_HASH;
+        const valid = await bcrypt.compare(credentials.password, hash);
 
+        if (!user || !user.active || !valid) {
+          recordFailure(email);
+          return null;
+        }
+
+        recordSuccess(email);
         return { id: user.id, name: user.name, email: user.email, role: user.role };
       },
     }),

@@ -1,7 +1,7 @@
 import { requireAuth } from '@/lib/auth/server';
 import { db } from '@/lib/db';
 import { invoices, payments } from '@/lib/db/schema';
-import { getCatalogProject } from '@/lib/domain/catalog';
+import { getProjectBySlug } from '@/lib/domain/projects';
 import { listRecentDriveFiles } from '@/lib/google/drive';
 import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
@@ -10,8 +10,8 @@ export async function GET() {
   const { response } = await requireAuth();
   if (response) return response;
 
-  const project = getCatalogProject('ceibo-vidal');
   const slug = 'ceibo-vidal';
+  const project = await getProjectBySlug(slug);
 
   let invoiceRows: typeof invoices.$inferSelect[] = [];
   let paymentRows: typeof payments.$inferSelect[] = [];

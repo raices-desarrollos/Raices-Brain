@@ -176,13 +176,13 @@ export default function FeasibilityDetailPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-ink text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-musgo transition disabled:opacity-50">
+          className="bg-ink text-blanco px-5 py-2 rounded-lg text-sm font-medium hover:bg-musgo transition disabled:opacity-50">
           {saving ? 'Guardando…' : saved ? '✓ Guardado' : 'Guardar'}
         </button>
       </div>
 
       {saved && !isNew && (
-        <div className="mb-4 flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-4 py-3">
+        <div className="mb-4 flex items-center gap-2 text-sm text-musgo bg-musgo/5 border border-musgo/20 rounded-lg px-4 py-3">
           <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 flex-shrink-0">
             <path
               fillRule="evenodd"
@@ -195,7 +195,7 @@ export default function FeasibilityDetailPage() {
       )}
 
       {errors.length > 0 && (
-        <div className="mb-4 flex items-start gap-2 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+        <div className="mb-4 flex items-start gap-2 text-sm text-ceibo bg-ceibo/5 border border-ceibo/20 rounded-lg px-4 py-3">
           <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 flex-shrink-0 mt-0.5">
             <path
               fillRule="evenodd"
@@ -599,7 +599,7 @@ function ResultRow({
           accent === 'positive'
             ? 'text-musgo'
             : accent === 'negative'
-              ? 'text-red-600'
+              ? 'text-ceibo'
               : highlight
                 ? 'text-ink'
                 : 'text-ink'

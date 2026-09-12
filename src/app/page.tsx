@@ -15,6 +15,7 @@ type Dashboard = {
     slug: string;
     statusLabel: string;
     floorsDescription: string;
+    stage?: { current: { label: string }; phase: { label: string } };
   } | null;
   invoiced: { count: number; amount: number; currency: string };
   invoicesPending: { count: number; amount: number; currency: string };
@@ -105,7 +106,9 @@ export default function DashboardPage() {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-2xs uppercase tracking-wider text-tierra">{p.statusLabel}</span>
+              <span className="text-2xs uppercase tracking-wider text-tierra">
+                {p.stage?.current.label ?? p.statusLabel}
+              </span>
               <Link href={`/projects/${p.slug}`} className="text-sm text-musgo hover:underline">
                 Ver {p.name}
               </Link>
