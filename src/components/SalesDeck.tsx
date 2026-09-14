@@ -4,18 +4,24 @@ import { Spinner } from '@/components/ui';
 import { formatBytes, formatDate } from '@/lib/format';
 import { useEffect, useState } from 'react';
 
+type Edition = 'comercial' | 'completa';
+
 type Deck = {
   slug: string;
+  htmlName: string | null;
   pdfName: string | null;
   pdfSize: number | null;
+  pdfCompleteName: string | null;
+  pdfCompleteSize: number | null;
   hasHtml: boolean;
   modifiedTime: string | null;
 };
 
 export function SalesDeck({ slug }: { slug: string }) {
-  const [deck, setDeck] = useState<Deck | null>(null);
+  const [deck, setDeck] = useState<Deck | null | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const [rendered, setRendered] = useState(false);
+  const [edition, setEdition] = useState<Edition>('comercial');
 
   useEffect(() => {
     let active = true;
@@ -24,13 +30,14 @@ export function SalesDeck({ slug }: { slug: string }) {
       .then((d) => {
         if (active) setDeck(d);
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (active) setDeck(null);
+      });
     return () => {
       active = false;
     };
   }, [slug]);
 
-  // Cerrar con Escape y frenar el scroll del fondo mientras el visor está abierto.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -45,33 +52,35 @@ export function SalesDeck({ slug }: { slug: string }) {
     };
   }, [open]);
 
-  if (!deck) return null;
+  const known = deck === undefined || Boolean(deck?.hasHtml);
+  if (!known) return null;
 
-  const webUrl = `/api/projects/${slug}/carpeta/file/index`;
-  const pdfUrl = `/api/projects/${slug}/carpeta/file/pdf`;
+  const query = edition === 'completa' ? '?edicion=completa' : '';
+  const webUrl = `/api/projects/${slug}/carpeta/file/index${query}`;
+  const pdfUrl = `/api/projects/${slug}/carpeta/file/pdf${query}`;
+  const pdfName = edition === 'completa' ? deck?.pdfCompleteName : deck?.pdfName;
+  const pdfSize = edition === 'completa' ? deck?.pdfCompleteSize : deck?.pdfSize;
 
   return (
     <>
       <div className="flex flex-wrap gap-2">
-        {deck.hasHtml && (
-          <button
-            type="button"
-            onClick={() => {
-              setRendered(false);
-              setOpen(true);
-            }}
-            className="inline-flex items-center gap-2 text-sm border border-ink text-ink px-4 py-2 rounded-lg hover:bg-ink hover:text-blanco transition-colors">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.036 12.322a1 1 0 010-.644C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178a1 1 0 010 .644C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z"
-              />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            Ver carpeta de venta
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => {
+            setRendered(false);
+            setOpen(true);
+          }}
+          className="inline-flex items-center gap-2 text-sm border border-ink text-ink px-4 py-2 rounded-lg hover:bg-ink hover:text-blanco transition-colors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} className="w-4 h-4">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.036 12.322a1 1 0 010-.644C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178a1 1 0 010 .644C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z"
+            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Ver carpeta de venta
+        </button>
       </div>
 
       {open && (
@@ -92,8 +101,32 @@ export function SalesDeck({ slug }: { slug: string }) {
                 <p className="text-2xs tracking-[0.18em] uppercase text-niebla">Carpeta de venta</p>
                 <p className="text-sm text-ink truncate mt-0.5">Ceibo Vidal · Vidal 3849</p>
               </div>
-              <p className="hidden lg:block text-xs text-niebla shrink-0">
-                {deck.modifiedTime ? formatDate(deck.modifiedTime) : ''}
+              <div className="flex shrink-0 rounded-full border border-suelo p-0.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEdition('comercial');
+                    setRendered(false);
+                  }}
+                  className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                    edition === 'comercial' ? 'bg-ink text-blanco' : 'text-niebla hover:text-ink'
+                  }`}>
+                  Clientes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEdition('completa');
+                    setRendered(false);
+                  }}
+                  className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                    edition === 'completa' ? 'bg-ink text-blanco' : 'text-niebla hover:text-ink'
+                  }`}>
+                  Completa
+                </button>
+              </div>
+              <p className="hidden xl:block text-xs text-niebla shrink-0">
+                {deck?.modifiedTime ? formatDate(deck.modifiedTime) : ''}
               </p>
               <a
                 href={webUrl}
@@ -102,11 +135,11 @@ export function SalesDeck({ slug }: { slug: string }) {
                 className="hidden sm:block text-xs text-niebla hover:text-ink transition-colors shrink-0">
                 Pestaña nueva
               </a>
-              {deck.pdfName && (
+              {pdfName ? (
                 <a href={pdfUrl} className="text-xs text-musgo hover:text-ink transition-colors shrink-0">
-                  Descargar{deck.pdfSize ? ` (${formatBytes(deck.pdfSize)})` : ''}
+                  Descargar{pdfSize ? ` (${formatBytes(pdfSize)})` : ''}
                 </a>
-              )}
+              ) : null}
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -125,8 +158,13 @@ export function SalesDeck({ slug }: { slug: string }) {
                 </div>
               )}
               <iframe
+                key={edition}
                 src={webUrl}
-                title="Carpeta de venta de Ceibo Vidal"
+                title={
+                  edition === 'completa'
+                    ? 'Carpeta de venta completa de Ceibo Vidal'
+                    : 'Carpeta de venta de Ceibo Vidal'
+                }
                 onLoad={() => setRendered(true)}
                 className="absolute inset-0 w-full h-full border-0"
               />

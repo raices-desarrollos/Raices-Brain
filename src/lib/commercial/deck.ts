@@ -1,44 +1,66 @@
-import { stat } from 'fs/promises';
+import { readdir, stat } from 'fs/promises';
 import path from 'path';
 
 /**
  * La carpeta de venta de cada proyecto vive en el repo, en
  * knowledge/projects/<slug>/commercial: un HTML autocontenido para ver en
  * pantalla, el PDF para mandar, y la carpeta assets con imágenes y planos.
+ *
+ * Hay dos ediciones del mismo HTML: comercial (clientes) y completa
+ * (?edicion=completa). Los PDF se eligen por nombre, sin mezclar la versión
+ * completa con la que se manda afuera.
  */
-
-const HTML_CANDIDATES = ['carpeta-de-venta.html'];
 
 export type DeckInfo = {
   slug: string;
-  /** Nombre del PDF descargable. */
+  htmlName: string | null;
+  /** PDF para clientes (sin precios ni mercado). */
   pdfName: string | null;
   pdfSize: number | null;
+  /** PDF interno, con lista de precios. */
+  pdfCompleteName: string | null;
+  pdfCompleteSize: number | null;
   hasHtml: boolean;
   modifiedTime: string | null;
 };
 
 export function commercialDir(slug: string): string | null {
-  // El slug viene de la URL: nos aseguramos de que no escape del directorio.
   if (!/^[a-z0-9-]+$/i.test(slug)) return null;
   return path.join(process.cwd(), 'knowledge', 'projects', slug, 'commercial');
 }
 
-async function firstExisting(dir: string, names: string[]): Promise<string | null> {
-  for (const name of names) {
-    try {
-      const info = await stat(path.join(dir, name));
-      if (info.isFile()) return name;
-    } catch {
-      // seguimos probando
-    }
-  }
-  return null;
+/** HTML de la carpeta de venta. No usa la de inversores. */
+export function pickCarpetaHtml(files: string[]): string | null {
+  const htmls = files.filter((f) => f.toLowerCase().endsWith('.html') && !/inversor/i.test(f));
+  const exact = htmls.find((f) => /^carpeta-de-venta\.html$/i.test(f));
+  if (exact) return exact;
+  return htmls.find((f) => /carpeta[-_ ]?de[-_ ]?venta/i.test(f)) ?? null;
 }
 
-/** El PDF de la carpeta de venta, prefiriendo el que lleva el nombre del proyecto. */
-async function findPdf(dir: string, slug: string): Promise<string | null> {
-  const { readdir } = await import('fs/promises');
+/** Separa el PDF de clientes del PDF completo. */
+export function pickCarpetaPdfs(files: string[]): { commercial: string | null; complete: string | null } {
+  const carpeta = files.filter(
+    (f) => f.toLowerCase().endsWith('.pdf') && /carpeta[-_ ]?de[-_ ]?venta/i.test(f),
+  );
+  return {
+    complete: carpeta.find((f) => /completa/i.test(f)) ?? null,
+    commercial: carpeta.find((f) => !/completa/i.test(f)) ?? null,
+  };
+}
+
+async function fileSize(dir: string, name: string | null): Promise<number | null> {
+  if (!name) return null;
+  try {
+    return (await stat(path.join(dir, name))).size;
+  } catch {
+    return null;
+  }
+}
+
+export async function getDeckInfo(slug: string): Promise<DeckInfo | null> {
+  const dir = commercialDir(slug);
+  if (!dir) return null;
+
   let entries: string[];
   try {
     entries = await readdir(dir);
@@ -46,49 +68,35 @@ async function findPdf(dir: string, slug: string): Promise<string | null> {
     return null;
   }
 
-  const pdfs = entries.filter((f) => f.toLowerCase().endsWith('.pdf'));
-  if (!pdfs.length) return null;
+  const htmlName = pickCarpetaHtml(entries);
+  const pdfs = pickCarpetaPdfs(entries);
+  if (!htmlName && !pdfs.commercial && !pdfs.complete) return null;
 
-  const preferred = pdfs.find((f) => /carpeta[-_ ]?de[-_ ]?venta/i.test(f));
-  if (preferred) return preferred;
-
-  const bySlug = pdfs.find((f) => f.toLowerCase().includes(slug.toLowerCase()));
-  return bySlug ?? pdfs[0];
-}
-
-export async function getDeckInfo(slug: string): Promise<DeckInfo | null> {
-  const dir = commercialDir(slug);
-  if (!dir) return null;
-
-  const html = await firstExisting(dir, HTML_CANDIDATES);
-  const pdfName = await findPdf(dir, slug);
-  if (!html && !pdfName) return null;
-
-  let pdfSize: number | null = null;
   let modifiedTime: string | null = null;
-
-  const reference = html ?? pdfName;
+  const reference = htmlName ?? pdfs.commercial ?? pdfs.complete;
   if (reference) {
     try {
-      const info = await stat(path.join(dir, reference));
-      modifiedTime = info.mtime.toISOString();
+      modifiedTime = (await stat(path.join(dir, reference))).mtime.toISOString();
     } catch {
       // sin fecha
     }
   }
-  if (pdfName) {
-    try {
-      pdfSize = (await stat(path.join(dir, pdfName))).size;
-    } catch {
-      // sin tamaño
-    }
-  }
 
-  return { slug, pdfName, pdfSize, hasHtml: !!html, modifiedTime };
-}
+  const [pdfSize, pdfCompleteSize] = await Promise.all([
+    fileSize(dir, pdfs.commercial),
+    fileSize(dir, pdfs.complete),
+  ]);
 
-export function htmlFileName(): string {
-  return HTML_CANDIDATES[0];
+  return {
+    slug,
+    htmlName,
+    pdfName: pdfs.commercial,
+    pdfSize,
+    pdfCompleteName: pdfs.complete,
+    pdfCompleteSize,
+    hasHtml: !!htmlName,
+    modifiedTime,
+  };
 }
 
 const CONTENT_TYPES: Record<string, string> = {

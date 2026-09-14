@@ -13,6 +13,13 @@ const nextConfig = {
     dirs: ['src'],
   },
 
+  // La carpeta de venta se lee del disco en las API routes. Sin esto, el
+  // deploy de Vercel no incluye knowledge/ y el botón desaparece.
+  outputFileTracingIncludes: {
+    '/api/projects/*/carpeta': ['./knowledge/projects/**/commercial/**'],
+    '/api/projects/*/carpeta/**': ['./knowledge/projects/**/commercial/**'],
+  },
+
   async headers() {
     return [
       {
