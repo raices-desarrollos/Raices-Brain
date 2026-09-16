@@ -411,14 +411,20 @@
     .tipo-lower {
       display: flex;
       flex-direction: column;
-      gap: 22px;
+      gap: 16px;
       margin-top: 4px;
+      flex: 1;
+      min-height: 0;
     }
+    .tipo-page .mkt-pago {
+      padding: 16px 20px 18px;
+    }
+    .tipo-page .mkt-pago-cols .n { font-size: 26px; }
     .tipo-grid {
       flex: 0 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto auto auto auto auto;
+      grid-template-rows: auto auto auto auto auto;
       border-top: 0.75px solid var(--line);
       border-bottom: 0.75px solid var(--line);
     }
@@ -426,8 +432,8 @@
       position: relative;
       display: grid;
       grid-template-rows: subgrid;
-      grid-row: span 6;
-      padding: 18px 18px 18px 0;
+      grid-row: span 5;
+      padding: 22px 18px 22px 0;
       border-right: 0.75px solid var(--line);
       overflow: hidden;
       min-height: 0;
@@ -478,17 +484,6 @@
       line-height: 1.45;
       color: var(--tierra);
     }
-    .tipo-from {
-      margin: 0;
-      padding-top: 16px;
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: 14px;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      color: var(--ink);
-    }
-
     .amen-block {
       background: var(--blanco);
       padding: 16px 20px 18px;
@@ -645,7 +640,7 @@
     .unit-head .accent { margin-top: 10px; }
     .price-metrics {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1.15fr;
+      grid-template-columns: 1fr 1fr 1fr;
       border: 0.75px solid var(--line);
       background: var(--blanco);
       border-radius: var(--radius);
@@ -667,13 +662,9 @@
       text-transform: uppercase; color: var(--niebla);
     }
     .pm .l .sq { text-transform: none; letter-spacing: 0.04em; }
-    .pm--price { background: #21201E; }
-    .pm--price .n { color: var(--blanco); font-size: 22px; letter-spacing: -0.02em; }
-    .pm--price .l { color: rgba(248,247,244,0.72); }
-
     .unit-info {
       display: grid;
-      grid-template-columns: 2fr 1fr 1.15fr;
+      grid-template-columns: 2.4fr 1fr;
       border: 0.75px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
@@ -1228,7 +1219,6 @@
         <div class="tipo-hero"><span class="n">82</span><span class="u">m2</span></div>
         <div class="tipo-split">71 m2 cubiertos · 11 m2 balcón</div>
         <p class="tipo-prog">Suite, segundo dormitorio, baño completo y balcón corrido</p>
-        <div class="tipo-from">Desde USD 218.000</div>
       </article>
       <article class="tipo">
         <div class="tipo-letter">B</div>
@@ -1237,7 +1227,6 @@
         <div class="tipo-hero"><span class="n">37</span><span class="u">m2</span></div>
         <div class="tipo-split">34 m2 cubiertos · 3 m2 balcón</div>
         <p class="tipo-prog">Amplio estudio, espacio de guardado y balcón propio.</p>
-        <div class="tipo-from">Desde USD 94.000</div>
       </article>
       <article class="tipo">
         <div class="tipo-letter">C</div>
@@ -1246,7 +1235,6 @@
         <div class="tipo-hero"><span class="n">54</span><span class="u">m2</span></div>
         <div class="tipo-split">48 m2 cubiertos · 6 m2 balcón</div>
         <p class="tipo-prog">Suite, toilette y balcón corrido.</p>
-        <div class="tipo-from">Desde USD 139.000</div>
       </article>
     </div>
     <div class="tipo-lower">
@@ -1283,6 +1271,20 @@
         <div class="l">Terrazas privadas</div>
       </div>
     </div>
+    </div>
+    <div class="mkt-pago">
+      <div class="kicker">Forma de pago</div>
+      <div class="mkt-pago-cols">
+        <div>
+          <div class="n">30% al firmar</div>
+          <p>Anticipo al boleto.</p>
+        </div>
+        <div>
+          <div class="n">70% en cuotas</div>
+          <p>En pesos ajustados por CAC (Cámara Argentina de la Construcción).</p>
+        </div>
+      </div>
+      <div class="pago-bar pago-bar--light"><div class="pago-30">30% anticipo</div><div class="pago-70">70% saldo en obra</div></div>
     </div>
     </div>
   </div>
@@ -1379,7 +1381,6 @@
       <div class="pm"><div class="n">71</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
       <div class="pm"><div class="n">11</div><div class="l"><span class="sq">m2</span> balcón</div></div>
       <div class="pm"><div class="n">82</div><div class="l"><span class="sq">m2</span> total</div></div>
-      <div class="pm pm--price"><div class="n">USD 218.000</div><div class="l">Desde piso 1</div></div>
     </div>
     <div class="unit-info">
       <div>
@@ -1389,10 +1390,6 @@
       <div>
         <div class="ub-l">Unidades</div>
         <div class="ub-t">4 · 1A a 4A</div>
-      </div>
-      <div>
-        <div class="ub-l">Anticipo 30%</div>
-        <div class="ub-n">USD 65.400</div>
       </div>
     </div>
     <div class="unit-plan">
@@ -1418,7 +1415,6 @@
       <div class="pm"><div class="n">34</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
       <div class="pm"><div class="n">3</div><div class="l"><span class="sq">m2</span> balcón</div></div>
       <div class="pm"><div class="n">37</div><div class="l"><span class="sq">m2</span> total</div></div>
-      <div class="pm pm--price"><div class="n">USD 94.000</div><div class="l">Desde piso 1</div></div>
     </div>
     <div class="unit-info">
       <div>
@@ -1428,10 +1424,6 @@
       <div>
         <div class="ub-l">Unidades</div>
         <div class="ub-t">4 · 1B a 4B</div>
-      </div>
-      <div>
-        <div class="ub-l">Anticipo 30%</div>
-        <div class="ub-n">USD 28.200</div>
       </div>
     </div>
     <div class="unit-plan">
@@ -1457,7 +1449,6 @@
       <div class="pm"><div class="n">48</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
       <div class="pm"><div class="n">6</div><div class="l"><span class="sq">m2</span> balcón</div></div>
       <div class="pm"><div class="n">54</div><div class="l"><span class="sq">m2</span> total</div></div>
-      <div class="pm pm--price"><div class="n">USD 139.000</div><div class="l">Desde piso 1</div></div>
     </div>
     <div class="unit-info">
       <div>
@@ -1467,10 +1458,6 @@
       <div>
         <div class="ub-l">Unidades</div>
         <div class="ub-t">4 · 1C a 4C</div>
-      </div>
-      <div>
-        <div class="ub-l">Anticipo 30%</div>
-        <div class="ub-n">USD 41.700</div>
       </div>
     </div>
     <div class="unit-plan">
@@ -1488,13 +1475,13 @@
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
-      <div class="kicker" style="margin-bottom:8px;">Preventa 1</div>
+      <div class="kicker" style="margin-bottom:8px;">Preventa 1 · Septiembre 2026</div>
       <div class="serif-title" style="font-size:34px;">Lista de precios</div>
       <div class="accent"></div>
     </div>
     <div class="facts">
       <div class="fact"><div class="l">Unidades</div><div class="n">12</div></div>
-      <div class="fact"><div class="l">Precio base</div><div class="n">USD 2.600/m2</div></div>
+      <div class="fact"><div class="l">Precio al costo</div><div class="n">USD 2.623/m2</div></div>
       <div class="fact"><div class="l">Anticipo</div><div class="n">30%</div></div>
       <div class="fact"><div class="l">Cuotas</div><div class="n">18</div></div>
     </div>
@@ -1612,7 +1599,7 @@
         </tr>
       </tbody>
     </table>
-    <p class="plist-note">Valores en USD. Superficies de planta tipo (pisos 1 a 3). El 4° varía levemente. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    <p class="plist-note">Valores en USD, vigentes durante septiembre 2026. Superficies de planta tipo (pisos 1 a 3). El 4° varía levemente. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
   </div>
   <div class="pf"><span>Lista de precios</span><span>10 / 12</span></div>
 </div>
@@ -1622,8 +1609,8 @@
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="mkt-page">
     <div class="mkt-hero">
-      <div class="kicker" style="margin-bottom:8px;">Saavedra · Market Analytics · 14 abril 2026</div>
-      <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.600.</div>
+      <div class="kicker" style="margin-bottom:8px;">Saavedra · Septiembre 2026 · Market Analytics · 14 abril 2026</div>
+      <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.623.</div>
       <div class="accent"></div>
       <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m2.</p>
     </div>
@@ -1634,7 +1621,7 @@
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
             <span class="k">Ceibo · 36,93 m2</span>
-            <span class="v">USD 2.600/m2</span>
+            <span class="v">USD 2.623/m2</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona · 34 m2</span>
@@ -1657,7 +1644,7 @@
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
             <span class="k">Ceibo · 54,27 m2</span>
-            <span class="v">USD 2.600/m2</span>
+            <span class="v">USD 2.623/m2</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona · 47 m2</span>
@@ -1680,7 +1667,7 @@
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
             <span class="k">Ceibo · 82,43 m2</span>
-            <span class="v">USD 2.600/m2</span>
+            <span class="v">USD 2.623/m2</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona · 75 m2</span>
@@ -1700,22 +1687,7 @@
       </div>
     </div>
 
-    <div class="mkt-pago">
-      <div class="kicker">Forma de pago</div>
-      <div class="mkt-pago-cols">
-        <div>
-          <div class="n">30% al firmar</div>
-          <p>Anticipo al boleto.</p>
-        </div>
-        <div>
-          <div class="n">70% en cuotas</div>
-          <p>En pesos ajustados por CAC (Cámara Argentina de la Construcción).</p>
-        </div>
-      </div>
-      <div class="pago-bar pago-bar--light"><div class="pago-30">30% anticipo</div><div class="pago-70">70% saldo en obra</div></div>
-    </div>
-
-    <p class="muted">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
+    <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.623/m² promedio, vigentes en septiembre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
   </div>
   <div class="pf"><span>El mercado</span><span>11 / 12</span></div>
 </div>
@@ -1748,7 +1720,7 @@
           </div>
         </a>
         <p class="close-legal">
-          Material comercial. Superficies de planos. Los valores pueden actualizarse. Renders de referencia.
+          Material comercial. Superficies de planos. Renders de referencia.
         </p>
       </div>
     </div>
