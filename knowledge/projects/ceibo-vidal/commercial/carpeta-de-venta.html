@@ -57,8 +57,6 @@
       box-shadow: 0 10px 40px rgba(26, 26, 24, 0.22);
     }
     .page:not(.cover) { padding-bottom: var(--footer-h); }
-    .page.page--loc { padding-bottom: 0; }
-    .page--loc .pf { display: none; }
     .page--dark { background: #21201E; color: var(--blanco); }
     .page--blanco { background: var(--blanco); }
     .page--suelo { background: var(--suelo); }
@@ -254,12 +252,26 @@
       line-height: 1.2;
       white-space: nowrap;
     }
+    .cover-partner-logos {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+      min-width: 0;
+    }
     .cover-partner img {
       display: block;
-      height: 53px;
+      height: 44px;
       width: auto;
       max-width: none !important;
-      border-radius: 5%;
+      flex-shrink: 0;
+      border-radius: 4px;
+    }
+    .cover-partner img.cover-daimar {
+      height: 44px;
+      padding: 8px 10px;
+      background: #F8F7F4;
+      object-fit: contain;
+      border-radius: 4px;
     }
     .cover-meta > div {
       padding: 0 22px;
@@ -320,7 +332,7 @@
     .loc-page {
       flex: 1; min-height: 0;
       display: flex; flex-direction: column;
-      padding: 20px 0 0;
+      padding: 22px 0 0;
     }
     .loc-copy {
       flex-shrink: 0;
@@ -328,49 +340,47 @@
     }
     .loc-copy .serif-title { font-size: 36px; color: var(--blanco); }
     .loc-lead {
-      margin-top: 10px; font-size: 14px; line-height: 1.5;
-      color: rgba(248,247,244,0.7); max-width: 34em;
+      margin-top: 12px; font-size: 14px; line-height: 1.55;
+      color: rgba(248,247,244,0.7); max-width: 38em;
     }
     .loc-facts {
       flex-shrink: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px 36px;
-      margin: 20px var(--mg) 14px;
+      gap: 22px 40px;
+      margin: 26px var(--mg) 0;
     }
     .loc-fact {
       font-family: Montserrat, sans-serif;
       padding: 0;
+      min-width: 0;
     }
     .loc-fact .n {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--arena);
     }
     .loc-fact .t {
-      margin-top: 7px;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 1.4;
-      color: rgba(248,247,244,0.94);
+      margin-top: 8px;
+      font-size: 13.5px;
+      font-weight: 400;
+      line-height: 1.48;
+      color: rgba(248,247,244,0.88);
     }
     .loc-map-frame {
-      flex: 1 1 auto;
-      min-height: 0;
-      position: relative;
+      flex: 0 0 auto;
+      margin: auto 18px auto;
+      line-height: 0;
       overflow: hidden;
-      margin: 16px 0 0;
-      background: #21201E;
+      border-radius: var(--radius);
     }
     .loc-map-frame img {
-      position: absolute;
-      inset: 0;
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover;
-      object-position: center center;
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
     }
     .callout {
       position: absolute; z-index: 2;
@@ -417,8 +427,9 @@
       min-height: 0;
     }
     .tipo-page .mkt-pago {
-      padding: 16px 20px 18px;
+      padding: 18px 20px 16px;
     }
+    .pago-wrap .kicker { margin-bottom: 10px; color: var(--ink); }
     .tipo-page .mkt-pago-cols .n { font-size: 26px; }
     .tipo-grid {
       flex: 0 0 auto;
@@ -573,17 +584,20 @@
       object-fit: contain;
       mix-blend-mode: multiply;
     }
+    .page--land .ph { display: none; }
     .page--land .sheet {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto 1fr;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
     .page--land .sheet-aside {
+      flex: 0 0 auto;
       flex-direction: row;
       flex-wrap: wrap;
       align-items: flex-end;
       justify-content: space-between;
       gap: 8px 32px;
-      padding: 8px var(--mg) 20px;
+      padding: 32px var(--mg) 12px;
       border-right: none;
     }
     .page--land .sheet-copy { display: flex; flex-direction: column; gap: 4px; max-width: 28em; }
@@ -612,6 +626,8 @@
     .page--land .leg-n { font-size: 20px; }
     .page--land .sheet-stage {
       position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
       overflow: hidden;
       padding: 0 var(--mg) 8px;
     }
@@ -629,8 +645,8 @@
       flex: 1; min-height: 0;
       padding: 14px var(--mg) 10px;
       display: grid;
-      grid-template-rows: auto auto auto 1.18fr 1.05fr;
-      gap: 10px;
+      grid-template-rows: auto auto 1.18fr 1.05fr;
+      gap: 14px 10px;
     }
     .unit-head h2 {
       font-family: var(--serif); font-weight: 400;
@@ -638,52 +654,86 @@
       margin-top: 4px;
     }
     .unit-head .accent { margin-top: 10px; }
-    .price-metrics {
+    .unit-spec {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border: 0.75px solid var(--line);
+      grid-template-columns: 36fr 28fr 36fr;
+      width: 100%;
       background: var(--blanco);
-      border-radius: var(--radius);
-      overflow: hidden;
+      border: 0.5px solid rgba(133, 96, 64, 0.1);
+      border-radius: 5px;
     }
-    .pm {
-      padding: 10px 14px 12px;
-      border-right: 0.75px solid var(--line);
-      min-width: 0;
-    }
-    .pm:last-child { border-right: none; }
-    .pm .n {
-      font-family: var(--serif); font-weight: 400;
-      font-size: 28px; letter-spacing: -0.03em; line-height: 1; color: var(--ink);
-    }
-    .pm .l {
-      margin-top: 5px;
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--niebla);
-    }
-    .pm .l .sq { text-transform: none; letter-spacing: 0.04em; }
-    .unit-info {
+    .unit-metrics,
+    .unit-meta {
       display: grid;
-      grid-template-columns: 2.4fr 1fr;
-      border: 0.75px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
     }
-    .unit-info > div {
-      padding: 10px 14px;
-      border-right: 0.75px solid var(--line);
+    .um {
+      padding: 13px 20px 12px;
       min-width: 0;
     }
-    .unit-info > div:last-child { border-right: none; }
+    .um:nth-child(1),
+    .um:nth-child(2) {
+      box-shadow: 1px 0 0 rgba(133, 96, 64, 0.08);
+    }
+    .um-val {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 38px;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      color: var(--ink);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .um-val span {
+      font-family: var(--serif);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--niebla);
+      line-height: 1;
+    }
+    .um.is-total .um-val { color: var(--musgo); }
+    .um.is-total .um-val span { color: rgba(83, 98, 69, 0.55); }
+    .um-lbl {
+      margin-top: 7px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--niebla);
+    }
+    .unit-meta {
+      box-shadow: 0 -1px 0 rgba(133, 96, 64, 0.08);
+    }
+    .unit-prog {
+      grid-column: 1 / 3;
+      padding: 11px 20px 13px;
+      min-width: 0;
+      box-shadow: 1px 0 0 rgba(133, 96, 64, 0.08);
+    }
+    .unit-stock {
+      grid-column: 3;
+      padding: 11px 20px 13px;
+      min-width: 0;
+    }
     .ub-l {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--niebla); margin-bottom: 5px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--niebla);
+      margin-bottom: 5px;
     }
-    .ub-t { font-size: 12.5px; line-height: 1.4; color: var(--tierra); }
-    .ub-n {
-      font-family: var(--serif); font-weight: 400;
-      font-size: 20px; letter-spacing: -0.02em; color: var(--musgo); line-height: 1.15;
+    .ub-t {
+      font-size: 13.5px;
+      line-height: 1.4;
+      font-weight: 400;
+      color: var(--tierra);
     }
+    .unit-stock .ub-t { color: var(--ink); letter-spacing: 0.02em; }
     .unit-plan, .unit-render {
       min-height: 0; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
@@ -695,19 +745,27 @@
     }
     .unit-plan img { mix-blend-mode: multiply; }
     .unit-page--b {
-      gap: 6px;
-      grid-template-rows: auto auto auto auto 1fr;
+      gap: 8px;
+      grid-template-rows: auto auto 1.2fr 1fr;
+      padding-bottom: 52px;
     }
     .unit-page--b .unit-plan {
+      align-items: flex-end;
+      justify-content: center;
+      margin-top: 0;
+      overflow: hidden;
+    }
+    .unit-page--b .unit-render {
       align-items: flex-start;
-      margin-top: 40px;
     }
     .unit-page--b .unit-plan img {
-      width: 100%;
+      width: 106%;
+      max-width: none;
       height: auto;
       max-height: none;
       object-fit: contain;
       object-position: top center;
+      margin-left: -3%;
     }
     .unit-page--c .unit-plan,
     .unit-page--c .unit-render {
@@ -727,86 +785,113 @@
        ══════════════════════════════════════ */
     .price-page {
       flex: 1; min-height: 0;
-      padding: 16px 40px 12px;
-      display: flex; flex-direction: column; gap: 10px;
+      padding: 18px 40px 14px;
+      display: flex; flex-direction: column; gap: 12px;
     }
     .facts {
       display: grid;
-      grid-template-columns: 1fr 1.4fr 1fr 1fr;
-      border: 0.75px solid var(--line);
+      grid-template-columns: 0.85fr 1.75fr 0.95fr 0.95fr;
+      border: 0.5px solid rgba(133, 96, 64, 0.12);
       background: var(--blanco);
-      border-radius: var(--radius);
+      border-radius: 5px;
       overflow: hidden;
     }
     .fact {
-      padding: 12px 16px 14px;
-      border-right: 0.75px solid var(--line);
+      padding: 10px 21px 11px;
+      border-right: 0.5px solid rgba(133, 96, 64, 0.1);
     }
     .fact:last-child { border-right: none; }
+    .fact.is-hero { padding-left: 22px; padding-right: 22px; }
     .fact .l {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--niebla); margin-bottom: 6px;
     }
     .fact .n {
-      font-family: var(--serif); font-weight: 400; font-size: 24px;
+      font-family: var(--serif); font-weight: 400; font-size: 20px;
       letter-spacing: -0.03em; line-height: 1;
-      white-space: nowrap;
+      white-space: nowrap; color: var(--ink);
     }
-    .fact:nth-child(2) .n { color: var(--musgo); }
+    .fact.is-hero .n {
+      font-size: 28px;
+      color: color-mix(in srgb, var(--musgo) 86%, var(--ink) 14%);
+      display: flex;
+      align-items: baseline;
+      gap: 1px;
+    }
+    .fact.is-hero .n span {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: rgba(83, 98, 69, 0.5);
+      transform: translateY(1.5px);
+    }
 
-    .plist { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 10px; }
-    .plist col.piso { width: 102px; }
-    .plist col.unidad { width: 24%; }
+    .price-page .accent { width: 22px; height: 2px; margin-top: 12px; }
+
+    .plist { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 26px; }
+    .plist col.piso { width: 88px; }
+    .plist col.unidad { width: 26%; }
     .plist thead th {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--niebla); text-align: left; padding: 16px 12px 12px 0;
-      border-bottom: 0.75px solid var(--line);
+      font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--niebla); text-align: left; padding: 6px 12px 8px 0;
+      border-bottom: 0.5px solid rgba(133, 96, 64, 0.16);
     }
-    .plist thead th:first-child { padding-left: 16px; }
-    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 10px; text-transform: none; letter-spacing: 0.04em; }
-    .plist thead th:last-child { padding-right: 16px; }
+    .plist thead th:first-child { padding-left: 12px; }
+    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 12px; letter-spacing: 0.1em; }
+    .plist thead th:last-child { padding-right: 12px; }
     .plist td {
-      padding: 9px 12px 9px 0;
-      border-bottom: 0.75px solid rgba(132, 96, 64, 0.12);
+      padding: 8px 12px 8px 0;
+      border-bottom: 0.5px solid rgba(133, 96, 64, 0.07);
       font-size: 14px; color: var(--tierra); vertical-align: middle;
     }
     .plist td:has(.uname) { padding-left: 0; }
     .plist td.num {
-      text-align: right; font-family: var(--serif); font-weight: 300;
-      font-size: 17px; color: var(--ink); letter-spacing: -0.02em; white-space: nowrap;
-      padding-left: 10px; padding-right: 0;
+      text-align: right; font-family: var(--serif); font-weight: 400;
+      font-size: 15px; color: var(--ink); letter-spacing: 0; white-space: nowrap;
+      padding-left: 12px; padding-right: 0;
+      font-variant-numeric: tabular-nums lining-nums;
+      font-feature-settings: "tnum" 1, "lnum" 1;
     }
-    .plist td:last-child { padding-right: 16px; }
-    .plist td.num.price { color: var(--musgo); font-size: 18px; font-weight: 400; }
-    .plist td.num.hi { color: var(--ink); }
+    .plist td:last-child { padding-right: 12px; }
+    .plist td.num.price { color: color-mix(in srgb, var(--musgo) 86%, var(--ink) 14%); font-size: 17px; font-weight: 500; }
+    .plist td.num.hi { color: var(--ink); font-size: 15px; font-weight: 400; }
+    .plist td.num:nth-child(3) {
+      color: var(--niebla); font-size: 14px; font-weight: 400;
+    }
     .plist .floor-cell {
-      padding-left: 16px;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--musgo);
+      padding-left: 12px;
+      font-size: 8.5px; font-weight: 400; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(110, 111, 104, 0.62);
       vertical-align: middle;
     }
     .plist .uname { font-weight: 600; color: var(--ink); display: block; line-height: 1.2; font-size: 13.5px; }
-    .plist .usub { font-size: 11px; color: var(--niebla); font-weight: 400; display: block; margin-top: 2px; }
+    .plist .usub { font-size: 10.5px; color: rgba(110, 111, 104, 0.62); font-weight: 400; display: block; margin-top: 2px; }
     .plist tbody tr:last-child td { border-bottom: none; }
-    .plist tbody tr.floor-break td { border-top: 0.75px solid rgba(83, 98, 69, 0.32); }
-    .plist tbody tr:nth-child(6n+4) td,
-    .plist tbody tr:nth-child(6n+5) td,
-    .plist tbody tr:nth-child(6n+6) td { background: rgba(248, 247, 244, 0.45); }
+    .plist tbody tr.floor-break td {
+      border-top: 0.5px solid rgba(133, 96, 64, 0.12);
+      padding-top: 13px;
+    }
     .plist-note {
-      font-size: 11.5px; line-height: 1.55; color: var(--tierra);
-      padding-top: 4px;
-      padding-left: 16px;
-      padding-right: 16px;
+      font-size: 10px; line-height: 1.7; color: rgba(110, 111, 104, 0.82);
+      padding-top: 18px;
+      padding-left: 0;
+      padding-right: 0;
+      max-width: none;
     }
     .costo-box {
-      background: var(--blanco);
-      border: 0.75px solid var(--line);
-      padding: 12px 16px 13px;
-      border-radius: var(--radius);
+      background: transparent;
+      border: none;
+      padding: 2px 2px 2px;
+      border-radius: 0;
+      margin-bottom: 2px;
     }
-    .costo-box .kicker { margin-bottom: 6px; }
-    .costo-box p {
-      font-size: 12.5px; line-height: 1.5; color: var(--tierra);
+    .costo-box .kicker { margin-bottom: 6px; color: var(--niebla); }
+    .costo-box .costo-lead {
+      font-size: 13.5px; line-height: 1.4; color: var(--ink); font-weight: 400;
+    }
+    .costo-box .costo-note {
+      margin-top: 6px;
+      font-size: 10.5px; line-height: 1.5; color: rgba(110, 111, 104, 0.7);
     }
 
     /* ══════════════════════════════════════
@@ -1062,6 +1147,26 @@
       color: rgba(248,247,244,0.5);
     }
 
+    @media (max-width: 640px) {
+      .unit-spec {
+        grid-template-columns: 1fr;
+      }
+      .unit-metrics,
+      .unit-meta {
+        display: flex;
+        flex-direction: column;
+      }
+      .unit-prog {
+        grid-column: auto;
+        box-shadow: none;
+      }
+      .um,
+      .unit-stock {
+        box-shadow: 0 -1px 0 rgba(133, 96, 64, 0.12);
+      }
+      .um:first-child { box-shadow: none; }
+    }
+
     @media print {
       html, body {
         width: auto;
@@ -1132,7 +1237,10 @@
     </div>
     <div class="cover-partner">
       <span class="cover-partner-lbl">Desarrollado en conjunto con</span>
-      <img src="assets/partners/gyd-mark-plate.png" alt="G&amp;D Developers" />
+      <div class="cover-partner-logos">
+        <img src="assets/partners/gyd-mark-plate.png" alt="G&amp;D Developers" />
+        <img class="cover-daimar" src="assets/partners/daimar-developers.png" alt="Daimar Developers" />
+      </div>
     </div>
   </div>
 </div>
@@ -1174,33 +1282,33 @@
   </div>
   <div class="loc-page">
     <div class="loc-copy">
-      <div class="kicker kicker--arena" style="margin-bottom:10px;">Vidal 3849</div>
-      <div class="serif-title">Saavedra</div>
+      <div class="serif-title">¿Por qué Saavedra?</div>
       <div class="accent"></div>
-      <p class="loc-lead">El barrio donde todo pasa cerca. Conectividad, comercios y espacios de encuentro, en el corredor Norte.</p>
+      <p class="loc-lead">Un barrio tranquilo, verde y conectado, donde la naturaleza convive con comercios, servicios y espacios de encuentro, en pleno corredor norte de CABA.</p>
     </div>
     <div class="loc-facts">
       <div class="loc-fact">
-        <div class="n">A 4 cuadras</div>
-        <div class="t">Av. Cabildo y del Parque Saavedra</div>
+        <div class="n">Naturaleza</div>
+        <div class="t">Parque Saavedra a 4 cuadras y Boulevard García del Río a media cuadra, rodeado de verde, árboles y espacios para disfrutar al aire libre.</div>
       </div>
       <div class="loc-fact">
-        <div class="n">En el barrio</div>
-        <div class="t">Zona comercial sobre Av. Cabildo, propuesta cultural, bares y restaurantes</div>
-      </div>
-      <div class="loc-fact">
-        <div class="n">Proximidad</div>
-        <div class="t">Shopping DOT, Subte D y Metrobus</div>
+        <div class="n">Vida de barrio</div>
+        <div class="t">Bares, restaurantes, comercios y propuestas culturales que acompañan una vida de barrio activa y cercana.</div>
       </div>
       <div class="loc-fact">
         <div class="n">Conectividad</div>
-        <div class="t">Corredor Norte, estudio y trabajo cerca</div>
+        <div class="t">Av. Cabildo, Subte D, Metrobús y cercanía a General Paz, con rápido acceso y egreso de CABA hacia la provincia.</div>
+      </div>
+      <div class="loc-fact">
+        <div class="n">Servicios</div>
+        <div class="t">Shopping DOT, comercios, supermercados y servicios cotidianos a pocos minutos.</div>
       </div>
     </div>
     <div class="loc-map-frame">
       <img src="assets/mapa-barrio-ceibo.png" alt="Barrio — de Parque Saavedra a Av. Cabildo" />
     </div>
   </div>
+  <div class="pf pf--dark"><span>Ubicación</span><span>02 / 12</span></div>
 </div>
 
 <!-- 4 TIPOLOGÍAS -->
@@ -1233,7 +1341,7 @@
         <h3>2 ambientes</h3>
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">54</span><span class="u">m2</span></div>
-        <div class="tipo-split">48 m2 cubiertos · 6 m2 balcón</div>
+        <div class="tipo-split">48 m2 cubiertos <br/>6 m2 balcón</div>
         <p class="tipo-prog">Suite, toilette y balcón corrido.</p>
       </article>
     </div>
@@ -1272,19 +1380,21 @@
       </div>
     </div>
     </div>
-    <div class="mkt-pago">
+    <div class="pago-wrap">
       <div class="kicker">Forma de pago</div>
-      <div class="mkt-pago-cols">
-        <div>
-          <div class="n">30% al firmar</div>
-          <p>Anticipo al boleto.</p>
+      <div class="mkt-pago">
+        <div class="mkt-pago-cols">
+          <div>
+            <div class="n">30% al firmar</div>
+            <p>Anticipo al boleto.</p>
+          </div>
+          <div>
+            <div class="n">70% en cuotas</div>
+            <p>En pesos ajustados por CAC (Cámara Argentina de la Construcción).</p>
+          </div>
         </div>
-        <div>
-          <div class="n">70% en cuotas</div>
-          <p>En pesos ajustados por CAC (Cámara Argentina de la Construcción).</p>
-        </div>
+        <div class="pago-bar pago-bar--light"><div class="pago-30">30% anticipo</div><div class="pago-70">70% saldo en obra</div></div>
       </div>
-      <div class="pago-bar pago-bar--light"><div class="pago-30">30% anticipo</div><div class="pago-70">70% saldo en obra</div></div>
     </div>
     </div>
   </div>
@@ -1377,19 +1487,30 @@
       <h2>3 ambientes</h2>
       <div class="accent"></div>
     </div>
-    <div class="price-metrics">
-      <div class="pm"><div class="n">71</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
-      <div class="pm"><div class="n">11</div><div class="l"><span class="sq">m2</span> balcón</div></div>
-      <div class="pm"><div class="n">82</div><div class="l"><span class="sq">m2</span> total</div></div>
-    </div>
-    <div class="unit-info">
-      <div>
-        <div class="ub-l">Programa</div>
-        <div class="ub-t">Living-comedor al frente, suite y segundo dormitorio, baño social.</div>
+    <div class="unit-spec">
+      <div class="unit-metrics">
+        <div class="um">
+          <div class="um-val">71<span>m²</span></div>
+          <div class="um-lbl">Cubiertos</div>
+        </div>
+        <div class="um">
+          <div class="um-val">11<span>m²</span></div>
+          <div class="um-lbl">Balcón</div>
+        </div>
+        <div class="um is-total">
+          <div class="um-val">82<span>m²</span></div>
+          <div class="um-lbl">Total</div>
+        </div>
       </div>
-      <div>
-        <div class="ub-l">Unidades</div>
-        <div class="ub-t">4 · 1A a 4A</div>
+      <div class="unit-meta">
+        <div class="unit-prog">
+          <div class="ub-l">Programa</div>
+          <div class="ub-t">Living-comedor al frente, suite y segundo dormitorio, baño social.</div>
+        </div>
+        <div class="unit-stock">
+          <div class="ub-l">Unidades</div>
+          <div class="ub-t">4 · 1A a 4A</div>
+        </div>
       </div>
     </div>
     <div class="unit-plan">
@@ -1411,19 +1532,30 @@
       <h2>Monoambiente</h2>
       <div class="accent"></div>
     </div>
-    <div class="price-metrics">
-      <div class="pm"><div class="n">34</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
-      <div class="pm"><div class="n">3</div><div class="l"><span class="sq">m2</span> balcón</div></div>
-      <div class="pm"><div class="n">37</div><div class="l"><span class="sq">m2</span> total</div></div>
-    </div>
-    <div class="unit-info">
-      <div>
-        <div class="ub-l">Programa</div>
-        <div class="ub-t">Planta libre, baño completo, balcón propio.</div>
+    <div class="unit-spec">
+      <div class="unit-metrics">
+        <div class="um">
+          <div class="um-val">34<span>m²</span></div>
+          <div class="um-lbl">Cubiertos</div>
+        </div>
+        <div class="um">
+          <div class="um-val">3<span>m²</span></div>
+          <div class="um-lbl">Balcón</div>
+        </div>
+        <div class="um is-total">
+          <div class="um-val">37<span>m²</span></div>
+          <div class="um-lbl">Total</div>
+        </div>
       </div>
-      <div>
-        <div class="ub-l">Unidades</div>
-        <div class="ub-t">4 · 1B a 4B</div>
+      <div class="unit-meta">
+        <div class="unit-prog">
+          <div class="ub-l">Programa</div>
+          <div class="ub-t">Ambiente integrado · baño completo · balcón propio</div>
+        </div>
+        <div class="unit-stock">
+          <div class="ub-l">Unidades</div>
+          <div class="ub-t">1B · 2B · 3B · 4B</div>
+        </div>
       </div>
     </div>
     <div class="unit-plan">
@@ -1445,19 +1577,30 @@
       <h2>2 ambientes</h2>
       <div class="accent"></div>
     </div>
-    <div class="price-metrics">
-      <div class="pm"><div class="n">48</div><div class="l"><span class="sq">m2</span> cubiertos</div></div>
-      <div class="pm"><div class="n">6</div><div class="l"><span class="sq">m2</span> balcón</div></div>
-      <div class="pm"><div class="n">54</div><div class="l"><span class="sq">m2</span> total</div></div>
-    </div>
-    <div class="unit-info">
-      <div>
-        <div class="ub-l">Programa</div>
-        <div class="ub-t">Living-comedor con cocina, dormitorio en suite, baño social.</div>
+    <div class="unit-spec">
+      <div class="unit-metrics">
+        <div class="um">
+          <div class="um-val">48<span>m²</span></div>
+          <div class="um-lbl">Cubiertos</div>
+        </div>
+        <div class="um">
+          <div class="um-val">6<span>m²</span></div>
+          <div class="um-lbl">Balcón</div>
+        </div>
+        <div class="um is-total">
+          <div class="um-val">54<span>m²</span></div>
+          <div class="um-lbl">Total</div>
+        </div>
       </div>
-      <div>
-        <div class="ub-l">Unidades</div>
-        <div class="ub-t">4 · 1C a 4C</div>
+      <div class="unit-meta">
+        <div class="unit-prog">
+          <div class="ub-l">Programa</div>
+          <div class="ub-t">Living-comedor con cocina, dormitorio en suite, baño social.</div>
+        </div>
+        <div class="unit-stock">
+          <div class="ub-l">Unidades</div>
+          <div class="ub-t">4 · 1C a 4C</div>
+        </div>
       </div>
     </div>
     <div class="unit-plan">
@@ -1481,13 +1624,14 @@
     </div>
     <div class="facts">
       <div class="fact"><div class="l">Unidades</div><div class="n">12</div></div>
-      <div class="fact"><div class="l">Precio al costo</div><div class="n">USD 2.623/m2</div></div>
+      <div class="fact is-hero"><div class="l">Precio al costo</div><div class="n">USD 2.623<span>/ m²</span></div></div>
       <div class="fact"><div class="l">Anticipo</div><div class="n">30%</div></div>
       <div class="fact"><div class="l">Cuotas</div><div class="n">18</div></div>
     </div>
     <div class="costo-box">
       <div class="kicker">Proyecto al costo</div>
-      <p>El 30% se paga al firmar. El saldo (70%) se abona en pesos, ajustados por el índice CAC (Cámara Argentina de la Construcción). Podrá haber un ajuste adicional de acuerdo a la variación de costos de obra.</p>
+      <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
+      <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
     </div>
     <table class="plist">
       <colgroup>
@@ -1502,7 +1646,7 @@
         <tr>
           <th>Piso</th>
           <th>Unidad</th>
-          <th class="num">m2</th>
+          <th class="num">m²</th>
           <th class="num">Precio</th>
           <th class="num">Anticipo 30%</th>
           <th class="num">Cuota × 18</th>
@@ -1599,7 +1743,7 @@
         </tr>
       </tbody>
     </table>
-    <p class="plist-note">Valores en USD, vigentes durante septiembre 2026. Superficies de planta tipo (pisos 1 a 3). El 4° varía levemente. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    <p class="plist-note">Valores en USD, vigentes durante septiembre 2026. Superficies correspondientes a plantas tipo. Las unidades del 4° piso pueden presentar variaciones. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
   </div>
   <div class="pf"><span>Lista de precios</span><span>10 / 12</span></div>
 </div>
@@ -1720,7 +1864,7 @@
           </div>
         </a>
         <p class="close-legal">
-          Material comercial. Superficies de planos. Renders de referencia.
+          Material comercial. Renders de referencia.
         </p>
       </div>
     </div>
@@ -1755,17 +1899,23 @@
     document.querySelectorAll(".page--land .sheet-stage").forEach(function (stage) {
       var img = stage.querySelector("img");
       if (!img || !img.naturalWidth) return;
-      var W = stage.clientWidth;
-      var H = stage.clientHeight;
+      stage.style.height = "";
+      var cs = getComputedStyle(stage);
+      var padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+      var padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+      var W = stage.clientWidth - padX;
+      var H = Math.max(120, stage.clientHeight - padY);
       var iw = img.naturalWidth;
       var ih = img.naturalHeight;
       var s = Math.min(W / ih, H / iw) * 0.96;
       var a = iw * s;
       var b = ih * s;
+      var boxW = stage.clientWidth;
+      var boxH = stage.clientHeight;
       img.style.width = a + "px";
       img.style.height = b + "px";
-      img.style.left = (W / 2 - a / 2) + "px";
-      img.style.top = (a / 2 - b / 2) + "px";
+      img.style.left = ((boxW - a) / 2) + "px";
+      img.style.top = ((boxH - b) / 2) + "px";
       img.style.transform = "rotate(90deg)";
     });
   }
