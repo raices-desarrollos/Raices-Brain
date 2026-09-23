@@ -637,6 +637,56 @@
       max-width: none;
       max-height: none;
     }
+    .page--land.page--dark .sheet-copy .serif-title { color: var(--blanco); }
+    .page--land.page--dark .sheet-copy .body { color: rgba(248, 247, 244, 0.62); }
+    .page--land.page--dark .leg-area .k { color: var(--blanco); }
+    .page--land.page--dark .leg-area .k .sub { color: rgba(248, 247, 244, 0.45); }
+    .page--land.page--dark .leg-n { color: var(--blanco); }
+    .page--land.page--dark .leg-area .row { border-left-color: var(--line-dark); }
+    .page--land.page--dark .sheet-stage {
+      background: var(--lino);
+      margin: 0 var(--mg) 16px;
+      padding: 0 12px 8px;
+      border-radius: var(--radius);
+    }
+
+    .corte-page {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-rows: auto 1fr 1fr;
+    }
+    .corte-head {
+      padding: 22px var(--mg) 10px;
+    }
+    .corte-head .serif-title {
+      font-size: 32px;
+      color: var(--blanco);
+    }
+    .corte-head .accent { margin-top: 10px; }
+    .corte-plan {
+      min-height: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 var(--mg) 16px;
+      padding: 10px 14px;
+      background: var(--lino);
+      border-radius: var(--radius);
+    }
+    .corte-plan img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      mix-blend-mode: multiply;
+    }
+    .corte-renders {
+      min-height: 0;
+      border-top: 0.75px solid var(--line-dark);
+      background: transparent;
+    }
 
     /* ══════════════════════════════════════
        8–10. TYPOLOGY TEMPLATE
@@ -750,22 +800,23 @@
       padding-bottom: 52px;
     }
     .unit-page--b .unit-plan {
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       margin-top: 0;
       overflow: hidden;
+      padding: 0 4px;
     }
     .unit-page--b .unit-render {
       align-items: flex-start;
     }
     .unit-page--b .unit-plan img {
-      width: 106%;
-      max-width: none;
-      height: auto;
-      max-height: none;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
-      object-position: top center;
-      margin-left: -3%;
+      object-position: center;
+      margin-left: 0;
     }
     .unit-page--c .unit-plan,
     .unit-page--c .unit-render {
@@ -1421,8 +1472,11 @@
 </div>
 
 <!-- 6 PLANTA TIPO -->
-<div class="page page--land">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+<div class="page page--land page--dark">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal</span>
+  </div>
   <div class="sheet">
     <aside class="sheet-aside">
       <div class="sheet-copy">
@@ -1450,7 +1504,7 @@
       <img src="assets/planos-sga/planta-tipo-solo.png" alt="Planta tipo" />
     </div>
   </div>
-  <div class="pf"><span>Planta tipo</span><span>05 / 12</span></div>
+  <div class="pf pf--dark"><span>Planta tipo</span><span>05 / 12</span></div>
 </div>
 
 <!-- 7 TERRAZAS -->
@@ -1476,6 +1530,26 @@
     </div>
   </div>
   <div class="pf"><span>Terrazas</span><span>06 / 12</span></div>
+</div>
+
+<!-- 7 CORTE -->
+<div class="page page--dark">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal</span>
+  </div>
+  <div class="corte-page">
+    <div class="corte-head">
+      <div class="kicker kicker--arena"></div>
+      <div class="serif-title">El edificio</div>
+      <div class="accent"></div>
+    </div>
+    <div class="corte-plan">
+      <img src="assets/planos-sga/corte-aa.png" alt="Corte A-A" />
+    </div>
+    <div class="corte-renders" aria-hidden="true"></div>
+  </div>
+  <div class="pf pf--dark"><span>Corte</span><span>07 / 12</span></div>
 </div>
 
 <!-- UNIDAD A -->
