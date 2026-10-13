@@ -350,3 +350,24 @@ El nombre del árbol va en primer lugar siempre. La calle contextualiza; el árb
 
 Cuando se genere material nuevo (carpeta, banner, post), guardar en la carpeta del proyecto correspondiente con el nombre: `[proyecto]-[tipo]-[versión].ext`
 Ejemplo: `ceibo-vidal-carpeta-v2.pdf`
+
+---
+
+## Editorial rules
+
+Reglas de la carpeta de venta. El sistema de la web (Noto Serif JP + Inter) no cambia.
+
+La carpeta de Ceibo Vidal usa dos familias: M PLUS U para títulos y métricas, Montserrat para lectura, labels, metadatos y el nombre del proyecto.
+
+El logo Raíces Developers está compuesto en Montserrat Medium. En el wordmark, la A de RAÍCES no lleva barra: es un ajuste del logo, no otra familia.
+
+- Display para títulos y métricas. Body para lectura funcional.
+- Labels en mayúscula con tracking de 0.08em a 0.12em. No usar 0.16em–0.18em.
+- El nombre "CEIBO VIDAL" (portada y encabezado) va en Montserrat Medium, mayúscula, tracking 0.1em.
+- Evitar más de dos familias.
+- Escribir siempre m². No usar m2.
+- El trazo arena es la firma visual de Ceibo Vidal: 28 × 2 px, color `--arena`, 12 px bajo el título. No repetirlo en cada bloque.
+- En planos apaisados el trazo puede subir a 10 px para no competir con el plano.
+- Precio en Medium (500). Anticipo y cuota en Regular (400), mismo tono, tamaño apenas menor.
+- Jerarquía limpia: un protagonista por página. Amenities, disponibles y forma de pago quedan por debajo de las tipologías.
+- Evitar saturación de cards, sombras, bordes pesados e iconografía de interfaz.

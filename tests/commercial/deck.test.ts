@@ -8,8 +8,10 @@ describe('pickCarpetaPdfs', () => {
     'Ceibo-Vidal-carpeta-de-venta.pdf',
   ];
 
-  it('no elige la versión completa como PDF de clientes', () => {
-    expect(pickCarpetaPdfs(files)).toEqual({
+  it('ignora copias versionadas y conserva el PDF de clientes', () => {
+    expect(
+      pickCarpetaPdfs([...files, 'Ceibo-Vidal-Carpeta-de-Venta-V4.pdf']),
+    ).toEqual({
       commercial: 'Ceibo-Vidal-carpeta-de-venta.pdf',
       complete: 'Ceibo-Vidal-carpeta-de-venta-completa.pdf',
     });

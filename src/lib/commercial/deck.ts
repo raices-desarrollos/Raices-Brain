@@ -40,7 +40,10 @@ export function pickCarpetaHtml(files: string[]): string | null {
 /** Separa el PDF de clientes del PDF completo. */
 export function pickCarpetaPdfs(files: string[]): { commercial: string | null; complete: string | null } {
   const carpeta = files.filter(
-    (f) => f.toLowerCase().endsWith('.pdf') && /carpeta[-_ ]?de[-_ ]?venta/i.test(f),
+    (f) =>
+      f.toLowerCase().endsWith('.pdf') &&
+      /carpeta[-_ ]?de[-_ ]?venta/i.test(f) &&
+      !/[-_]v\d+(?:[-_.]|$)/i.test(f),
   );
   return {
     complete: carpeta.find((f) => /completa/i.test(f)) ?? null,

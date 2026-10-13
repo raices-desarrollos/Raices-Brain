@@ -94,10 +94,10 @@
     }
     .ph--dark { border-bottom-color: var(--line-dark); }
     .pid {
-      font-family: "M PLUS U", sans-serif;
+      font-family: Montserrat, sans-serif;
       font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink);
     }
@@ -148,9 +148,9 @@
     }
     .accent {
       width: 28px;
-      height: 2.5px;
+      height: 2px;
       background: var(--arena);
-      margin-top: 14px;
+      margin-top: 12px;
     }
     .accent--musgo { background: var(--musgo); }
     .render-img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -187,7 +187,7 @@
       background: linear-gradient(to bottom, rgba(26,26,24,0.72), transparent);
     }
     .cover-grad-bot {
-      position: absolute; inset: auto 0 0; height: 40px; z-index: 1;
+      position: absolute; inset: auto 0 0; height: 44px; z-index: 1;
       background: linear-gradient(to top, #21201E, transparent);
     }
     .cover-bar {
@@ -196,8 +196,8 @@
       padding: 22px var(--mg);
     }
     .cover-bar span {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
-      text-transform: uppercase; color: rgba(248,247,244,0.62);
+      font-size: 8px; font-weight: 500; letter-spacing: 0.10em;
+      text-transform: uppercase; color: rgba(248,247,244,0.36);
     }
     .cover-copy {
       flex-shrink: 0;
@@ -207,36 +207,36 @@
     .cover-place {
       font-family: Montserrat, sans-serif;
       font-weight: 500;
-      font-size: 15px;
-      letter-spacing: 0.02em;
+      font-size: 13px;
+      letter-spacing: 0;
       color: var(--arena);
-      margin-top: 5px;
+      margin-top: 3px;
       text-transform: none;
     }
     .cover-copy .accent {
       width: 28px;
-      height: 2.5px;
-      margin-top: 14px;
+      height: 2px;
+      margin-top: 12px;
       background: var(--arena);
     }
     .cover-copy h1 {
-      font-family: "M PLUS U", sans-serif;
-      font-weight: 400;
-      font-size: 52px;
-      line-height: 1.05;
-      letter-spacing: 0.04em;
+      font-family: Montserrat, sans-serif;
+      font-weight: 500;
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--blanco);
     }
     .cover-meta {
       display: flex;
-      align-items: stretch;
-      margin-top: 18px;
+      align-items: flex-end;
+      margin-top: 20px;
       gap: 0;
     }
     .cover-partner {
-      margin-top: 18px;
-      padding-top: 16px;
+      margin-top: 22px;
+      padding-top: 14px;
       border-top: 0.75px solid rgba(248,247,244,0.14);
       display: flex;
       align-items: center;
@@ -246,7 +246,7 @@
       font-family: Montserrat, sans-serif;
       font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: rgba(248,247,244,0.45);
       line-height: 1.2;
@@ -255,26 +255,26 @@
     .cover-partner-logos {
       display: flex;
       align-items: center;
-      gap: 17px;
+      gap: 22px;
       min-width: 0;
     }
     .cover-partner img {
       display: block;
-      height: 44px;
+      height: 40px;
       width: auto;
       max-width: none !important;
       flex-shrink: 0;
       border-radius: 4px;
     }
     .cover-partner img.cover-daimar {
-      height: 44px;
+      height: 40px;
       padding: 8px 10px;
       background: #F8F7F4;
       object-fit: contain;
       border-radius: 4px;
     }
     .cover-meta > div {
-      padding: 0 22px;
+      padding: 0 26px;
       border-left: 0.75px solid rgba(248,247,244,0.18);
     }
     .cover-meta > div:first-child {
@@ -288,17 +288,23 @@
     }
     .cm-val {
       font-family: Montserrat, sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
       letter-spacing: 0;
       color: #F8F7F4;
-      line-height: 1.3;
+      line-height: 1.25;
+    }
+    .cover-meta > div:not(:first-child) .cm-val {
+      font-family: "M PLUS U", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
     }
     .cm-lbl {
       font-family: Montserrat, sans-serif;
-      font-size: 11px;
+      font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: rgba(248,247,244,0.7);
       margin-top: 5px;
@@ -347,8 +353,8 @@
       flex-shrink: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 22px 40px;
-      margin: 26px var(--mg) 0;
+      gap: 16px 36px;
+      margin: 18px var(--mg) 0;
     }
     .loc-fact {
       font-family: Montserrat, sans-serif;
@@ -356,18 +362,18 @@
       min-width: 0;
     }
     .loc-fact .n {
-      font-size: 10.5px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: var(--arena);
     }
     .loc-fact .t {
-      margin-top: 8px;
-      font-size: 13.5px;
+      margin-top: 6px;
+      font-size: 13px;
       font-weight: 400;
-      line-height: 1.48;
-      color: rgba(248,247,244,0.88);
+      line-height: 1.4;
+      color: rgba(248,247,244,0.72);
     }
     .loc-map-frame {
       flex: 0 0 auto;
@@ -392,7 +398,7 @@
       pointer-events: none;
     }
     .callout .d {
-      font-size: 8.5px; font-weight: 600; letter-spacing: 0.14em;
+      font-size: 8.5px; font-weight: 500; letter-spacing: 0.10em;
       text-transform: uppercase; color: var(--arena);
     }
     .callout .t {
@@ -406,7 +412,7 @@
       bottom: 12px;
       z-index: 2;
       padding: 0;
-      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
       color: rgba(248,247,244,0.72);
     }
 
@@ -421,16 +427,20 @@
     .tipo-lower {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
       margin-top: 4px;
       flex: 1;
       min-height: 0;
     }
     .tipo-page .mkt-pago {
-      padding: 18px 20px 16px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
     }
-    .pago-wrap .kicker { margin-bottom: 10px; color: var(--ink); }
-    .tipo-page .mkt-pago-cols .n { font-size: 26px; }
+    .tipo-page .mkt-pago-cols { gap: 18px; margin-bottom: 8px; }
+    .pago-wrap .kicker { margin-bottom: 8px; color: var(--ink); }
+    .tipo-page .mkt-pago-cols .n { font-size: 20px; }
     .tipo-grid {
       flex: 0 0 auto;
       display: grid;
@@ -496,10 +506,10 @@
       color: var(--tierra);
     }
     .amen-block {
-      background: var(--blanco);
-      padding: 16px 20px 18px;
-      border: 0.75px solid var(--line);
-      border-radius: var(--radius);
+      background: transparent;
+      padding: 2px 0 0;
+      border: none;
+      border-radius: 0;
     }
     .amen-grid {
       display: grid; grid-template-columns: 1fr 1fr 1fr;
@@ -509,15 +519,15 @@
     .amen-item p { font-size: 11.5px; line-height: 1.4; color: var(--tierra); }
 
     .extras-wrap .kicker { margin-bottom: 10px; color: var(--ink); }
-    .extras { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .extras { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
     .extra {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px 16px;
-      background: rgba(83, 98, 69, 0.08);
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px;
+      background: rgba(83, 98, 69, 0.045);
       border-radius: var(--radius);
     }
     .extra svg {
-      width: 22px; height: 22px; flex-shrink: 0;
+      width: 18px; height: 18px; flex-shrink: 0;
       color: var(--musgo);
     }
     .extra .l {
@@ -603,7 +613,7 @@
     .page--land .sheet-copy { display: flex; flex-direction: column; gap: 4px; max-width: 28em; }
     .page--land .sheet-copy .serif-title { font-size: 22px; }
     .page--land .sheet-copy .body { font-size: 12px; line-height: 1.4; }
-    .page--land .sheet-copy .accent { margin-top: 6px; }
+    .page--land .sheet-copy .accent { margin-top: 10px; }
     .page--land .leg-area {
       display: flex;
       flex-direction: row;
@@ -663,7 +673,7 @@
       font-size: 32px;
       color: var(--blanco);
     }
-    .corte-head .accent { margin-top: 10px; }
+    .corte-head .accent { margin-top: 12px; }
     .corte-plan {
       min-height: 0;
       overflow: hidden;
@@ -703,14 +713,14 @@
       font-size: 30px; letter-spacing: 0.02em; line-height: 1.05;
       margin-top: 4px;
     }
-    .unit-head .accent { margin-top: 10px; }
+    .unit-head .accent { margin-top: 12px; }
     .unit-spec {
       display: grid;
       grid-template-columns: 36fr 28fr 36fr;
       width: 100%;
-      background: var(--blanco);
-      border: 0.5px solid rgba(133, 96, 64, 0.1);
-      border-radius: 5px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
     }
     .unit-metrics,
     .unit-meta {
@@ -719,7 +729,7 @@
       grid-template-columns: subgrid;
     }
     .um {
-      padding: 13px 20px 12px;
+      padding: 8px 18px 8px;
       min-width: 0;
     }
     .um:nth-child(1),
@@ -751,7 +761,7 @@
       margin-top: 7px;
       font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: var(--niebla);
     }
@@ -772,7 +782,7 @@
     .ub-l {
       font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: var(--niebla);
       margin-bottom: 5px;
@@ -854,7 +864,7 @@
     .fact:last-child { border-right: none; }
     .fact.is-hero { padding-left: 22px; padding-right: 22px; }
     .fact .l {
-      font-size: 9px; font-weight: 500; letter-spacing: 0.16em;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.10em;
       text-transform: uppercase; color: var(--niebla); margin-bottom: 6px;
     }
     .fact .n {
@@ -877,13 +887,13 @@
       transform: translateY(1.5px);
     }
 
-    .price-page .accent { width: 22px; height: 2px; margin-top: 12px; }
+    .price-page .accent { width: 28px; height: 2px; margin-top: 12px; }
 
     .plist { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 26px; }
     .plist col.piso { width: 88px; }
     .plist col.unidad { width: 26%; }
     .plist thead th {
-      font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase;
       color: var(--niebla); text-align: left; padding: 6px 12px 8px 0;
       border-bottom: 0.5px solid rgba(133, 96, 64, 0.16);
     }
@@ -904,18 +914,18 @@
       font-feature-settings: "tnum" 1, "lnum" 1;
     }
     .plist td:last-child { padding-right: 12px; }
-    .plist td.num.price { color: color-mix(in srgb, var(--musgo) 86%, var(--ink) 14%); font-size: 17px; font-weight: 500; }
-    .plist td.num.hi { color: var(--ink); font-size: 15px; font-weight: 400; }
-    .plist td.num:nth-child(3) {
+    .plist td.num.price { color: color-mix(in srgb, var(--musgo) 86%, var(--ink) 14%); font-size: 16.5px; font-weight: 500; }
+    .plist td.num.hi { color: var(--ink); font-size: 14px; font-weight: 400; }
+    .plist td.num.area {
       color: var(--niebla); font-size: 14px; font-weight: 400;
     }
     .plist .floor-cell {
       padding-left: 12px;
-      font-size: 8.5px; font-weight: 400; letter-spacing: 0.14em;
+      font-size: 8.5px; font-weight: 400; letter-spacing: 0.10em;
       text-transform: uppercase; color: rgba(110, 111, 104, 0.62);
       vertical-align: middle;
     }
-    .plist .uname { font-weight: 600; color: var(--ink); display: block; line-height: 1.2; font-size: 13.5px; }
+    .plist .uname { font-weight: 600; color: var(--ink); display: block; line-height: 1.2; font-size: 14px; }
     .plist .usub { font-size: 10.5px; color: rgba(110, 111, 104, 0.62); font-weight: 400; display: block; margin-top: 2px; }
     .plist tbody tr:last-child td { border-bottom: none; }
     .plist tbody tr.floor-break td {
@@ -1003,20 +1013,22 @@
       min-width: 0;
     }
     .amb-card {
-      background: var(--blanco); border: 0.75px solid var(--line);
-      padding: 16px 14px 14px;
+      background: transparent;
+      border: none;
+      border-top: 0.75px solid var(--line);
+      padding: 12px 4px 0 0;
       display: flex; flex-direction: column;
       min-width: 0;
-      border-radius: var(--radius);
+      border-radius: 0;
     }
     .amb-card .amb-totals {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 0.75px solid var(--line);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 0.5px solid rgba(133, 96, 64, 0.12);
     }
     .amb-card .amb-h {
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--musgo);
+      font-size: 9px; font-weight: 500; letter-spacing: 0.10em;
+      text-transform: uppercase; color: var(--niebla);
     }
     .amb-card .amb-name {
       font-family: var(--serif); font-weight: 400;
@@ -1030,12 +1042,20 @@
       border-top: 0.75px solid var(--line);
     }
     .mkt-row:first-of-type { border-top: none; padding-top: 0; }
-    .mkt-row .k { font-size: 11.5px; color: var(--tierra); line-height: 1.3; }
-    .mkt-row .v {
-      font-family: var(--serif); font-weight: 300;
-      font-size: 17px; color: var(--ink);
+    .mkt-row .k {
+      font-size: 10.5px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--tierra); line-height: 1.3;
     }
-    .mkt-row.is-ceibo .v { color: var(--musgo); font-weight: 400; }
+    .mkt-row .sq {
+      display: block; margin-top: 2px;
+      font-size: 10px; font-weight: 400; letter-spacing: 0; text-transform: none;
+      color: var(--niebla);
+    }
+    .mkt-row .v {
+      font-family: var(--serif); font-weight: 400;
+      font-size: 15px; color: var(--tierra);
+    }
+    .mkt-row.is-ceibo .v { color: var(--musgo); font-weight: 500; font-size: 22px; letter-spacing: -0.03em; }
     .mkt-row.is-ceibo .k { font-weight: 600; color: var(--ink); }
     .amb-line {
       display: grid; grid-template-columns: 72px minmax(0, 1fr) auto;
@@ -1043,10 +1063,10 @@
     }
     .amb-line span { font-size: 10.5px; color: var(--niebla); }
     .amb-line b {
-      font-family: var(--serif); font-weight: 300; font-size: 13px;
-      text-align: right; color: var(--ink);
+      font-family: var(--serif); font-weight: 400; font-size: 12px;
+      text-align: right; color: var(--tierra);
     }
-    .amb-mini { height: 6px; background: rgba(132,96,64,0.1); }
+    .amb-mini { height: 3px; background: rgba(132,96,64,0.1); }
     .amb-mini i { display: block; height: 100%; background: var(--musgo); }
     .amb-mini i.used { background: rgba(83,98,69,0.35); }
     .amb-mini i.new { background: var(--ink); }
@@ -1190,7 +1210,7 @@
       white-space: nowrap;
     }
     .wa-lbl {
-      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.10em;
       text-transform: uppercase; color: var(--arena); margin-bottom: 6px;
     }
     .close-legal {
@@ -1270,7 +1290,7 @@
     <div class="accent"></div>
     <div class="cover-meta">
       <div>
-        <div class="cm-val">Vidal 3849 y García del Río</div>
+        <div class="cm-val">Vidal 3849 · García del Río</div>
         <div class="cover-place">Saavedra</div>
       </div>
       <div>
@@ -1340,19 +1360,19 @@
     <div class="loc-facts">
       <div class="loc-fact">
         <div class="n">Naturaleza</div>
-        <div class="t">Parque Saavedra a 4 cuadras y Boulevard García del Río a media cuadra, rodeado de verde, árboles y espacios para disfrutar al aire libre.</div>
+        <div class="t">Parque Saavedra a 4 cuadras y Boulevard García del Río a media cuadra, con verde y aire libre.</div>
       </div>
       <div class="loc-fact">
         <div class="n">Vida de barrio</div>
-        <div class="t">Bares, restaurantes, comercios y propuestas culturales que acompañan una vida de barrio activa y cercana.</div>
+        <div class="t">Bares, restaurantes, comercios y cultura, en una vida de barrio cercana.</div>
       </div>
       <div class="loc-fact">
         <div class="n">Conectividad</div>
-        <div class="t">Av. Cabildo, Subte D, Metrobús y cercanía a General Paz, con rápido acceso y egreso de CABA hacia la provincia.</div>
+        <div class="t">Av. Cabildo, Subte D, Metrobús y General Paz, con acceso rápido hacia la provincia.</div>
       </div>
       <div class="loc-fact">
         <div class="n">Servicios</div>
-        <div class="t">Shopping DOT, comercios, supermercados y servicios cotidianos a pocos minutos.</div>
+        <div class="t">Shopping DOT, comercios y supermercados a pocos minutos.</div>
       </div>
     </div>
     <div class="loc-map-frame">
@@ -1375,24 +1395,24 @@
         <div class="tipo-letter">A</div>
         <h3>3 ambientes</h3>
         <div class="where">Frente</div>
-        <div class="tipo-hero"><span class="n">82</span><span class="u">m2</span></div>
-        <div class="tipo-split">71 m2 cubiertos · 11 m2 balcón</div>
+        <div class="tipo-hero"><span class="n">82</span><span class="u">m²</span></div>
+        <div class="tipo-split">71 m² cubiertos · 11 m² balcón</div>
         <p class="tipo-prog">Suite, segundo dormitorio, baño completo y balcón corrido</p>
       </article>
       <article class="tipo">
         <div class="tipo-letter">B</div>
         <h3>Monoambiente</h3>
         <div class="where">Contrafrente</div>
-        <div class="tipo-hero"><span class="n">37</span><span class="u">m2</span></div>
-        <div class="tipo-split">34 m2 cubiertos · 3 m2 balcón</div>
+        <div class="tipo-hero"><span class="n">37</span><span class="u">m²</span></div>
+        <div class="tipo-split">34 m² cubiertos · 3 m² balcón</div>
         <p class="tipo-prog">Amplio estudio, espacio de guardado y balcón propio.</p>
       </article>
       <article class="tipo">
         <div class="tipo-letter">C</div>
         <h3>2 ambientes</h3>
         <div class="where">Contrafrente</div>
-        <div class="tipo-hero"><span class="n">54</span><span class="u">m2</span></div>
-        <div class="tipo-split">48 m2 cubiertos <br/>6 m2 balcón</div>
+        <div class="tipo-hero"><span class="n">54</span><span class="u">m²</span></div>
+        <div class="tipo-split">48 m² cubiertos <br/>6 m² balcón</div>
         <p class="tipo-prog">Suite, toilette y balcón corrido.</p>
       </article>
     </div>
@@ -1402,7 +1422,7 @@
       <div class="amen-grid">
         <div class="amen-item">
           <h4>Terraza con jacuzzi</h4>
-          <p>Terraza común de 76 m2.<br/> Jacuzzi y estar al aire libre.</p>
+          <p>Terraza común de 76 m².<br/> Jacuzzi y estar al aire libre.</p>
         </div>
         <div class="amen-item">
           <h4>SUM Cowork interior–exterior</h4>
@@ -1453,7 +1473,7 @@
 </div>
 
 <!-- 5 PLANTA BAJA -->
-<div class="page page--land">
+<div class="page page--land page--dark">
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
@@ -1461,14 +1481,14 @@
         <div class="kicker"></div>
         <div class="serif-title">Planta baja</div>
         <div class="accent"></div>
-        <p class="body">Hall, SUM in-out con cocina y cowork, bicicletero y cocheras.</p>
+        <p class="body">SUM in-out · cowork · bicicletero · cocheras</p>
       </div>
     </aside>
     <div class="sheet-stage">
       <img src="assets/planos-sga/planta-baja-solo.png" alt="Planta baja" />
     </div>
   </div>
-  <div class="pf"><span>Planta baja</span><span>04 / 12</span></div>
+  <div class="pf pf--dark"><span>Planta baja</span><span>04 / 12</span></div>
 </div>
 
 <!-- 6 PLANTA TIPO -->
@@ -1483,20 +1503,20 @@
         <div class="kicker"></div>
         <div class="serif-title">Planta tipo</div>
         <div class="accent"></div>
-        <p class="body">Tres unidades por piso, todas con balcón. El 4° ajusta levemente las superficies.</p>
+        <p class="body">3 unidades por piso. Todas con balcón. El 4° ajusta levemente las superficies.</p>
       </div>
       <div class="leg-area">
         <div class="row">
           <span class="k">A · 3 ambientes<span class="sub">71 cubiertos · 11 balcón</span></span>
-          <span class="leg-n">82 m2</span>
+          <span class="leg-n">82 m²</span>
         </div>
         <div class="row">
           <span class="k">B · Monoambiente<span class="sub">34 cubiertos · 3 balcón</span></span>
-          <span class="leg-n">37 m2</span>
+          <span class="leg-n">37 m²</span>
         </div>
         <div class="row">
           <span class="k">C · 2 ambientes<span class="sub">48 cubiertos · 6 balcón</span></span>
-          <span class="leg-n">54 m2</span>
+          <span class="leg-n">54 m²</span>
         </div>
       </div>
     </aside>
@@ -1508,7 +1528,7 @@
 </div>
 
 <!-- 7 TERRAZAS -->
-<div class="page page--land">
+<div class="page page--land page--dark">
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
@@ -1516,20 +1536,20 @@
         <div class="kicker"></div>
         <div class="serif-title">Terrazas</div>
         <div class="accent"></div>
-        <p class="body">Terraza común con jacuzzi. Tres terrazas privadas.</p>
+        <p class="body">Terraza común con jacuzzi + 3 terrazas privadas.</p>
       </div>
       <div class="leg-area">
-        <div class="row"><span class="k">Común</span><span class="leg-n">76 m2</span></div>
-        <div class="row"><span class="k">Privada A</span><span class="leg-n">33 m2</span></div>
-        <div class="row"><span class="k">Privada B</span><span class="leg-n">20 m2</span></div>
-        <div class="row"><span class="k">Privada C</span><span class="leg-n">25 m2</span></div>
+        <div class="row"><span class="k">Común</span><span class="leg-n">76 m²</span></div>
+        <div class="row"><span class="k">Privada A</span><span class="leg-n">33 m²</span></div>
+        <div class="row"><span class="k">Privada B</span><span class="leg-n">20 m²</span></div>
+        <div class="row"><span class="k">Privada C</span><span class="leg-n">25 m²</span></div>
       </div>
     </aside>
     <div class="sheet-stage">
       <img src="assets/planos-sga/planta-terraza-solo.png" alt="Planta terrazas" />
     </div>
   </div>
-  <div class="pf"><span>Terrazas</span><span>06 / 12</span></div>
+  <div class="pf pf--dark"><span>Terrazas</span><span>06 / 12</span></div>
 </div>
 
 <!-- 7 CORTE -->
@@ -1730,21 +1750,21 @@
         <tr>
           <td class="floor-cell" rowspan="3">Piso 1</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">82</td>
+          <td class="num area">82</td>
           <td class="num price">218.463</td>
           <td class="num hi">65.539</td>
           <td class="num hi">8.501</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num">37</td>
+          <td class="num area">37</td>
           <td class="num price">93.629</td>
           <td class="num hi">28.089</td>
           <td class="num hi">3.641</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">54</td>
+          <td class="num area">54</td>
           <td class="num price">139.320</td>
           <td class="num hi">41.796</td>
           <td class="num hi">5.418</td>
@@ -1752,21 +1772,21 @@
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 2</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">82</td>
+          <td class="num area">82</td>
           <td class="num price">222.968</td>
           <td class="num hi">66.890</td>
           <td class="num hi">8.677</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num">37</td>
+          <td class="num area">37</td>
           <td class="num price">95.560</td>
           <td class="num hi">28.668</td>
           <td class="num hi">3.716</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">54</td>
+          <td class="num area">54</td>
           <td class="num price">142.193</td>
           <td class="num hi">42.658</td>
           <td class="num hi">5.530</td>
@@ -1774,21 +1794,21 @@
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 3</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">82</td>
+          <td class="num area">82</td>
           <td class="num price">227.472</td>
           <td class="num hi">68.242</td>
           <td class="num hi">8.852</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num">37</td>
+          <td class="num area">37</td>
           <td class="num price">97.490</td>
           <td class="num hi">29.247</td>
           <td class="num hi">3.791</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">54</td>
+          <td class="num area">54</td>
           <td class="num price">145.065</td>
           <td class="num hi">43.520</td>
           <td class="num hi">5.641</td>
@@ -1796,21 +1816,21 @@
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 4</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num">82</td>
+          <td class="num area">82</td>
           <td class="num price">231.976</td>
           <td class="num hi">69.593</td>
           <td class="num hi">9.027</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num">37</td>
+          <td class="num area">37</td>
           <td class="num price">99.421</td>
           <td class="num hi">29.826</td>
           <td class="num hi">3.866</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num">54</td>
+          <td class="num area">54</td>
           <td class="num price">147.938</td>
           <td class="num hi">44.381</td>
           <td class="num hi">5.753</td>
@@ -1830,7 +1850,7 @@
       <div class="kicker" style="margin-bottom:8px;">Saavedra · Septiembre 2026 · Market Analytics · 14 abril 2026</div>
       <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.623.</div>
       <div class="accent"></div>
-      <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m2.</p>
+      <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m².</p>
     </div>
 
     <div class="amb-grid">
@@ -1838,16 +1858,16 @@
         <div class="amb-name">Monoambiente</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo · 36,93 m2</span>
-            <span class="v">USD 2.623/m2</span>
+            <span class="k">Ceibo<span class="sq">36,93 m²</span></span>
+            <span class="v">USD 2.623/m²</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Estreno zona · 34 m2</span>
-            <span class="v">USD 3.618/m2</span>
+            <span class="k">Estreno zona<span class="sq">34 m²</span></span>
+            <span class="v">USD 3.618/m²</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Usado zona · 32 m2</span>
-            <span class="v">USD 3.010/m2</span>
+            <span class="k">Usado zona<span class="sq">32 m²</span></span>
+            <span class="v">USD 3.010/m²</span>
           </div>
         </div>
         <div class="amb-totals">
@@ -1861,16 +1881,16 @@
         <div class="amb-name">2 ambientes</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo · 54,27 m2</span>
-            <span class="v">USD 2.623/m2</span>
+            <span class="k">Ceibo<span class="sq">54,27 m²</span></span>
+            <span class="v">USD 2.623/m²</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Estreno zona · 47 m2</span>
-            <span class="v">USD 3.715/m2</span>
+            <span class="k">Estreno zona<span class="sq">47 m²</span></span>
+            <span class="v">USD 3.715/m²</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Usado zona · 44 m2</span>
-            <span class="v">USD 2.929/m2</span>
+            <span class="k">Usado zona<span class="sq">44 m²</span></span>
+            <span class="v">USD 2.929/m²</span>
           </div>
         </div>
         <div class="amb-totals">
@@ -1884,16 +1904,16 @@
         <div class="amb-name">3 ambientes</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo · 82,43 m2</span>
-            <span class="v">USD 2.623/m2</span>
+            <span class="k">Ceibo<span class="sq">82,43 m²</span></span>
+            <span class="v">USD 2.623/m²</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Estreno zona · 75 m2</span>
-            <span class="v">USD 3.807/m2</span>
+            <span class="k">Estreno zona<span class="sq">75 m²</span></span>
+            <span class="v">USD 3.807/m²</span>
           </div>
           <div class="mkt-row">
-            <span class="k">Usado zona · 60 m2</span>
-            <span class="v">USD 2.788/m2</span>
+            <span class="k">Usado zona<span class="sq">60 m²</span></span>
+            <span class="v">USD 2.788/m²</span>
           </div>
         </div>
         <div class="amb-totals">
