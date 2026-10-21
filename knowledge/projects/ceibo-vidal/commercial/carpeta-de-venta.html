@@ -71,7 +71,7 @@
     .logo { display: flex; align-items: center; }
     .logo-mark {
       display: block;
-      height: 26px;
+      height: 30px;
       width: auto !important;
       max-width: none !important;
       object-fit: contain;
@@ -177,6 +177,33 @@
        1. COVER
        ══════════════════════════════════════ */
     .cover { background: #21201E; }
+
+    /* Guarda: página de marca previa a la portada. Sin texto ni numeración. */
+    .cover--seal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 7%; /* centro óptico: un poco por encima del geométrico */
+    }
+    .cover--seal img {
+      display: block;
+      height: 410px;
+      width: auto;
+      max-width: none;
+      filter: brightness(0) invert(1);
+      opacity: 0.94;
+    }
+    .cover--seal .seal-cap {
+      position: absolute;
+      left: 0; right: 0; bottom: 52px;
+      text-align: center;
+      font-family: Montserrat, sans-serif;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(248,247,244,0.5);
+    }
     .cover-hero { flex: 1; min-height: 0; position: relative; overflow: hidden; }
     .cover-hero .render-img {
       object-fit: cover;
@@ -286,6 +313,9 @@
     .cover-meta > div:not(:first-child) {
       flex: 0 0 auto;
     }
+    /* centra la info con las letras del logo (las hojas sobresalen arriba) */
+    .cover-meta--logo > div:not(:first-child) { position: relative; top: -2px; padding: 0 20px; }
+    .cover-meta--logo > div:last-child { padding-right: 0; }
     .cm-val {
       font-family: Montserrat, sans-serif;
       font-size: 15px;
@@ -1174,7 +1204,7 @@
       color: rgba(248,247,244,0.58); max-width: 280px;
     }
     .brand-lockup {
-      width: 168px; height: 36px;
+      width: 148px; height: 42px;
       background: url("assets/raices_logo_texto.png") left center / contain no-repeat;
       filter: brightness(0) invert(1);
       opacity: 0.88;
@@ -1274,6 +1304,12 @@
 </head>
 <body data-edicion="comercial">
 
+<!-- 0 GUARDA DE MARCA -->
+<div class="page cover cover--seal">
+  <img src="assets/raices_logo_completo.png" alt="Raíces Developers" />
+  <div class="seal-cap">Carpeta de venta · Ceibo Vidal</div>
+</div>
+
 <!-- 1 COVER -->
 <div class="page cover">
   <div class="cover-hero">
@@ -1281,17 +1317,19 @@
     <div class="cover-grad-top"></div>
     <div class="cover-grad-bot"></div>
     <div class="cover-bar">
-      <img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="height:28px; filter:brightness(0) invert(1); opacity:0.95;" />
+      <img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="height:32px; filter:brightness(0) invert(1); opacity:0.95;" />
       <span>Carpeta de venta</span>
     </div>
   </div>
   <div class="cover-copy">
-    <h1>Ceibo Vidal</h1>
-    <div class="accent"></div>
-    <div class="cover-meta">
+    <div class="cover-meta cover-meta--logo" style="align-items:center;margin-top:0;">
+      <div style="flex:1 0 auto;">
+        <h1><img src="assets/ceibo_logo_lino.png" alt="Ceibo Vidal" style="height:98px;width:auto;max-width:none;display:block;margin-left:-7px;" /></h1>
+        <div class="cm-val" style="margin-top:8px;font-size:19px;letter-spacing:0.01em;color:#DCD7CC;">Vidal 3849</div>
+      </div>
       <div>
-        <div class="cm-val">Vidal 3849 · García del Río</div>
-        <div class="cover-place">Saavedra</div>
+        <div class="cover-place" style="margin-top:0;font-size:14px;">Saavedra</div>
+        <div class="cm-lbl">Barrio</div>
       </div>
       <div>
         <div class="cm-val">12</div>
@@ -1319,7 +1357,7 @@
 <!-- 2 EL PROYECTO -->
 <div class="page page--blanco">
   <div class="ph">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="split-page">
@@ -1348,7 +1386,7 @@
 <!-- 3 UBICACIÓN -->
 <div class="page page--dark page--loc">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="loc-page">
@@ -1384,7 +1422,7 @@
 
 <!-- 4 TIPOLOGÍAS -->
 <div class="page page--suelo">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="tipo-page">
     <div>
       <div class="serif-title" style="font-size:36px;">Tres tipologías</div>
@@ -1474,7 +1512,7 @@
 
 <!-- 5 PLANTA BAJA -->
 <div class="page page--land page--dark">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
       <div class="sheet-copy">
@@ -1494,7 +1532,7 @@
 <!-- 6 PLANTA TIPO -->
 <div class="page page--land page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="sheet">
@@ -1529,7 +1567,7 @@
 
 <!-- 7 TERRAZAS -->
 <div class="page page--land page--dark">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="sheet">
     <aside class="sheet-aside">
       <div class="sheet-copy">
@@ -1555,7 +1593,7 @@
 <!-- 7 CORTE -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="corte-page">
@@ -1574,7 +1612,7 @@
 
 <!-- UNIDAD A -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page">
     <div class="unit-head">
       <div class="kicker">Unidad A · Frente</div>
@@ -1619,7 +1657,7 @@
 
 <!-- UNIDAD B -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page unit-page--b">
     <div class="unit-head">
       <div class="kicker">Unidad B · Contrafrente</div>
@@ -1664,7 +1702,7 @@
 
 <!-- UNIDAD C -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page unit-page--c">
     <div class="unit-head">
       <div class="kicker">Unidad C · Contrafrente</div>
@@ -1709,7 +1747,7 @@
 
 <!-- 8 LISTA DE PRECIOS -->
 <div class="page page--suelo page--restricted">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
       <div class="kicker" style="margin-bottom:8px;">Preventa 1 · Septiembre 2026</div>
@@ -1844,7 +1882,7 @@
 
 <!-- 11 MERCADO -->
 <div class="page page--suelo page--restricted">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="mkt-page">
     <div class="mkt-hero">
       <div class="kicker" style="margin-bottom:8px;">Saavedra · Septiembre 2026 · Market Analytics · 14 abril 2026</div>
@@ -1933,7 +1971,7 @@
 <!-- 12 CONTACTO -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="close">

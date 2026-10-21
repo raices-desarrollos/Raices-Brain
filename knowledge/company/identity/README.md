@@ -7,6 +7,7 @@ Documentos de identidad visual y verbal de Raíces Desarrolladores.
 | Archivo                | Descripción                                                     |
 | ---------------------- | --------------------------------------------------------------- |
 | `DESIGN_SYSTEM.md`     | Design System V2 — paleta, tipografía, logo, tono y componentes |
+| `logo/`                | Logo vigente: completo, wordmark e ilustración              |
 | `brand-manifesto.md`   | Manifiesto de marca                                             |
 | `naming-system.md`     | Sistema de nombres de proyectos                                 |
 | `tone-of-voice.md`     | Guía de tono y voz                                              |
