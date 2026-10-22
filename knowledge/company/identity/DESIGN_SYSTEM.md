@@ -293,7 +293,7 @@ La referencia es la carpeta de Ceibo Vidal: `knowledge/projects/ceibo-vidal/comm
 
 **Formato**
 
-- A4 vertical: 794 × 1123 px (210 × 297 mm). Las plantas van en A4 apaisado: 1123 × 794 px.
+- A4 vertical: 794 × 1123 px (210 × 297 mm). Todas las páginas son verticales, incluidas las plantas.
 - Márgenes laterales de 52 px. Encabezado de 52 px. Pie de 44 px.
 - Un solo archivo HTML genera las dos ediciones y los PDFs.
 
@@ -306,13 +306,14 @@ La referencia es la carpeta de Ceibo Vidal: `knowledge/projects/ceibo-vidal/comm
 | 01    | El proyecto            | Blanco                  |
 | 02    | Ubicación              | Tinta                   |
 | 03    | Unidades y amenities   | Suelo                   |
-| 04    | Planta baja (apaisada) | Tinta                   |
-| 05    | Planta tipo (apaisada) | Tinta                   |
-| 06    | Terrazas (apaisada)    | Tinta                   |
-| 07    | Corte                  | Tinta                   |
+| 04    | Planta baja            | Tinta                   |
+| 05    | Planta tipo            | Tinta                   |
+| 06    | Terrazas               | Tinta                   |
+| 07    | Corte (El edificio)    | Tinta                   |
 | 08–10 | Una página por unidad  | Lino                    |
 | 11    | Lista de precios *     | Suelo                   |
 | 12    | El mercado *           | Suelo                   |
+| 11    | Forma de pago          | Blanco                  |
 | Final | Contacto               | Tinta, con render       |
 
 \* Solo en la edición completa.
@@ -456,5 +457,5 @@ El logo Raíces Developers está compuesto en Montserrat Medium. En el wordmark,
 - El trazo arena es la firma visual de Ceibo Vidal: 28 × 2 px, color `--arena`, 12 px bajo el título. No repetirlo en cada bloque.
 - En planos apaisados el trazo puede subir a 10 px para no competir con el plano.
 - Precio en Medium (500). Anticipo y cuota en Regular (400), mismo tono, tamaño apenas menor.
-- Jerarquía limpia: un protagonista por página. Amenities, disponibles y forma de pago quedan por debajo de las tipologías.
+- Jerarquía limpia: un protagonista por página. Amenities y disponibles quedan por debajo de las tipologías. La forma de pago tiene su propia página antes del contacto.
 - Evitar saturación de cards, sombras, bordes pesados e iconografía de interfaz.

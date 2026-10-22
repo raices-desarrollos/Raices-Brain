@@ -61,13 +61,6 @@
     .page--blanco { background: var(--blanco); }
     .page--suelo { background: var(--suelo); }
     body[data-edicion="comercial"] .page--restricted { display: none !important; }
-    .page--land {
-      width: var(--page-h);
-      height: var(--page-w);
-      min-height: var(--page-w);
-      max-height: var(--page-w);
-    }
-
     .logo { display: flex; align-items: center; }
     .logo-mark {
       display: block;
@@ -263,11 +256,12 @@
     }
     .cover-partner {
       margin-top: 22px;
-      padding-top: 14px;
+      padding-top: 16px;
       border-top: 0.75px solid rgba(248,247,244,0.14);
       display: flex;
       align-items: center;
-      gap: 16px;
+      justify-content: space-between;
+      gap: 24px;
     }
     .cover-partner-lbl {
       font-family: Montserrat, sans-serif;
@@ -275,31 +269,31 @@
       font-weight: 500;
       letter-spacing: 0.10em;
       text-transform: uppercase;
-      color: rgba(248,247,244,0.45);
+      color: rgba(248,247,244,0.5);
       line-height: 1.2;
       white-space: nowrap;
     }
     .cover-partner-logos {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 0;
       min-width: 0;
+    }
+    .cover-partner-logos span {
+      display: block;
+      width: 0.75px; height: 30px;
+      background: rgba(248,247,244,0.28);
+      margin: 0 26px;
     }
     .cover-partner img {
       display: block;
-      height: 40px;
       width: auto;
       max-width: none !important;
       flex-shrink: 0;
-      border-radius: 4px;
+      opacity: 0.92;
     }
-    .cover-partner img.cover-daimar {
-      height: 40px;
-      padding: 8px 10px;
-      background: #F8F7F4;
-      object-fit: contain;
-      border-radius: 4px;
-    }
+    .cover-partner img.cover-gyd { height: 34px; }
+    .cover-partner img.cover-daimar { height: 21px; }
     .cover-meta > div {
       padding: 0 26px;
       border-left: 0.75px solid rgba(248,247,244,0.18);
@@ -376,15 +370,15 @@
     }
     .loc-copy .serif-title { font-size: 36px; color: var(--blanco); }
     .loc-lead {
-      margin-top: 12px; font-size: 14px; line-height: 1.55;
+      margin-top: 14px; font-size: 15.5px; line-height: 1.6;
       color: rgba(248,247,244,0.7); max-width: 38em;
     }
     .loc-facts {
       flex-shrink: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px 36px;
-      margin: 18px var(--mg) 0;
+      gap: 26px 36px;
+      margin: 30px var(--mg) 0;
     }
     .loc-fact {
       font-family: Montserrat, sans-serif;
@@ -399,15 +393,15 @@
       color: var(--arena);
     }
     .loc-fact .t {
-      margin-top: 6px;
-      font-size: 13px;
+      margin-top: 7px;
+      font-size: 14px;
       font-weight: 400;
-      line-height: 1.4;
+      line-height: 1.45;
       color: rgba(248,247,244,0.72);
     }
     .loc-map-frame {
       flex: 0 0 auto;
-      margin: auto 18px auto;
+      margin: auto 18px 18px;
       line-height: 0;
       overflow: hidden;
       border-radius: var(--radius);
@@ -461,6 +455,7 @@
       margin-top: 4px;
       flex: 1;
       min-height: 0;
+      justify-content: space-evenly;
     }
     .tipo-page .mkt-pago {
       padding: 0;
@@ -475,7 +470,7 @@
       flex: 0 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto auto auto auto;
+      grid-template-rows: auto auto auto auto auto auto;
       border-top: 0.75px solid var(--line);
       border-bottom: 0.75px solid var(--line);
     }
@@ -483,7 +478,7 @@
       position: relative;
       display: grid;
       grid-template-rows: subgrid;
-      grid-row: span 5;
+      grid-row: span 6;
       padding: 22px 18px 22px 0;
       border-right: 0.75px solid var(--line);
       overflow: hidden;
@@ -491,7 +486,22 @@
     }
     .tipo:nth-child(2), .tipo:last-child { padding-left: 22px; }
     .tipo:last-child { border-right: none; padding-right: 0; }
+    .tipo-thumb {
+      position: relative;
+      height: 214px;
+      margin-bottom: 20px;
+      background: var(--lino);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .tipo-thumb img { max-width: 96%; max-height: 96%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+    .tipo-chip {
+      position: absolute; top: 10px; left: 14px; z-index: 1;
+      font-family: var(--serif); font-size: 20px; color: var(--musgo); line-height: 1;
+    }
     .tipo-letter {
+      display: none;
       position: absolute; top: 12px; right: -8px;
       grid-row: 1 / -1;
       grid-column: 1;
@@ -565,168 +575,109 @@
       text-transform: uppercase; color: var(--ink);
     }
 
+    /* Tipologías en filas: plano grande sin fondo + datos */
+    .tipo-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+    .tipo {
+      grid-template-columns: 1.35fr 1fr; grid-template-rows: none; grid-row: auto;
+      column-gap: 30px; align-content: center; align-items: start;
+      padding: 18px 0 !important;
+      border-right: none; border-bottom: 0.75px solid var(--line);
+    }
+    .tipo:last-child { border-bottom: none; }
+    .tipo > * { grid-column: 2; }
+    .tipo > .tipo-thumb { grid-column: 1; grid-row: 1 / span 6; align-self: stretch; }
+    .tipo-thumb {
+      height: 205px; margin: 0; padding-top: 26px; box-sizing: border-box; background: transparent; border-radius: 0; overflow: visible;
+      justify-content: flex-start; align-items: flex-start;
+    }
+    .tipo-thumb img { max-width: 100%; max-height: 100%; mix-blend-mode: multiply; }
+    .tipo-chip { top: 0; left: 0; }
+    .tipo h3 { margin-top: 0; font-size: 24px; }
+    .tipo .where { margin-top: 4px; }
+    .tipo-hero { margin-top: 10px; }
+    .tipo-hero .n { font-size: 48px; }
+    .tipo-split { margin-top: 6px; }
+    .tipo-prog { padding-top: 10px; font-size: 12.5px; }
+
+
     /* ══════════════════════════════════════
        5–7. ARCHITECTURAL PLANS
        ══════════════════════════════════════ */
-    .sheet {
-      flex: 1; min-height: 0;
-      display: grid;
-      grid-template-columns: 228px 1fr;
-    }
-    .sheet-aside {
-      padding: 22px 18px 20px var(--mg);
-      border-right: 0.75px solid var(--line);
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .sheet-aside .serif-title { font-size: 26px; }
-    .sheet-aside .body { font-size: 12.5px; line-height: 1.5; max-width: none; }
-    .sheet-legend { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-    .leg {
-      display: grid; grid-template-columns: 18px 1fr;
-      gap: 8px; align-items: baseline;
-      padding-top: 8px;
-      border-top: 0.75px solid var(--line);
-    }
-    .leg:first-child { border-top: none; padding-top: 0; }
-    .leg-k {
-      font-family: var(--serif); font-weight: 300; font-size: 15px; color: var(--musgo); line-height: 1;
-    }
-    .leg-t { font-size: 12.5px; line-height: 1.35; color: var(--tierra); }
-    .leg-n {
-      font-family: var(--serif); font-weight: 300; font-size: 22px; color: var(--ink); line-height: 1;
-      letter-spacing: -0.02em; white-space: nowrap;
-    }
-    .leg-area {
-      display: flex; flex-direction: column; gap: 0; margin-top: 8px;
-      border: 0.75px solid var(--line);
-      background: var(--blanco);
-      padding: 14px 16px 12px;
-      border-radius: var(--radius);
-    }
-    .leg-area .row {
-      display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
-      padding: 12px 0 11px;
-      border-top: 0.75px solid var(--line);
-    }
-    .leg-area .row:first-child { border-top: none; padding-top: 0; }
-    .leg-area .k { font-size: 13px; font-weight: 500; color: var(--ink); }
-    .leg-area .k .sub {
-      display: block; font-size: 11px; color: var(--niebla);
-      margin-top: 3px; line-height: 1.35; font-weight: 400;
-    }
-    .sheet-stage {
-      min-height: 0; padding: 16px 20px 12px 8px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .sheet-stage img {
-      width: auto; height: auto;
-      max-width: 100%; max-height: 100%;
-      object-fit: contain;
-      mix-blend-mode: multiply;
-    }
-    .page--land .ph { display: none; }
-    .page--land .sheet {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .page--land .sheet-aside {
-      flex: 0 0 auto;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 8px 32px;
-      padding: 32px var(--mg) 12px;
-      border-right: none;
-    }
-    .page--land .sheet-copy { display: flex; flex-direction: column; gap: 4px; max-width: 28em; }
-    .page--land .sheet-copy .serif-title { font-size: 22px; }
-    .page--land .sheet-copy .body { font-size: 12px; line-height: 1.4; }
-    .page--land .sheet-copy .accent { margin-top: 10px; }
-    .page--land .leg-area {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      gap: 0;
-      margin-top: 0;
-      padding: 0;
-      border: none;
-      background: transparent;
-    }
-    .page--land .leg-area .row {
-      padding: 0 18px;
-      border-top: none;
-      border-left: 0.75px solid var(--line);
-    }
-    .page--land .leg-area .row:first-child {
-      padding-left: 0;
-      border-left: none;
-    }
-    .page--land .leg-n { font-size: 20px; }
-    .page--land .sheet-stage {
-      position: relative;
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: hidden;
-      padding: 0 var(--mg) 8px;
-    }
-    .page--land .sheet-stage img {
-      position: absolute;
-      transform-origin: center center;
-      max-width: none;
-      max-height: none;
-    }
-    .page--land.page--dark .sheet-copy .serif-title { color: var(--blanco); }
-    .page--land.page--dark .sheet-copy .body { color: rgba(248, 247, 244, 0.62); }
-    .page--land.page--dark .leg-area .k { color: var(--blanco); }
-    .page--land.page--dark .leg-area .k .sub { color: rgba(248, 247, 244, 0.45); }
-    .page--land.page--dark .leg-n { color: var(--blanco); }
-    .page--land.page--dark .leg-area .row { border-left-color: var(--line-dark); }
-    .page--land.page--dark .sheet-stage {
-      background: var(--lino);
-      margin: 0 var(--mg) 16px;
-      padding: 0 12px 8px;
-      border-radius: var(--radius);
-    }
-
     .corte-page {
-      flex: 1;
-      min-height: 0;
-      display: grid;
-      grid-template-rows: auto 1fr 1fr;
+      flex: 1; min-height: 0;
+      display: flex; flex-direction: column;
+      padding-bottom: 26px;
     }
-    .corte-head {
-      padding: 22px var(--mg) 10px;
-    }
-    .corte-head .serif-title {
-      font-size: 32px;
-      color: var(--blanco);
-    }
+    .corte-head { padding: 26px var(--mg) 14px; }
+    .corte-head .serif-title { font-size: 32px; color: var(--blanco); margin-top: 8px; }
     .corte-head .accent { margin-top: 12px; }
     .corte-plan {
-      min-height: 0;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 var(--mg) 16px;
-      padding: 10px 14px;
+      margin: 0 var(--mg);
+      padding: 16px 18px;
       background: var(--lino);
       border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
     }
-    .corte-plan img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      mix-blend-mode: multiply;
+    .corte-plan img { width: 100%; height: auto; display: block; mix-blend-mode: multiply; }
+    .corte-facts {
+      margin: 22px var(--mg) 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
     }
-    .corte-renders {
-      min-height: 0;
-      border-top: 0.75px solid var(--line-dark);
-      background: transparent;
+    .corte-facts > div { padding: 0 18px; border-left: 0.75px solid var(--line-dark); }
+    .corte-facts > div:first-child { padding-left: 0; border-left: none; }
+    .corte-facts .n { font-family: var(--serif); font-size: 30px; letter-spacing: -0.03em; line-height: 1; color: var(--blanco); }
+    .corte-facts .l { margin-top: 8px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,247,244,0.5); }
+    .corte-photo { flex: 1; min-height: 0; margin: 22px var(--mg) 0; border-radius: var(--radius); overflow: hidden; }
+    .corte-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; display: block; }
+
+    /* ─── Planos (páginas verticales) ─── */
+    .fp {
+      flex: 1; min-height: 0;
+      display: grid; grid-template-columns: 266px 1fr;
+      gap: 26px;
+      padding: 28px var(--mg) 30px;
     }
+    .fp-aside { display: flex; flex-direction: column; gap: 22px; min-height: 0; }
+    .fp-copy .serif-title { font-size: 32px; color: var(--blanco); margin-top: 8px; }
+    .fp-copy .body { margin-top: 16px; font-size: 13px; line-height: 1.55; color: rgba(248,247,244,0.66); }
+    .fp-photo { flex: 1 1 176px; min-height: 176px; border-radius: var(--radius); overflow: hidden; }
+    .fp-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .fp-refs { margin-top: auto; }
+    .fp-refs > .kicker { margin-bottom: 10px; }
+    .fp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px 12px; }
+    .fp-list--2 { grid-template-columns: 1fr 1fr; }
+    .fp-list li { display: grid; grid-template-columns: 18px 1fr; gap: 4px; font-size: 11px; line-height: 1.3; color: rgba(248,247,244,0.72); }
+    .fp-list li b { font-family: var(--serif); font-weight: 400; color: var(--arena); font-size: 12px; }
+    .fp-list--note { margin-top: 16px; padding-top: 14px; border-top: 0.75px solid var(--line-dark); }
+    .fp-sup .row { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-top: 0.75px solid var(--line-dark); }
+    .fp-sup .row:first-child { border-top: none; padding-top: 0; }
+    .fp-sup .k { font-size: 12px; color: rgba(248,247,244,0.72); }
+    .fp-sup .n { font-family: var(--serif); font-size: 22px; letter-spacing: -0.02em; color: var(--blanco); }
+    .fp-plan {
+      min-height: 0; background: var(--lino); border-radius: var(--radius);
+      padding: 22px 20px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .fp-plan img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+
+    /* ─── Forma de pago ─── */
+    .pay { flex: 1; min-height: 0; padding: 34px var(--mg) 30px; display: flex; flex-direction: column; gap: 28px; }
+    .pay-head .serif-title { font-size: 36px; margin-top: 8px; max-width: 12em; }
+    .pay-head .body { margin-top: 16px; }
+    .pay-split { display: grid; grid-template-columns: 30fr 70fr; gap: 10px; }
+    .pay-split > div { border-radius: var(--radius); padding: 26px 24px 24px; min-height: 190px; display: flex; flex-direction: column; }
+    .pay-30 { background: var(--musgo); color: var(--blanco); }
+    .pay-70 { background: var(--suelo); color: var(--ink); }
+    .pay-split .pct { font-family: var(--serif); font-size: 64px; letter-spacing: -0.05em; line-height: 0.9; }
+    .pay-split .t { margin-top: auto; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+    .pay-split p { margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; opacity: 0.8; }
+    .pay-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0.75px solid var(--line); }
+    .pay-steps > div { padding: 18px 20px 0 0; }
+    .pay-steps > div + div { padding-left: 20px; border-left: 0.75px solid var(--line); }
+    .pay-steps .k { font-family: var(--serif); font-size: 18px; color: var(--musgo); }
+    .pay-steps .t { margin-top: 8px; font-family: var(--serif); font-size: 22px; letter-spacing: -0.02em; }
+    .pay-steps p { margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--tierra); }
+    .pay-photo { flex: 1; min-height: 0; border-radius: var(--radius); overflow: hidden; }
+    .pay-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; display: block; }
 
     /* ══════════════════════════════════════
        8–10. TYPOLOGY TEMPLATE
@@ -834,24 +785,34 @@
       min-height: 0;
     }
     .unit-plan img { mix-blend-mode: multiply; }
+    .unit-render--ph { padding: 4px 0 0; }
+    .unit-render--ph .ph-box {
+      width: 100%; height: 100%;
+      border: 0.75px dashed rgba(95, 70, 50, 0.4);
+      border-radius: var(--radius);
+      background: rgba(95, 70, 50, 0.04);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .unit-render--ph .ph-box span {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--niebla);
+    }
+    .unit-prog, .unit-stock { min-height: 74px; }
     .unit-page--b {
-      gap: 8px;
-      grid-template-rows: auto auto 1.2fr 1fr;
-      padding-bottom: 52px;
+      grid-template-rows: auto auto auto 1fr;
     }
     .unit-page--b .unit-plan {
       align-items: center;
       justify-content: center;
       margin-top: 0;
       overflow: hidden;
-      padding: 0 4px;
+      padding: 18px 4px 18px;
     }
     .unit-page--b .unit-render {
       align-items: flex-start;
     }
     .unit-page--b .unit-plan img {
       width: 100%;
-      height: 100%;
+      height: auto;
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
@@ -996,6 +957,32 @@
       display: flex; flex-direction: column; gap: 16px;
     }
     .mkt-hero { max-width: 36em; }
+    .mkt-gap {
+      margin-top: 10px;
+      background: var(--ink); color: var(--blanco);
+      border-radius: var(--radius);
+      padding: 26px 28px 24px;
+    }
+    .mkt-gap-h { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+    .mkt-gap-h .k {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--arena);
+    }
+    .mkt-gap-h .t { font-size: 12px; color: rgba(248,247,244,0.6); }
+    .mkt-gap-cols { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 18px; }
+    .mkt-gap-c { padding: 0 20px; border-left: 0.75px solid rgba(248,247,244,0.14); }
+    .mkt-gap-c:first-child { padding-left: 0; border-left: none; }
+    .mkt-gap-c .big {
+      font-family: var(--serif); font-weight: 400; font-size: 58px;
+      letter-spacing: -0.045em; line-height: 1; color: var(--arena);
+    }
+    .mkt-gap-c .l {
+      margin-top: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .mkt-gap-c .s { margin-top: 5px; font-size: 12px; color: rgba(248,247,244,0.62); }
+    .mkt-gap-foot {
+      margin-top: 20px; padding-top: 14px; border-top: 0.75px solid rgba(248,247,244,0.14);
+      font-size: 12.5px; line-height: 1.5; color: rgba(248,247,244,0.78);
+    }
     .mkt-pago {
       background: var(--blanco);
       border: 0.75px solid var(--line);
@@ -1286,15 +1273,6 @@
         max-width: 210mm !important;
         overflow: hidden !important;
       }
-      .page--land {
-        page: land;
-        width: 297mm !important;
-        height: 210mm !important;
-        min-height: 210mm !important;
-        max-height: 210mm !important;
-        min-width: 297mm !important;
-        max-width: 297mm !important;
-      }
       .page:last-child { page-break-after: auto; break-after: auto; }
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
@@ -1336,19 +1314,20 @@
         <div class="cm-lbl">Unidades</div>
       </div>
       <div>
-        <div class="cm-val">1 · 2 · 3 · 4</div>
+        <div class="cm-val">1 · 2 · 3</div>
         <div class="cm-lbl">Ambientes</div>
       </div>
       <div>
-        <div class="cm-val">2028</div>
+        <div class="cm-val">2029</div>
         <div class="cm-lbl">Entrega</div>
       </div>
     </div>
     <div class="cover-partner">
       <span class="cover-partner-lbl">Desarrollado en conjunto con</span>
       <div class="cover-partner-logos">
-        <img src="assets/partners/gyd-mark-plate.png" alt="G&amp;D Developers" />
-        <img class="cover-daimar" src="assets/partners/daimar-developers.png" alt="Daimar Developers" />
+        <img class="cover-gyd" src="assets/partners/gyd-wordmark-white.png" alt="G&amp;D Developers" />
+        <span></span>
+        <img class="cover-daimar" src="assets/partners/daimar-developers-white.png" alt="Daimar Developers" />
       </div>
     </div>
   </div>
@@ -1363,15 +1342,15 @@
   <div class="split-page">
     <div class="proj-copy">
       <div>
-        <div class="serif-title" style="font-size:38px;">12 unidades,<br />cada una con balcón.</div>
+        <div class="serif-title" style="font-size:38px;">Sobre el proyecto</div>
         <div class="accent"></div>
         <p class="body" style="margin-top:18px;">
-          En un barrio en crecimiento, conectado y con identidad, decidimos dejar nuestras propias raíces. <br/><br/>Ceibo Vidal es un edificio que se propone lograr el balance perfecto entre ciudad y aire libre.
+          En un barrio en crecimiento, conectado y con identidad, decidimos dejar nuestras propias raíces. <br/><br/>Ceibo Vidal es un edificio que se propone lograr el balance perfecto entre ciudad y aire libre. 
         </p>
       </div>
       <div class="amen-line">
         <span>Planta baja con SUM in-out, cowork y cocheras.</span>
-        <span>Cuatro pisos de tres unidades.</span>
+        <span>Cuatro pisos de tres unidades, cada una con balcón.</span>
         <span>Terraza común con jacuzzi.</span>
         <span>Terrazas privadas, bauleras y bicicletero.</span>
       </div>
@@ -1430,7 +1409,7 @@
     </div>
     <div class="tipo-grid">
       <article class="tipo">
-        <div class="tipo-letter">A</div>
+        <div class="tipo-thumb"><span class="tipo-chip">A</span><img src="assets/planos-sga/tipologia-a.png" alt="Plano 3 ambientes" /></div>
         <h3>3 ambientes</h3>
         <div class="where">Frente</div>
         <div class="tipo-hero"><span class="n">82</span><span class="u">m²</span></div>
@@ -1438,7 +1417,7 @@
         <p class="tipo-prog">Suite, segundo dormitorio, baño completo y balcón corrido</p>
       </article>
       <article class="tipo">
-        <div class="tipo-letter">B</div>
+        <div class="tipo-thumb"><span class="tipo-chip">B</span><img src="assets/planos-sga/tipologia-b.png" alt="Plano monoambiente" /></div>
         <h3>Monoambiente</h3>
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">37</span><span class="u">m²</span></div>
@@ -1446,7 +1425,7 @@
         <p class="tipo-prog">Amplio estudio, espacio de guardado y balcón propio.</p>
       </article>
       <article class="tipo">
-        <div class="tipo-letter">C</div>
+        <div class="tipo-thumb"><span class="tipo-chip">C</span><img src="assets/planos-sga/tipologia-c.png" alt="Plano 2 ambientes" /></div>
         <h3>2 ambientes</h3>
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">54</span><span class="u">m²</span></div>
@@ -1489,108 +1468,125 @@
       </div>
     </div>
     </div>
-    <div class="pago-wrap">
-      <div class="kicker">Forma de pago</div>
-      <div class="mkt-pago">
-        <div class="mkt-pago-cols">
-          <div>
-            <div class="n">30% al firmar</div>
-            <p>Anticipo al boleto.</p>
-          </div>
-          <div>
-            <div class="n">70% en cuotas</div>
-            <p>En pesos ajustados por CAC (Cámara Argentina de la Construcción).</p>
-          </div>
-        </div>
-        <div class="pago-bar pago-bar--light"><div class="pago-30">30% anticipo</div><div class="pago-70">70% saldo en obra</div></div>
-      </div>
-    </div>
     </div>
   </div>
   <div class="pf"><span>Unidades y Amenities</span><span>03 / 12</span></div>
 </div>
 
 <!-- 5 PLANTA BAJA -->
-<div class="page page--land page--dark">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
-  <div class="sheet">
-    <aside class="sheet-aside">
-      <div class="sheet-copy">
-        <div class="kicker"></div>
+<div class="page page--dark">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal</span>
+  </div>
+  <div class="fp">
+    <aside class="fp-aside">
+      <div class="fp-copy">
+        <div class="kicker kicker--arena">Nivel 00</div>
         <div class="serif-title">Planta baja</div>
         <div class="accent"></div>
-        <p class="body">SUM in-out · cowork · bicicletero · cocheras</p>
+        <p class="body">SUM in-out, cowork, bicicletero y cocheras, con ingreso peatonal y vehicular independientes.</p>
+      </div>
+      <div class="fp-photo"><img src="assets/cochera.png" alt="Cocheras" /></div>
+      <div class="fp-refs">
+        <div class="kicker kicker--arena">Referencias</div>
+        <ol class="fp-list fp-list--2">
+          <li><b>1</b><span>Acceso vehicular</span></li>
+          <li><b>2</b><span>Acceso peatonal</span></li>
+          <li><b>3</b><span>Buzón</span></li>
+          <li><b>4</b><span>Nicho de gas</span></li>
+          <li><b>5</b><span>Medidores</span></li>
+          <li><b>6</b><span>Hall de acceso</span></li>
+          <li><b>7</b><span>Circulación vehicular</span></li>
+          <li><b>8</b><span>Escalera</span></li>
+          <li><b>9</b><span>Ascensor</span></li>
+          <li><b>10</b><span>Baulera / bicicletero</span></li>
+          <li><b>11</b><span>Guardado</span></li>
+          <li><b>12</b><span>Sala de bombeo</span></li>
+          <li><b>13</b><span>Auxiliar portería</span></li>
+          <li><b>14</b><span>Baño</span></li>
+          <li><b>15</b><span>SUM</span></li>
+          <li><b>16</b><span>Expansión SUM</span></li>
+        </ol>
       </div>
     </aside>
-    <div class="sheet-stage">
-      <img src="assets/planos-sga/planta-baja-solo.png" alt="Planta baja" />
-    </div>
+    <div class="fp-plan"><img src="assets/planos-sga/planta-baja-plano.png" alt="Planta baja" /></div>
   </div>
   <div class="pf pf--dark"><span>Planta baja</span><span>04 / 12</span></div>
 </div>
 
 <!-- 6 PLANTA TIPO -->
-<div class="page page--land page--dark">
+<div class="page page--dark">
   <div class="ph ph--dark">
     <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
-  <div class="sheet">
-    <aside class="sheet-aside">
-      <div class="sheet-copy">
-        <div class="kicker"></div>
+  <div class="fp">
+    <aside class="fp-aside">
+      <div class="fp-copy">
+        <div class="kicker kicker--arena">Pisos 2° a 4°</div>
         <div class="serif-title">Planta tipo</div>
         <div class="accent"></div>
-        <p class="body">3 unidades por piso. Todas con balcón. El 4° ajusta levemente las superficies.</p>
+        <p class="body">Tres unidades por piso, todas con balcón, alrededor de un palier central. El 4° ajusta levemente las superficies.</p>
       </div>
-      <div class="leg-area">
-        <div class="row">
-          <span class="k">A · 3 ambientes<span class="sub">71 cubiertos · 11 balcón</span></span>
-          <span class="leg-n">82 m²</span>
+      <div class="fp-photo"><img src="assets/living 2 ambientes.png" alt="Living, 2 ambientes" /></div>
+      <div class="fp-refs">
+        <div class="kicker kicker--arena">Unidades</div>
+        <div class="fp-sup">
+        <div class="row"><span class="k">A · 3 ambientes</span><span class="n">82 m²</span></div>
+        <div class="row"><span class="k">B · Monoambiente</span><span class="n">37 m²</span></div>
+        <div class="row"><span class="k">C · 2 ambientes</span><span class="n">54 m²</span></div>
         </div>
-        <div class="row">
-          <span class="k">B · Monoambiente<span class="sub">34 cubiertos · 3 balcón</span></span>
-          <span class="leg-n">37 m²</span>
-        </div>
-        <div class="row">
-          <span class="k">C · 2 ambientes<span class="sub">48 cubiertos · 6 balcón</span></span>
-          <span class="leg-n">54 m²</span>
-        </div>
+        <ol class="fp-list fp-list--note">
+          <li><b>1</b><span>Bauleras y bicicleteros</span></li>
+          <li><b>2</b><span>Palier</span></li>
+          <li><b>3</b><span>Escalera</span></li>
+          <li><b>4</b><span>Ascensor</span></li>
+        </ol>
       </div>
     </aside>
-    <div class="sheet-stage">
-      <img src="assets/planos-sga/planta-tipo-solo.png" alt="Planta tipo" />
-    </div>
+    <div class="fp-plan"><img src="assets/planos-sga/planta-tipo-estilo.png" alt="Planta tipo" /></div>
   </div>
   <div class="pf pf--dark"><span>Planta tipo</span><span>05 / 12</span></div>
 </div>
 
 <!-- 7 TERRAZAS -->
-<div class="page page--land page--dark">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
-  <div class="sheet">
-    <aside class="sheet-aside">
-      <div class="sheet-copy">
-        <div class="kicker"></div>
+<div class="page page--dark">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <span class="pid">Ceibo Vidal</span>
+  </div>
+  <div class="fp">
+    <aside class="fp-aside">
+      <div class="fp-copy">
+        <div class="kicker kicker--arena">Nivel superior</div>
         <div class="serif-title">Terrazas</div>
         <div class="accent"></div>
-        <p class="body">Terraza común con jacuzzi + 3 terrazas privadas.</p>
+        <p class="body">Una terraza común con jacuzzi y estar al aire libre, más tres terrazas privadas.</p>
       </div>
-      <div class="leg-area">
-        <div class="row"><span class="k">Común</span><span class="leg-n">76 m²</span></div>
-        <div class="row"><span class="k">Privada A</span><span class="leg-n">33 m²</span></div>
-        <div class="row"><span class="k">Privada B</span><span class="leg-n">20 m²</span></div>
-        <div class="row"><span class="k">Privada C</span><span class="leg-n">25 m²</span></div>
+      <div class="fp-photo"><img src="assets/terraza verde.png" alt="Terraza común" /></div>
+      <div class="fp-refs">
+        <div class="kicker kicker--arena">Superficies</div>
+        <div class="fp-sup">
+        <div class="row"><span class="k">Terraza común</span><span class="n">76 m²</span></div>
+        <div class="row"><span class="k">Privada A</span><span class="n">33 m²</span></div>
+        <div class="row"><span class="k">Privada B</span><span class="n">20 m²</span></div>
+        <div class="row"><span class="k">Privada C</span><span class="n">25 m²</span></div>
+        </div>
+        <ol class="fp-list fp-list--note">
+          <li><b>1</b><span>Terraza de uso común</span></li>
+          <li><b>2</b><span>Palier</span></li>
+          <li><b>3</b><span>Escalera</span></li>
+          <li><b>4</b><span>Ascensor</span></li>
+        </ol>
       </div>
     </aside>
-    <div class="sheet-stage">
-      <img src="assets/planos-sga/planta-terraza-solo.png" alt="Planta terrazas" />
-    </div>
+    <div class="fp-plan"><img src="assets/planos-sga/planta-terraza-plano.png" alt="Planta terrazas" /></div>
   </div>
   <div class="pf pf--dark"><span>Terrazas</span><span>06 / 12</span></div>
 </div>
 
-<!-- 7 CORTE -->
+<!-- 8 CORTE -->
 <div class="page page--dark">
   <div class="ph ph--dark">
     <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
@@ -1598,16 +1594,22 @@
   </div>
   <div class="corte-page">
     <div class="corte-head">
-      <div class="kicker kicker--arena"></div>
+      <div class="kicker kicker--arena">Corte longitudinal</div>
       <div class="serif-title">El edificio</div>
       <div class="accent"></div>
     </div>
     <div class="corte-plan">
-      <img src="assets/planos-sga/corte-aa.png" alt="Corte A-A" />
+      <img src="assets/planos-sga/corte-aa-estilo.png" alt="Corte A-A" />
     </div>
-    <div class="corte-renders" aria-hidden="true"></div>
+    <div class="corte-facts">
+      <div><div class="n">PB + 4</div><div class="l">Niveles</div></div>
+      <div><div class="n">12</div><div class="l">Unidades</div></div>
+      <div><div class="n">76 m²</div><div class="l">Terraza común</div></div>
+      <div><div class="n">3</div><div class="l">Terrazas privadas</div></div>
+    </div>
+    <div class="corte-photo"><img src="assets/render frente edificio.jpeg" alt="Frente del edificio" /></div>
   </div>
-  <div class="pf pf--dark"><span>Corte</span><span>07 / 12</span></div>
+  <div class="pf pf--dark"><span>El edificio</span><span>07 / 12</span></div>
 </div>
 
 <!-- UNIDAD A -->
@@ -1646,10 +1648,10 @@
       </div>
     </div>
     <div class="unit-plan">
-      <img src="assets/planos-sga/unidad-a-horiz.png" alt="Plano 3 ambientes" />
+      <img src="assets/planos-sga/unidad-a-plano.png" alt="Plano 3 ambientes" />
     </div>
-    <div class="unit-render">
-      <img src="assets/renders/unidad-a-3amb-lino.png" alt="Vista superior · 3 ambientes" />
+    <div class="unit-render unit-render--ph" aria-label="Espacio reservado para render">
+      <div class="ph-box"><span>Render</span></div>
     </div>
   </div>
   <div class="pf"><span>Unidad A - 3 ambientes</span><span>07 / 12</span></div>
@@ -1691,10 +1693,10 @@
       </div>
     </div>
     <div class="unit-plan">
-      <img src="assets/planos-sga/unidad-b-horiz.png" alt="Plano monoambiente" />
+      <img src="assets/planos-sga/unidad-b-mono-plano.png" alt="Plano monoambiente" />
     </div>
-    <div class="unit-render">
-      <img src="assets/renders/unidad-b-mono-lino.png" alt="Vista superior · monoambiente" />
+    <div class="unit-render unit-render--ph" aria-label="Espacio reservado para render">
+      <div class="ph-box"><span>Render</span></div>
     </div>
   </div>
   <div class="pf"><span>Unidad B - Monoambiente</span><span>08 / 12</span></div>
@@ -1736,10 +1738,10 @@
       </div>
     </div>
     <div class="unit-plan">
-      <img src="assets/planos-sga/unidad-c-horiz.png" alt="Plano 2 ambientes" />
+      <img src="assets/planos-sga/unidad-c-plano.png" alt="Plano 2 ambientes" />
     </div>
-    <div class="unit-render">
-      <img src="assets/renders/unidad-c-2amb-lino.png" alt="Vista superior · 2 ambientes" />
+    <div class="unit-render unit-render--ph" aria-label="Espacio reservado para render">
+      <div class="ph-box"><span>Render</span></div>
     </div>
   </div>
   <div class="pf"><span>Unidad C - 2 ambientes</span><span>09 / 12</span></div>
@@ -1963,9 +1965,51 @@
       </div>
     </div>
 
+    <div class="mkt-gap">
+      <div class="mkt-gap-h"><span class="k">Ceibo frente a la zona</span><span class="t">USD/m² promedio, Ceibo vs. departamento a estrenar</span></div>
+      <div class="mkt-gap-cols">
+        <div class="mkt-gap-c"><div class="big">−27%</div><div class="l">Monoambiente</div><div class="s">vs. usado de la zona: −13%</div></div>
+        <div class="mkt-gap-c"><div class="big">−29%</div><div class="l">2 ambientes</div><div class="s">vs. usado de la zona: −10%</div></div>
+        <div class="mkt-gap-c"><div class="big">−31%</div><div class="l">3 ambientes</div><div class="s">vs. usado de la zona: −6%</div></div>
+      </div>
+      <div class="mkt-gap-foot">Un edificio nuevo, con amenities y terrazas privadas, a un precio por m² inferior incluso al del usado del barrio.</div>
+    </div>
+
     <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.623/m² promedio, vigentes en septiembre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
   </div>
   <div class="pf"><span>El mercado</span><span>11 / 12</span></div>
+</div>
+
+<!-- PAGO -->
+<div class="page page--blanco">
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="pay">
+    <div class="pay-head">
+      <div class="kicker">Forma de pago</div>
+      <div class="serif-title">Un esquema simple, en pesos.</div>
+      <div class="accent"></div>
+      <p class="body">Un anticipo al firmar y el saldo en cuotas durante la obra, ajustadas por CAC.</p>
+    </div>
+    <div class="pay-split">
+      <div class="pay-30">
+        <div class="pct">30%</div>
+        <div class="t">Al firmar</div>
+        <p>Anticipo al boleto.</p>
+      </div>
+      <div class="pay-70">
+        <div class="pct">70%</div>
+        <div class="t">En cuotas</div>
+        <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción.</p>
+      </div>
+    </div>
+    <div class="pay-steps">
+      <div><div class="k">01</div><div class="t">Boleto</div><p>Reserva y firma con el 30% de anticipo.</p></div>
+      <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
+      <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
+    </div>
+    <div class="pay-photo"><img src="assets/cuarto 3 ambientes.png" alt="Dormitorio principal, 3 ambientes" /></div>
+  </div>
+  <div class="pf"><span>Forma de pago</span><span>11 / 12</span></div>
 </div>
 
 <!-- 12 CONTACTO -->
