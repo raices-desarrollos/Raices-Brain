@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Ceibo Vidal — piezas Instagram</title>
+  <style>
+    @font-face {
+      font-family: "M PLUS U";
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: swap;
+      src: url("fonts/mplus-u-400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 300 700;
+      font-display: swap;
+      src: url("fonts/montserrat-400.woff2") format("woff2");
+    }
+    :root {
+      --ink: #21201E;
+      --lino: #F0EDE6;
+      --blanco: #F8F7F4;
+      --suelo: #E8E3DA;
+      --tierra: #5F4632;
+      --arena: #C4A97D;
+      --musgo: #536245;
+      --niebla: #6E6F68;
+      --line-dark: rgba(248, 247, 244, 0.14);
+      --line-light: rgba(133, 96, 64, 0.22);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #21201E; }
+    body { font-family: Montserrat, sans-serif; }
+    .frame { display: none; position: relative; overflow: hidden; }
+    body[data-id="perfil"] #perfil,
+    body[data-id="hl-ceibo"] #hl-ceibo,
+    body[data-id="hl-unidades"] #hl-unidades,
+    body[data-id="hl-pago"] #hl-pago,
+    body[data-id="hl-contacto"] #hl-contacto,
+    body[data-id="carrusel-01"] #carrusel-01,
+    body[data-id="carrusel-02"] #carrusel-02,
+    body[data-id="carrusel-03"] #carrusel-03,
+    body[data-id="carrusel-04"] #carrusel-04,
+    body[data-id="post-concepto"] #post-concepto { display: flex; }
+    body[data-id="hl-saavedra"] #hl-saavedra,
+    body[data-id="post-fachada"] #post-fachada,
+    body[data-id="carrusel-05"] #carrusel-05 { display: block; }
+
+    .sq { width: 1080px; height: 1080px; }
+    .pt { width: 1080px; height: 1350px; }
+
+    .kicker {
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--arena);
+    }
+    .kicker--ink { color: var(--niebla); }
+    .serif {
+      font-family: "M PLUS U", sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+    }
+    .accent { width: 48px; height: 2px; background: var(--arena); margin: 28px 0; }
+    .logo-raices { height: 36px; width: auto; display: block; }
+    .logo-raices.on-dark { filter: brightness(0) invert(1); opacity: 0.92; }
+    .logo-ceibo { height: 118px; width: auto; display: block; }
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pid {
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .idx {
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      color: var(--niebla);
+    }
+
+    /* PERFIL */
+    #perfil {
+      background: var(--ink);
+      align-items: center;
+      justify-content: center;
+    }
+    #perfil img {
+      height: 640px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    /* HIGHLIGHTS */
+    .hl {
+      background: var(--ink);
+      color: var(--blanco);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hl-in { width: 620px; }
+    .hl .word {
+      font-weight: 500;
+      font-size: 42px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hl .sub {
+      margin-top: 18px;
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.55);
+    }
+    .hl .metric {
+      font-family: "M PLUS U", sans-serif;
+      font-weight: 400;
+      font-size: 92px;
+      letter-spacing: -0.045em;
+      line-height: 0.9;
+      color: var(--blanco);
+    }
+    .hl .accent { margin: 22px auto; }
+    #hl-saavedra { background: var(--lino); }
+    #hl-saavedra img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 46%;
+    }
+
+    /* FACHADA */
+    #post-fachada { background: var(--ink); color: var(--blanco); }
+    #post-fachada .bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+    }
+    #post-fachada .shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(33, 32, 30, 0.55) 0%, rgba(33, 32, 30, 0) 28%),
+        linear-gradient(to top, rgba(33, 32, 30, 0.82) 0%, rgba(33, 32, 30, 0.35) 34%, rgba(33, 32, 30, 0) 58%);
+    }
+    #post-fachada .top {
+      position: absolute;
+      top: 64px;
+      left: 72px;
+      right: 72px;
+    }
+    #post-fachada .bot {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      bottom: 168px;
+    }
+    #post-fachada .place {
+      margin-top: 22px;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: #DCD7CC;
+    }
+    #post-fachada .meta {
+      margin-top: 10px;
+      font-weight: 500;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.72);
+    }
+    #post-fachada .legal {
+      position: absolute;
+      left: 72px;
+      bottom: 56px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.55);
+    }
+
+    /* CARRUSEL COVER */
+    #carrusel-01 {
+      background: var(--ink);
+      color: var(--blanco);
+      padding: 168px 80px 80px;
+      flex-direction: column;
+    }
+    #carrusel-01 h1 {
+      font-size: 92px;
+      max-width: 860px;
+      color: var(--blanco);
+    }
+    #carrusel-01 .lead {
+      margin-top: 8px;
+      max-width: 640px;
+      font-size: 28px;
+      line-height: 1.45;
+      font-weight: 400;
+      color: rgba(248, 247, 244, 0.78);
+    }
+    #carrusel-01 .facts {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 0.75px solid var(--line-dark);
+      padding-top: 36px;
+    }
+    #carrusel-01 .facts .n {
+      font-family: "M PLUS U", sans-serif;
+      font-size: 48px;
+      letter-spacing: -0.04em;
+      color: var(--blanco);
+    }
+    #carrusel-01 .facts .l {
+      margin-top: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.5);
+    }
+    #carrusel-01 .foot { margin-top: 48px; }
+    #carrusel-01 .pid { color: rgba(248, 247, 244, 0.7); }
+    #carrusel-01 .idx { color: rgba(248, 247, 244, 0.45); }
+
+    /* UNIT SLIDES */
+    .unit {
+      background: var(--lino);
+      color: var(--ink);
+      padding: 72px 72px 56px;
+      flex-direction: column;
+    }
+    .unit h1 { font-size: 76px; color: var(--ink); }
+    .unit .spec {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .unit .hero-n {
+      font-family: "M PLUS U", sans-serif;
+      font-weight: 400;
+      font-size: 108px;
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      color: var(--musgo);
+    }
+    .unit .hero-n span {
+      font-size: 36px;
+      letter-spacing: -0.03em;
+      margin-left: 6px;
+    }
+    .unit .split {
+      text-align: right;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--tierra);
+    }
+    .unit .prog {
+      margin-top: 18px;
+      font-size: 22px;
+      line-height: 1.45;
+      color: var(--tierra);
+      max-width: 760px;
+    }
+    .unit .plan {
+      margin-top: 28px;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .unit .plan img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .unit .foot { margin-top: 20px; }
+    .unit .pid { color: var(--niebla); }
+
+    /* TERRAZA SLIDE */
+    #carrusel-05 { background: var(--ink); color: var(--blanco); }
+    #carrusel-05 .bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+    #carrusel-05 .shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(33, 32, 30, 0.88) 0%, rgba(33, 32, 30, 0.2) 46%, rgba(33, 32, 30, 0.28) 100%);
+    }
+    #carrusel-05 .bot {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      bottom: 156px;
+    }
+    #carrusel-05 h1 { font-size: 84px; }
+    #carrusel-05 .lead {
+      font-size: 28px;
+      line-height: 1.4;
+      color: rgba(248, 247, 244, 0.82);
+      max-width: 720px;
+    }
+    #carrusel-05 .nums {
+      display: flex;
+      gap: 48px;
+      margin-top: 36px;
+    }
+    #carrusel-05 .nums .n {
+      font-family: "M PLUS U", sans-serif;
+      font-size: 48px;
+      letter-spacing: -0.04em;
+    }
+    #carrusel-05 .nums .l {
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.62);
+    }
+    #carrusel-05 .legal {
+      position: absolute;
+      left: 72px;
+      bottom: 56px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(248, 247, 244, 0.55);
+    }
+    #carrusel-05 .idx-abs {
+      position: absolute;
+      right: 72px;
+      bottom: 52px;
+      color: rgba(248, 247, 244, 0.55);
+    }
+
+    /* CONCEPTO */
+    #post-concepto {
+      background: var(--ink);
+      color: var(--blanco);
+      padding: 200px 88px 88px;
+      flex-direction: column;
+    }
+    #post-concepto h1 {
+      font-size: 78px;
+      max-width: 900px;
+      line-height: 1.05;
+    }
+    #post-concepto .lead {
+      margin-top: 12px;
+      max-width: 680px;
+      font-size: 28px;
+      line-height: 1.5;
+      color: rgba(248, 247, 244, 0.76);
+    }
+    #post-concepto .foot { margin-top: auto; }
+    #post-concepto .pid { color: rgba(248, 247, 244, 0.72); }
+  </style>
+</head>
+<body>
+  <section class="frame sq" id="perfil">
+    <img src="../assets/raices_logo_icono.png" alt="Raíces" />
+  </section>
+
+  <section class="frame sq hl" id="hl-ceibo">
+    <div class="hl-in">
+      <div class="accent"></div>
+      <div class="word">Ceibo</div>
+      <div class="sub">Vidal 3849</div>
+    </div>
+  </section>
+
+  <section class="frame sq" id="hl-saavedra">
+    <img src="../assets/mapa-barrio-ceibo.png" alt="Saavedra" />
+  </section>
+
+  <section class="frame sq hl" id="hl-unidades">
+    <div class="hl-in">
+      <div class="metric">1 · 2 · 3</div>
+      <div class="accent"></div>
+      <div class="word">Unidades</div>
+    </div>
+  </section>
+
+  <section class="frame sq hl" id="hl-pago">
+    <div class="hl-in">
+      <div class="metric">30%</div>
+      <div class="accent"></div>
+      <div class="word">Al firmar</div>
+    </div>
+  </section>
+
+  <section class="frame sq hl" id="hl-contacto">
+    <div class="hl-in">
+      <img class="logo-raices on-dark" src="../assets/raices_logo_texto.png" alt="Raíces Developers" style="height:54px;margin:0 auto 28px;" />
+      <div class="accent"></div>
+      <div class="word">Contacto</div>
+    </div>
+  </section>
+
+  <section class="frame pt" id="post-fachada">
+    <img class="bg" src="../assets/fachada-v2.jpg" alt="" />
+    <div class="shade"></div>
+    <div class="top">
+      <img class="logo-raices on-dark" src="../assets/raices_logo_texto.png" alt="Raíces Developers" />
+    </div>
+    <div class="bot">
+      <img class="logo-ceibo" src="../assets/ceibo_logo_blanco.png" alt="Ceibo Vidal" />
+      <div class="place">Vidal 3849</div>
+      <div class="meta">Saavedra · 12 unidades · 2029</div>
+    </div>
+    <div class="legal">Render de referencia</div>
+  </section>
+
+  <section class="frame pt" id="carrusel-01">
+    <div class="kicker">Ceibo Vidal</div>
+    <div class="accent"></div>
+    <h1 class="serif">Tres tipologías.<br />Todas con balcón.</h1>
+    <p class="lead">Cuatro pisos. Tres unidades por piso, alrededor de un palier central.</p>
+    <div class="facts">
+      <div><div class="n">82 m²</div><div class="l">3 ambientes</div></div>
+      <div><div class="n">54 m²</div><div class="l">2 ambientes</div></div>
+      <div><div class="n">37 m²</div><div class="l">Monoambiente</div></div>
+    </div>
+    <div class="foot">
+      <div class="pid">Ceibo Vidal</div>
+      <div class="idx">01 / 05</div>
+    </div>
+  </section>
+
+  <section class="frame pt unit" id="carrusel-02">
+    <div class="kicker kicker--ink">Unidad A · Frente</div>
+    <h1 class="serif">3 ambientes</h1>
+    <div class="accent"></div>
+    <div class="spec">
+      <div class="hero-n">82<span>m²</span></div>
+      <div class="split">71 m² cubiertos<br />11 m² balcón</div>
+    </div>
+    <p class="prog">Living-comedor al frente, suite y segundo dormitorio, baño social.</p>
+    <div class="plan"><img src="../assets/renders/unidad-a-3amb-lino.png" alt="Planta 3 ambientes" /></div>
+    <div class="foot">
+      <div class="pid">Ceibo Vidal</div>
+      <div class="idx">02 / 05</div>
+    </div>
+  </section>
+
+  <section class="frame pt unit" id="carrusel-03">
+    <div class="kicker kicker--ink">Unidad C · Contrafrente</div>
+    <h1 class="serif">2 ambientes</h1>
+    <div class="accent"></div>
+    <div class="spec">
+      <div class="hero-n">54<span>m²</span></div>
+      <div class="split">48 m² cubiertos<br />6 m² balcón</div>
+    </div>
+    <p class="prog">Living-comedor con cocina, dormitorio en suite, baño social.</p>
+    <div class="plan"><img src="../assets/renders/unidad-c-2amb-lino.png" alt="Planta 2 ambientes" /></div>
+    <div class="foot">
+      <div class="pid">Ceibo Vidal</div>
+      <div class="idx">03 / 05</div>
+    </div>
+  </section>
+
+  <section class="frame pt unit" id="carrusel-04">
+    <div class="kicker kicker--ink">Unidad B · Contrafrente</div>
+    <h1 class="serif">Monoambiente</h1>
+    <div class="accent"></div>
+    <div class="spec">
+      <div class="hero-n">37<span>m²</span></div>
+      <div class="split">34 m² cubiertos<br />3 m² balcón</div>
+    </div>
+    <p class="prog">Ambiente integrado, baño completo y balcón propio.</p>
+    <div class="plan"><img src="../assets/renders/unidad-b-mono-lino.png" alt="Planta monoambiente" /></div>
+    <div class="foot">
+      <div class="pid">Ceibo Vidal</div>
+      <div class="idx">04 / 05</div>
+    </div>
+  </section>
+
+  <section class="frame pt" id="carrusel-05">
+    <img class="bg" src="../assets/terraza verde.png" alt="" />
+    <div class="shade"></div>
+    <div class="bot">
+      <div class="kicker">Nivel superior</div>
+      <h1 class="serif">Terraza común</h1>
+      <div class="accent"></div>
+      <p class="lead">Jacuzzi y estar al aire libre. Más tres terrazas privadas.</p>
+      <div class="nums">
+        <div><div class="n">76 m²</div><div class="l">Uso común</div></div>
+        <div><div class="n">3</div><div class="l">Privadas</div></div>
+      </div>
+    </div>
+    <div class="legal">Render de referencia · 05 / 05</div>
+  </section>
+
+  <section class="frame pt" id="post-concepto">
+    <div class="kicker">Raíces</div>
+    <div class="accent"></div>
+    <h1 class="serif">En un barrio<br />en crecimiento,<br />decidimos dejar<br />nuestras raíces.</h1>
+    <p class="lead">Ceibo Vidal. El balance entre ciudad y aire libre. Vidal 3849, Saavedra.</p>
+    <div class="foot">
+      <img class="logo-raices on-dark" src="../assets/raices_logo_texto.png" alt="Raíces Developers" />
+      <div class="pid">Ceibo Vidal</div>
+    </div>
+  </section>
+
+  <script>
+    var id = new URLSearchParams(location.search).get("id") || "post-fachada";
+    document.body.dataset.id = id;
+  </script>
+</body>
+</html>

@@ -19,6 +19,8 @@
       --musgo: #536245;
       --ceibo: #B85C42;
       --niebla: #6E6F68;
+      --carbon: #101210;
+      --caliza: #D1C7BA;
       --line: rgba(133, 96, 64, 0.22);
       --line-dark: rgba(248, 247, 244, 0.14);
       --serif: "M PLUS U", sans-serif;
@@ -92,9 +94,9 @@
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ink);
+      color: var(--carbon);
     }
-    .ph--dark .pid { color: var(--blanco); }
+    .ph--dark .pid { color: var(--caliza); }
     .pf {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -171,20 +173,20 @@
        ══════════════════════════════════════ */
     .cover { background: #21201E; }
 
-    /* Guarda: página de marca previa a la portada. Sin texto ni numeración. */
+    /* Guarda: página de marca previa a la portada. Sin texto ni numeración.
+       Logo en caliza (#D1C7BA) sobre carbón (#101210). */
     .cover--seal {
       display: flex;
       align-items: center;
       justify-content: center;
       padding-bottom: 7%; /* centro óptico: un poco por encima del geométrico */
+      background: #101210;
     }
     .cover--seal img {
       display: block;
       height: 410px;
       width: auto;
       max-width: none;
-      filter: brightness(0) invert(1);
-      opacity: 0.94;
     }
     .cover--seal .seal-cap {
       position: absolute;
@@ -217,7 +219,7 @@
     }
     .cover-bar span {
       font-size: 8px; font-weight: 500; letter-spacing: 0.10em;
-      text-transform: uppercase; color: rgba(248,247,244,0.36);
+      text-transform: uppercase; color: var(--caliza);
     }
     .cover-copy {
       flex-shrink: 0;
@@ -290,7 +292,6 @@
       width: auto;
       max-width: none !important;
       flex-shrink: 0;
-      opacity: 0.92;
     }
     .cover-partner img.cover-gyd { height: 34px; }
     .cover-partner img.cover-daimar { height: 21px; }
@@ -1192,9 +1193,7 @@
     }
     .brand-lockup {
       width: 148px; height: 42px;
-      background: url("assets/raices_logo_texto.png") left center / contain no-repeat;
-      filter: brightness(0) invert(1);
-      opacity: 0.88;
+      background: url("assets/raices_logo_texto_caliza.png") left center / contain no-repeat;
     }
     .close-place .serif-title { font-size: 28px; color: var(--blanco); margin-top: 4px; }
     .wa {
@@ -1284,7 +1283,7 @@
 
 <!-- 0 GUARDA DE MARCA -->
 <div class="page cover cover--seal">
-  <img src="assets/raices_logo_completo.png" alt="Raíces Developers" />
+  <img src="assets/raices_logo_completo_caliza.png" alt="Raíces Developers" />
   <div class="seal-cap">Carpeta de venta · Ceibo Vidal</div>
 </div>
 
@@ -1295,7 +1294,7 @@
     <div class="cover-grad-top"></div>
     <div class="cover-grad-bot"></div>
     <div class="cover-bar">
-      <img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="height:32px; filter:brightness(0) invert(1); opacity:0.95;" />
+      <img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" style="height:32px;" />
       <span>Carpeta de venta</span>
     </div>
   </div>
@@ -1325,9 +1324,9 @@
     <div class="cover-partner">
       <span class="cover-partner-lbl">Desarrollado en conjunto con</span>
       <div class="cover-partner-logos">
-        <img class="cover-gyd" src="assets/partners/gyd-wordmark-white.png" alt="G&amp;D Developers" />
+        <img class="cover-gyd" src="assets/partners/gyd-wordmark-caliza.png" alt="G&amp;D Developers" />
         <span></span>
-        <img class="cover-daimar" src="assets/partners/daimar-developers-white.png" alt="Daimar Developers" />
+        <img class="cover-daimar" src="assets/partners/daimar-developers-caliza.png" alt="Daimar Developers" />
       </div>
     </div>
   </div>
@@ -1336,7 +1335,7 @@
 <!-- 2 EL PROYECTO -->
 <div class="page page--blanco">
   <div class="ph">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="split-page">
@@ -1365,7 +1364,7 @@
 <!-- 3 UBICACIÓN -->
 <div class="page page--dark page--loc">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="loc-page">
@@ -1401,7 +1400,7 @@
 
 <!-- 4 TIPOLOGÍAS -->
 <div class="page page--suelo">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="tipo-page">
     <div>
       <div class="serif-title" style="font-size:36px;">Tres tipologías</div>
@@ -1476,7 +1475,7 @@
 <!-- 5 PLANTA BAJA -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="fp">
@@ -1518,7 +1517,7 @@
 <!-- 6 PLANTA TIPO -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="fp">
@@ -1553,7 +1552,7 @@
 <!-- 7 TERRAZAS -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="fp">
@@ -1589,7 +1588,7 @@
 <!-- 8 CORTE -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="corte-page">
@@ -1614,7 +1613,7 @@
 
 <!-- UNIDAD A -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page">
     <div class="unit-head">
       <div class="kicker">Unidad A · Frente</div>
@@ -1659,7 +1658,7 @@
 
 <!-- UNIDAD B -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page unit-page--b">
     <div class="unit-head">
       <div class="kicker">Unidad B · Contrafrente</div>
@@ -1704,7 +1703,7 @@
 
 <!-- UNIDAD C -->
 <div class="page">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="unit-page unit-page--c">
     <div class="unit-head">
       <div class="kicker">Unidad C · Contrafrente</div>
@@ -1749,16 +1748,16 @@
 
 <!-- 8 LISTA DE PRECIOS -->
 <div class="page page--suelo page--restricted">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
-      <div class="kicker" style="margin-bottom:8px;">Preventa 1 · Septiembre 2026</div>
+      <div class="kicker" style="margin-bottom:8px;">Preventa 1 · Octubre 2026</div>
       <div class="serif-title" style="font-size:34px;">Lista de precios</div>
       <div class="accent"></div>
     </div>
     <div class="facts">
       <div class="fact"><div class="l">Unidades</div><div class="n">12</div></div>
-      <div class="fact is-hero"><div class="l">Precio al costo</div><div class="n">USD 2.623<span>/ m²</span></div></div>
+      <div class="fact is-hero"><div class="l">Precio al costo</div><div class="n">USD 2.775<span>/ m²</span></div></div>
       <div class="fact"><div class="l">Anticipo</div><div class="n">30%</div></div>
       <div class="fact"><div class="l">Cuotas</div><div class="n">18</div></div>
     </div>
@@ -1791,104 +1790,104 @@
           <td class="floor-cell" rowspan="3">Piso 1</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
           <td class="num area">82</td>
-          <td class="num price">218.463</td>
-          <td class="num hi">65.539</td>
-          <td class="num hi">8.501</td>
+          <td class="num price">237.304</td>
+          <td class="num hi">71.191</td>
+          <td class="num hi">9.228</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
           <td class="num area">37</td>
-          <td class="num price">93.629</td>
-          <td class="num hi">28.089</td>
-          <td class="num hi">3.641</td>
+          <td class="num price">102.781</td>
+          <td class="num hi">30.834</td>
+          <td class="num hi">3.997</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
           <td class="num area">54</td>
-          <td class="num price">139.320</td>
-          <td class="num hi">41.796</td>
-          <td class="num hi">5.418</td>
+          <td class="num price">151.214</td>
+          <td class="num hi">45.364</td>
+          <td class="num hi">5.881</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 2</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
           <td class="num area">82</td>
-          <td class="num price">222.968</td>
-          <td class="num hi">66.890</td>
-          <td class="num hi">8.677</td>
+          <td class="num price">242.197</td>
+          <td class="num hi">72.659</td>
+          <td class="num hi">9.419</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
           <td class="num area">37</td>
-          <td class="num price">95.560</td>
-          <td class="num hi">28.668</td>
-          <td class="num hi">3.716</td>
+          <td class="num price">104.900</td>
+          <td class="num hi">31.470</td>
+          <td class="num hi">4.079</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
           <td class="num area">54</td>
-          <td class="num price">142.193</td>
-          <td class="num hi">42.658</td>
-          <td class="num hi">5.530</td>
+          <td class="num price">154.331</td>
+          <td class="num hi">46.299</td>
+          <td class="num hi">6.002</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 3</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
           <td class="num area">82</td>
-          <td class="num price">227.472</td>
-          <td class="num hi">68.242</td>
-          <td class="num hi">8.852</td>
+          <td class="num price">247.089</td>
+          <td class="num hi">74.127</td>
+          <td class="num hi">9.609</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
           <td class="num area">37</td>
-          <td class="num price">97.490</td>
-          <td class="num hi">29.247</td>
-          <td class="num hi">3.791</td>
+          <td class="num price">107.019</td>
+          <td class="num hi">32.106</td>
+          <td class="num hi">4.162</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
           <td class="num area">54</td>
-          <td class="num price">145.065</td>
-          <td class="num hi">43.520</td>
-          <td class="num hi">5.641</td>
+          <td class="num price">157.449</td>
+          <td class="num hi">47.235</td>
+          <td class="num hi">6.123</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 4</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
           <td class="num area">82</td>
-          <td class="num price">231.976</td>
-          <td class="num hi">69.593</td>
-          <td class="num hi">9.027</td>
+          <td class="num price">251.982</td>
+          <td class="num hi">75.595</td>
+          <td class="num hi">9.799</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
           <td class="num area">37</td>
-          <td class="num price">99.421</td>
-          <td class="num hi">29.826</td>
-          <td class="num hi">3.866</td>
+          <td class="num price">109.138</td>
+          <td class="num hi">32.742</td>
+          <td class="num hi">4.244</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
           <td class="num area">54</td>
-          <td class="num price">147.938</td>
-          <td class="num hi">44.381</td>
-          <td class="num hi">5.753</td>
+          <td class="num price">160.567</td>
+          <td class="num hi">48.170</td>
+          <td class="num hi">6.244</td>
         </tr>
       </tbody>
     </table>
-    <p class="plist-note">Valores en USD, vigentes durante septiembre 2026. Superficies correspondientes a plantas tipo. Las unidades del 4° piso pueden presentar variaciones. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    <p class="plist-note">Valores en USD, vigentes durante octubre 2026. Superficies correspondientes a plantas tipo. Las unidades del 4° piso pueden presentar variaciones. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
   </div>
   <div class="pf"><span>Lista de precios</span><span>10 / 12</span></div>
 </div>
 
 <!-- 11 MERCADO -->
 <div class="page page--suelo page--restricted">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="mkt-page">
     <div class="mkt-hero">
-      <div class="kicker" style="margin-bottom:8px;">Saavedra · Septiembre 2026 · Market Analytics · 14 abril 2026</div>
-      <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.623.</div>
+      <div class="kicker" style="margin-bottom:8px;">Saavedra · Octubre 2026 · Market Analytics · 14 abril 2026</div>
+      <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.775.</div>
       <div class="accent"></div>
       <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m².</p>
     </div>
@@ -1898,8 +1897,8 @@
         <div class="amb-name">Monoambiente</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo<span class="sq">36,93 m²</span></span>
-            <span class="v">USD 2.623/m²</span>
+            <span class="k">Ceibo<span class="sq">36,92 m²</span></span>
+            <span class="v">USD 2.775/m²</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona<span class="sq">34 m²</span></span>
@@ -1912,7 +1911,7 @@
         </div>
         <div class="amb-totals">
           <div class="amb-h">Precio total promedio</div>
-          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:76%;"></i></div><b>93.629</b></div>
+          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:83%;"></i></div><b>102.781</b></div>
           <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:100%;"></i></div><b>123.480</b></div>
           <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:77%;"></i></div><b>95.000</b></div>
         </div>
@@ -1921,8 +1920,8 @@
         <div class="amb-name">2 ambientes</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo<span class="sq">54,27 m²</span></span>
-            <span class="v">USD 2.623/m²</span>
+            <span class="k">Ceibo<span class="sq">54,26 m²</span></span>
+            <span class="v">USD 2.775/m²</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona<span class="sq">47 m²</span></span>
@@ -1935,7 +1934,7 @@
         </div>
         <div class="amb-totals">
           <div class="amb-h">Precio total promedio</div>
-          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:80%;"></i></div><b>139.320</b></div>
+          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:87%;"></i></div><b>151.214</b></div>
           <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:100%;"></i></div><b>174.000</b></div>
           <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:72%;"></i></div><b>125.000</b></div>
         </div>
@@ -1944,8 +1943,8 @@
         <div class="amb-name">3 ambientes</div>
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
-            <span class="k">Ceibo<span class="sq">82,43 m²</span></span>
-            <span class="v">USD 2.623/m²</span>
+            <span class="k">Ceibo<span class="sq">82,37 m²</span></span>
+            <span class="v">USD 2.775/m²</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona<span class="sq">75 m²</span></span>
@@ -1958,7 +1957,7 @@
         </div>
         <div class="amb-totals">
           <div class="amb-h">Precio total promedio</div>
-          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:78%;"></i></div><b>218.463</b></div>
+          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:85%;"></i></div><b>237.304</b></div>
           <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:100%;"></i></div><b>280.000</b></div>
           <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:55%;"></i></div><b>154.900</b></div>
         </div>
@@ -1968,21 +1967,21 @@
     <div class="mkt-gap">
       <div class="mkt-gap-h"><span class="k">Ceibo frente a la zona</span><span class="t">USD/m² promedio, Ceibo vs. departamento a estrenar</span></div>
       <div class="mkt-gap-cols">
-        <div class="mkt-gap-c"><div class="big">−27%</div><div class="l">Monoambiente</div><div class="s">vs. usado de la zona: −13%</div></div>
-        <div class="mkt-gap-c"><div class="big">−29%</div><div class="l">2 ambientes</div><div class="s">vs. usado de la zona: −10%</div></div>
-        <div class="mkt-gap-c"><div class="big">−31%</div><div class="l">3 ambientes</div><div class="s">vs. usado de la zona: −6%</div></div>
+        <div class="mkt-gap-c"><div class="big">−23%</div><div class="l">Monoambiente</div><div class="s">vs. usado de la zona: −8%</div></div>
+        <div class="mkt-gap-c"><div class="big">−25%</div><div class="l">2 ambientes</div><div class="s">vs. usado de la zona: −5%</div></div>
+        <div class="mkt-gap-c"><div class="big">−27%</div><div class="l">3 ambientes</div><div class="s">vs. usado de la zona: similar</div></div>
       </div>
-      <div class="mkt-gap-foot">Un edificio nuevo, con amenities y terrazas privadas, a un precio por m² inferior incluso al del usado del barrio.</div>
+      <div class="mkt-gap-foot">Un edificio nuevo, con amenities y terrazas privadas, por debajo del precio por m² del estreno en el barrio.</div>
     </div>
 
-    <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.623/m² promedio, vigentes en septiembre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
+    <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.775/m² promedio, vigentes en octubre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
   </div>
   <div class="pf"><span>El mercado</span><span>11 / 12</span></div>
 </div>
 
 <!-- PAGO -->
 <div class="page page--blanco">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
+  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="pay">
     <div class="pay-head">
       <div class="kicker">Forma de pago</div>
@@ -2015,7 +2014,7 @@
 <!-- 12 CONTACTO -->
 <div class="page page--dark">
   <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto.png" alt="Raíces Developers" style="filter:brightness(0) invert(1);" /></div>
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
     <span class="pid">Ceibo Vidal</span>
   </div>
   <div class="close">

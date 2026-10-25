@@ -62,12 +62,15 @@ Valores vigentes, tomados de la carpeta de venta de Ceibo Vidal.
 
 | Token      | Nombre | Hex       | Uso principal                                              |
 | ---------- | ------ | --------- | ---------------------------------------------------------- |
-| `--ink`    | Tinta  | `#21201E` | Texto principal, fondos oscuros (páginas, guarda, portada) |
+| `--ink`    | Tinta  | `#21201E` | Texto principal, páginas oscuras y portada                 |
+| `--carbon` | Carbón | `#101210` | Fondo del logo                                             |
+| `--caliza` | Caliza | `#D1C7BA` | Color del logo, completo y wordmark                       |
 | `--lino`   | Lino   | `#F0EDE6` | Navbar, fondos cálidos claros, base de planos sobre oscuro |
 | `--blanco` | Blanco | `#F8F7F4` | Superficies limpias, texto sobre fondo oscuro              |
 | `--suelo`  | Suelo  | `#E8E3DA` | Bandas suaves, páginas de precios y mercado                |
 | `--tierra` | Tierra | `#5F4632` | Texto de lectura (cuerpo cálido), cifras secundarias       |
 | `--arena`  | Arena  | `#C4A97D` | Trazo firma, kickers sobre oscuro, detalles técnicos       |
+| `--salvia` | Salvia | `#89947B` | Detalles. No es color de logo                              |
 | `--liquen` | Liquen | `#7E8E5F` | Acento vegetal principal                                   |
 | `--musgo`  | Musgo  | `#536245` | Verde profundo, totales y destacados sobre fondo claro     |
 | `--ceibo`  | Ceibo  | `#B85C42` | Señal del proyecto Ceibo Vidal                             |
@@ -90,10 +93,13 @@ Valores vigentes, tomados de la carpeta de venta de Ceibo Vidal.
 - Tinta sobre Blanco ✓
 - Tinta sobre Suelo ✓
 - Blanco sobre Tinta ✓
+- Caliza sobre Carbón ✓ (logo)
 - Tierra sobre Blanco ✓ (texto de lectura)
 - Tierra sobre Suelo ✓ (texto de lectura en páginas de precios y mercado)
 - Musgo sobre Blanco ✓ (textos de acento verde)
 - Niebla sobre Blanco y Suelo ✓ (metadatos y pies)
+
+**Salvia** (`#89947B`) es un verde de detalle: filetes, marcas chicas, separadores y acentos secundarios. No reemplaza a Liquen ni a Musgo, y no se usa para pintar el logo.
 
 **Para impresión:** convertir a CMYK antes de enviar a imprenta. Los valores RGB pueden variar según perfil de color del proveedor.
 
@@ -101,23 +107,25 @@ Valores vigentes, tomados de la carpeta de venta de Ceibo Vidal.
 
 ## 4. Logo
 
-El logo vigente es una marca lineal en negro sobre fondo transparente: ilustración (edificio y raíces) más wordmark `RAÍCES` / `DEVELOPERS`. Los archivos canónicos viven en `knowledge/company/identity/logo/`.
+El logo es una marca lineal: ilustración (edificio y raíces) más wordmark `RAÍCES` / `DEVELOPERS`. Los archivos canónicos viven en `knowledge/company/identity/logo/` y guardan la forma, con fondo transparente.
+
+**Color del logo.** Sobre Carbón `#101210` y sobre fondos oscuros, Caliza `#D1C7BA`. Sobre Lino, Blanco y Suelo, el wordmark va en Carbón `#101210`: Caliza no se lee sobre claro. El logo completo de la guarda sigue en Caliza sobre Carbón. No se usa en blanco, y no se pinta con Salvia ni Arena.
+
+En impresión y en la carpeta de venta, usar las versiones ya pintadas (`raices_logo_completo_caliza.png`, `raices_logo_texto_caliza.png`, `raices_logo_texto_carbon.png`). Un filtro CSS no da el hex exacto.
 
 ### Archivos disponibles
 
 | Archivo                   | Contenido                         | Uso                                                                 |
 | ------------------------- | --------------------------------- | ------------------------------------------------------------------- |
-| `raices_logo_completo.png` | Ilustración + wordmark           | **Versión principal.** Portadas, firma de marca, piezas institucionales. |
-| `raices_logo_texto.png`   | Solo wordmark                    | Encabezados, carpeta de venta, pie de materiales.                  |
-| `raices_logo_icono.png`   | Solo ilustración                 | Marca reducida, cuando el wordmark no entra.                       |
+| `raices_logo_completo.png` | Ilustración + wordmark           | **Versión principal.** Forma canónica. Aplicar en Caliza.          |
+| `raices_logo_texto.png`   | Solo wordmark                    | Encabezados y pie de materiales. Caliza sobre oscuro, Carbón sobre claro. |
+| `raices_logo_icono.png`   | Solo ilustración                 | Marca reducida, cuando el wordmark no entra. Siempre en Caliza.    |
 
-### Uso sobre fondos claros (Lino, Blanco, Suelo)
+### Fondo
 
-- Usar el archivo sin filtros. El trazo es negro.
-
-### Uso sobre fondos oscuros (Tinta, fondos negros)
-
-- Usar el mismo archivo con filtro CSS: `filter: brightness(0) invert(1)` para versión blanca.
+- El fondo del logo completo es Carbón `#101210`: la guarda y cualquier pieza donde la marca ocupa la página, con el logo en Caliza.
+- En encabezados, el wordmark y el nombre del proyecto van juntos: Caliza sobre oscuro, Carbón sobre Lino, Blanco o Suelo.
+- En la portada, "Carpeta de venta" usa el mismo color que el wordmark (Caliza).
 
 ### Tamaños mínimos
 
@@ -133,7 +141,7 @@ El logo vigente es una marca lineal en negro sobre fondo transparente: ilustraci
 - No distorsionar proporciones.
 - No aplicar sombras ni efectos.
 - No colocar sobre fondos con textura sin verificar legibilidad.
-- No recolorear el trazo. Sobre fondo oscuro, solo la versión blanca.
+- No recolorear el trazo fuera de Caliza (sobre oscuro) o Carbón (sobre claro). No hay versión blanca.
 
 ---
 
@@ -163,7 +171,7 @@ Medidas de la carpeta de venta (página A4 de 794 px de ancho). Para web, escala
 | Cuerpo               | Montserrat | 14.5px     | 400  | Interlineado 1.62                               | Tierra           |
 | Kicker               | Montserrat | 11px       | 500  | Mayúscula, tracking 0.08em                      | Arena            |
 | Label / metadato     | Montserrat | 9–10.5px   | 500  | Mayúscula, tracking 0.08em a 0.10em             | Niebla           |
-| Identificador de pág.| Montserrat | 12px       | 500  | Mayúscula, tracking 0.1em                       | Tinta o Blanco   |
+| Identificador de pág.| Montserrat | 12px       | 500  | Mayúscula, tracking 0.1em                       | Carbón o Caliza  |
 | Pie de página        | Montserrat | 9.5px      | 500  | Mayúscula, tracking 0.1em                       | Niebla           |
 | Nota / legal         | Montserrat | 11px       | 400  | Interlineado 1.55                               | Niebla           |
 
@@ -184,7 +192,7 @@ Especificación de componentes para el sitio. Usan los mismos colores y tipograf
 ### Navbar
 
 - Fondo: Lino `#F0EDE6`.
-- Logo: `raices_logo_texto.png` a 36px de altura. El wordmark ya incluye DEVELOPERS.
+- Logo: wordmark en Carbón `#101210`, a 36px de altura. El fondo es Lino. El wordmark ya incluye DEVELOPERS.
 - Links en uppercase, Montserrat 500, tracking 0.1em.
 - Se compacta al hacer scroll (transición suave).
 
@@ -217,7 +225,7 @@ Especificación de componentes para el sitio. Usan los mismos colores y tipograf
 ### Footer
 
 - Fondo: Tinta `#21201E`.
-- Logo en versión blanca (filtro invert) a 28px de altura.
+- Logo en Caliza `#D1C7BA`, a 28px de altura.
 - Texto uppercase, Montserrat 500, 9.5px, tracking 0.1em, Blanco al 42–54%.
 
 ---
@@ -301,7 +309,7 @@ La referencia es la carpeta de Ceibo Vidal: `knowledge/projects/ceibo-vidal/comm
 
 | Orden | Página                 | Fondo                   |
 | ----- | ---------------------- | ----------------------- |
-| —     | Guarda de marca        | Tinta                   |
+| —     | Guarda de marca        | Carbón                  |
 | —     | Portada                | Tinta, con render       |
 | 01    | El proyecto            | Blanco                  |
 | 02    | Ubicación              | Tinta                   |
@@ -326,21 +334,21 @@ La referencia es la carpeta de Ceibo Vidal: `knowledge/projects/ceibo-vidal/comm
 
 **Guarda de marca**
 
-- Primera hoja del PDF. Fondo Tinta `#21201E`, logo completo en blanco a 410 px de alto, centrado un poco por encima del centro geométrico.
+- Primera hoja del PDF. Fondo Carbón `#101210`, logo completo en Caliza `#D1C7BA` a 410 px de alto, centrado un poco por encima del centro geométrico.
 - Una sola línea al pie: Montserrat 500, 9px, mayúscula, tracking 0.1em, Blanco al 50%. Dice "Carpeta de venta · [Proyecto]".
 - Sin encabezado, pie ni numeración. La misma hoja sirve de portada para otras carpetas (por ejemplo, "Carpeta inversores · Ceibo Vidal"): solo cambia la línea.
 
 **Portada**
 
 - Render de fachada a página completa, con degradado oscuro arriba y abajo.
-- Wordmark blanco de 32 px arriba a la izquierda y "Carpeta de venta" a la derecha.
+- Wordmark en Caliza de 32 px arriba a la izquierda. "Carpeta de venta", a la derecha, en la misma Caliza.
 - Nombre del proyecto en Montserrat 500, 48px, mayúscula, tracking 0.1em, con el trazo arena debajo.
-- Datos clave (dirección, unidades, ambientes, entrega) y logos de los socios al pie.
+- Datos clave (dirección, unidades, ambientes, entrega) y logos de los socios al pie, en Caliza.
 
 **Encabezado y pie de página**
 
-- Encabezado: wordmark `raices_logo_texto.png` a 30 px de alto, a la izquierda, y el nombre del proyecto a la derecha (Montserrat 500, 12px, mayúscula).
-- Sobre fondo oscuro, el wordmark va en blanco (`filter: brightness(0) invert(1)`).
+- Encabezado: wordmark a 30 px de alto, a la izquierda, y el nombre del proyecto a la derecha (Montserrat 500, 12px, mayúscula).
+- Los dos van en el mismo color: Caliza sobre páginas oscuras (`raices_logo_texto_caliza.png`), Carbón sobre Lino, Blanco y Suelo (`raices_logo_texto_carbon.png`).
 - Pie: nombre de la sección a la izquierda y número a la derecha, en Niebla. Línea de 0.75px encima.
 
 **Diseño**
@@ -420,9 +428,9 @@ El nombre del árbol va en primer lugar siempre. La calle contextualiza; el árb
 
 | Archivo                         | Descripción                                                |
 | ------------------------------- | ---------------------------------------------------------- |
-| `logo/raices_logo_completo.png` | Logo principal: ilustración + wordmark, fondo transparente |
-| `logo/raices_logo_texto.png`    | Wordmark, fondo transparente                               |
-| `logo/raices_logo_icono.png`    | Ilustración sola, fondo transparente                       |
+| `logo/raices_logo_completo.png` | Logo principal: ilustración + wordmark. Forma canónica; se aplica en Caliza |
+| `logo/raices_logo_texto.png`    | Wordmark. Forma canónica; se aplica en Caliza              |
+| `logo/raices_logo_icono.png`    | Ilustración sola. Forma canónica; se aplica en Caliza      |
 | `DESIGN_SYSTEM.md`              | Este documento                                             |
 
 Material de cada proyecto, en `knowledge/projects/[proyecto]/commercial/`:
@@ -435,7 +443,7 @@ Material de cada proyecto, en `knowledge/projects/[proyecto]/commercial/`:
 | `[Proyecto]-portada-[destino].png` / `.pdf`      | Portada suelta (ej. `portada-inversores`)      |
 | `assets/`                                        | Imágenes, planos, logos y renders de la carpeta |
 
-Los logos que usa la carpeta viven en `assets/` como copia de `logo/`. Si cambia el logo, actualizar ambas ubicaciones y regenerar los PDFs.
+Los logos que usa la carpeta viven en `assets/`. Las piezas impresas usan las versiones pintadas (`raices_logo_completo_caliza.png`, `raices_logo_texto_caliza.png`, `raices_logo_texto_carbon.png`), derivadas de `logo/`. Si cambia la forma del logo, actualizar `logo/`, regenerar esas versiones y regenerar los PDFs.
 
 Material nuevo (banner, post, cartel): guardar en la carpeta del proyecto con el nombre `[Proyecto]-[tipo]-[destino].ext`. Las versiones congeladas se marcan con sufijo, por ejemplo `-V4`.
 
