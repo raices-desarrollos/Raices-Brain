@@ -63,6 +63,7 @@
     .page--blanco { background: var(--blanco); }
     .page--suelo { background: var(--suelo); }
     body[data-edicion="comercial"] .page--restricted { display: none !important; }
+    body[data-edicion="precios"] .page:not(.page--prices) { display: none !important; }
     .logo { display: flex; align-items: center; }
     .logo-mark {
       display: block;
@@ -838,8 +839,8 @@
        ══════════════════════════════════════ */
     .price-page {
       flex: 1; min-height: 0;
-      padding: 18px 40px 14px;
-      display: flex; flex-direction: column; gap: 12px;
+      padding: 22px var(--mg) 10px;
+      display: flex; flex-direction: column;
     }
     .facts {
       display: grid;
@@ -881,16 +882,34 @@
 
     .price-page .accent { width: 28px; height: 2px; margin-top: 12px; }
 
-    .plist { width: 100%; border-collapse: collapse; table-layout: fixed; margin-top: 26px; }
-    .plist col.piso { width: 88px; }
-    .plist col.unidad { width: 26%; }
-    .plist thead th {
-      font-size: 9px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase;
-      color: var(--niebla); text-align: left; padding: 6px 12px 8px 0;
-      border-bottom: 0.5px solid rgba(133, 96, 64, 0.16);
+    .plist-wrap {
+      margin-top: 22px;
+      background: var(--blanco);
+      border-radius: var(--radius);
+      padding: 4px 16px 6px;
     }
-    .plist thead th:first-child { padding-left: 12px; }
-    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 12px; letter-spacing: 0.1em; }
+    .plist { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    .plist col.piso { width: 54px; }
+    .plist col.unidad { width: 21%; }
+    .plist col.amen { width: 16%; }
+    .plist col.precio { width: 16%; }
+    .plist thead th {
+      font-size: 8.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--niebla); text-align: left; padding: 10px 8px 9px 0;
+      border-bottom: 0.5px solid rgba(133, 96, 64, 0.18);
+      white-space: nowrap;
+    }
+    .plist thead th .th-usd {
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(110, 111, 104, 0.7);
+    }
+    .plist thead th:first-child { padding-left: 4px; }
+    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 6px; letter-spacing: 0.04em; }
+    .plist thead th.amen {
+      white-space: normal; line-height: 1.2; letter-spacing: 0.03em;
+      padding-top: 8px; padding-bottom: 8px;
+    }
     .plist thead th:last-child { padding-right: 12px; }
     .plist td {
       padding: 8px 12px 8px 0;
@@ -901,7 +920,7 @@
     .plist td.num {
       text-align: right; font-family: var(--serif); font-weight: 400;
       font-size: 15px; color: var(--ink); letter-spacing: 0; white-space: nowrap;
-      padding-left: 12px; padding-right: 0;
+      padding-left: 8px; padding-right: 0;
       font-variant-numeric: tabular-nums lining-nums;
       font-feature-settings: "tnum" 1, "lnum" 1;
     }
@@ -911,32 +930,40 @@
     .plist td.num.area {
       color: var(--niebla); font-size: 14px; font-weight: 400;
     }
+    .plist td.num.rate {
+      color: var(--tierra); font-size: 14px; font-weight: 400;
+    }
     .plist .floor-cell {
-      padding-left: 12px;
-      font-size: 8.5px; font-weight: 400; letter-spacing: 0.10em;
-      text-transform: uppercase; color: rgba(110, 111, 104, 0.62);
+      padding-left: 4px;
+      font-size: 9px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(95, 70, 50, 0.55);
       vertical-align: middle;
     }
-    .plist .uname { font-weight: 600; color: var(--ink); display: block; line-height: 1.2; font-size: 14px; }
+    .plist .uname { font-weight: 600; color: var(--ink); display: block; line-height: 1.2; font-size: 13.5px; white-space: nowrap; }
     .plist .usub { font-size: 10.5px; color: rgba(110, 111, 104, 0.62); font-weight: 400; display: block; margin-top: 2px; }
     .plist tbody tr:last-child td { border-bottom: none; }
     .plist tbody tr.floor-break td {
       border-top: 0.5px solid rgba(133, 96, 64, 0.12);
       padding-top: 13px;
     }
+    .price-foot {
+      margin-top: auto;
+      background: var(--blanco);
+      border-radius: var(--radius);
+      padding: 16px 18px 14px;
+    }
     .plist-note {
-      font-size: 10px; line-height: 1.7; color: rgba(110, 111, 104, 0.82);
-      padding-top: 18px;
-      padding-left: 0;
-      padding-right: 0;
+      font-size: 10px; line-height: 1.65; color: rgba(110, 111, 104, 0.82);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 0.5px solid rgba(133, 96, 64, 0.12);
       max-width: none;
     }
     .costo-box {
       background: transparent;
       border: none;
-      padding: 2px 2px 2px;
+      padding: 0;
       border-radius: 0;
-      margin-bottom: 2px;
     }
     .costo-box .kicker { margin-bottom: 6px; color: var(--niebla); }
     .costo-box .costo-lead {
@@ -1273,6 +1300,7 @@
         overflow: hidden !important;
       }
       .page:last-child { page-break-after: auto; break-after: auto; }
+      body[data-edicion="precios"] .page--prices { page-break-after: auto; break-after: auto; }
       * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
     @page { size: A4 portrait; margin: 0; }
@@ -1747,7 +1775,7 @@
 </div>
 
 <!-- 8 LISTA DE PRECIOS -->
-<div class="page page--suelo page--restricted">
+<div class="page page--suelo page--restricted page--prices">
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
@@ -1755,17 +1783,7 @@
       <div class="serif-title" style="font-size:34px;">Lista de precios</div>
       <div class="accent"></div>
     </div>
-    <div class="facts">
-      <div class="fact"><div class="l">Unidades</div><div class="n">12</div></div>
-      <div class="fact is-hero"><div class="l">Precio al costo</div><div class="n">USD 2.775<span>/ m²</span></div></div>
-      <div class="fact"><div class="l">Anticipo</div><div class="n">30%</div></div>
-      <div class="fact"><div class="l">Cuotas</div><div class="n">18</div></div>
-    </div>
-    <div class="costo-box">
-      <div class="kicker">Proyecto al costo</div>
-      <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
-      <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
-    </div>
+    <div class="plist-wrap">
     <table class="plist">
       <colgroup>
         <col class="piso" />
@@ -1773,110 +1791,132 @@
         <col />
         <col />
         <col />
-        <col />
+        <col class="amen" />
+        <col class="precio" />
       </colgroup>
       <thead>
         <tr>
           <th>Piso</th>
           <th>Unidad</th>
-          <th class="num">m²</th>
-          <th class="num">Precio</th>
-          <th class="num">Anticipo 30%</th>
-          <th class="num">Cuota × 18</th>
+          <th class="num">Cubierto</th>
+          <th class="num">Descubierto</th>
+          <th class="num">Total</th>
+          <th class="num amen">Superficie total<br>con amenities</th>
+          <th class="num">Precio <span class="th-usd">(USD)</span></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="floor-cell" rowspan="3">Piso 1</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num area">82</td>
-          <td class="num price">237.304</td>
-          <td class="num hi">71.191</td>
-          <td class="num hi">9.228</td>
+          <td class="num area">71</td>
+          <td class="num area">11</td>
+          <td class="num">82</td>
+          <td class="num">86</td>
+          <td class="num price">234.715</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">37</td>
-          <td class="num price">102.781</td>
-          <td class="num hi">30.834</td>
-          <td class="num hi">3.997</td>
+          <td class="num area">34</td>
+          <td class="num area">3</td>
+          <td class="num">37</td>
+          <td class="num">39</td>
+          <td class="num price">101.660</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">54</td>
-          <td class="num price">151.214</td>
-          <td class="num hi">45.364</td>
-          <td class="num hi">5.881</td>
+          <td class="num area">48</td>
+          <td class="num area">6</td>
+          <td class="num">54</td>
+          <td class="num">57</td>
+          <td class="num price">149.564</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 2</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num area">82</td>
-          <td class="num price">242.197</td>
-          <td class="num hi">72.659</td>
-          <td class="num hi">9.419</td>
+          <td class="num area">71</td>
+          <td class="num area">11</td>
+          <td class="num">82</td>
+          <td class="num">86</td>
+          <td class="num price">239.554</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">37</td>
-          <td class="num price">104.900</td>
-          <td class="num hi">31.470</td>
-          <td class="num hi">4.079</td>
+          <td class="num area">34</td>
+          <td class="num area">3</td>
+          <td class="num">37</td>
+          <td class="num">39</td>
+          <td class="num price">103.756</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">54</td>
-          <td class="num price">154.331</td>
-          <td class="num hi">46.299</td>
-          <td class="num hi">6.002</td>
+          <td class="num area">48</td>
+          <td class="num area">6</td>
+          <td class="num">54</td>
+          <td class="num">57</td>
+          <td class="num price">152.648</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 3</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num area">82</td>
-          <td class="num price">247.089</td>
-          <td class="num hi">74.127</td>
-          <td class="num hi">9.609</td>
+          <td class="num area">71</td>
+          <td class="num area">11</td>
+          <td class="num">82</td>
+          <td class="num">86</td>
+          <td class="num price">244.394</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">37</td>
-          <td class="num price">107.019</td>
-          <td class="num hi">32.106</td>
-          <td class="num hi">4.162</td>
+          <td class="num area">34</td>
+          <td class="num area">3</td>
+          <td class="num">37</td>
+          <td class="num">39</td>
+          <td class="num price">105.852</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">54</td>
-          <td class="num price">157.449</td>
-          <td class="num hi">47.235</td>
-          <td class="num hi">6.123</td>
+          <td class="num area">48</td>
+          <td class="num area">6</td>
+          <td class="num">54</td>
+          <td class="num">57</td>
+          <td class="num price">155.732</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 4</td>
           <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
-          <td class="num area">82</td>
-          <td class="num price">251.982</td>
-          <td class="num hi">75.595</td>
-          <td class="num hi">9.799</td>
+          <td class="num area">71</td>
+          <td class="num area">11</td>
+          <td class="num">82</td>
+          <td class="num">86</td>
+          <td class="num price">249.233</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">37</td>
-          <td class="num price">109.138</td>
-          <td class="num hi">32.742</td>
-          <td class="num hi">4.244</td>
+          <td class="num area">34</td>
+          <td class="num area">3</td>
+          <td class="num">37</td>
+          <td class="num">39</td>
+          <td class="num price">107.948</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
-          <td class="num area">54</td>
-          <td class="num price">160.567</td>
-          <td class="num hi">48.170</td>
-          <td class="num hi">6.244</td>
+          <td class="num area">48</td>
+          <td class="num area">6</td>
+          <td class="num">54</td>
+          <td class="num">57</td>
+          <td class="num price">158.815</td>
         </tr>
       </tbody>
     </table>
-    <p class="plist-note">Valores en USD, vigentes durante octubre 2026. Superficies correspondientes a plantas tipo. Las unidades del 4° piso pueden presentar variaciones. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    </div>
+    <div class="price-foot">
+      <div class="costo-box">
+        <div class="kicker">Proyecto al costo</div>
+        <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
+        <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
+      </div>
+      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    </div>
   </div>
   <div class="pf"><span>Lista de precios</span><span>10 / 12</span></div>
 </div>
@@ -1887,7 +1927,7 @@
   <div class="mkt-page">
     <div class="mkt-hero">
       <div class="kicker" style="margin-bottom:8px;">Saavedra · Octubre 2026 · Market Analytics · 14 abril 2026</div>
-      <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.775.</div>
+      <div class="serif-title" style="font-size:30px;">El barrio pide más.<br />Ceibo entra a 2.745.</div>
       <div class="accent"></div>
       <p class="body" style="margin-top:10px; font-size:13px;">Departamentos a estrenar y usados en el área, por tipología: superficie media y USD/m².</p>
     </div>
@@ -1898,7 +1938,7 @@
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
             <span class="k">Ceibo<span class="sq">36,92 m²</span></span>
-            <span class="v">USD 2.775/m²</span>
+            <span class="v">USD 2.745/m²</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona<span class="sq">34 m²</span></span>
@@ -1911,7 +1951,7 @@
         </div>
         <div class="amb-totals">
           <div class="amb-h">Precio total promedio</div>
-          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:83%;"></i></div><b>102.781</b></div>
+          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:82%;"></i></div><b>101.660</b></div>
           <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:100%;"></i></div><b>123.480</b></div>
           <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:77%;"></i></div><b>95.000</b></div>
         </div>
@@ -1921,7 +1961,7 @@
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
             <span class="k">Ceibo<span class="sq">54,26 m²</span></span>
-            <span class="v">USD 2.775/m²</span>
+            <span class="v">USD 2.745/m²</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona<span class="sq">47 m²</span></span>
@@ -1934,7 +1974,7 @@
         </div>
         <div class="amb-totals">
           <div class="amb-h">Precio total promedio</div>
-          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:87%;"></i></div><b>151.214</b></div>
+          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:86%;"></i></div><b>149.564</b></div>
           <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:100%;"></i></div><b>174.000</b></div>
           <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:72%;"></i></div><b>125.000</b></div>
         </div>
@@ -1944,7 +1984,7 @@
         <div class="mkt-rows">
           <div class="mkt-row is-ceibo">
             <span class="k">Ceibo<span class="sq">82,37 m²</span></span>
-            <span class="v">USD 2.775/m²</span>
+            <span class="v">USD 2.745/m²</span>
           </div>
           <div class="mkt-row">
             <span class="k">Estreno zona<span class="sq">75 m²</span></span>
@@ -1957,7 +1997,7 @@
         </div>
         <div class="amb-totals">
           <div class="amb-h">Precio total promedio</div>
-          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:85%;"></i></div><b>237.304</b></div>
+          <div class="amb-line"><span>Ceibo desde</span><div class="amb-mini"><i style="width:84%;"></i></div><b>234.715</b></div>
           <div class="amb-line"><span>Estreno</span><div class="amb-mini"><i class="new" style="width:100%;"></i></div><b>280.000</b></div>
           <div class="amb-line"><span>Usado</span><div class="amb-mini"><i class="used" style="width:55%;"></i></div><b>154.900</b></div>
         </div>
@@ -1967,14 +2007,14 @@
     <div class="mkt-gap">
       <div class="mkt-gap-h"><span class="k">Ceibo frente a la zona</span><span class="t">USD/m² promedio, Ceibo vs. departamento a estrenar</span></div>
       <div class="mkt-gap-cols">
-        <div class="mkt-gap-c"><div class="big">−23%</div><div class="l">Monoambiente</div><div class="s">vs. usado de la zona: −8%</div></div>
-        <div class="mkt-gap-c"><div class="big">−25%</div><div class="l">2 ambientes</div><div class="s">vs. usado de la zona: −5%</div></div>
-        <div class="mkt-gap-c"><div class="big">−27%</div><div class="l">3 ambientes</div><div class="s">vs. usado de la zona: similar</div></div>
+        <div class="mkt-gap-c"><div class="big">−24%</div><div class="l">Monoambiente</div><div class="s">vs. usado de la zona: −9%</div></div>
+        <div class="mkt-gap-c"><div class="big">−26%</div><div class="l">2 ambientes</div><div class="s">vs. usado de la zona: −6%</div></div>
+        <div class="mkt-gap-c"><div class="big">−28%</div><div class="l">3 ambientes</div><div class="s">vs. usado de la zona: −2%</div></div>
       </div>
       <div class="mkt-gap-foot">Un edificio nuevo, con amenities y terrazas privadas, por debajo del precio por m² del estreno en el barrio.</div>
     </div>
 
-    <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.775/m² promedio, vigentes en octubre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
+    <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.745/m² promedio, vigentes en octubre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
   </div>
   <div class="pf"><span>El mercado</span><span>11 / 12</span></div>
 </div>
@@ -2052,9 +2092,12 @@
 
 <script>
 (function () {
-  var full = new URLSearchParams(location.search).get("edicion") === "completa";
-  document.body.dataset.edicion = full ? "completa" : "comercial";
+  var edicion = new URLSearchParams(location.search).get("edicion");
+  var full = edicion === "completa";
+  var soloPrecios = edicion === "precios";
+  document.body.dataset.edicion = soloPrecios ? "precios" : full ? "completa" : "comercial";
   if (full) document.title = "Ceibo Vidal — Carpeta de venta completa · Vidal 3849";
+  if (soloPrecios) document.title = "Ceibo Vidal — Lista de precios";
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
