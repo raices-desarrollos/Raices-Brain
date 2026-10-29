@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ceibo Vidal — Lista de precios DyD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+U:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #21201E;
+      --lino: #F0EDE6;
+      --blanco: #F8F7F4;
+      --suelo: #E8E3DA;
+      --tierra: #5F4632;
+      --arena: #C4A97D;
+      --musgo: #536245;
+      --niebla: #6E6F68;
+      --carbon: #101210;
+      --line: rgba(133, 96, 64, 0.22);
+      --serif: "M PLUS U", sans-serif;
+      --sans: Montserrat, sans-serif;
+      --page-w: 1123px;
+      --page-h: 794px;
+      --mg: 36px;
+      --radius: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background: #C9C4BB;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    .page {
+      width: var(--page-w);
+      height: var(--page-h);
+      margin: 28px auto;
+      background: var(--suelo);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 40px;
+    }
+    .ph, .pf {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--mg);
+      flex-shrink: 0;
+    }
+    .ph { height: 46px; border-bottom: 0.75px solid var(--line); }
+    .logo-mark { display: block; height: 26px; width: auto; }
+    .pid {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--carbon);
+    }
+    .pf {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 36px;
+      border-top: 0.75px solid var(--line);
+    }
+    .pf span {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--niebla);
+    }
+    .kicker {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--arena);
+    }
+    .price-page {
+      flex: 1;
+      min-height: 0;
+      padding: 14px var(--mg) 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .serif-title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 30px;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-top: 4px;
+    }
+    .accent { width: 28px; height: 2px; background: var(--arena); margin-top: 8px; }
+    .plist-wrap {
+      margin-top: 14px;
+      background: var(--blanco);
+      border-radius: var(--radius);
+      padding: 2px 12px 4px;
+    }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    col.c-piso { width: 52px; }
+    col.c-unidad { width: 148px; }
+    col.c-area { width: 52px; }
+    col.c-desc { width: 68px; }
+    col.c-amen { width: 78px; }
+    col.c-price { width: 78px; }
+    thead th {
+      font-size: 7.4px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--niebla);
+      text-align: right;
+      padding: 7px 4px 6px;
+      border-bottom: 0.5px solid rgba(133, 96, 64, 0.18);
+      vertical-align: bottom;
+      line-height: 1.2;
+    }
+    thead th.left { text-align: left; padding-left: 4px; }
+    thead .grp th {
+      border-bottom: none;
+      padding-bottom: 0;
+      padding-top: 8px;
+      letter-spacing: 0.08em;
+      color: rgba(110, 111, 104, 0.72);
+    }
+    thead .grp th.off {
+      color: color-mix(in srgb, var(--musgo) 70%, var(--ink) 30%);
+    }
+    td {
+      padding: 5px 4px;
+      border-bottom: 0.5px solid rgba(133, 96, 64, 0.07);
+      font-size: 12px;
+      color: var(--tierra);
+      vertical-align: middle;
+    }
+    td.num {
+      text-align: right;
+      font-family: var(--serif);
+      font-size: 13px;
+      color: var(--ink);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums lining-nums;
+      font-feature-settings: "tnum" 1, "lnum" 1;
+    }
+    td.num.area { color: var(--niebla); font-size: 12.5px; }
+    td.num.price {
+      color: color-mix(in srgb, var(--musgo) 86%, var(--ink) 14%);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    td.num.off {
+      color: color-mix(in srgb, var(--musgo) 78%, var(--ink) 22%);
+      font-weight: 500;
+    }
+    td.off, th.off { background: rgba(83, 98, 69, 0.045); }
+    .floor-cell {
+      padding-left: 4px;
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(95, 70, 50, 0.55);
+      vertical-align: middle;
+    }
+    .uname { font-weight: 600; color: var(--ink); display: block; line-height: 1.15; font-size: 12px; white-space: nowrap; }
+    .usub { font-size: 9.5px; color: rgba(110, 111, 104, 0.62); font-weight: 400; display: block; margin-top: 1px; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr.floor-break td { border-top: 0.5px solid rgba(133, 96, 64, 0.12); padding-top: 8px; }
+    .price-foot {
+      margin-top: auto;
+      background: var(--blanco);
+      border-radius: var(--radius);
+      padding: 10px 16px 10px;
+    }
+    .costo-lead { font-size: 12.5px; line-height: 1.35; color: var(--ink); margin-top: 3px; }
+    .costo-note { margin-top: 3px; font-size: 10px; line-height: 1.4; color: rgba(110, 111, 104, 0.7); }
+    .plist-note {
+      font-size: 9px;
+      line-height: 1.4;
+      color: rgba(110, 111, 104, 0.82);
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 0.5px solid rgba(133, 96, 64, 0.12);
+    }
+    @media print {
+      html, body { width: auto; margin: 0; background: #fff; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 297mm !important;
+        height: 210mm !important;
+        min-height: 210mm !important;
+        max-height: 210mm !important;
+      }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    @page { size: A4 landscape; margin: 0; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="ph">
+    <img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" />
+    <span class="pid">Ceibo Vidal</span>
+  </div>
+  <div class="price-page">
+    <div>
+      <div class="kicker">Preventa 1 · Octubre 2026</div>
+      <div class="serif-title">Lista de precios</div>
+      <div class="accent"></div>
+    </div>
+    <div class="plist-wrap">
+      <table>
+        <colgroup>
+          <col class="c-piso" />
+          <col class="c-unidad" />
+          <col class="c-area" />
+          <col class="c-desc" />
+          <col class="c-area" />
+          <col class="c-amen" />
+          <col class="c-price" />
+          <col />
+          <col />
+          <col class="c-price" />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr class="grp">
+            <th class="left" colspan="7"></th>
+            <th colspan="2">Sobre precio de lista</th>
+            <th class="off" colspan="3">Con 3% de descuento</th>
+          </tr>
+          <tr>
+            <th class="left">Piso</th>
+            <th class="left">Unidad</th>
+            <th>Cubierto</th>
+            <th>Descubierto</th>
+            <th>Total</th>
+            <th>Superficie total<br>con amenities</th>
+            <th>Precio <span style="font-weight:400;letter-spacing:0.03em;">(USD)</span></th>
+            <th>USD/m²<br>totales</th>
+            <th>USD/m²<br>sin amenities</th>
+            <th class="off">Precio total</th>
+            <th class="off">USD/m²<br>totales</th>
+            <th class="off">USD/m²<br>sin amenities</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="floor-cell" rowspan="3">Piso 1</td>
+            <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
+            <td class="num area">71</td><td class="num area">11</td><td class="num">82</td><td class="num">86</td>
+            <td class="num price">234.715</td>
+            <td class="num">2.729</td><td class="num">2.862</td>
+            <td class="num price off">227.674</td><td class="num off">2.647</td><td class="num off">2.777</td>
+          </tr>
+          <tr>
+            <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">34</td><td class="num area">3</td><td class="num">37</td><td class="num">39</td>
+            <td class="num price">101.660</td>
+            <td class="num">2.607</td><td class="num">2.748</td>
+            <td class="num price off">98.610</td><td class="num off">2.528</td><td class="num off">2.665</td>
+          </tr>
+          <tr>
+            <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">48</td><td class="num area">6</td><td class="num">54</td><td class="num">57</td>
+            <td class="num price">149.564</td>
+            <td class="num">2.624</td><td class="num">2.770</td>
+            <td class="num price off">145.077</td><td class="num off">2.545</td><td class="num off">2.687</td>
+          </tr>
+          <tr class="floor-break">
+            <td class="floor-cell" rowspan="3">Piso 2</td>
+            <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
+            <td class="num area">71</td><td class="num area">11</td><td class="num">82</td><td class="num">86</td>
+            <td class="num price">239.554</td>
+            <td class="num">2.786</td><td class="num">2.921</td>
+            <td class="num price off">232.367</td><td class="num off">2.702</td><td class="num off">2.834</td>
+          </tr>
+          <tr>
+            <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">34</td><td class="num area">3</td><td class="num">37</td><td class="num">39</td>
+            <td class="num price">103.756</td>
+            <td class="num">2.660</td><td class="num">2.804</td>
+            <td class="num price off">100.643</td><td class="num off">2.581</td><td class="num off">2.720</td>
+          </tr>
+          <tr>
+            <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">48</td><td class="num area">6</td><td class="num">54</td><td class="num">57</td>
+            <td class="num price">152.648</td>
+            <td class="num">2.678</td><td class="num">2.827</td>
+            <td class="num price off">148.069</td><td class="num off">2.598</td><td class="num off">2.742</td>
+          </tr>
+          <tr class="floor-break">
+            <td class="floor-cell" rowspan="3">Piso 3</td>
+            <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
+            <td class="num area">71</td><td class="num area">11</td><td class="num">82</td><td class="num">86</td>
+            <td class="num price">244.394</td>
+            <td class="num">2.842</td><td class="num">2.980</td>
+            <td class="num price off">237.062</td><td class="num off">2.757</td><td class="num off">2.891</td>
+          </tr>
+          <tr>
+            <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">34</td><td class="num area">3</td><td class="num">37</td><td class="num">39</td>
+            <td class="num price">105.852</td>
+            <td class="num">2.714</td><td class="num">2.861</td>
+            <td class="num price off">102.676</td><td class="num off">2.633</td><td class="num off">2.775</td>
+          </tr>
+          <tr>
+            <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">48</td><td class="num area">6</td><td class="num">54</td><td class="num">57</td>
+            <td class="num price">155.732</td>
+            <td class="num">2.732</td><td class="num">2.884</td>
+            <td class="num price off">151.060</td><td class="num off">2.650</td><td class="num off">2.797</td>
+          </tr>
+          <tr class="floor-break">
+            <td class="floor-cell" rowspan="3">Piso 4</td>
+            <td><span class="uname">A · 3 amb.</span><span class="usub">Frente</span></td>
+            <td class="num area">71</td><td class="num area">11</td><td class="num">82</td><td class="num">86</td>
+            <td class="num price">249.233</td>
+            <td class="num">2.898</td><td class="num">3.039</td>
+            <td class="num price off">241.756</td><td class="num off">2.811</td><td class="num off">2.948</td>
+          </tr>
+          <tr>
+            <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">34</td><td class="num area">3</td><td class="num">37</td><td class="num">39</td>
+            <td class="num price">107.948</td>
+            <td class="num">2.768</td><td class="num">2.918</td>
+            <td class="num price off">104.710</td><td class="num off">2.685</td><td class="num off">2.830</td>
+          </tr>
+          <tr>
+            <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
+            <td class="num area">48</td><td class="num area">6</td><td class="num">54</td><td class="num">57</td>
+            <td class="num price">158.815</td>
+            <td class="num">2.786</td><td class="num">2.941</td>
+            <td class="num price off">154.051</td><td class="num off">2.703</td><td class="num off">2.853</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="price-foot">
+      <div class="kicker">Proyecto al costo</div>
+      <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
+      <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
+      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. USD/m² totales = precio ÷ superficie con amenities. USD/m² sin amenities = precio ÷ total propio. El 3% se aplica sobre el precio de lista; importes redondeados al dólar. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+    </div>
+  </div>
+  <div class="pf"><span>Lista de precios</span><span>01 / 01</span></div>
+</div>
+</body>
+</html>
