@@ -6,47 +6,138 @@
   <title>Ceibo Vidal — Portada · Carpeta inversores</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+U:wght@400;500&family=Montserrat:wght@500&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --blanco: #F8F7F4;
+      --arena: #C4A97D;
+      --caliza: #D1C7BA;
+      --mg: 52px;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: #21201E; }
+    html, body { background: #C9C4BB; }
+    img { display: block; max-width: 100%; }
     .cover {
-      position: relative;
       width: 794px;
       height: 1123px;
+      margin: 0 auto;
       background: #21201E;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 7%;
+      flex-direction: column;
       overflow: hidden;
     }
-    .cover img {
-      display: block;
-      height: 410px;
-      width: auto;
-      filter: brightness(0) invert(1);
-      opacity: 0.94;
+    .cover-hero { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+    .cover-hero img.render {
+      width: 100%; height: 100%; object-fit: cover; object-position: center center;
     }
-    .cap {
-      position: absolute;
-      left: 0; right: 0; bottom: 52px;
-      text-align: center;
+    .cover-grad-top {
+      position: absolute; inset: 0 0 auto; height: 150px; z-index: 1;
+      background: linear-gradient(to bottom, rgba(26,26,24,0.72), transparent);
+    }
+    .cover-grad-bot {
+      position: absolute; inset: auto 0 0; height: 44px; z-index: 1;
+      background: linear-gradient(to top, #21201E, transparent);
+    }
+    .cover-bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px var(--mg);
+    }
+    .cover-bar img { height: 32px; width: auto; }
+    .cover-bar span {
       font-family: Montserrat, sans-serif;
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: rgba(248, 247, 244, 0.5);
+      font-size: 8px; font-weight: 500; letter-spacing: 0.10em;
+      text-transform: uppercase; color: var(--caliza);
     }
-    @page { size: 794px 1123px; margin: 0; }
-    @media print { * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    .cover-copy {
+      flex-shrink: 0;
+      background: #21201E;
+      padding: 24px var(--mg) 28px;
+    }
+    .cover-meta { display: flex; align-items: flex-end; }
+    .cover-meta > div { padding: 0 20px; border-left: 0.75px solid rgba(248,247,244,0.18); }
+    .cover-meta > div:first-child { padding-left: 0; border-left: none; flex: 1.35 1 0; min-width: 0; }
+    .cover-meta > div:not(:first-child) { flex: 0 0 auto; position: relative; top: -2px; }
+    .cover-meta > div:last-child { padding-right: 0; }
+    .cover-place {
+      font-family: Montserrat, sans-serif; font-weight: 500; font-size: 14px; color: var(--arena);
+    }
+    .cm-val {
+      font-family: Montserrat, sans-serif; font-size: 15px; font-weight: 500; color: #F8F7F4; line-height: 1.25;
+    }
+    .cover-meta > div:not(:first-child) .cm-val {
+      font-family: "M PLUS U", sans-serif; font-size: 14px; font-weight: 400; letter-spacing: -0.02em;
+    }
+    .cm-lbl {
+      font-family: Montserrat, sans-serif; font-size: 9px; font-weight: 500;
+      letter-spacing: 0.10em; text-transform: uppercase; color: rgba(248,247,244,0.7); margin-top: 5px;
+    }
+    .cover-partner {
+      margin-top: 22px; padding-top: 16px;
+      border-top: 0.75px solid rgba(248,247,244,0.14);
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .cover-partner-lbl {
+      font-family: Montserrat, sans-serif; font-size: 9px; font-weight: 500;
+      letter-spacing: 0.10em; text-transform: uppercase; color: rgba(248,247,244,0.5);
+      white-space: nowrap;
+    }
+    .cover-partner-logos { display: flex; align-items: center; }
+    .cover-partner-logos span {
+      display: block; width: 0.75px; height: 30px; background: rgba(248,247,244,0.28); margin: 0 26px;
+    }
+    .cover-gyd { height: 34px; width: auto; }
+    .cover-daimar { height: 21px; width: auto; }
+    @page { size: A4 portrait; margin: 0; }
+    @media print {
+      .cover { width: 210mm; height: 297mm; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
   </style>
 </head>
 <body>
   <div class="cover">
-    <img src="assets/raices_logo_completo.png" alt="Raíces Developers" />
-    <div class="cap">Carpeta inversores · Ceibo Vidal</div>
+    <div class="cover-hero">
+      <img class="render" src="assets/renders/v0/fachada.jpeg" alt="Fachada Ceibo Vidal — Vidal 3849" />
+      <div class="cover-grad-top"></div>
+      <div class="cover-grad-bot"></div>
+      <div class="cover-bar">
+        <img src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" />
+        <span>Carpeta para inversores</span>
+      </div>
+    </div>
+    <div class="cover-copy">
+      <div class="cover-meta">
+        <div>
+          <img src="assets/ceibo_logo_lino.png" alt="Ceibo Vidal" style="height:98px;width:auto;max-width:none;display:block;margin-left:-7px;" />
+          <div class="cm-val" style="margin-top:8px;font-size:19px;letter-spacing:0.01em;color:#DCD7CC;">Vidal 3849</div>
+        </div>
+        <div>
+          <div class="cover-place">Saavedra</div>
+          <div class="cm-lbl">Barrio</div>
+        </div>
+        <div>
+          <div class="cm-val">12</div>
+          <div class="cm-lbl">Unidades</div>
+        </div>
+        <div>
+          <div class="cm-val">1 · 2 · 3</div>
+          <div class="cm-lbl">Ambientes</div>
+        </div>
+        <div>
+          <div class="cm-val">2029</div>
+          <div class="cm-lbl">Entrega</div>
+        </div>
+      </div>
+      <div class="cover-partner">
+        <span class="cover-partner-lbl">Desarrollado en conjunto con</span>
+        <div class="cover-partner-logos">
+          <img class="cover-gyd" src="assets/partners/gyd-wordmark-caliza.png" alt="G&amp;D Developers" />
+          <span></span>
+          <img class="cover-daimar" src="assets/partners/daimar-developers-caliza.png" alt="Daimar Developers" />
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

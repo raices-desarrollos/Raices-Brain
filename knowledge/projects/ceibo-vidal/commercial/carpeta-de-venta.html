@@ -62,7 +62,8 @@
     .page--dark { background: #21201E; color: var(--blanco); }
     .page--blanco { background: var(--blanco); }
     .page--suelo { background: var(--suelo); }
-    body[data-edicion="comercial"] .page--restricted { display: none !important; }
+    body[data-edicion="comercial"] .page--restricted,
+    body[data-edicion="completa"] .page--market { display: none !important; }
     body[data-edicion="precios"] .page:not(.page--prices) { display: none !important; }
     .logo { display: flex; align-items: center; }
     .logo-mark {
@@ -958,6 +959,98 @@
     .pb-sheet .fp-list--2 { column-gap: 22px; row-gap: 9px; }
     .pb-sheet .fp-list li { font-size: 12px; line-height: 1.3; }
 
+    /* ─── Memoria descriptiva ─── */
+    .page--mem .ph--dark,
+    .page--mem .pf--dark {
+      border-color: rgba(196, 169, 125, 0.42);
+    }
+    .mem {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 22px var(--mg) 16px;
+    }
+    .mem-head .serif-title {
+      font-size: 34px;
+      color: var(--blanco);
+      margin-top: 6px;
+    }
+    .mem-head .accent { margin-top: 12px; }
+    .mem-lead {
+      margin-top: 18px;
+      max-width: 42em;
+      font-size: 13px;
+      line-height: 1.5;
+      color: rgba(248, 247, 244, 0.7);
+    }
+    .mem-grid {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      column-gap: 44px;
+      margin-top: 28px;
+      align-content: start;
+    }
+    .mem-col {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .mem-sec {
+      padding: 20px 0 16px;
+      border-top: 1px solid rgba(196, 169, 125, 0.42);
+    }
+    .mem-col .mem-sec:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+    .mem-n {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: var(--arena);
+    }
+    .mem-t {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      color: var(--blanco);
+      margin-top: 5px;
+    }
+    .mem-rule {
+      width: 28px;
+      height: 1px;
+      background: var(--arena);
+      margin: 10px 0;
+    }
+    .mem-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .mem-list li {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      line-height: 1.35;
+      color: rgba(248, 247, 244, 0.64);
+    }
+    .mem-note {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: none;
+      font-size: 10.5px;
+      line-height: 1.45;
+      font-style: italic;
+      color: rgba(209, 199, 186, 0.42);
+    }
+
     /* ─── Forma de pago ─── */
     .pay { flex: 1; min-height: 0; padding: 34px var(--mg) 30px; display: flex; flex-direction: column; gap: 28px; }
     .pay-head .serif-title { font-size: 36px; margin-top: 8px; max-width: 12em; }
@@ -977,6 +1070,10 @@
     .pay-steps p { margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--tierra); }
     .pay-photo { flex: 1; min-height: 210px; border-radius: var(--radius); overflow: hidden; }
     .pay-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 48%; display: block; }
+    .pay-photo--empty {
+      border: 0.75px dashed rgba(95, 70, 50, 0.4);
+      background: rgba(95, 70, 50, 0.04);
+    }
 
     /* ══════════════════════════════════════
        8–10. TYPOLOGY TEMPLATE
@@ -1206,10 +1303,11 @@
       padding: 4px 16px 6px;
     }
     .plist { width: 100%; border-collapse: collapse; table-layout: fixed; }
-    .plist col.piso { width: 54px; }
-    .plist col.unidad { width: 21%; }
-    .plist col.amen { width: 16%; }
-    .plist col.precio { width: 16%; }
+    .plist col.piso { width: 48px; }
+    .plist col.unidad { width: 18%; }
+    .plist col.amen { width: 13%; }
+    .plist col.precio { width: 14%; }
+    .plist col.rate { width: 12%; }
     .plist thead th {
       font-size: 8.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
       color: var(--niebla); text-align: left; padding: 10px 8px 9px 0;
@@ -1715,7 +1813,7 @@
       </div>
     </div>
   </div>
-  <div class="pf"><span>El proyecto</span><span>01 / 12</span></div>
+  <div class="pf"><span>El proyecto</span><span>01 / 16</span></div>
 </div>
 
 <!-- 3 UBICACIÓN -->
@@ -1755,7 +1853,7 @@
       <img src="assets/mapa-barrio-ceibo.png" alt="Barrio — de Parque Saavedra a Av. Cabildo" />
     </div>
   </div>
-  <div class="pf pf--dark"><span>Ubicación</span><span>02 / 12</span></div>
+  <div class="pf pf--dark"><span>Ubicación</span><span>02 / 16</span></div>
 </div>
 
 <!-- 4 TIPOLOGÍAS -->
@@ -1829,7 +1927,7 @@
     </div>
     </div>
   </div>
-  <div class="pf"><span>Unidades y Amenities</span><span>03 / 12</span></div>
+  <div class="pf"><span>Unidades y Amenities</span><span>03 / 16</span></div>
 </div>
 
 <!-- 5 PLANO PLANTA BAJA -->
@@ -1888,7 +1986,7 @@
       </div>
     </div>
   </div>
-  <div class="pf pf--dark"><span>Planta baja</span><span>04 / 12</span></div>
+  <div class="pf pf--dark"><span>Planta baja</span><span>04 / 16</span></div>
 </div>
 
 <!-- 5b PLANTA BAJA -->
@@ -1915,7 +2013,7 @@
       </figure>
     </div>
   </div>
-  <div class="pf pf--dark"><span>Planta baja</span><span>05 / 12</span></div>
+  <div class="pf pf--dark"><span>Planta baja</span><span>05 / 16</span></div>
 </div>
 
 <!-- 6 PLANTA TIPO -->
@@ -1949,7 +2047,7 @@
     </aside>
     <div class="fp-plan fp-plan--tipo"><img src="assets/planos-sga/planta-tipo-v0.jpeg" alt="Planta tipo" /></div>
   </div>
-  <div class="pf pf--dark"><span>Planta tipo</span><span>05 / 12</span></div>
+  <div class="pf pf--dark"><span>Planta tipo</span><span>06 / 16</span></div>
 </div>
 
 <!-- 7 TERRAZAS -->
@@ -1978,7 +2076,7 @@
       <div class="tz-plan-frame"><img src="assets/planos-sga/planta-terraza-plano.png" alt="Planta terrazas" /></div>
     </div>
   </div>
-  <div class="pf pf--dark"><span>Terrazas</span><span>06 / 12</span></div>
+  <div class="pf pf--dark"><span>Terrazas</span><span>07 / 16</span></div>
 </div>
 
 <!-- 8 CORTE -->
@@ -1998,7 +2096,7 @@
     </div>
     <div class="corte-photo"><img data-render="fachadaZoom" alt="Fachada Ceibo Vidal" /></div>
   </div>
-  <div class="pf pf--dark"><span>El edificio</span><span>07 / 12</span></div>
+  <div class="pf pf--dark"><span>El edificio</span><span>08 / 16</span></div>
 </div>
 
 <!-- UNIDAD A -->
@@ -2043,7 +2141,7 @@
       <img data-render="interior3" alt="Comedor y living, 3 ambientes" />
     </div>
   </div>
-  <div class="pf"><span>Unidad A - 3 ambientes</span><span>07 / 12</span></div>
+  <div class="pf"><span>Unidad A - 3 ambientes</span><span>09 / 16</span></div>
 </div>
 
 <!-- UNIDAD B -->
@@ -2088,7 +2186,7 @@
       <div class="ph-box"><span>Render</span></div>
     </div>
   </div>
-  <div class="pf"><span>Unidad B - Monoambiente</span><span>08 / 12</span></div>
+  <div class="pf"><span>Unidad B - Monoambiente</span><span>10 / 16</span></div>
 </div>
 
 <!-- UNIDAD C -->
@@ -2133,7 +2231,95 @@
       <img data-render="interior2" alt="Living, comedor y cocina, 2 ambientes" />
     </div>
   </div>
-  <div class="pf"><span>Unidad C - 2 ambientes</span><span>09 / 12</span></div>
+  <div class="pf"><span>Unidad C - 2 ambientes</span><span>11 / 16</span></div>
+</div>
+
+<!-- MEMORIA DESCRIPTIVA -->
+<div class="page page--dark page--mem">
+  <div class="ph ph--dark">
+    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
+    <span class="pid">Ceibo Vidal</span>
+  </div>
+  <div class="mem">
+    <div class="mem-head">
+      <div class="kicker kicker--arena">Especificaciones</div>
+      <div class="serif-title">Memoria descriptiva</div>
+      <div class="accent"></div>
+      <p class="mem-lead">Materiales y terminaciones seleccionados para acompañar la identidad arquitectónica de Ceibo Vidal, priorizando el diseño, la funcionalidad y el mantenimiento a largo plazo.</p>
+    </div>
+    <div class="mem-grid">
+      <div class="mem-col">
+        <section class="mem-sec">
+          <div class="mem-n">01</div>
+          <div class="mem-t">Edificio</div>
+          <div class="mem-rule"></div>
+          <ul class="mem-list">
+            <li>Hall de acceso vidriado con revestimiento de porcelanato.</li>
+            <li>Fachada: hormigón visto en balcones, revoque texturado, WPC y hierro negro.</li>
+            <li>Ascensor con cabina de acero inoxidable y puertas automáticas.</li>
+            <li>Preinstalación para elementos de seguridad.</li>
+            <li>Portero eléctrico.</li>
+            <li>Vegetación y macetas en hall y SUM.</li>
+          </ul>
+        </section>
+        <section class="mem-sec">
+          <div class="mem-n">02</div>
+          <div class="mem-t">Unidades funcionales</div>
+          <div class="mem-rule"></div>
+          <ul class="mem-list">
+            <li>Preinstalación para aire acondicionado o equipos instalados.</li>
+            <li>Piso de porcelanato.</li>
+            <li>Paredes en yeso.</li>
+            <li>Carpinterías exteriores de aluminio, línea Módena o similar.</li>
+            <li>Doble vidriado hermético (DVH) en todas las carpinterías.</li>
+            <li>Conexiones previstas para lavarropas o lavavajillas.</li>
+            <li>Puerta de acceso: marco y hoja en chapa de hierro.</li>
+            <li>Puertas interiores de MDF con marco de chapa.</li>
+            <li>Cerraduras electrónicas.</li>
+            <li>Balcones: barandas de hierro.</li>
+          </ul>
+        </section>
+      </div>
+      <div class="mem-col">
+        <section class="mem-sec">
+          <div class="mem-n">03</div>
+          <div class="mem-t">Cocinas</div>
+          <div class="mem-rule"></div>
+          <ul class="mem-list">
+            <li>Revestimiento en piso y alzada.</li>
+            <li>Muebles de cocina revestidos en melamina.</li>
+            <li>Anafe y horno eléctricos.</li>
+            <li>Mesada de Silestone o granito, con bacha de acero inoxidable.</li>
+            <li>Grifería FV o calidad similar.</li>
+            <li>Agua caliente central.</li>
+          </ul>
+        </section>
+        <section class="mem-sec">
+          <div class="mem-n">04</div>
+          <div class="mem-t">Baños</div>
+          <div class="mem-rule"></div>
+          <ul class="mem-list">
+            <li>Porcelanato en piso y pared.</li>
+            <li>Sanitarios Roca línea Mónaco o calidad similar.</li>
+            <li>Grifería FV o calidad similar.</li>
+          </ul>
+        </section>
+        <section class="mem-sec">
+          <div class="mem-n">05</div>
+          <div class="mem-t">Amenities</div>
+          <div class="mem-rule"></div>
+          <ul class="mem-list">
+            <li>Terraza común con jacuzzi, solárium y parrilla.</li>
+            <li>SUM con cocina, acorde a las unidades funcionales.</li>
+            <li>Bauleras en espacios comunes.</li>
+            <li>Estacionamiento para automóviles y bicicletas.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <p class="mem-note">Las especificaciones y materiales podrán ajustarse por alternativas de calidad equivalente, respetando el diseño arquitectónico integral.</p>
+  </div>
+  <div class="pf pf--dark"><span>Memoria descriptiva</span><span>12 / 16</span></div>
 </div>
 
 <!-- 8 LISTA DE PRECIOS -->
@@ -2155,6 +2341,7 @@
         <col />
         <col class="amen" />
         <col class="precio" />
+        <col class="rate" />
       </colgroup>
       <thead>
         <tr>
@@ -2165,6 +2352,7 @@
           <th class="num">Total</th>
           <th class="num amen">Total<br>con amenities</th>
           <th class="num">Precio <span class="th-usd">(USD)</span></th>
+          <th class="num amen">USD/m²<br>total</th>
         </tr>
       </thead>
       <tbody>
@@ -2176,6 +2364,7 @@
           <td class="num">82</td>
           <td class="num">86</td>
           <td class="num price">234.715</td>
+          <td class="num rate">2.729</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
@@ -2184,6 +2373,7 @@
           <td class="num">37</td>
           <td class="num">39</td>
           <td class="num price">101.660</td>
+          <td class="num rate">2.607</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
@@ -2192,6 +2382,7 @@
           <td class="num">54</td>
           <td class="num">57</td>
           <td class="num price">149.564</td>
+          <td class="num rate">2.624</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 2</td>
@@ -2201,6 +2392,7 @@
           <td class="num">82</td>
           <td class="num">86</td>
           <td class="num price">239.554</td>
+          <td class="num rate">2.786</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
@@ -2209,6 +2401,7 @@
           <td class="num">37</td>
           <td class="num">39</td>
           <td class="num price">103.756</td>
+          <td class="num rate">2.660</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
@@ -2217,6 +2410,7 @@
           <td class="num">54</td>
           <td class="num">57</td>
           <td class="num price">152.648</td>
+          <td class="num rate">2.678</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 3</td>
@@ -2226,6 +2420,7 @@
           <td class="num">82</td>
           <td class="num">86</td>
           <td class="num price">244.394</td>
+          <td class="num rate">2.842</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
@@ -2234,6 +2429,7 @@
           <td class="num">37</td>
           <td class="num">39</td>
           <td class="num price">105.852</td>
+          <td class="num rate">2.714</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
@@ -2242,6 +2438,7 @@
           <td class="num">54</td>
           <td class="num">57</td>
           <td class="num price">155.732</td>
+          <td class="num rate">2.732</td>
         </tr>
         <tr class="floor-break">
           <td class="floor-cell" rowspan="3">Piso 4</td>
@@ -2251,6 +2448,7 @@
           <td class="num">82</td>
           <td class="num">86</td>
           <td class="num price">249.233</td>
+          <td class="num rate">2.898</td>
         </tr>
         <tr>
           <td><span class="uname">B · Monoambiente</span><span class="usub">Contrafrente</span></td>
@@ -2259,6 +2457,7 @@
           <td class="num">37</td>
           <td class="num">39</td>
           <td class="num price">107.948</td>
+          <td class="num rate">2.768</td>
         </tr>
         <tr>
           <td><span class="uname">C · 2 amb.</span><span class="usub">Contrafrente</span></td>
@@ -2267,6 +2466,7 @@
           <td class="num">54</td>
           <td class="num">57</td>
           <td class="num price">158.815</td>
+          <td class="num rate">2.786</td>
         </tr>
       </tbody>
     </table>
@@ -2277,14 +2477,14 @@
         <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
         <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
       </div>
-      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. USD/m² total = precio ÷ superficie con amenities, redondeado al dólar. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
     </div>
   </div>
-  <div class="pf"><span>Lista de precios</span><span>10 / 12</span></div>
+  <div class="pf"><span>Lista de precios</span><span>13 / 16</span></div>
 </div>
 
 <!-- 11 MERCADO -->
-<div class="page page--suelo page--restricted">
+<div class="page page--suelo page--restricted page--market">
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="mkt-page">
     <div class="mkt-hero">
@@ -2378,7 +2578,7 @@
 
     <p class="muted" style="margin-top:auto;">Departamentos. Medios de publicación del área de Vidal 3849. Superficies de zona: promedio del informe. Superficies Ceibo: planos. Precios Ceibo: Preventa 1, USD 2.745/m² promedio, vigentes en octubre 2026, desde piso 1. Fuente: Reporte Inmobiliario, Market Analytics, 14 abril 2026. No es garantía de valorización ni de cierre.</p>
   </div>
-  <div class="pf"><span>El mercado</span><span>11 / 12</span></div>
+  <div class="pf"><span>El mercado</span><span>14 / 16</span></div>
 </div>
 
 <!-- PAGO -->
@@ -2408,9 +2608,9 @@
       <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
       <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
     </div>
-    <div class="pay-photo"><img data-render="sum" alt="SUM, planta baja" /></div>
+    <div class="pay-photo pay-photo--empty" aria-label="Espacio para render"></div>
   </div>
-  <div class="pf"><span>Forma de pago</span><span>11 / 12</span></div>
+  <div class="pf"><span>Forma de pago</span><span>15 / 16</span></div>
 </div>
 
 <!-- 12 CONTACTO -->
@@ -2449,7 +2649,7 @@
       <img data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
     </div>
   </div>
-  <div class="pf pf--dark"><span>Contacto</span><span>12 / 12</span></div>
+  <div class="pf pf--dark"><span>Contacto</span><span>16 / 16</span></div>
 </div>
 
 <script>
