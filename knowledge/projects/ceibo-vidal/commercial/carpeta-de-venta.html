@@ -204,7 +204,9 @@
     .cover-hero { flex: 1; min-height: 0; position: relative; overflow: hidden; }
     .cover-hero .render-img {
       object-fit: cover;
-      object-position: center center;
+      object-position: center 46%;
+      transform: scale(1.32);
+      transform-origin: 51% 58%;
     }
     .cover-grad-top {
       position: absolute; inset: 0 0 auto; height: 150px; z-index: 1;
@@ -226,7 +228,7 @@
     .cover-copy {
       flex-shrink: 0;
       background: #21201E;
-      padding: 24px var(--mg) 28px;
+      padding: 24px var(--mg) 18px;
     }
     .cover-place {
       font-family: Montserrat, sans-serif;
@@ -259,13 +261,15 @@
       gap: 0;
     }
     .cover-partner {
-      margin-top: 22px;
-      padding-top: 16px;
+      margin-top: 16px;
+      padding: 12px 0 0;
       border-top: 0.75px solid rgba(248,247,244,0.14);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+      justify-content: center;
+      width: 100%;
+      gap: 17px;
     }
     .cover-partner-lbl {
       font-family: Montserrat, sans-serif;
@@ -280,23 +284,18 @@
     .cover-partner-logos {
       display: flex;
       align-items: center;
-      gap: 0;
+      gap: 37px;
       min-width: 0;
-    }
-    .cover-partner-logos span {
-      display: block;
-      width: 0.75px; height: 30px;
-      background: rgba(248,247,244,0.28);
-      margin: 0 26px;
     }
     .cover-partner img {
       display: block;
       width: auto;
+      height: auto;
       max-width: none !important;
       flex-shrink: 0;
     }
-    .cover-partner img.cover-gyd { height: 34px; }
-    .cover-partner img.cover-daimar { height: 21px; }
+    .cover-partner img.cover-gyd { height: 32px; }
+    .cover-partner img.cover-daimar { height: 30px; }
     .cover-meta > div {
       padding: 0 26px;
       border-left: 0.75px solid rgba(248,247,244,0.18);
@@ -421,46 +420,71 @@
       flex-direction: column;
       overflow: hidden;
     }
+    .loc-shot {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
     .loc-hero img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 46% 70%;
+      object-position: 44% 66%;
+      transform: scale(1.24);
+      transform-origin: 44% 66%;
       z-index: 0;
     }
-    .loc-hero::after {
-      content: "";
+    .loc-hero img.is-context {
+      filter: saturate(0.94) brightness(1) contrast(1.02);
+    }
+    /* El edificio, un poco más claro que el barrio. La máscara va en el plano de la foto, antes del scale. */
+    .loc-hero img.is-focus {
+      display: block;
+      z-index: 3;
+      filter: saturate(1.05) brightness(1.32) contrast(1.04);
+      -webkit-mask-image: radial-gradient(ellipse 22% 26% at 39% 80%, #000 24%, transparent 72%);
+      mask-image: radial-gradient(ellipse 22% 26% at 39% 80%, #000 24%, transparent 72%);
+    }
+    /* Velo solo en la franja del texto, por encima de la foto y debajo de la tipografía. */
+    .loc-shade {
       position: absolute;
       inset: 0;
-      z-index: 1;
+      z-index: 2;
       pointer-events: none;
-      background: radial-gradient(ellipse 155% 108% at 18% 8%,
-        rgba(16,18,16,0.86) 0%,
-        rgba(16,18,16,0.72) 46%,
-        rgba(16,18,16,0.36) 70%,
-        transparent 88%);
+      background:
+        linear-gradient(to right,
+          rgba(16,18,16,0.78) 0%,
+          rgba(16,18,16,0.72) 42%,
+          rgba(16,18,16,0.55) 62%,
+          rgba(16,18,16,0.18) 78%,
+          transparent 90%),
+        linear-gradient(to bottom,
+          rgba(16,18,16,0.35) 0%,
+          rgba(16,18,16,0.22) 42%,
+          transparent 62%);
     }
     .loc-copy {
       position: relative;
-      z-index: 2;
+      z-index: 4;
       padding: 10px var(--mg) 0;
     }
     .loc-copy .serif-title { font-size: 34px; color: var(--blanco); }
     .loc-lead {
       margin-top: 12px; font-size: 14.5px; line-height: 1.55;
-      color: rgba(248,247,244,0.96); max-width: 28em;
+      color: rgba(248,247,244,0.96); max-width: 36em;
     }
     .loc-facts {
       position: relative;
-      z-index: 2;
+      z-index: 4;
       align-content: start;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px 28px;
-      margin: 16px var(--mg) 20px;
-      max-width: 68%;
+      gap: 18px 36px;
+      margin: 22px var(--mg) 22px;
+      max-width: 78%;
     }
     .loc-fact {
       font-family: Montserrat, sans-serif;
@@ -483,16 +507,16 @@
     }
     .loc-map-frame {
       flex: 0 0 auto;
-      margin: 0 18px 12px;
+      margin: 0;
       line-height: 0;
       overflow: hidden;
-      border-radius: var(--radius);
+      border-radius: 0;
     }
     .loc-map-frame img {
       display: block;
       width: 100%;
       height: auto;
-      border-radius: var(--radius);
+      border-radius: 0;
     }
     .callout {
       position: absolute; z-index: 2;
@@ -662,15 +686,15 @@
     .tipo {
       grid-template-columns: 1.35fr 1fr; grid-template-rows: none; grid-row: auto;
       column-gap: 30px; align-content: center; align-items: start;
-      padding: 18px 0 !important;
+      padding: 16px 0 !important;
       border-right: none; border-bottom: 0.75px solid var(--line);
     }
     .tipo:last-child { border-bottom: none; }
     .tipo > * { grid-column: 2; }
     .tipo > .tipo-thumb { grid-column: 1; grid-row: 1 / span 6; align-self: stretch; }
     .tipo-thumb {
-      height: 205px; margin: 0; padding-top: 26px; box-sizing: border-box; background: transparent; border-radius: 0; overflow: visible;
-      justify-content: flex-start; align-items: flex-start;
+      height: 222px; margin: 0; padding-top: 22px; box-sizing: border-box; background: transparent; border-radius: 0; overflow: visible;
+      justify-content: flex-start; align-items: center;
     }
     .tipo-thumb img { max-width: 100%; max-height: 100%; mix-blend-mode: multiply; }
     .tipo-chip { top: 0; left: 0; }
@@ -678,8 +702,9 @@
     .tipo .where { margin-top: 4px; }
     .tipo-hero { margin-top: 10px; }
     .tipo-hero .n { font-size: 48px; }
-    .tipo-split { margin-top: 6px; }
+    .tipo-split { margin-top: 6px; font-size: 12.5px; }
     .tipo-prog { padding-top: 10px; font-size: 12.5px; }
+    .tipo .tipo-split, .tipo .tipo-prog { max-width: 21em; }
 
 
     /* ══════════════════════════════════════
@@ -688,14 +713,34 @@
     .corte-page {
       flex: 1; min-height: 0;
       display: flex; flex-direction: column;
-      padding-bottom: 26px;
+      padding-bottom: 14px;
     }
-    .corte-head { padding: 20px var(--mg) 12px; }
+    .corte-head { padding: 16px var(--mg) 10px; }
     .corte-head .serif-title { font-size: 32px; color: var(--blanco); margin-top: 8px; }
     .corte-head .accent { margin-top: 12px; }
+    .corte-frame { position: relative; width: 100%; }
+    .corte-tint {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .corte-tint i {
+      position: absolute;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+    /* Misma familia que planta tipo: C azul, A verde. El monoambiente no aparece en este corte. */
+    .corte-tint .c2 { background: rgba(176, 198, 220, 0.55); }
+    .corte-tint .c3 { background: rgba(186, 204, 176, 0.58); }
+    .corte-tint .f1 { top: 28.2%; height: 11.2%; }
+    .corte-tint .f2 { top: 42.4%; height: 11.6%; }
+    .corte-tint .f3 { top: 56.6%; height: 10.6%; }
+    .corte-tint .f4 { top: 70%; height: 10.8%; }
+    .corte-tint .side-l { left: 9.6%; width: 33.2%; }
+    .corte-tint .side-r { left: 61.2%; width: 23.6%; }
     .corte-plan {
-      margin: 0 var(--mg);
-      padding: 16px 18px;
+      margin: 0 calc(var(--mg) + 40px);
+      padding: 12px 14px;
       background: var(--lino);
       border-radius: var(--radius);
       display: flex; align-items: center; justify-content: center;
@@ -705,7 +750,7 @@
       flex: 1;
       min-height: 0;
       height: auto;
-      margin: 16px var(--mg) 0;
+      margin: 10px var(--mg) 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -754,9 +799,9 @@
     .fp-plan img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
     .fp-plan--tipo img { mix-blend-mode: normal; }
     .fp.fp--tipo {
-      grid-template-columns: 208px minmax(0, 1fr);
+      grid-template-columns: 172px minmax(0, 1fr);
       align-items: start;
-      gap: 12px;
+      gap: 8px;
       padding: 18px var(--mg) 14px;
     }
     .fp--tipo .fp-copy .serif-title { font-size: 30px; }
@@ -764,13 +809,18 @@
     .fp--tipo .fp-aside { justify-content: flex-start; gap: 34px; }
     .fp--tipo .fp-refs { margin-top: 0; }
     .fp--tipo .fp-sup { border-bottom: 0.75px solid var(--line-dark); }
-    .fp--tipo .fp-sup .row { padding: 16px 0; border-top: 0.75px solid var(--line-dark); }
-    .fp--tipo .fp-sup .row:first-child { border-top: 0.75px solid var(--line-dark); padding-top: 16px; }
+    .fp--tipo .fp-sup .row { padding: 14px 0; border-top: 0.75px solid var(--line-dark); flex-direction: column; align-items: flex-start; gap: 5px; }
+    .fp--tipo .fp-sup .row:first-child { border-top: 0.75px solid var(--line-dark); padding-top: 14px; }
     .fp--tipo .fp-sup .k { font-size: 11px; white-space: nowrap; }
     .fp--tipo .fp-sup .n { font-size: 30px; line-height: 1; white-space: nowrap; }
     .fp--tipo .fp-note-k { margin-top: 26px; margin-bottom: 10px; }
     .fp--tipo .fp-list--note { margin-top: 0; padding-top: 0; border-top: none; }
-    .fp--tipo .fp-list li { font-size: 11px; color: rgba(248,247,244,0.58); }
+    .fp--tipo .fp-list li {
+      grid-template-columns: 22px 1fr;
+      font-size: 12px;
+      color: rgba(248,247,244,0.58);
+    }
+    .fp--tipo .fp-list li b { font-size: 16px; }
     .fp--tipo .fp-plan {
       height: auto;
       padding: 0;
@@ -783,7 +833,7 @@
       width: auto;
       height: auto;
       max-width: 100%;
-      max-height: 780px;
+      max-height: 880px;
       border-radius: var(--radius);
     }
     .tz {
@@ -817,7 +867,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 38% 64%;
+      object-position: 40% 92%;
+      transform: scale(1.12);
+      transform-origin: 40% 92%;
       display: block;
     }
     .tz-areas {
@@ -868,16 +920,18 @@
     .tz-plan-frame {
       height: 100%;
       max-width: 100%;
-      aspect-ratio: 1060 / 2596;
+      aspect-ratio: 1053 / 2596;
       border-radius: var(--radius);
       overflow: hidden;
+      background: #f4e6db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .tz-plan-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.045);
-      transform-origin: center;
+      width: 93.5%;
+      height: 93.5%;
+      object-fit: contain;
       display: block;
     }
 
@@ -935,29 +989,84 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      padding: 18px var(--mg) 14px;
+      justify-content: flex-start;
+      gap: 16px;
+      padding: 18px var(--mg) 16px;
     }
-    .pb-sheet-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+    .pb-sheet-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-shrink: 0; }
     .pb-sheet .serif-title { font-size: 30px; color: var(--blanco); margin-top: 4px; }
     .pb-sheet .accent { margin-top: 10px; }
     .pb-sheet-body {
-      flex: 1;
+      flex: 0 1 auto;
       min-height: 0;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 218px;
-      gap: 30px;
-      align-items: stretch;
+      grid-template-columns: minmax(0, 65%) minmax(0, 1fr);
+      column-gap: 28px;
+      align-items: start;
     }
-    .pb-sheet .fp-plan { height: 100%; padding: 14px 12px; }
-    .pb-sheet .fp-refs { margin-top: 0; align-self: start; padding-top: 14px; }
+    .pb-sheet .fp-plan { height: auto; padding: 0; }
+    .pb-sheet .fp-plan--pb {
+      padding: 0;
+      background: transparent;
+      width: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .pb-sheet .fp-plan--pb img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 820px;
+      object-fit: contain;
+      object-position: top center;
+      mix-blend-mode: normal;
+      border-radius: 4px;
+    }
+    .pb-sheet .fp-refs { margin-top: 0; align-self: start; min-height: 0; }
+    .pb-sheet .pb-refs {
+      list-style: none;
+      margin: 0;
+      padding: 1px 0 0;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+    .pb-sheet .pb-refs li {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      column-gap: 10px;
+      align-items: baseline;
+      font-size: 12.5px;
+      line-height: 1.3;
+      color: rgba(248, 247, 244, 0.9);
+    }
+    .pb-sheet .pb-refs li b {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      color: var(--arena);
+    }
     .fp-group { padding: 12px 0 14px; border-top: 0.75px solid var(--line-dark); }
     .fp-group:first-child { border-top: none; padding-top: 0; }
     .fp-group-t { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--arena); margin-bottom: 9px; }
     .pb-sheet .fp-list { gap: 7px; }
     .pb-sheet .fp-refs > .kicker { margin-bottom: 14px; }
     .pb-sheet .fp-list--2 { column-gap: 22px; row-gap: 9px; }
-    .pb-sheet .fp-list li { font-size: 12px; line-height: 1.3; }
+    .pb-sheet .fp-list li { grid-template-columns: 1fr; font-size: 13px; line-height: 1.3; color: rgba(248,247,244,0.82); }
+    .pb-sheet .fp-group-t { font-size: 10.5px; margin-bottom: 11px; }
+    .pb-sheet .fp-group { padding: 16px 0 18px; }
+    .pb-sheet .fp-group:first-child { padding-top: 0; }
+    .pb-sheet .fp-list { gap: 9px; }
+    .fp-group-p { margin: 0; font-size: 13px; line-height: 1.55; color: rgba(248,247,244,0.82); }
+    .fp-group--minor .fp-group-p { font-size: 12px; line-height: 1.5; color: rgba(248,247,244,0.62); }
+    .pb-sheet .fp-group { padding: 13px 0 14px; }
 
     /* ─── Memoria descriptiva ─── */
     .page--mem .ph--dark,
@@ -980,9 +1089,9 @@
     .mem-lead {
       margin-top: 18px;
       max-width: 42em;
-      font-size: 13px;
-      line-height: 1.5;
-      color: rgba(248, 247, 244, 0.7);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: rgba(248, 247, 244, 0.84);
     }
     .mem-grid {
       flex: 1;
@@ -990,7 +1099,7 @@
       display: grid;
       grid-template-columns: 1.08fr 0.92fr;
       column-gap: 44px;
-      margin-top: 28px;
+      margin-top: 30px;
       align-content: start;
     }
     .mem-col {
@@ -999,7 +1108,7 @@
       min-width: 0;
     }
     .mem-sec {
-      padding: 20px 0 16px;
+      padding: 22px 0 18px;
       border-top: 1px solid rgba(196, 169, 125, 0.42);
     }
     .mem-col .mem-sec:first-child {
@@ -1032,14 +1141,14 @@
       margin: 0;
       padding: 0;
       display: grid;
-      gap: 10px;
+      gap: 11px;
     }
     .mem-list li {
       margin: 0;
       padding: 0;
-      font-size: 12px;
-      line-height: 1.35;
-      color: rgba(248, 247, 244, 0.64);
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: rgba(248, 247, 244, 0.8);
     }
     .mem-note {
       margin-top: auto;
@@ -1048,7 +1157,7 @@
       font-size: 10.5px;
       line-height: 1.45;
       font-style: italic;
-      color: rgba(209, 199, 186, 0.42);
+      color: rgba(209, 199, 186, 0.62);
     }
 
     /* ─── Forma de pago ─── */
@@ -1181,17 +1290,6 @@
       min-height: 0;
     }
     .unit-plan img { mix-blend-mode: multiply; }
-    .unit-render--ph { padding: 4px 0 0; }
-    .unit-render--ph .ph-box {
-      width: 100%; height: 100%;
-      border: 0.75px dashed rgba(95, 70, 50, 0.4);
-      border-radius: var(--radius);
-      background: rgba(95, 70, 50, 0.04);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .unit-render--ph .ph-box span {
-      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--niebla);
-    }
     .unit-render--photo img {
       width: auto;
       height: 100%;
@@ -1200,24 +1298,37 @@
       object-position: center;
       border-radius: var(--radius);
     }
+    .unit-render--mesa { overflow: hidden; border-radius: var(--radius); }
+    .unit-render--mesa img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: 64% 48%;
+      transform: scale(1.1);
+      transform-origin: 64% 48%;
+    }
     .unit-prog, .unit-stock { min-height: 74px; }
+    /* Fichas A y C: misma grilla (plano flexible + render de altura fija). */
+    .unit-page, .unit-page--c {
+      grid-template-rows: auto auto minmax(0, 1fr) 270px;
+    }
+    .unit-page .unit-plan { padding: 0 18px 8px; }
+    /* Ficha B: sin render, el plano es el protagonista y respira. */
     .unit-page--b {
-      grid-template-rows: auto auto auto 1fr;
+      grid-template-rows: auto auto minmax(0, 1fr);
     }
     .unit-page--b .unit-plan {
       align-items: center;
       justify-content: center;
       margin-top: 0;
-      overflow: hidden;
-      padding: 18px 4px 18px;
-    }
-    .unit-page--b .unit-render {
-      align-items: flex-start;
+      overflow: visible;
+      padding: 0 0 150px;
     }
     .unit-page--b .unit-plan img {
-      width: 100%;
+      width: calc(100% + 52px);
       height: auto;
-      max-width: 100%;
+      max-width: none;
       max-height: 100%;
       object-fit: contain;
       object-position: center;
@@ -1225,9 +1336,6 @@
     }
     .unit-page--c {
       grid-template-rows: auto auto minmax(0, 1fr) auto;
-    }
-    .unit-page--c .unit-plan {
-      padding: 0 18px 2px;
     }
     .unit-page--c .unit-plan img {
       width: auto;
@@ -1241,7 +1349,7 @@
     }
     .unit-page--c .unit-render--photo img {
       width: 100%;
-      height: 252px;
+      height: 100%;
       max-height: none;
       object-fit: cover;
       object-position: center 42%;
@@ -1305,12 +1413,12 @@
     .plist { width: 100%; border-collapse: collapse; table-layout: fixed; }
     .plist col.piso { width: 48px; }
     .plist col.unidad { width: 18%; }
-    .plist col.amen { width: 13%; }
-    .plist col.precio { width: 14%; }
-    .plist col.rate { width: 12%; }
+    .plist col.amen { width: 12%; }
+    .plist col.precio { width: 13%; }
+    .plist col.rate { width: 11%; }
     .plist thead th {
-      font-size: 8.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--niebla); text-align: left; padding: 10px 8px 9px 0;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--tierra); text-align: left; padding: 10px 8px 9px 0;
       border-bottom: 0.5px solid rgba(133, 96, 64, 0.18);
       white-space: nowrap;
     }
@@ -1320,7 +1428,7 @@
       color: rgba(110, 111, 104, 0.7);
     }
     .plist thead th:first-child { padding-left: 4px; }
-    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 6px; letter-spacing: 0.04em; }
+    .plist thead th.num { text-align: right; padding-right: 0; padding-left: 10px; letter-spacing: 0.05em; }
     .plist thead th.amen {
       white-space: normal; line-height: 1.2; letter-spacing: 0.03em;
       padding-top: 8px; padding-bottom: 8px;
@@ -1368,7 +1476,7 @@
       padding: 16px 18px 14px;
     }
     .plist-note {
-      font-size: 10px; line-height: 1.65; color: rgba(110, 111, 104, 0.82);
+      font-size: 10.5px; line-height: 1.55; color: #4C4D47;
       margin-top: 12px;
       padding-top: 12px;
       border-top: 0.5px solid rgba(133, 96, 64, 0.12);
@@ -1388,6 +1496,18 @@
       margin-top: 6px;
       font-size: 10.5px; line-height: 1.5; color: rgba(110, 111, 104, 0.7);
     }
+    .price-page .plist td { padding-top: 4.5px; padding-bottom: 4.5px; }
+    .price-page .plist thead th { padding-top: 8px; padding-bottom: 7px; }
+    .price-page .plist-wrap { margin-top: 14px; }
+    .price-pay { margin-top: 12px; }
+    .price-pay .pay-split > div { min-height: 0; padding: 13px 18px 11px; }
+    .price-pay .pay-split .pct { font-size: 38px; }
+    .price-pay .pay-70 { background: var(--blanco); }
+    .price-pay .pay-split p { opacity: 0.9; }
+    .price-pay .pay-steps { margin-top: 10px; }
+    .price-pay .pay-steps > div { padding-top: 9px; }
+    .price-pay .pay-steps .t { font-size: 18px; }
+    .price-pay .plist-note { margin-top: 8px; padding-top: 8px; }
 
     /* ══════════════════════════════════════
        11. MERCADO
@@ -1615,18 +1735,26 @@
       overflow: hidden;
       pointer-events: none;
     }
+    /* Encuadre: el edificio (aprox. 37% x, 74% y de la foto) queda sobre el bloque de contacto. */
     .close-hero img {
-      width: 100%; height: 118%;
-      object-fit: cover;
-      object-position: center 62%;
       position: absolute;
-      left: 0; top: -8%;
+      left: -205px; bottom: 0;
+      width: 1369px; height: auto;
+      max-width: none;
+    }
+    .close-hero img.is-context {
+      filter: saturate(0.74) brightness(0.8);
+    }
+    .close-hero img.is-focus {
+      filter: saturate(1.04) brightness(1.06);
+      -webkit-mask-image: radial-gradient(ellipse 13% 10% at 37% 74%, #000 28%, transparent 74%);
+      mask-image: radial-gradient(ellipse 13% 10% at 37% 74%, #000 28%, transparent 74%);
     }
     .close::after {
       content: "";
       position: absolute;
       inset: auto 0 0;
-      height: 48%;
+      height: 40%;
       z-index: 1;
       background: linear-gradient(to top,
         #21201E 0%,
@@ -1682,6 +1810,26 @@
       margin-top: 12px; font-size: 11px; line-height: 1.5;
       color: rgba(248,247,244,0.5);
     }
+    .close-links {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: start;
+      align-items: start;
+      column-gap: 52px;
+      margin-top: 20px;
+    }
+    .close-links a { display: block; text-decoration: none; color: var(--caliza); }
+    .close-links a span {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--arena);
+    }
+    .close-links a b { font-weight: 400; font-size: 16px; letter-spacing: 0.01em; }
+    .close-legal { margin-top: 26px !important; font-size: 10px !important; color: rgba(248,247,244,0.4) !important; }
 
     @media (max-width: 640px) {
       .unit-spec {
@@ -1772,10 +1920,9 @@
       </div>
     </div>
     <div class="cover-partner">
-      <span class="cover-partner-lbl">Desarrollado en conjunto con</span>
+      <span class="cover-partner-lbl">Desarrollo conjunto</span>
       <div class="cover-partner-logos">
         <img class="cover-gyd" src="assets/partners/gyd-wordmark-caliza.png" alt="G&amp;D Developers" />
-        <span></span>
         <img class="cover-daimar" src="assets/partners/daimar-developers-caliza.png" alt="Daimar Developers" />
       </div>
     </div>
@@ -1794,7 +1941,7 @@
         <div class="serif-title">Sobre el proyecto</div>
         <div class="accent"></div>
         <p class="body">
-          En un barrio en crecimiento, conectado y con identidad, decidimos dejar nuestras propias raíces. <br/><br/>Ceibo Vidal es un edificio que se propone lograr el balance perfecto entre ciudad y aire libre.
+          En Saavedra, un barrio conectado, verde y con identidad, nace Ceibo Vidal. <br/><br/>Un proyecto que busca equilibrar la vida urbana con el disfrute del aire libre.
         </p>
       </div>
       <div class="proj-photo proj-photo--fachada-cerca">
@@ -1824,7 +1971,11 @@
   </div>
   <div class="loc-page">
     <div class="loc-hero">
-    <img data-render="aereaDia" alt="Saavedra de día, vista aérea" />
+    <div class="loc-shot">
+      <img class="is-context" data-render="aereaDia" alt="" />
+      <div class="loc-shade"></div>
+      <img class="is-focus" data-render="aereaDia" alt="Saavedra de día, vista aérea" />
+    </div>
     <div class="loc-copy">
       <div class="serif-title">¿Por qué Saavedra?</div>
       <div class="accent"></div>
@@ -1871,7 +2022,7 @@
         <div class="where">Frente</div>
         <div class="tipo-hero"><span class="n">82</span><span class="u">m²</span></div>
         <div class="tipo-split">71 m² cubiertos · 11 m² balcón</div>
-        <p class="tipo-prog">Suite, segundo dormitorio, baño completo y balcón corrido</p>
+        <p class="tipo-prog">Suite, segundo dormitorio y dos baños completos, con balcón corrido.</p>
       </article>
       <article class="tipo">
         <div class="tipo-thumb"><span class="tipo-chip">B</span><img src="assets/planos-sga/tipologia-b.png" alt="Plano monoambiente" /></div>
@@ -1879,7 +2030,7 @@
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">37</span><span class="u">m²</span></div>
         <div class="tipo-split">34 m² cubiertos · 3 m² balcón</div>
-        <p class="tipo-prog">Amplio estudio, espacio de guardado y balcón propio.</p>
+        <p class="tipo-prog">Ambiente integrado, con baño completo y cocina completa.</p>
       </article>
       <article class="tipo">
         <div class="tipo-thumb"><span class="tipo-chip">C</span><img src="assets/planos-sga/tipologia-c.png" alt="Plano 2 ambientes" /></div>
@@ -1887,7 +2038,7 @@
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">54</span><span class="u">m²</span></div>
         <div class="tipo-split">48 m² cubiertos <br/>6 m² balcón</div>
-        <p class="tipo-prog">Suite, toilette y balcón corrido.</p>
+        <p class="tipo-prog">Suite, toilette y baño completo, con balcón corrido.</p>
       </article>
     </div>
     <div class="tipo-lower">
@@ -1939,51 +2090,30 @@
   <div class="pb-sheet">
     <div class="pb-sheet-head">
       <div>
-        <div class="kicker kicker--arena">Nivel 00</div>
         <div class="serif-title">Planta baja</div>
         <div class="accent"></div>
       </div>
     </div>
     <div class="pb-sheet-body">
-      <div class="fp-plan"><img src="assets/planos-sga/planta-baja-plano.png" alt="Planta baja" /></div>
-      <div class="fp-refs fp-refs--grouped">
-        <section class="fp-group">
-          <div class="fp-group-t">Accesos</div>
-          <ol class="fp-list">
-            <li><b>1</b><span>Acceso vehicular</span></li>
-            <li><b>2</b><span>Acceso peatonal</span></li>
-            <li><b>3</b><span>Buzón</span></li>
-          </ol>
-        </section>
-        <section class="fp-group">
-          <div class="fp-group-t">Circulación</div>
-          <ol class="fp-list">
-            <li><b>6</b><span>Hall de acceso</span></li>
-            <li><b>7</b><span>Circulación vehicular</span></li>
-            <li><b>8</b><span>Escalera</span></li>
-            <li><b>9</b><span>Ascensor</span></li>
-          </ol>
-        </section>
-        <section class="fp-group">
-          <div class="fp-group-t">Servicios</div>
-          <ol class="fp-list">
-            <li><b>4</b><span>Nicho de gas</span></li>
-            <li><b>5</b><span>Medidores</span></li>
-            <li><b>10</b><span>Baulera / bicicletero</span></li>
-            <li><b>11</b><span>Guardado</span></li>
-            <li><b>12</b><span>Sala de bombeo</span></li>
-            <li><b>13</b><span>Auxiliar portería</span></li>
-            <li><b>14</b><span>Baño</span></li>
-          </ol>
-        </section>
-        <section class="fp-group">
-          <div class="fp-group-t">Espacios comunes</div>
-          <ol class="fp-list">
-            <li><b>15</b><span>SUM</span></li>
-            <li><b>16</b><span>Expansión SUM</span></li>
-          </ol>
-        </section>
-      </div>
+      <div class="fp-plan fp-plan--pb"><img src="assets/planos-sga/plano-pb-v1.jpg" alt="Planta baja" /></div>
+      <ol class="fp-refs pb-refs">
+        <li><b>1</b><span>Acceso vehicular</span></li>
+        <li><b>2</b><span>Acceso peatonal</span></li>
+        <li><b>3</b><span>Buzón Edesur</span></li>
+        <li><b>4</b><span>Nicho de gas</span></li>
+        <li><b>5</b><span>Medidores</span></li>
+        <li><b>6</b><span>Hall de acceso</span></li>
+        <li><b>7</b><span>Circulación vehicular</span></li>
+        <li><b>8</b><span>Escalera</span></li>
+        <li><b>9</b><span>Ascensor</span></li>
+        <li><b>10</b><span>Baulera / bicicletero</span></li>
+        <li><b>11</b><span>Guardado</span></li>
+        <li><b>12</b><span>Sala de bombeo</span></li>
+        <li><b>13</b><span>Auxiliar de portería</span></li>
+        <li><b>14</b><span>Baño</span></li>
+        <li><b>15</b><span>SUM</span></li>
+        <li><b>16</b><span>Expansión SUM</span></li>
+      </ol>
     </div>
   </div>
   <div class="pf pf--dark"><span>Planta baja</span><span>04 / 16</span></div>
@@ -2025,10 +2155,10 @@
   <div class="fp fp--tipo">
     <aside class="fp-aside">
       <div class="fp-copy">
-        <div class="kicker kicker--arena">Pisos 2° a 4°</div>
+        <div class="kicker kicker--arena">Pisos 1° a 4°</div>
         <div class="serif-title">Planta tipo</div>
         <div class="accent"></div>
-        <p class="body">Tres unidades por piso, todas con balcón, alrededor de un palier central. El 4° ajusta levemente las superficies.</p>
+        <p class="body">Tres unidades por piso, todas con balcón, alrededor de un palier central con ventilación natural.</p>
       </div>
       <div class="fp-refs">
         <div class="fp-sup">
@@ -2041,11 +2171,11 @@
           <li><b>1</b><span>Bauleras y bicicleteros</span></li>
           <li><b>2</b><span>Palier</span></li>
           <li><b>3</b><span>Escalera</span></li>
-          <li><b>4</b><span>Ascensor</span></li>
+          <li><b>4</b><span>Ascensor</span></li>  
         </ol>
       </div>
     </aside>
-    <div class="fp-plan fp-plan--tipo"><img src="assets/planos-sga/planta-tipo-v0.jpeg" alt="Planta tipo" /></div>
+    <div class="fp-plan fp-plan--tipo"><img src="assets/planos-sga/plano-tipo-v1.jpg" alt="Planta tipo" /></div>
   </div>
   <div class="pf pf--dark"><span>Planta tipo</span><span>06 / 16</span></div>
 </div>
@@ -2061,7 +2191,7 @@
       <div class="kicker kicker--arena">Nivel superior</div>
       <div class="serif-title">Terrazas</div>
       <div class="accent"></div>
-      <p class="body">Una terraza común con jacuzzi y estar al aire libre, más tres terrazas privadas.</p>
+      <p class="body">Una terraza con jacuzzi, solarium y vegetación junto a la parrilla y estar. Disponibles tres terrazas privadas.</p>
     </div>
     <figure class="tz-photo">
       <img data-render="terraza" alt="Terraza común" />
@@ -2077,26 +2207,6 @@
     </div>
   </div>
   <div class="pf pf--dark"><span>Terrazas</span><span>07 / 16</span></div>
-</div>
-
-<!-- 8 CORTE -->
-<div class="page page--dark">
-  <div class="ph ph--dark">
-    <div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_caliza.png" alt="Raíces Developers" /></div>
-    <span class="pid">Ceibo Vidal</span>
-  </div>
-  <div class="corte-page">
-    <div class="corte-head">
-      <div class="kicker kicker--arena">Corte longitudinal</div>
-      <div class="serif-title">El edificio</div>
-      <div class="accent"></div>
-    </div>
-    <div class="corte-plan">
-      <img src="assets/planos-sga/corte-aa-estilo.png" alt="Corte A-A" />
-    </div>
-    <div class="corte-photo"><img data-render="fachadaZoom" alt="Fachada Ceibo Vidal" /></div>
-  </div>
-  <div class="pf pf--dark"><span>El edificio</span><span>08 / 16</span></div>
 </div>
 
 <!-- UNIDAD A -->
@@ -2126,18 +2236,18 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Living-comedor al frente, suite y segundo dormitorio, baño social.</div>
+          <div class="ub-t">Living comedor al frente con balcón aterrazado, habitación en suite y segunda habitación con baño completo.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
-          <div class="ub-t">4 · 1A a 4A</div>
+          <div class="ub-t">1A · 2A · 3A · 4A</div>
         </div>
       </div>
     </div>
     <div class="unit-plan">
       <img src="assets/planos-sga/unidad-a-plano.png" alt="Plano 3 ambientes" />
     </div>
-    <div class="unit-render unit-render--photo">
+    <div class="unit-render unit-render--photo unit-render--mesa">
       <img data-render="interior3" alt="Comedor y living, 3 ambientes" />
     </div>
   </div>
@@ -2171,7 +2281,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Ambiente integrado · baño completo · balcón propio</div>
+          <div class="ub-t">Ambiente integrado con cocina completa, baño completo, espacio de guardado y balcón propio.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2181,9 +2291,6 @@
     </div>
     <div class="unit-plan">
       <img src="assets/planos-sga/unidad-b-mono-plano.png" alt="Plano monoambiente" />
-    </div>
-    <div class="unit-render unit-render--ph" aria-label="Espacio reservado para render">
-      <div class="ph-box"><span>Render</span></div>
     </div>
   </div>
   <div class="pf"><span>Unidad B - Monoambiente</span><span>10 / 16</span></div>
@@ -2216,11 +2323,11 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Living-comedor con cocina, dormitorio en suite, baño social.</div>
+          <div class="ub-t">Living-comedor con cocina, dormitorio en suite, toilette, baño completo y balcón corrido.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
-          <div class="ub-t">4 · 1C a 4C</div>
+          <div class="ub-t">1C · 2C · 3C · 4C</div>
         </div>
       </div>
     </div>
@@ -2323,7 +2430,7 @@
 </div>
 
 <!-- 8 LISTA DE PRECIOS -->
-<div class="page page--suelo page--restricted page--prices">
+<div class="page page--suelo page--prices">
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
@@ -2352,7 +2459,7 @@
           <th class="num">Total</th>
           <th class="num amen">Total<br>con amenities</th>
           <th class="num">Precio <span class="th-usd">(USD)</span></th>
-          <th class="num amen">USD/m²<br>total</th>
+          <th class="num amen">USD/m²<br>c/amenities</th>
         </tr>
       </thead>
       <tbody>
@@ -2471,16 +2578,28 @@
       </tbody>
     </table>
     </div>
-    <div class="price-foot">
-      <div class="costo-box">
-        <div class="kicker">Proyecto al costo</div>
-        <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
-        <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
+    <div class="price-pay">
+      <div class="pay-split">
+        <div class="pay-30">
+          <div class="pct">30%</div>
+          <div class="t">Al firmar</div>
+          <p>Anticipo al boleto.</p>
+        </div>
+        <div class="pay-70">
+          <div class="pct">70%</div>
+          <div class="t">En cuotas</div>
+          <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción. Saldo en 18 cuotas.</p>
+        </div>
       </div>
-      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. USD/m² total = precio ÷ superficie con amenities, redondeado al dólar. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+      <div class="pay-steps">
+        <div><div class="k">01</div><div class="t">Boleto</div><p>Reserva y firma con el 30% de anticipo.</p></div>
+        <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
+        <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
+      </div>
+      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. USD/m² c/amenities = precio ÷ superficie total con amenities, redondeado al dólar. Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra. Consultar cocheras, bauleras y terrazas privadas.</p>
     </div>
   </div>
-  <div class="pf"><span>Lista de precios</span><span>13 / 16</span></div>
+  <div class="pf"><span>Precios y forma de pago</span><span>13 / 16</span></div>
 </div>
 
 <!-- 11 MERCADO -->
@@ -2581,38 +2700,6 @@
   <div class="pf"><span>El mercado</span><span>14 / 16</span></div>
 </div>
 
-<!-- PAGO -->
-<div class="page page--blanco">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
-  <div class="pay">
-    <div class="pay-head">
-      <div class="kicker">Forma de pago</div>
-      <div class="serif-title">Un esquema simple, en pesos.</div>
-      <div class="accent"></div>
-      <p class="body">Un anticipo al firmar y el saldo en cuotas durante la obra, ajustadas por CAC.</p>
-    </div>
-    <div class="pay-split">
-      <div class="pay-30">
-        <div class="pct">30%</div>
-        <div class="t">Al firmar</div>
-        <p>Anticipo al boleto.</p>
-      </div>
-      <div class="pay-70">
-        <div class="pct">70%</div>
-        <div class="t">En cuotas</div>
-        <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción.</p>
-      </div>
-    </div>
-    <div class="pay-steps">
-      <div><div class="k">01</div><div class="t">Boleto</div><p>Reserva y firma con el 30% de anticipo.</p></div>
-      <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
-      <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
-    </div>
-    <div class="pay-photo pay-photo--empty" aria-label="Espacio para render"></div>
-  </div>
-  <div class="pf"><span>Forma de pago</span><span>15 / 16</span></div>
-</div>
-
 <!-- 12 CONTACTO -->
 <div class="page page--dark">
   <div class="ph ph--dark">
@@ -2626,7 +2713,7 @@
           <div class="kicker kicker--arena" style="margin-bottom:14px;">Siguiente paso</div>
           <div class="serif-title close-cta">Coordiná tu reunión.</div>
           <div class="accent"></div>
-          <p class="close-sub">Unidades disponibles y forma de pago. Un solo canal.</p>
+          <p class="close-sub">Unidades disponibles y formas de pago.</p>
         </div>
       </div>
       <div class="right">
@@ -2640,13 +2727,18 @@
             <div class="num">+54 11 3699-4200</div>
           </div>
         </a>
+        <div class="close-links">
+          <a href="https://www.raices.dev"><span>Web</span><b>raices.dev</b></a>
+          <a href="https://www.instagram.com/raices.dev/"><span>Instagram</span><b>@raices.dev</b></a>
+        </div>
         <p class="close-legal">
           Material comercial. Renders de referencia.
         </p>
       </div>
     </div>
     <div class="close-hero">
-      <img data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
+      <img class="is-context" data-render="aereaNoche" alt="" />
+      <img class="is-focus" data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
     </div>
   </div>
   <div class="pf pf--dark"><span>Contacto</span><span>16 / 16</span></div>
