@@ -204,7 +204,9 @@
     .cover-hero { flex: 1; min-height: 0; position: relative; overflow: hidden; }
     .cover-hero .render-img {
       object-fit: cover;
-      object-position: center center;
+      object-position: center 46%;
+      transform: scale(1.2);
+      transform-origin: center 46%;
     }
     .cover-grad-top {
       position: absolute; inset: 0 0 auto; height: 150px; z-index: 1;
@@ -226,7 +228,7 @@
     .cover-copy {
       flex-shrink: 0;
       background: #21201E;
-      padding: 24px var(--mg) 28px;
+      padding: 24px var(--mg) 18px;
     }
     .cover-place {
       font-family: Montserrat, sans-serif;
@@ -259,12 +261,13 @@
       gap: 0;
     }
     .cover-partner {
-      margin-top: 22px;
-      padding-top: 16px;
+      margin-top: 16px;
+      padding: 11px 0 0;
       border-top: 0.75px solid rgba(248,247,244,0.14);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
       gap: 24px;
     }
     .cover-partner-lbl {
@@ -280,23 +283,18 @@
     .cover-partner-logos {
       display: flex;
       align-items: center;
-      gap: 0;
+      gap: 28px;
       min-width: 0;
-    }
-    .cover-partner-logos span {
-      display: block;
-      width: 0.75px; height: 30px;
-      background: rgba(248,247,244,0.28);
-      margin: 0 26px;
     }
     .cover-partner img {
       display: block;
       width: auto;
+      height: auto;
       max-width: none !important;
       flex-shrink: 0;
     }
-    .cover-partner img.cover-gyd { height: 34px; }
-    .cover-partner img.cover-daimar { height: 21px; }
+    .cover-partner img.cover-gyd { height: 28px; }
+    .cover-partner img.cover-daimar { height: 26px; }
     .cover-meta > div {
       padding: 0 26px;
       border-left: 0.75px solid rgba(248,247,244,0.18);
@@ -421,14 +419,30 @@
       flex-direction: column;
       overflow: hidden;
     }
+    .loc-shot {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
     .loc-hero img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 46% 70%;
+      object-position: 44% 66%;
+      transform: scale(1.24);
+      transform-origin: 44% 66%;
       z-index: 0;
+    }
+    .loc-hero img.is-context {
+      filter: saturate(0.58) brightness(0.84) contrast(1.02);
+    }
+    .loc-hero img.is-focus {
+      z-index: 1;
+      -webkit-mask-image: radial-gradient(ellipse 20% 16% at 44% 66%, #000 28%, transparent 72%);
+      mask-image: radial-gradient(ellipse 20% 16% at 44% 66%, #000 28%, transparent 72%);
     }
     .loc-hero::after {
       content: "";
@@ -693,6 +707,26 @@
     .corte-head { padding: 20px var(--mg) 12px; }
     .corte-head .serif-title { font-size: 32px; color: var(--blanco); margin-top: 8px; }
     .corte-head .accent { margin-top: 12px; }
+    .corte-frame { position: relative; width: 100%; }
+    .corte-tint {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .corte-tint i {
+      position: absolute;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+    /* Misma familia que planta tipo: C azul, A verde. El monoambiente no aparece en este corte. */
+    .corte-tint .c2 { background: rgba(176, 198, 220, 0.55); }
+    .corte-tint .c3 { background: rgba(186, 204, 176, 0.58); }
+    .corte-tint .f1 { top: 28.2%; height: 11.2%; }
+    .corte-tint .f2 { top: 42.4%; height: 11.6%; }
+    .corte-tint .f3 { top: 56.6%; height: 10.6%; }
+    .corte-tint .f4 { top: 70%; height: 10.8%; }
+    .corte-tint .side-l { left: 9.6%; width: 33.2%; }
+    .corte-tint .side-r { left: 61.2%; width: 23.6%; }
     .corte-plan {
       margin: 0 var(--mg);
       padding: 16px 18px;
@@ -770,7 +804,12 @@
     .fp--tipo .fp-sup .n { font-size: 30px; line-height: 1; white-space: nowrap; }
     .fp--tipo .fp-note-k { margin-top: 26px; margin-bottom: 10px; }
     .fp--tipo .fp-list--note { margin-top: 0; padding-top: 0; border-top: none; }
-    .fp--tipo .fp-list li { font-size: 11px; color: rgba(248,247,244,0.58); }
+    .fp--tipo .fp-list li {
+      grid-template-columns: 22px 1fr;
+      font-size: 12px;
+      color: rgba(248,247,244,0.58);
+    }
+    .fp--tipo .fp-list li b { font-size: 16px; }
     .fp--tipo .fp-plan {
       height: auto;
       padding: 0;
@@ -1200,6 +1239,16 @@
       object-position: center;
       border-radius: var(--radius);
     }
+    .unit-render--mesa { overflow: hidden; border-radius: var(--radius); }
+    .unit-render--mesa img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: 64% 48%;
+      transform: scale(1.1);
+      transform-origin: 64% 48%;
+    }
     .unit-prog, .unit-stock { min-height: 74px; }
     .unit-page--b {
       grid-template-rows: auto auto auto 1fr;
@@ -1388,6 +1437,16 @@
       margin-top: 6px;
       font-size: 10.5px; line-height: 1.5; color: rgba(110, 111, 104, 0.7);
     }
+    .price-page .plist td { padding-top: 5px; padding-bottom: 5px; }
+    .price-page .plist thead th { padding-top: 8px; padding-bottom: 7px; }
+    .price-page .plist-wrap { margin-top: 14px; }
+    .price-pay { margin-top: 16px; }
+    .price-pay .pay-split > div { min-height: 0; padding: 16px 18px 14px; }
+    .price-pay .pay-split .pct { font-size: 42px; }
+    .price-pay .pay-steps { margin-top: 12px; }
+    .price-pay .pay-steps > div { padding-top: 12px; }
+    .price-pay .pay-steps .t { font-size: 18px; }
+    .price-pay .plist-note { margin-top: 12px; }
 
     /* ══════════════════════════════════════
        11. MERCADO
@@ -1616,11 +1675,22 @@
       pointer-events: none;
     }
     .close-hero img {
-      width: 100%; height: 118%;
+      width: 100%; height: 132%;
       object-fit: cover;
-      object-position: center 62%;
+      object-position: 46% 74%;
+      transform: scale(1.14);
+      transform-origin: 46% 58%;
       position: absolute;
-      left: 0; top: -8%;
+      left: 0; top: -22%;
+    }
+    .close-hero img.is-context {
+      filter: saturate(0.72) brightness(0.78);
+    }
+    .close-hero img.is-focus {
+      z-index: 1;
+      filter: saturate(1.05) brightness(1.05);
+      -webkit-mask-image: radial-gradient(ellipse 16% 14% at 46% 52%, #000 20%, transparent 70%);
+      mask-image: radial-gradient(ellipse 16% 14% at 46% 52%, #000 20%, transparent 70%);
     }
     .close::after {
       content: "";
@@ -1681,6 +1751,28 @@
     .close-legal {
       margin-top: 12px; font-size: 11px; line-height: 1.5;
       color: rgba(248,247,244,0.5);
+    }
+    .close-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .close-links a {
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      color: rgba(248,247,244,0.78);
+      text-decoration: none;
+    }
+    .close-links a span {
+      display: inline-block;
+      width: 78px;
+      margin-right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--arena);
     }
 
     @media (max-width: 640px) {
@@ -1772,10 +1864,9 @@
       </div>
     </div>
     <div class="cover-partner">
-      <span class="cover-partner-lbl">Desarrollado en conjunto con</span>
+      <span class="cover-partner-lbl">Desarrollo conjunto</span>
       <div class="cover-partner-logos">
         <img class="cover-gyd" src="assets/partners/gyd-wordmark-caliza.png" alt="G&amp;D Developers" />
-        <span></span>
         <img class="cover-daimar" src="assets/partners/daimar-developers-caliza.png" alt="Daimar Developers" />
       </div>
     </div>
@@ -1824,7 +1915,10 @@
   </div>
   <div class="loc-page">
     <div class="loc-hero">
-    <img data-render="aereaDia" alt="Saavedra de día, vista aérea" />
+    <div class="loc-shot">
+      <img class="is-context" data-render="aereaDia" alt="" />
+      <img class="is-focus" data-render="aereaDia" alt="Saavedra de día, vista aérea" />
+    </div>
     <div class="loc-copy">
       <div class="serif-title">¿Por qué Saavedra?</div>
       <div class="accent"></div>
@@ -1871,7 +1965,7 @@
         <div class="where">Frente</div>
         <div class="tipo-hero"><span class="n">82</span><span class="u">m²</span></div>
         <div class="tipo-split">71 m² cubiertos · 11 m² balcón</div>
-        <p class="tipo-prog">Suite, segundo dormitorio, baño completo y balcón corrido</p>
+        <p class="tipo-prog">Suite, segundo dormitorio y dos baños completos, con balcón corrido.</p>
       </article>
       <article class="tipo">
         <div class="tipo-thumb"><span class="tipo-chip">B</span><img src="assets/planos-sga/tipologia-b.png" alt="Plano monoambiente" /></div>
@@ -1879,7 +1973,7 @@
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">37</span><span class="u">m²</span></div>
         <div class="tipo-split">34 m² cubiertos · 3 m² balcón</div>
-        <p class="tipo-prog">Amplio estudio, espacio de guardado y balcón propio.</p>
+        <p class="tipo-prog">Ambiente integrado, con baño completo y cocina completa.</p>
       </article>
       <article class="tipo">
         <div class="tipo-thumb"><span class="tipo-chip">C</span><img src="assets/planos-sga/tipologia-c.png" alt="Plano 2 ambientes" /></div>
@@ -1887,7 +1981,7 @@
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">54</span><span class="u">m²</span></div>
         <div class="tipo-split">48 m² cubiertos <br/>6 m² balcón</div>
-        <p class="tipo-prog">Suite, toilette y balcón corrido.</p>
+        <p class="tipo-prog">Suite, toilette y baño completo, con balcón corrido.</p>
       </article>
     </div>
     <div class="tipo-lower">
@@ -1939,7 +2033,6 @@
   <div class="pb-sheet">
     <div class="pb-sheet-head">
       <div>
-        <div class="kicker kicker--arena">Nivel 00</div>
         <div class="serif-title">Planta baja</div>
         <div class="accent"></div>
       </div>
@@ -2025,10 +2118,10 @@
   <div class="fp fp--tipo">
     <aside class="fp-aside">
       <div class="fp-copy">
-        <div class="kicker kicker--arena">Pisos 2° a 4°</div>
+        <div class="kicker kicker--arena">Pisos 1° a 4°</div>
         <div class="serif-title">Planta tipo</div>
         <div class="accent"></div>
-        <p class="body">Tres unidades por piso, todas con balcón, alrededor de un palier central. El 4° ajusta levemente las superficies.</p>
+        <p class="body">Tres unidades por piso, todas con balcón, alrededor de un palier central con ventilación natural.</p>
       </div>
       <div class="fp-refs">
         <div class="fp-sup">
@@ -2041,7 +2134,7 @@
           <li><b>1</b><span>Bauleras y bicicleteros</span></li>
           <li><b>2</b><span>Palier</span></li>
           <li><b>3</b><span>Escalera</span></li>
-          <li><b>4</b><span>Ascensor</span></li>
+          <li><b>4</b><span>Ascensor</span></li>  
         </ol>
       </div>
     </aside>
@@ -2061,7 +2154,7 @@
       <div class="kicker kicker--arena">Nivel superior</div>
       <div class="serif-title">Terrazas</div>
       <div class="accent"></div>
-      <p class="body">Una terraza común con jacuzzi y estar al aire libre, más tres terrazas privadas.</p>
+      <p class="body">Una terraza con jacuzzi, solarium y vegetación junto a la parrilla y estar. Disponibles tres terrazas privadas.</p>
     </div>
     <figure class="tz-photo">
       <img data-render="terraza" alt="Terraza común" />
@@ -2092,7 +2185,13 @@
       <div class="accent"></div>
     </div>
     <div class="corte-plan">
-      <img src="assets/planos-sga/corte-aa-estilo.png" alt="Corte A-A" />
+      <div class="corte-frame">
+        <img src="assets/planos-sga/corte-aa-estilo.png" alt="Corte A-A" />
+        <div class="corte-tint" aria-hidden="true">
+          <i class="c2 side-l f1"></i><i class="c2 side-l f2"></i><i class="c2 side-l f3"></i><i class="c2 side-l f4"></i>
+          <i class="c3 side-r f1"></i><i class="c3 side-r f2"></i><i class="c3 side-r f3"></i><i class="c3 side-r f4"></i>
+        </div>
+      </div>
     </div>
     <div class="corte-photo"><img data-render="fachadaZoom" alt="Fachada Ceibo Vidal" /></div>
   </div>
@@ -2126,7 +2225,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Living-comedor al frente, suite y segundo dormitorio, baño social.</div>
+          <div class="ub-t">Living comedor al frente con balcón aterrazado, habitación en suite y segunda habitación con baño completo.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2137,7 +2236,7 @@
     <div class="unit-plan">
       <img src="assets/planos-sga/unidad-a-plano.png" alt="Plano 3 ambientes" />
     </div>
-    <div class="unit-render unit-render--photo">
+    <div class="unit-render unit-render--photo unit-render--mesa">
       <img data-render="interior3" alt="Comedor y living, 3 ambientes" />
     </div>
   </div>
@@ -2171,7 +2270,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Ambiente integrado · baño completo · balcón propio</div>
+          <div class="ub-t">Ambiente integrado con cocina completa, baño completo, espacio de guardado y balcón propio.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2216,7 +2315,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Living-comedor con cocina, dormitorio en suite, baño social.</div>
+          <div class="ub-t">Living-comedor con cocina, dormitorio en suite, toilette, baño completo y balcón corrido.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2323,7 +2422,7 @@
 </div>
 
 <!-- 8 LISTA DE PRECIOS -->
-<div class="page page--suelo page--restricted page--prices">
+<div class="page page--suelo page--prices">
   <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
   <div class="price-page">
     <div>
@@ -2471,16 +2570,28 @@
       </tbody>
     </table>
     </div>
-    <div class="price-foot">
-      <div class="costo-box">
-        <div class="kicker">Proyecto al costo</div>
-        <p class="costo-lead">30% al firmar. Saldo en 18 cuotas en pesos, ajustadas por CAC.</p>
-        <p class="costo-note">Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra.</p>
+    <div class="price-pay">
+      <div class="pay-split">
+        <div class="pay-30">
+          <div class="pct">30%</div>
+          <div class="t">Al firmar</div>
+          <p>Anticipo al boleto.</p>
+        </div>
+        <div class="pay-70">
+          <div class="pct">70%</div>
+          <div class="t">En cuotas</div>
+          <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción. Saldo en 18 cuotas.</p>
+        </div>
       </div>
-      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. USD/m² total = precio ÷ superficie con amenities, redondeado al dólar. El saldo es el 70% en cuotas. Consultar cocheras, bauleras y terrazas privadas.</p>
+      <div class="pay-steps">
+        <div><div class="k">01</div><div class="t">Boleto</div><p>Reserva y firma con el 30% de anticipo.</p></div>
+        <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
+        <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
+      </div>
+      <p class="plist-note">Valores en USD, vigentes durante octubre 2026. USD/m² total = precio ÷ superficie con amenities, redondeado al dólar. Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra. Consultar cocheras, bauleras y terrazas privadas.</p>
     </div>
   </div>
-  <div class="pf"><span>Lista de precios</span><span>13 / 16</span></div>
+  <div class="pf"><span>Precios y forma de pago</span><span>13 / 16</span></div>
 </div>
 
 <!-- 11 MERCADO -->
@@ -2581,38 +2692,6 @@
   <div class="pf"><span>El mercado</span><span>14 / 16</span></div>
 </div>
 
-<!-- PAGO -->
-<div class="page page--blanco">
-  <div class="ph"><div class="logo"><img class="logo-mark" src="assets/raices_logo_texto_carbon.png" alt="Raíces Developers" /></div><span class="pid">Ceibo Vidal</span></div>
-  <div class="pay">
-    <div class="pay-head">
-      <div class="kicker">Forma de pago</div>
-      <div class="serif-title">Un esquema simple, en pesos.</div>
-      <div class="accent"></div>
-      <p class="body">Un anticipo al firmar y el saldo en cuotas durante la obra, ajustadas por CAC.</p>
-    </div>
-    <div class="pay-split">
-      <div class="pay-30">
-        <div class="pct">30%</div>
-        <div class="t">Al firmar</div>
-        <p>Anticipo al boleto.</p>
-      </div>
-      <div class="pay-70">
-        <div class="pct">70%</div>
-        <div class="t">En cuotas</div>
-        <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción.</p>
-      </div>
-    </div>
-    <div class="pay-steps">
-      <div><div class="k">01</div><div class="t">Boleto</div><p>Reserva y firma con el 30% de anticipo.</p></div>
-      <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
-      <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
-    </div>
-    <div class="pay-photo pay-photo--empty" aria-label="Espacio para render"></div>
-  </div>
-  <div class="pf"><span>Forma de pago</span><span>15 / 16</span></div>
-</div>
-
 <!-- 12 CONTACTO -->
 <div class="page page--dark">
   <div class="ph ph--dark">
@@ -2640,13 +2719,18 @@
             <div class="num">+54 11 3699-4200</div>
           </div>
         </a>
+        <div class="close-links">
+          <a href="https://www.raices.dev"><span>Web</span>www.raices.dev</a>
+          <a href="https://www.instagram.com/raices.dev/"><span>Instagram</span>@raices.dev</a>
+        </div>
         <p class="close-legal">
           Material comercial. Renders de referencia.
         </p>
       </div>
     </div>
     <div class="close-hero">
-      <img data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
+      <img class="is-context" data-render="aereaNoche" alt="" />
+      <img class="is-focus" data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
     </div>
   </div>
   <div class="pf pf--dark"><span>Contacto</span><span>16 / 16</span></div>
