@@ -440,23 +440,8 @@
       object-position: center center;
       z-index: 0;
     }
-    /* Velo solo en la franja del texto, por encima de la foto y debajo de la tipografía. */
-    .loc-shade {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background:
-        linear-gradient(to right,
-          rgba(16,18,16,0.78) 0%,
-          rgba(16,18,16,0.72) 42%,
-          rgba(16,18,16,0.55) 62%,
-          rgba(16,18,16,0.32) 100%),
-        linear-gradient(to bottom,
-          rgba(16,18,16,0.35) 0%,
-          rgba(16,18,16,0.22) 42%,
-          transparent 62%);
-    }
+    /* El velo oscuro está incorporado en la imagen (imagen_aerea_dia_brillo_velo.jpg).
+       Los degradados y máscaras CSS se ven como bloques en los visores de PDF del celular. */
     .loc-copy {
       position: relative;
       z-index: 4;
@@ -1407,13 +1392,6 @@
       color: var(--arena); line-height: 1;
     }
     .loc-fact { position: relative; }
-    .loc-facts::before {
-      content: ""; position: absolute; z-index: -1; pointer-events: none;
-      left: calc(var(--mg) * -1); top: -30px; bottom: -34px; width: 135%;
-      background: linear-gradient(to right, rgba(16,18,16,0.8) 0%, rgba(16,18,16,0.68) 62%, rgba(16,18,16,0.3) 85%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
-      mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
-    }
     .tipo-page { padding-bottom: 50px; gap: 14px; }
     .tipo-thumb { height: 200px; padding-top: 18px; }
     .tipo { padding: 12px 0 !important; }
@@ -1804,15 +1782,18 @@
       overflow: hidden;
       pointer-events: none;
     }
-    /* Encuadre: el edificio (aprox. 37% x, 74% y de la foto) queda sobre el bloque de contacto. */
+    /* Foto completa, a lo ancho de la página. Sin ampliar ni recortar. */
     .close-hero img {
       position: absolute;
-      inset: 0;
+      left: 0;
+      right: 0;
+      top: -700;
       width: 100%;
       height: 100%;
       max-width: none;
-      object-fit: cover;
-      object-position: 37% 74%;
+      object-fit: contain;
+      object-position: center center;
+      transform: translateY(-180px);
       filter: saturate(0.74) brightness(0.8);
     }
     .close::after {
@@ -2037,7 +2018,7 @@
   <div class="loc-page">
     <div class="loc-hero">
     <div class="loc-shot">
-      <img src="assets/renders/v1/imagen_aerea_dia_brillo.jpg" alt="Saavedra de día, vista aérea" />
+      <img src="assets/renders/v1/imagen_aerea_dia_brillo_velo.jpg" alt="Saavedra de día, vista aérea" />
     </div>
     <div class="loc-copy">
       <div class="serif-title">¿Por qué Saavedra?</div>
@@ -2085,7 +2066,7 @@
         <div class="where">Frente</div>
         <div class="tipo-hero"><span class="n">82</span><span class="u">m²</span></div>
         <div class="tipo-split">71 m² cubiertos · 11 m² balcón</div>
-        <p class="tipo-prog">Suite, segundo dormitorio y dos baños completos, con balcón corrido y aterrazado.</p>
+        <p class="tipo-prog">Habitación principal con baño en suite, segundo dormitorio con baño completo, balcón corrido y aterrazado.</p>
       </article>
       <article class="tipo">
         <div class="tipo-thumb"><span class="tipo-chip">B</span><img src="assets/planos-sga/tipologia-b.png" alt="Plano monoambiente" /></div>
@@ -2093,7 +2074,7 @@
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">37</span><span class="u">m²</span></div>
         <div class="tipo-split">34 m² cubiertos · 3 m² balcón</div>
-        <p class="tipo-prog">Ambiente integrado, con baño completo y cocina completa.</p>
+        <p class="tipo-prog">Ambiente integrado, baño completo y cocina completa.</p>
       </article>
       <article class="tipo">
         <div class="tipo-thumb"><span class="tipo-chip">C</span><img src="assets/planos-sga/tipologia-c.png" alt="Plano 2 ambientes" /></div>
@@ -2101,7 +2082,7 @@
         <div class="where">Contrafrente</div>
         <div class="tipo-hero"><span class="n">54</span><span class="u">m²</span></div>
         <div class="tipo-split">48 m² cubiertos <br/>6 m² balcón</div>
-        <p class="tipo-prog">Suite, toilette y baño completo, con balcón corrido.</p>
+        <p class="tipo-prog">Habitación con baño en suite, toilette y balcón corrido.</p>
       </article>
     </div>
     <div class="tipo-lower">
@@ -2170,7 +2151,7 @@
         <li><b>7</b><span>Circulación vehicular</span></li>
         <li><b>8</b><span>Escalera</span></li>
         <li><b>9</b><span>Ascensor</span></li>
-        <li><b>10</b><span>Baulera / bicicletero</span></li>
+        <li><b>10</b><span>Bicicletero</span></li>
         <li><b>11</b><span>Guardado</span></li>
         <li><b>12</b><span>Sala de bombeo</span></li>
         <li><b>13</b><span>Auxiliar de portería</span></li>
@@ -2203,7 +2184,7 @@
     </div>
     <div class="pb-shots pb-shots--hall">
       <figure class="pb-shot">
-        <div class="pb-frame"><img src="assets/imagen_hall_mujer_v1.png" alt="Hall de acceso" /></div>
+        <div class="pb-frame"><img src="assets/renders/v1/imagen_hall_v1.jpg" alt="Hall de acceso" /></div>
       </figure>
       <figure class="pb-shot">
         <div class="pb-frame"><img src="assets/imagen_hall_back_v1.png" alt="Hall de acceso, hacia la calle" /></div>
@@ -2233,13 +2214,6 @@
         <div class="row"><span class="k">B · Monoambiente</span><span class="n">37 m²</span></div>
         <div class="row"><span class="k">C · 2 ambientes</span><span class="n">54 m²</span></div>
         </div>
-        <div class="kicker kicker--arena fp-note-k">Referencias</div>
-        <ol class="fp-list fp-list--note">
-          <li><b>1</b><span>Bauleras y bicicleteros</span></li>
-          <li><b>2</b><span>Palier</span></li>
-          <li><b>3</b><span>Escalera</span></li>
-          <li><b>4</b><span>Ascensor</span></li>  
-        </ol>
       </div>
     </aside>
     <div class="fp-plan fp-plan--tipo"><img src="assets/planos-sga/plano_tipo_v1.png" alt="Planta tipo" /></div>
@@ -2303,7 +2277,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Living comedor al frente con balcón corrido y aterrazado, habitación en suite y segunda habitación con baño completo.</div>
+          <div class="ub-t">Living comedor al frente con balcón corrido y aterrazado, habitación principal con baño en suite y segunda habitación con baño completo.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2348,7 +2322,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Ambiente integrado con cocina completa, baño completo, espacio de guardado y balcón propio.</div>
+          <div class="ub-t">Ambiente integrado con cocina completa, baño completo y balcón propio.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2393,7 +2367,7 @@
       <div class="unit-meta">
         <div class="unit-prog">
           <div class="ub-l">Programa</div>
-          <div class="ub-t">Living-comedor con cocina, dormitorio en suite, toilette, baño completo y balcón corrido.</div>
+          <div class="ub-t">Living-comedor con cocina, habitación con baño en suite, toilette y balcón corrido.</div>
         </div>
         <div class="unit-stock">
           <div class="ub-l">Unidades</div>
@@ -2658,13 +2632,13 @@
         <div class="pay-70">
           <div class="pct">70%</div>
           <div class="t">En cuotas</div>
-          <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción. Saldo en 18 cuotas.</p>
+          <p>En pesos ajustados por CAC, la Cámara Argentina de la Construcción. Saldo en 24 cuotas.</p>
         </div>
       </div>
       <div class="pay-steps">
         <div><div class="k">01</div><div class="t">Boleto</div><p>Reserva y firma con el 30% de anticipo.</p></div>
         <div><div class="k">02</div><div class="t">Obra</div><p>Cuotas en pesos con ajuste por CAC.</p></div>
-        <div><div class="k">03</div><div class="t">Entrega</div><p>Prevista para 2029.</p></div>
+        <div><div class="k">03</div><div class="t">Entrega</div><p>Previsto para mediados de 2029.</p></div>
       </div>
       <p class="plist-note">Valores en USD, vigentes hasta el 1 de diciembre de 2026. USD/m² c/amenities = precio ÷ superficie total con amenities, redondeado al dólar. Los valores podrán ajustarse según variaciones extraordinarias en los costos de obra. Consultar cocheras, bauleras y terrazas privadas.</p>
     </div>
@@ -2834,8 +2808,7 @@ var CEIBO_RENDERS = (function () {
   var base = "assets/renders/";
   var direct = {
     fachada: "assets/imagen_fachada_perfil_v1.jpg",
-    interiorMono: "assets/imagen_mono_2_v1.png",
-    hall: "assets/imagen_hall_mujer_v1.png"
+    interiorMono: "assets/imagen_mono_2_v1.png"
   };
   var src = {};
   Object.keys(files).forEach(function (key) {
