@@ -371,6 +371,11 @@
       display: block;
     }
     .proj-photo--fachada-cerca img { object-position: center 55%; }
+    .proj-photo--fachada img {
+      object-fit: contain;
+      object-position: center center;
+      background: var(--blanco);
+    }
     .proj-photo--hall img { object-position: center 52%; }
     .amen-line {
       display: flex;
@@ -432,21 +437,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 44% 66%;
-      transform: scale(1.24);
-      transform-origin: 44% 66%;
+      object-position: center center;
       z-index: 0;
-    }
-    .loc-hero img.is-context {
-      filter: saturate(0.94) brightness(1) contrast(1.02);
-    }
-    /* El edificio, un poco más claro que el barrio. La máscara va en el plano de la foto, antes del scale. */
-    .loc-hero img.is-focus {
-      display: block;
-      z-index: 3;
-      filter: saturate(1.05) brightness(1.32) contrast(1.04);
-      -webkit-mask-image: radial-gradient(ellipse 22% 26% at 39% calc(80% + 20px), #000 24%, transparent 72%);
-      mask-image: radial-gradient(ellipse 22% 26% at 39% calc(80% + 20px), #000 24%, transparent 72%);
     }
     /* Velo solo en la franja del texto, por encima de la foto y debajo de la tipografía. */
     .loc-shade {
@@ -459,8 +451,7 @@
           rgba(16,18,16,0.78) 0%,
           rgba(16,18,16,0.72) 42%,
           rgba(16,18,16,0.55) 62%,
-          rgba(16,18,16,0.18) 78%,
-          transparent 90%),
+          rgba(16,18,16,0.32) 100%),
         linear-gradient(to bottom,
           rgba(16,18,16,0.35) 0%,
           rgba(16,18,16,0.22) 42%,
@@ -1019,14 +1010,30 @@
     }
     .pb-sheet .fp-plan--pb img {
       width: auto;
-      height: 100%;
+      height: 90%;
       max-width: 100%;
-      max-height: 100%;
+      max-height: 90%;
       object-fit: contain;
       object-position: top center;
       mix-blend-mode: normal;
       border-radius: 4px;
     }
+    .pb-park {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .pb-park figcaption {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--arena);
+    }
+    .pb-park .pb-frame { height: 248px; flex: none; }
+    .pb-park img { object-position: center 58%; }
+    .pb-shots--hall { grid-template-rows: 1fr 1fr; }
     .pb-side {
       min-height: 0;
       display: flex;
@@ -1800,17 +1807,13 @@
     /* Encuadre: el edificio (aprox. 37% x, 74% y de la foto) queda sobre el bloque de contacto. */
     .close-hero img {
       position: absolute;
-      left: -113px; bottom: 0;
-      width: 1120px; height: auto;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       max-width: none;
-    }
-    .close-hero img.is-context {
+      object-fit: cover;
+      object-position: 37% 74%;
       filter: saturate(0.74) brightness(0.8);
-    }
-    .close-hero img.is-focus {
-      filter: saturate(1.04) brightness(1.06);
-      -webkit-mask-image: radial-gradient(ellipse 13% 10% at 37% 74%, #000 28%, transparent 74%);
-      mask-image: radial-gradient(ellipse 13% 10% at 37% 74%, #000 28%, transparent 74%);
     }
     .close::after {
       content: "";
@@ -2011,8 +2014,8 @@
       </div>
     </div>
     <div class="proj-bot">
-      <div class="proj-photo proj-photo--hall">
-        <img data-render="hall" alt="Hall de acceso" />
+      <div class="proj-photo proj-photo--fachada">
+        <img src="assets/imagen_fachada_zoom_v0.png" alt="Fachada Ceibo Vidal" />
       </div>
       <div class="amen-line">
         <span>Planta baja con SUM interior–exterior y cocheras.</span>
@@ -2034,9 +2037,7 @@
   <div class="loc-page">
     <div class="loc-hero">
     <div class="loc-shot">
-      <img class="is-context" data-render="aereaDia" alt="" />
-      <div class="loc-shade"></div>
-      <img class="is-focus" data-render="aereaDia" alt="Saavedra de día, vista aérea" />
+      <img src="assets/renders/v1/imagen_aerea_dia_brillo.jpg" alt="Saavedra de día, vista aérea" />
     </div>
     <div class="loc-copy">
       <div class="serif-title">¿Por qué Saavedra?</div>
@@ -2180,6 +2181,10 @@
       <p class="pb-note">Cocheras: sector continuo con capacidad para seis vehículos.</p>
       </div>
     </div>
+    <figure class="pb-park">
+      <figcaption>Estacionamiento</figcaption>
+      <div class="pb-frame"><img data-render="estacionamiento" alt="Estacionamiento, planta baja" /></div>
+    </figure>
   </div>
   <div class="pf pf--dark"><span>Planta baja</span><span class="pf-legal">Imágenes y plantas ilustrativas; superficies aproximadas sujetas a planos finales</span><span>04 / 16</span></div>
 </div>
@@ -2192,22 +2197,20 @@
   </div>
   <div class="pb-intro">
     <div>
-      <div class="serif-title">Planta baja</div>
+      <div class="serif-title">Hall de acceso</div>
       <div class="accent"></div>
-      <p class="body">SUM interior–exterior, bicicletero y cocheras, con ingresos peatonal y vehicular independientes.</p>
+      <p class="body">El ingreso peatonal abre a un hall con madera, verde y luz natural.</p>
     </div>
-    <div class="pb-shots">
-      <figure class="pb-shot pb-shot--sum">
-        <figcaption>SUM</figcaption>
-        <div class="pb-frame"><img data-render="sum" alt="SUM, planta baja" /></div>
+    <div class="pb-shots pb-shots--hall">
+      <figure class="pb-shot">
+        <div class="pb-frame"><img src="assets/imagen_hall_mujer_v1.png" alt="Hall de acceso" /></div>
       </figure>
-      <figure class="pb-shot pb-shot--cochera">
-        <figcaption>Estacionamiento</figcaption>
-        <div class="pb-frame"><img data-render="estacionamiento" alt="Estacionamiento, planta baja" /></div>
+      <figure class="pb-shot">
+        <div class="pb-frame"><img src="assets/imagen_hall_back_v1.png" alt="Hall de acceso, hacia la calle" /></div>
       </figure>
     </div>
   </div>
-  <div class="pf pf--dark"><span>Planta baja</span><span class="pf-legal">Imágenes y plantas ilustrativas; superficies aproximadas sujetas a planos finales</span><span>05 / 16</span></div>
+  <div class="pf pf--dark"><span>Hall de acceso</span><span class="pf-legal">Imágenes y plantas ilustrativas; superficies aproximadas sujetas a planos finales</span><span>05 / 16</span></div>
 </div>
 
 <!-- 6 PLANTA TIPO -->
@@ -2804,8 +2807,7 @@
       </div>
     </div>
     <div class="close-hero">
-      <img class="is-context" data-render="aereaNoche" alt="" />
-      <img class="is-focus" data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
+      <img data-render="aereaNoche" alt="Saavedra de noche, Ceibo Vidal" />
     </div>
   </div>
   <div class="pf pf--dark"><span>Contacto</span><span>16 / 16</span></div>

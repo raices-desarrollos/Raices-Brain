@@ -52,5 +52,9 @@ uploads/
 # Espejo local de Google Drive (fuente de verdad = Drive, no Git)
 knowledge/sync-drive/
 
+# PDFs de carpeta de venta (>100 MB; GitHub rechaza el push)
+knowledge/projects/ceibo-vidal/commercial/Ceibo-Vidal-carpeta-de-venta.pdf
+knowledge/projects/ceibo-vidal/commercial/Ceibo-Vidal-carpeta-de-venta-completa.pdf
+
 # ─── Notas privadas ───────────────────────────────────────────────────────────
 data.md
