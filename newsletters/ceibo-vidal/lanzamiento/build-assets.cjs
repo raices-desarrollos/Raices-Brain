@@ -81,33 +81,31 @@ async function aerea() {
     'M PLUS U Thin Light 104',
     path.join(FONTS, 'MPLUSU-Light.ttf')
   );
-  const tag = await text(
-    `<span foreground="${LINO}" letter_spacing="${Math.round(0.14 * 24 * 1024)}">CEIBO VIDAL</span>`,
-    'Montserrat Thin Medium 24',
-    path.join(FONTS, 'Montserrat-Medium.ttf')
-  );
+  const logoW = 176;
+  const logo = await sharp(path.join(SRC, 'ceibo_logo_lino.png')).resize({ width: logoW }).toBuffer();
+  const logoH = (await sharp(logo).metadata()).height;
 
   // Punto sobre la terraza del edificio (coordenadas en la imagen de 1200 px de ancho).
   const px = 470;
   const py = 968;
-  const tagW = tag.width + 44;
-  const tagH = 56;
+  const tagW = logoW + 40;
+  const tagH = logoH + 28;
   const tagX = px - Math.round(tagW / 2);
-  const tagY = 668;
+  const tagY = 648;
   const marks = Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><defs>${top.def}${bottom.def}</defs>${top.rect}${bottom.rect}
       <line x1="${px}" y1="${tagY + tagH}" x2="${px}" y2="${py - 12}" stroke="${CARBON}" stroke-opacity="0.35" stroke-width="5"/>
       <line x1="${px}" y1="${tagY + tagH}" x2="${px}" y2="${py - 12}" stroke="${LINO}" stroke-width="2"/>
       <circle cx="${px}" cy="${py}" r="12" fill="${CARBON}" fill-opacity="0.35" stroke="${LINO}" stroke-width="2.5"/>
       <circle cx="${px}" cy="${py}" r="3.5" fill="${LINO}"/>
-      <rect x="${tagX}" y="${tagY}" width="${tagW}" height="${tagH}" fill="${CARBON}"/>
+      <rect x="${tagX}" y="${tagY}" width="${tagW}" height="${tagH}" fill="${CARBON}" fill-opacity="0.82"/>
     </svg>`
   );
   await sharp(base)
     .composite([
       { input: marks, left: 0, top: 0 },
       { input: word.buf, left: Math.round((W - word.width) / 2), top: 132 },
-      { input: tag.buf, left: tagX + 22, top: tagY + Math.round((tagH - tag.height) / 2) },
+      { input: logo, left: tagX + Math.round((tagW - logoW) / 2), top: tagY + Math.round((tagH - logoH) / 2) },
     ])
     .jpeg({ quality: 80, mozjpeg: true })
     .toFile(path.join(OUT, 'imagen_aerea_dia_v1_saavedra.jpg'));
@@ -146,6 +144,7 @@ const ICONS = {
   icon_ambientes: [144, stroke(LINO, '<rect x="8" y="9" width="32" height="30"/><path d="M24 9V25"/><path d="M8 25H27M33 25H40"/><path d="M33 25V31A6 6 0 0 1 27 25"/>')],
   icon_balcon: [144, stroke(LINO, '<path d="M14 26V7H34V26M24 7V26"/><path d="M7 26H41"/><path d="M8 26V36M12 26V36M16 26V36M20 26V36M24 26V36M28 26V36M32 26V36M36 26V36M40 26V36"/><path d="M4 36H44V40H4Z"/>')],
   icon_terraza: [144, stroke(LINO, '<circle cx="34" cy="13" r="4.5"/><path d="M34 4.5V6M34 20V21.5M25.5 13H27M41 13H42.5M28 7L29 8M39 18L40 19M40 7L39 8M29 18L28 19"/><path d="M8 33H24L33 23"/><path d="M11 33V40M22 33V40"/><path d="M5 40H43"/>')],
+  icon_terraza_privada: [144, stroke(LINO, '<path d="M6 18H30L40 10"/><path d="M10 18V30M18 18V30M26 18V30M34 14V30"/><path d="M4 30H44"/><path d="M14 34H34"/><path d="M20 34V40M28 34V40"/><path d="M16 40H32"/>')],
   icon_sum: [144, stroke(LINO, '<path d="M5 13H43"/><path d="M9 13V39M39 13V39"/><path d="M5 39H43"/><path d="M16 28H32M19 28V39M29 28V39"/><path d="M24 13V18"/><path d="M20.5 21.5A3.5 3.5 0 0 1 27.5 21.5Z"/>')],
   icon_cocheras: [144, stroke(LINO, '<path d="M13 23L15.6 16.2A2.5 2.5 0 0 1 17.9 14.6H30.1A2.5 2.5 0 0 1 32.4 16.2L35 23"/><rect x="8" y="23" width="32" height="10" rx="2.5"/><path d="M11.5 33V36.5H16V33M32 33V36.5H36.5V33"/><circle cx="13.5" cy="28" r="1.6"/><circle cx="34.5" cy="28" r="1.6"/><path d="M19.5 28H28.5"/>')],
   icon_entrega: [144, stroke(LINO, '<circle cx="14" cy="24" r="7"/><circle cx="14" cy="24" r="1.6"/><path d="M21 24H42M35.5 24V30M40.5 24V28.5"/>')],
