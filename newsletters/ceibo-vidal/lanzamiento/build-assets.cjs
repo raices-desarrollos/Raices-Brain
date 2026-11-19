@@ -39,14 +39,15 @@ async function text(markup, font, fontfile) {
 
 // ── Hero: fachada con el logo de Ceibo y la ubicación integrados en el cielo ──
 async function hero() {
-  const EXT = 200; // franja Carbón por encima del render
-  const CROP = 1500; // se recortan 100 px de asfalto al pie; la arquitectura queda intacta
+  const EXT = 240; // franja Carbón por encima del render
+  const ZOOM = 1.12; // acercamiento moderado: el edificio gana protagonismo sin perder entorno ni planta baja
+  const CROP = 1560;
   const H = EXT + CROP;
   const render = await sharp(path.join(SRC, 'imagen_fachada_perfil_v1.jpg'))
-    .resize({ width: W })
-    .extract({ left: 0, top: 0, width: W, height: CROP })
+    .resize({ width: Math.round(W * ZOOM) })
+    .extract({ left: 30, top: 190, width: W, height: CROP })
     .toBuffer();
-  const top = fade('t', EXT, EXT + 290, 1, 0);
+  const top = fade('t', EXT, EXT + 450, 1, 0); // cubre el cielo recortado y deja VIDAL sobre negro
   const bottom = fade('b', H - 230, H, 0, 1);
   const overlay = Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><defs>${top.def}${bottom.def}</defs>${top.rect}${bottom.rect}</svg>`
@@ -54,7 +55,7 @@ async function hero() {
   const logoW = 540;
   const logo = await sharp(path.join(SRC, 'ceibo_logo_lino.png')).resize({ width: logoW }).toBuffer();
   const place = await text(
-    `<span foreground="${LINO}" letter_spacing="${Math.round(0.14 * 38 * 1024)}">VIDAL 3849 · SAAVEDRA</span>`,
+    `<span foreground="${LINO}" letter_spacing="${Math.round(0.14 * 38 * 1024)}">VIDAL 3849</span>`,
     'Montserrat Thin Medium 38',
     path.join(FONTS, 'Montserrat-Medium.ttf')
   );
@@ -69,27 +70,22 @@ async function hero() {
     .toFile(path.join(OUT, 'imagen_fachada_perfil_v1_hero.jpg'));
 }
 
-// ── Aérea: «SAAVEDRA» en el cielo y Ceibo Vidal señalado con una línea de referencia ──
+// ── Aérea: Ceibo Vidal señalado con una línea de referencia ──
 async function aerea() {
   const base = await sharp(path.join(SRC, 'renders/v1/imagen_aerea_dia_v1.jpg')).resize({ width: W }).toBuffer();
   const H = (await sharp(base).metadata()).height;
   const top = fade('t', 0, 560, 0.66, 0);
   const bottom = fade('b', H - 170, H, 0, 0.9); // funde el pie con la barra Carbón que sigue
 
-  const word = await text(
-    `<span foreground="${LINO}" letter_spacing="${Math.round(0.34 * 104 * 1024)}">SAAVEDRA</span>`,
-    'M PLUS U Thin Light 104',
-    path.join(FONTS, 'MPLUSU-Light.ttf')
-  );
-  const logoW = 176;
+  const logoW = 158; // 10 % menos que 176
   const logo = await sharp(path.join(SRC, 'ceibo_logo_lino.png')).resize({ width: logoW }).toBuffer();
   const logoH = (await sharp(logo).metadata()).height;
 
   // Punto sobre la terraza del edificio (coordenadas en la imagen de 1200 px de ancho).
   const px = 470;
   const py = 968;
-  const tagW = logoW + 40;
-  const tagH = logoH + 28;
+  const tagW = logoW + 36;
+  const tagH = logoH + 26;
   const tagX = px - Math.round(tagW / 2);
   const tagY = 648;
   const marks = Buffer.from(
@@ -98,14 +94,14 @@ async function aerea() {
       <line x1="${px}" y1="${tagY + tagH}" x2="${px}" y2="${py - 12}" stroke="${LINO}" stroke-width="2"/>
       <circle cx="${px}" cy="${py}" r="12" fill="${CARBON}" fill-opacity="0.35" stroke="${LINO}" stroke-width="2.5"/>
       <circle cx="${px}" cy="${py}" r="3.5" fill="${LINO}"/>
-      <rect x="${tagX}" y="${tagY}" width="${tagW}" height="${tagH}" fill="${CARBON}" fill-opacity="0.82"/>
+      <rect x="${tagX}" y="${tagY}" width="${tagW}" height="${tagH}" rx="20" ry="20" fill="${CARBON}"/>
     </svg>`
   );
   await sharp(base)
     .composite([
       { input: marks, left: 0, top: 0 },
-      { input: word.buf, left: Math.round((W - word.width) / 2), top: 132 },
-      { input: logo, left: tagX + Math.round((tagW - logoW) / 2), top: tagY + Math.round((tagH - logoH) / 2) },
+      // Centrado horizontal. Un leve ajuste hacia abajo compensa la hoja sobre la palabra.
+      { input: logo, left: tagX + Math.round((tagW - logoW) / 2), top: tagY + Math.round((tagH - logoH) / 2) - 4 },
     ])
     .jpeg({ quality: 80, mozjpeg: true })
     .toFile(path.join(OUT, 'imagen_aerea_dia_v1_saavedra.jpg'));
@@ -127,6 +123,20 @@ async function espacios() {
       .jpeg({ quality: 80, mozjpeg: true })
       .toFile(path.join(OUT, out));
   }
+}
+
+// ── Logos institucionales de la franja superior (originales de knowledge/) ──
+async function logos() {
+  await sharp(path.join(SRC, 'raices_logo_completo_caliza.png'))
+    .extract({ left: 31, top: 30, width: 728, height: 796 })
+    .resize({ width: 156 })
+    .png({ compressionLevel: 9 })
+    .toFile(path.join(OUT, 'header_raices_logo.png'));
+  await sharp(path.join(SRC, 'partners/gyd-wordmark-white.png'))
+    .extract({ left: 4, top: 4, width: 1408, height: 693 })
+    .resize({ width: 192 })
+    .png({ compressionLevel: 9 })
+    .toFile(path.join(OUT, 'header_gyd_logo.png'));
 }
 
 // ── Íconos: una sola familia de trazo fino ───────────────────────────────────
@@ -169,10 +179,14 @@ async function icons() {
 }
 
 (async () => {
-  await hero();
-  await aerea();
-  await espacios();
-  await icons();
+  // NL_ONLY=hero,logos regenera solo esos recursos.
+  const only = process.env.NL_ONLY ? process.env.NL_ONLY.split(',') : null;
+  const run = (n) => !only || only.includes(n);
+  if (run('hero')) await hero();
+  if (run('logos')) await logos();
+  if (run('aerea')) await aerea();
+  if (run('espacios')) await espacios();
+  if (run('icons')) await icons();
   console.log('Recursos generados en', path.relative(ROOT, OUT));
 })().catch((e) => {
   console.error(e);
